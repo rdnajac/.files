@@ -1,0 +1,13 @@
+[user]
+	email = ryan.najac@colubia.edu
+	name = Ryan Najac
+[init]
+	defaultBranch = main
+[core]
+	excludesFile = /home/ryan/.gitignore
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
