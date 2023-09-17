@@ -1,48 +1,54 @@
 let mapleader = "\<Space>"
 set timeout timeoutlen=300
-vim.opt.backup = false                          -- creates a backup file
-vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
-vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
-vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
-vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
-vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
-vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern
-vim.opt.ignorecase = true                       -- ignore case in search patterns
-vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
-vim.opt.pumheight = 10                          -- pop up menu height
-vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 0                         -- always show tabs
-vim.opt.smartcase = true                        -- smart case
-vim.opt.smartindent = true                      -- make indenting smarter again
-vim.opt.splitbelow = true                       -- force all horizontal splits to go below current window
-vim.opt.splitright = true                       -- force all vertical splits to go to the right of current window
-vim.opt.swapfile = false                        -- creates a swapfile
-vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
-vim.opt.timeout = true
-vim.opt.timeoutlen = 300                        -- time to wait for a mapped sequence to complete (in milliseconds)
-vim.opt.undofile = true                         -- enable persistent undo
-vim.opt.updatetime = 300                        -- faster completion (4000ms default)
-vim.opt.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-vim.opt.expandtab = true                        -- convert tabs to spaces
-vim.opt.shiftwidth = 2                          -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 2                             -- insert 2 spaces for a tab
-vim.opt.cursorline = true                       -- highlight the current line
-vim.opt.number = true                           -- set numbered lines
-vim.opt.laststatus = 3                          -- only the last window will always have a status line
-vim.opt.showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
-vim.opt.ruler = false                           -- hide the line and column number of the cursor position
-vim.opt.numberwidth = 4                         -- minimal number of columns to use for the line number {default 4}
-vim.opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
-vim.opt.wrap = false                            -- display lines as one long line
-vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
-vim.opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
-vim.opt.fillchars.eob = " "                     -- show empty lines at the end of a buffer as ` ` {default `~`}
-vim.opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
-vim.opt.whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
-vim.opt.iskeyword:append "-"                    -- treats words with `-` as single words
-vim.opt.formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
-vim.opt.linebreak = true
+
+" cs4118 settings
+
+" these are defaulted in neovim
+
+" changed from neovim default options
+
+showmode = true                        -- we don't need to see things like -- INSERT -- anymore
+" neovim ide settings
+backup = false                          -- creates a backup file
+clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
+cmdheight = 1                           -- more space in the neovim command line for displaying messages
+completeopt = { "menuone", "noselect" } -- mostly just for cmp
+conceallevel = 0                        -- so that `` is visible in markdown files
+fileencoding = "utf-8"                  -- the encoding written to a file
+hlsearch = true                         -- highlight all matches on previous search pattern
+ignorecase = true                       -- ignore case in search patterns
+mouse = "a"                             -- allow the mouse to be used in neovim
+pumheight = 10                          -- pop up menu height
+showtabline = 0                         -- always show tabs
+smartcase = true                        -- smart case
+smartindent = true                      -- make indenting smarter again
+splitbelow = true                       -- force all horizontal splits to go below current window
+splitright = true                       -- force all vertical splits to go to the right of current window
+swapfile = false                        -- creates a swapfile
+termguicolors = true                    -- set term gui colors (most terminals support this)
+undofile = true                         -- enable persistent undo
+updatetime = 300                        -- faster completion (4000ms default)
+writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+expandtab = true                        -- convert tabs to spaces
+shiftwidth = 2                          -- the number of spaces inserted for each indentation
+tabstop = 2                             -- insert 2 spaces for a tab
+cursorline = true                       -- highlight the current line
+number = true                           -- set numbered lines
+laststatus = 3                          -- only the last window will always have a status line
+showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
+ruler = false                           -- hide the line and column number of the cursor position
+numberwidth = 4                         -- minimal number of columns to use for the line number {default 4}
+signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
+wrap = false                            -- display lines as one long line
+scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
+sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
+guifont = "monospace:h17"               -- the font used in graphical neovim applications
+fillchars.eob = " "                     -- show empty lines at the end of a buffer as ` ` {default `~`}
+shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
+whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
+iskeyword:append "-"                    -- treats words with `-` as single words
+formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
+linebreak = true
 set exrc
 set nohlsearch
 set hidden
@@ -61,8 +67,6 @@ set number
 set autoindent
 set smartindent
 set cindent
-
-
 
 nmap <leader>] :YcmCompleter GoTo<CR>
 
@@ -94,7 +98,6 @@ nmap <leader>h :bprevious<CR>
 nmap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
-                                            
 
 set backspace=indent,eol,start
 
@@ -103,7 +106,6 @@ inoremap jk <Esc>
 inoremap <leader>{ {}<left>
 inoremap <leader>{<CR> {<CR>}<ESC>O
 inoremap <leader>{;<CR> {<CR>};<ESC>O
-
 
 
 nnoremap <leader><space> :update<cr>
@@ -124,3 +126,18 @@ nnoremap <C-u> <C-u>zz
 " Toggle pattern highlight
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
+" automatically downloads vim-plug to your machine if not found.
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Define plugins to install
+call plug#begin('~/.vim/plugged')
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
+Plug 'Valloric/YouCompleteMe'
+" All of your Plugins must be added before the following line
+call plug#end()
