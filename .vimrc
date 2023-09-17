@@ -1,6 +1,14 @@
+" general settings
+set nocompatible
 let mapleader = "\<Space>"
 set timeout timeoutlen=300
-
+set backspace=indent,eol,start
+set autoindent
+set nobackup
+filetype plugin indent on
+set hidden
+set hlsearch
+set incsearch
 " cs4118 settings
 
 " these are defaulted in neovim
@@ -99,7 +107,7 @@ nmap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
 
-set backspace=indent,eol,start
+
 
 inoremap jk <Esc>
 
