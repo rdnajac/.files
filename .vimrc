@@ -2,14 +2,108 @@
 set nocompatible
 let mapleader = "\<Space>"
 set timeout timeoutlen=300
+set history=10000
+filetype plugin on
+filetype indent on
 set backspace=indent,eol,start
-set autoindent
+whichwrap:append "<,>,[,],h,l"
 set nobackup
-filetype plugin indent on
+set nowb
+set noswapfile
+set encoding=utf8
+set magic
+
+
+
+" code style
+set autoindent
+"syntax enable
+
+set expandtab " Use spaces instead of tabs
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+" GUI
+set background=dark
+set ruler
+set lazyredraw
+set showmatch
+set mat=2
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" Height of the command bar
+set cmdheight=1
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Buffers
 set hidden
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+" searching
 set hlsearch
 set incsearch
-" cs4118 settings
+set ignorecase
+set smartcase
+set incsearch
+
+
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * silent! checktime
+
+
 
 " these are defaulted in neovim
 
@@ -53,7 +147,7 @@ sidescrolloff = 8                       -- minimal number of screen columns to k
 guifont = "monospace:h17"               -- the font used in graphical neovim applications
 fillchars.eob = " "                     -- show empty lines at the end of a buffer as ` ` {default `~`}
 shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
-whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
+          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 iskeyword:append "-"                    -- treats words with `-` as single words
 formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 linebreak = true
@@ -133,6 +227,32 @@ nnoremap <C-u> <C-u>zz
 
 " Toggle pattern highlight
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
+" untested
+set sessionoptions-=options
+set viewoptions-=options
+
+" Enable the :Man command shipped inside Vim's man filetype plugin.
+if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
+  runtime ftplugin/man.vim
+endif
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.c :call CleanExtraSpaces()
+endif
+
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
 
 " automatically downloads vim-plug to your machine if not found.
 if empty(glob('~/.vim/autoload/plug.vim'))
