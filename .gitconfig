@@ -4,7 +4,7 @@
 [init]
 	defaultBranch = main
 [core]
-	excludesFile = /home/ryan/.gitignore
+	excludesFile = ~/.gitignore
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
