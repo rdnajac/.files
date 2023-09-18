@@ -2,18 +2,18 @@ alias vi='vim'
 alias nv='nvim'
 alias bcat='batcat'
 
+# tmux
 alias tmux='tmux -2'
 alias tmx'=tmux attach-session'
 alias kms='tmux kill-server'
 
-
-#ls
+# ls
 #alias ll='ls -Al --group-directories-first'
 alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
-#navigation
+# navigation
 alias qq='cd'
 alias bd='cd -'
 alias ..'=cd ..'
@@ -33,4 +33,21 @@ alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 #alias bmake ='bear make -j'
 
-# git
+# functions
+function cd() {
+    DIR="$*";
+	# if no DIR given, go home
+	if [ $# -lt 1 ]; then
+		DIR=$HOME;
+	fi;
+    builtin cd "${DIR}" && \
+    # use your preferred ls command
+	ll
+}
+
+function ree {
+    clear -x
+    echo "(╯°□°)╯︵ ┻━┻"
+    echo ""
+    exec bash
+}
