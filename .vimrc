@@ -1,10 +1,11 @@
-" general settings
+" General -------------------------------------------------------------- {{{
 set nocompatible
 let mapleader = "\<Space>"
-set timeout timeoutlen=300
-set history=10000
+filetype on
 filetype plugin on
 filetype indent on
+set timeout timeoutlen=300
+set history=10000
 set mouse = "a"
 set backspace=indent,eol,start
 set clipboard=unnamed
@@ -13,23 +14,33 @@ set nobackup
 set nowb
 set noswapfile
 set encoding=utf8
+set fileformat=unix
 set magic
 set splitbelow
 set splitright
 set wildmenu
+set wildmode=list:longest
+" }}}
 
-" code style
+
+" Code Style ------------------------------------------------------------ {{{
 "syntax enable
 set shiftwidth=8
 set tabstop=8
 set autoindent
 set cindent
 set smartindent
-set smarttab
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=trail:~,tab:▸\  ",eol:¬
+"set list
+"set scrolloff=10
+set number
+set nowrap
+" }}}
 
-" editing
+" Editing ------------------------------------------------------------ {{{
+set undodir=~/.vim/backup
 set undofile
+set undoreload=10000
 nmap <leader>w :w!<cr>
 inoremap jk <Esc>
 nnoremap <leader><space> :update<cr>
@@ -37,6 +48,7 @@ nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 nnoremap <leader>c :set cursorline! cursorcolumn!<cr>
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+" }}}
 
 " GUI
 set termguicolors
@@ -50,11 +62,15 @@ set mat=2
 set foldcolumn=1
 set cmdheight=1
 set laststatus=3
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+" do I want these?
+set showcmd
+set cmdheight=1
+set showmode
+set showmatch
 
 " Buffers
 set hidden
@@ -71,16 +87,10 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
+set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 " searching
 set hlsearch
@@ -97,17 +107,19 @@ nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
-" Set to auto read when a file is changed from the outside
-set autoread
-au FocusGained,BufEnter * silent! checktime
 
-" neovim ide settings
-set pumheight=10
-set showtabline
-set updatetime=300
-set modifiable
-set scrolloff=8
-set sidescrolloff=8
+
+" untested
+set sessionoptions-=options
+set viewoptions-=options
+
+" neovim
+"set pumheight=10
+"set showtabline
+"set updatetime=300
+"set modifiable
+"set scrolloff=8
+"set sidescrolloff=8
 "set signcolumncursorline
 "laststatus = 3                          -- only the last window will always have a status line
 "showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
@@ -122,32 +134,26 @@ set sidescrolloff=8
 "formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 "linebreak = true
 
-" YouCompleteMe
-nmap <leader>] :YcmCompleter GoTo<CR>
+" VIMSCRIPT -------------------------------------------------------------- {{{
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" airline
-let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+" This will enable code folding.
+" Use the marker method of folding.
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
-" ctrl-p
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-    \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
-" Use the nearest .git|.svn|.hg|.bzr directory as the cwd
-let g:ctrlp_working_path_mode = 'r'
-nmap <leader>p :CtrlP<cr>  " enter file search mode
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * silent! checktime
 
-" Nerdtree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>  " open and close file tree
-nmap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
-
-" untested
-set sessionoptions-=options
-set viewoptions-=options
+" Display cursorline ONLY in active window.
+augroup cursor_off
+    autocmd!
+    autocmd WinEnter * set cursorline cursorcolumn
+augroup END
 
 " Enable the :Man command shipped inside Vim's man filetype plugin.
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
@@ -171,6 +177,59 @@ if !has('nvim') && &ttimeoutlen == -1
   set ttimeout
   set ttimeoutlen=100
 endif
+" }}}
+
+" STATUS LINE ------------------------------------------------------------ {{{
+
+" Clear status line when vimrc is reloaded.
+"set statusline=
+
+" Status line left side.
+"set statusline+=\ %F\ %M\ %Y\ %R
+
+" Use a divider to separate the left side from the right side.
+"set statusline+=%=
+
+" Status line right side.
+"set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+
+" Show the status on the second to last line.
+"set laststatus=2
+
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" }}}
+
+
+" Plugin Settings -------------------------------------------------------------- {{{
+" YouCompleteMe
+"nmap <leader>] :YcmCompleter GoTo<CR>
+
+" airline
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+
+" ctrl-p
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+    \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+" Use the nearest .git|.svn|.hg|.bzr directory as the cwd
+let g:ctrlp_working_path_mode = 'r'
+nmap <leader>p :CtrlP<cr>  " enter file search mode
+
+" Nerdtree
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"map <C-n> :NERDTreeToggle<CR>  " open and close file tree
+"nmap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
+
+" }}}
+
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
 
 " automatically downloads vim-plug to your machine if not found.
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -185,7 +244,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call plug#end()
