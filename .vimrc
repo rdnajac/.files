@@ -10,14 +10,11 @@ set mouse = "a"
 set backspace=indent,eol,start
 set clipboard=unnamed
 set whichwrap+=<,>,[,],h,l
-set nobackup
-set nowb
-set noswapfile
+set nobackup nowb noswapfile
 set encoding=utf8
 set fileformat=unix
 set magic
-set splitbelow
-set splitright
+set splitbelow splitright
 set wildmenu
 set wildmode=list:longest
 " }}}
@@ -27,12 +24,10 @@ set wildmode=list:longest
 "syntax enable
 set shiftwidth=8
 set tabstop=8
-set autoindent
-set cindent
-set smartindent
+set autoindent smartindent cindent
 set listchars=trail:~,tab:▸\  ",eol:¬
 "set list
-"set scrolloff=10
+"make mapping for `set list!`
 set number
 set nowrap
 " }}}
@@ -53,9 +48,9 @@ nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 " GUI
 set termguicolors
 set background=dark
-set number
 set ruler
-set nowrap
+set scrolloff=8
+set sidescrolloff=8
 set lazyredraw
 set showmatch
 set mat=2
@@ -87,16 +82,13 @@ try
 catch
 endtry
 
-
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 
 " searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
+set hlsearch incsearch
+set ignorecase smartcase
 " Center searches
 nnoremap n nzz
 nnoremap N Nzz
@@ -107,8 +99,6 @@ nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
-
-
 " untested
 set sessionoptions-=options
 set viewoptions-=options
@@ -118,17 +108,12 @@ set viewoptions-=options
 "set showtabline
 "set updatetime=300
 "set modifiable
-"set scrolloff=8
-"set sidescrolloff=8
 "set signcolumncursorline
 "laststatus = 3                          -- only the last window will always have a status line
 "showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
 "numberwidth = 4                         -- minimal number of columns to use for the line number {default 4}
 "signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
-"scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
-"sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 "guifont = "monospace:h17"               -- the font used in graphical neovim applications
-"fillchars.eob = " "                     -- show empty lines at the end of a buffer as ` ` {default `~`}
 "shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 "iskeyword:append "-"                    -- treats words with `-` as single words
 "formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
@@ -204,10 +189,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " YouCompleteMe
 "nmap <leader>] :YcmCompleter GoTo<CR>
 
-" airline
-let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
-
 " ctrl-p
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
@@ -241,7 +222,6 @@ endif
 " Define plugins to install
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 "Plug 'Valloric/YouCompleteMe'
