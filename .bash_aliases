@@ -1,3 +1,5 @@
+echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
+
 alias vi='vim'
 alias nv='nvim'
 alias bcat='batcat'
