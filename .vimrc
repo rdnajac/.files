@@ -4,63 +4,69 @@ let mapleader = "\<Space>"
 filetype on
 filetype plugin on
 filetype indent on
-set timeout timeoutlen=300
 set history=10000
-set mouse = "a"
+set hidden
+set undodir=~/.vim/backup
+set undofile
+set undoreload=10000
+set nobackup nowb noswapfile
+set mouse=a
 set backspace=indent,eol,start
 set clipboard=unnamed
 set whichwrap+=<,>,[,],h,l
-set nobackup nowb noswapfile
 set encoding=utf8
 set fileformat=unix
 set magic
 set splitbelow splitright
 set wildmenu
 set wildmode=list:longest
-" }}}
-
-
-" Code Style ------------------------------------------------------------ {{{
-"syntax enable
-set shiftwidth=8
-set tabstop=8
+set termguicolors
+set background=dark
+set ruler
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+set lazyredraw
+set hlsearch incsearch
+set ignorecase smartcase
+set showmatch
+set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 set autoindent smartindent cindent
-set listchars=trail:~,tab:▸\  ",eol:¬
-"set list
-"make mapping for `set list!`
 set number
 set nowrap
 " }}}
 
-" Editing ------------------------------------------------------------ {{{
-set undodir=~/.vim/backup
-set undofile
-set undoreload=10000
+set foldmethod=marker
+set timeout timeoutlen=200
+syntax on
+set shiftwidth=8
+set tabstop=8
+set listchars=trail:~,tab:▸\  ",eol:¬
+"set list
+"make mapping for `set list!`
+
+" kep mapping
 nmap <leader>w :w!<cr>
 inoremap jk <Esc>
 nnoremap <leader><space> :update<cr>
 nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 nnoremap <leader>c :set cursorline! cursorcolumn!<cr>
-nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-" }}}
+nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
+nnoremap <leader>+ <Esc>:badd 
+nnoremap <leader>- <Esc>:vs<CR>:bnext<CR> 
+nnoremap <leader>_ <Esc>:sp<CR>:bnext<CR>
 
 " GUI
-set termguicolors
-set background=dark
-set ruler
 set scrolloff=8
 set sidescrolloff=8
-set lazyredraw
-set showmatch
 set mat=2
 set foldcolumn=1
 set cmdheight=1
 set laststatus=3
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
 " do I want these?
 set showcmd
 set cmdheight=1
@@ -68,9 +74,8 @@ set showmode
 set showmatch
 
 " Buffers
-set hidden
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
+nmap L :bnext<CR>
+nmap H :bprevious<CR>
 nmap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
@@ -82,13 +87,8 @@ try
 catch
 endtry
 
-" Ignore compiled files
-set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 
 " searching
-set hlsearch incsearch
-set ignorecase smartcase
 " Center searches
 nnoremap n nzz
 nnoremap N Nzz
@@ -119,69 +119,44 @@ set viewoptions-=options
 "formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 "linebreak = true
 
-" VIMSCRIPT -------------------------------------------------------------- {{{
+
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " This will enable code folding.
 " Use the marker method of folding.
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
+"augroup filetype_vim
+"    autocmd!
+"    autocmd FileType vim setlocal foldmethod=marker
+"augroup END
 
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * silent! checktime
-
-" Display cursorline ONLY in active window.
-augroup cursor_off
-    autocmd!
-    autocmd WinEnter * set cursorline cursorcolumn
-augroup END
 
 " Enable the :Man command shipped inside Vim's man filetype plugin.
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
   runtime ftplugin/man.vim
 endif
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.c :call CleanExtraSpaces()
-endif
-
-if !has('nvim') && &ttimeoutlen == -1
-  set ttimeout
-  set ttimeoutlen=100
-endif
-" }}}
 
 " STATUS LINE ------------------------------------------------------------ {{{
 
 " Clear status line when vimrc is reloaded.
-"set statusline=
+set statusline=
 
 " Status line left side.
-"set statusline+=\ %F\ %M\ %Y\ %R
+set statusline+=\ %F\ %M\ %Y\ %R
 
 " Use a divider to separate the left side from the right side.
-"set statusline+=%=
+set statusline+=%=
 
 " Status line right side.
-"set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c
 
 " Show the status on the second to last line.
-"set laststatus=2
+set laststatus=2
 
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 " }}}
 
 
@@ -207,11 +182,7 @@ nmap <leader>p :CtrlP<cr>  " enter file search mode
 
 " }}}
 
-if !has('nvim') && &ttimeoutlen == -1
-  set ttimeout
-  set ttimeoutlen=100
-endif
-
+" {{{ Plugins
 " automatically downloads vim-plug to your machine if not found.
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -228,3 +199,4 @@ Plug 'kien/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
+" }}}
