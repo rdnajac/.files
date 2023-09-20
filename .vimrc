@@ -1,84 +1,79 @@
 " General -------------------------------------------------------------- {{{
 set nocompatible
-let mapleader = "\<Space>"
+set whichwrap+=<,>,[,],h,l
+set incsearch magic hlsearch 
+set ignorecase smartcase
+set scrolloff=8
+set sidescrolloff=8
+set nowrap
+set cmdheight=1
+set lazyredraw
+set listchars=trail:~,tab:▸\  ",eol:¬
+set number
+set numberwidth=3
 filetype on
 filetype plugin on
 filetype indent on
-set history=10000
-set hidden
-set undodir=~/.vim/backup
-set undofile
-set undoreload=10000
-set nobackup nowb noswapfile
-set mouse=a
-set backspace=indent,eol,start
-set clipboard=unnamed
-set whichwrap+=<,>,[,],h,l
-set encoding=utf8
-set fileformat=unix
-set magic
-set splitbelow splitright
-set wildmenu
-set wildmode=list:longest
 set termguicolors
-set background=dark
+set splitbelow splitright
+set hidden
+set mouse=a
+set mat=2
+set foldcolumn=1
+set showcmd showmatch
+set cmdheight=1
 set ruler
 set noerrorbells
 set novisualbell
 set t_vb=
-set tm=500
-set lazyredraw
-set hlsearch incsearch
-set ignorecase smartcase
+set clipboard=unnamed
+set history=10000
+set undofile
+set undodir=~/.vim/backup
+set undoreload=10000
+set nobackup nowb noswapfile
+set backspace=indent,eol,start
+set pumheight=10
 set showmatch
+set timeout timeoutlen=300
+set encoding=utf8
+set fileformat=unix
+set wildmenu
+set wildmode=list:longest
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
-set autoindent smartindent cindent
-set number
-set nowrap
 " }}}
-
-set foldmethod=marker
-set timeout timeoutlen=200
+" code style [Linux kernel coding style]
 syntax on
+set autoindent smartindent cindent
 set shiftwidth=8
 set tabstop=8
-set listchars=trail:~,tab:▸\  ",eol:¬
 "set list
-"make mapping for `set list!`
+"make mapping for `set list!` to see trailing whitepsaces
 
-" kep mapping
+" kep mappings
+let mapleader = "\<space>"
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" quicksave
 nmap <leader>w :w!<cr>
-inoremap jk <Esc>
-nnoremap <leader><space> :update<cr>
-nnoremap <leader>o o<Esc>
-nnoremap <leader>O O<Esc>
+" better escape
+inoremap jk <esc>
+" insert blank line without leaving normal mode 
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+" show cursor line and column
 nnoremap <leader>c :set cursorline! cursorcolumn!<cr>
+"toggle highlight
 nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-
-nnoremap <leader>+ <Esc>:badd 
-nnoremap <leader>- <Esc>:vs<CR>:bnext<CR> 
-nnoremap <leader>_ <Esc>:sp<CR>:bnext<CR>
-
-" GUI
-set scrolloff=8
-set sidescrolloff=8
-set mat=2
-set foldcolumn=1
-set cmdheight=1
-set laststatus=3
-" do I want these?
-set showcmd
-set cmdheight=1
-set showmode
-set showmatch
-
-" Buffers
-nmap L :bnext<CR>
-nmap H :bprevious<CR>
-nmap <leader>q :bp <BAR> bd #<CR>
+" managing splits and buffers
+nnoremap <leader>+ <esc>:badd 
+nnoremap <leader>- <esc>:vs<CR>:bnext<CR> 
+nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
+nnoremap L :bnext<CR>
+nnoremap H :bprevious<CR>
+nnoremap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
 
 " Specify the behavior when switching between buffers
 try
@@ -87,8 +82,11 @@ try
 catch
 endtry
 
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
 
-" searching
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 " Center searches
 nnoremap n nzz
 nnoremap N Nzz
@@ -99,36 +97,17 @@ nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
-" untested
-set sessionoptions-=options
-set viewoptions-=options
-
 " neovim
-"set pumheight=10
-"set showtabline
-"set updatetime=300
 "set modifiable
-"set signcolumncursorline
-"laststatus = 3                          -- only the last window will always have a status line
-"showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
-"numberwidth = 4                         -- minimal number of columns to use for the line number {default 4}
 "signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
-"guifont = "monospace:h17"               -- the font used in graphical neovim applications
-"shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 "iskeyword:append "-"                    -- treats words with `-` as single words
 "formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
-"linebreak = true
 
-
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" This will enable code folding.
-" Use the marker method of folding.
-"augroup filetype_vim
-"    autocmd!
-"    autocmd FileType vim setlocal foldmethod=marker
-"augroup END
+" This will enable code folding in vim files
+augroup filetype_vim
+    "autocmd!
+    "autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -138,7 +117,6 @@ au FocusGained,BufEnter * silent! checktime
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
   runtime ftplugin/man.vim
 endif
-
 
 " STATUS LINE ------------------------------------------------------------ {{{
 
@@ -176,9 +154,9 @@ nmap <leader>p :CtrlP<cr>  " enter file search mode
 " Nerdtree
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"map <C-n> :NERDTreeToggle<CR>  " open and close file tree
-"nmap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <leader>e :NERDTreeToggle<CR>  " open and close file tree
+nnoremap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
 
 " }}}
 
