@@ -1,4 +1,5 @@
-" General -------------------------------------------------------------- {{{
+colorscheme simple
+" General ------------------------------------------------------------------ {{{
 set nocompatible
 set whichwrap+=<,>,[,],h,l
 set incsearch magic hlsearch 
@@ -6,7 +7,6 @@ set ignorecase smartcase
 set scrolloff=8
 set sidescrolloff=8
 set nowrap
-set cmdheight=1
 set lazyredraw
 set listchars=trail:~,tab:▸\  ",eol:¬
 set number
@@ -20,9 +20,7 @@ set hidden
 set mouse=a
 set mat=2
 set foldcolumn=1
-set showcmd showmatch
-set cmdheight=1
-set ruler
+set showmatch
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -44,12 +42,16 @@ set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 " }}}
 " code style [Linux kernel coding style]
-syntax on
+"syntax on
 set autoindent smartindent cindent
 set shiftwidth=8
 set tabstop=8
+"set colorcolumn=80
 "set list
-"make mapping for `set list!` to see trailing whitepsaces
+"make mapping for `set list! and cursor column` to see trailing whitepsaces
+
+set shortmess-=S
+set shortmess+=c
 
 " kep mappings
 let mapleader = "\<space>"
@@ -68,14 +70,14 @@ nnoremap <leader>c :set cursorline! cursorcolumn!<cr>
 nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 " managing splits and buffers
 nnoremap <leader>+ <esc>:badd 
-nnoremap <leader>- <esc>:vs<CR>:bnext<CR> 
+nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
 nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
 nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
 nnoremap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
-" Specify the behavior when switching between buffers
+" Specify the behavior when swtching between buffers -----------------------{{{
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -83,11 +85,8 @@ catch
 endtry
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
-
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" Center searches
+" }}}
+" Center searches -----------------------------------------------------------{{{
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -96,30 +95,29 @@ nnoremap g* g*zz
 nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
-
-" neovim
-"set modifiable
-"signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
-"iskeyword:append "-"                    -- treats words with `-` as single words
-"formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
-
-" This will enable code folding in vim files
-augroup filetype_vim
-    "autocmd!
-    "autocmd FileType vim setlocal foldmethod=marker
-augroup END
+" }}}
+" Autocommands {{{
+" Return to last edit position when opening files
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd FileType help noremap <buffer> q :q<cr>
+autocmd FileType man noremap <buffer> q :q<cr>
 
 " Set to auto read when a file is changed from the outside
 set autoread
-au FocusGained,BufEnter * silent! checktime
+autocmd FocusGained,BufEnter * silent! checktime
+
+" }}}
 
 " Enable the :Man command shipped inside Vim's man filetype plugin.
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
   runtime ftplugin/man.vim
 endif
 
-" STATUS LINE ------------------------------------------------------------ {{{
-
+" GUI stuff ------------------------------------------------------------ {{{
+set cmdheight=1
+set showtabline=0
+set showcmd 
+set signcolumn=auto
 " Clear status line when vimrc is reloaded.
 set statusline=
 
@@ -130,17 +128,42 @@ set statusline+=\ %F\ %M\ %Y\ %R
 set statusline+=%=
 
 " Status line right side.
-set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c
+set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %v\ %P
 
 " Show the status on the second to last line.
 set laststatus=2
 
+" This will enable code folding in vim files
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+highlight Folded ctermbg=none
 " }}}
 
-
-" Plugin Settings -------------------------------------------------------------- {{{
+" Plugin Settings ---------------------------------------------------------- {{{
 " YouCompleteMe
-"nmap <leader>] :YcmCompleter GoTo<CR>
+nnoremap <leader>] :YcmCompleter GoTo<CR>
+" Modify below if you want less invasive semantic auto-complete
+let g:ycm_semantic_triggers = {
+    \   'c' : ['->', '.'],
+    \   'objc' : ['->', '.'],
+    \   'cpp,objcpp' : ['->', '.', '::'],
+    \   'perl' : ['->'],
+    \ }
+
+let g:ycm_complete_in_comments_and_strings = 1
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+set completeopt-=preview
+
+" Optionally suppress all error messages generated by YCM:
+" let g:ycm_show_diagnostics_ui=0
+
+" Optionally remove automatic identifier-based completion:
+" let g:ycm_min_num_of_chars_for_completion = 99
 
 " ctrl-p
 let g:ctrlp_custom_ignore = {
@@ -171,9 +194,17 @@ endif
 " Define plugins to install
 call plug#begin('~/.vim/plugged')
 
+" COMS W4118
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
+
+" Extra
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'   
+
+" Colors
+Plug 'lifepillar/vim-colortemplate'
 
 " All of your Plugins must be added before the following line
 call plug#end()
