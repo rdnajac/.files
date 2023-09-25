@@ -1,8 +1,30 @@
-colorscheme simple
-" General ------------------------------------------------------------------ {{{
+" General settings
+" Defaulted in nvim {{{
+if !has('nvim')
 set nocompatible
+set autoindent
+set autoread
+set backspace=indent,eol,start
+set encoding=utf8
+set hidden
+set history=10000
+set hlsearch incsearch 
+set mouse=a
+set showcmd
+set smarttab
+set undodir=~/.vim/undo
+set wildmenu
+
+" Enable the :Man command shipped inside Vim's man filetype plugin.
+if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
+  runtime ftplugin/man.vim
+endif
+endif
+" }}}
+filetype plugin on
+filetype indent on
 set whichwrap+=<,>,[,],h,l
-set incsearch magic hlsearch 
+set magic
 set ignorecase smartcase
 set scrolloff=8
 set sidescrolloff=8
@@ -11,13 +33,8 @@ set lazyredraw
 set listchars=trail:~,tab:▸\  ",eol:¬
 set number
 set numberwidth=3
-filetype on
-filetype plugin on
-filetype indent on
 set termguicolors
 set splitbelow splitright
-set hidden
-set mouse=a
 set mat=2
 set foldcolumn=1
 set showmatch
@@ -25,51 +42,50 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set clipboard=unnamed
-set history=10000
 set undofile
-set undodir=~/.vim/backup
+set undolevels=1000
 set undoreload=10000
 set nobackup nowb noswapfile
-set backspace=indent,eol,start
 set pumheight=10
 set showmatch
 set timeout timeoutlen=300
-set encoding=utf8
 set fileformat=unix
-set wildmenu
-set wildmode=list:longest
+set wildmode=list:longest,full
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
-" }}}
+
 " code style [Linux kernel coding style]
 "syntax on
-set autoindent smartindent cindent
+set smartindent cindent
 set shiftwidth=8
 set tabstop=8
-"set colorcolumn=80
 "set list
 "make mapping for `set list! and cursor column` to see trailing whitepsaces
 
-set shortmess-=S
-set shortmess+=c
 
 " kep mappings
 let mapleader = "\<space>"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
 " quicksave
 nmap <leader>w :w!<cr>
+
 " better escape
 inoremap jk <esc>
-" insert blank line without leaving normal mode 
+
+" insert blank line without leaving normal mode
 nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
-" show cursor line and column
+
+" toggle cursor line and column
 nnoremap <leader>c :set cursorline! cursorcolumn!<cr>
+
 "toggle highlight
 nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-" managing splits and buffers
-nnoremap <leader>+ <esc>:badd 
+
+" managing splits and buffers {{{
+nnoremap <leader>+ <esc>:badd
 nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
 nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
 nnoremap L :bnext<CR>
@@ -77,14 +93,14 @@ nnoremap H :bprevious<CR>
 nnoremap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
-" Specify the behavior when swtching between buffers -----------------------{{{
+" Specify the behavior when swtching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
 endtry
 
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif 
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 " Center searches -----------------------------------------------------------{{{
 nnoremap n nzz
@@ -96,28 +112,42 @@ nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 " }}}
-" Autocommands {{{
-" Return to last edit position when opening files
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-autocmd FileType help noremap <buffer> q :q<cr>
-autocmd FileType man noremap <buffer> q :q<cr>
-
-" Set to auto read when a file is changed from the outside
-set autoread
-autocmd FocusGained,BufEnter * silent! checktime
-
-" }}}
-
-" Enable the :Man command shipped inside Vim's man filetype plugin.
-if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
-  runtime ftplugin/man.vim
-endif
-
 " GUI stuff ------------------------------------------------------------ {{{
 set cmdheight=1
 set showtabline=0
-set showcmd 
 set signcolumn=auto
+
+" Set column guide to 80 + 1 for the bar itself.
+"if exists('+colorcolumn')
+"  set colorcolumn=81
+"else
+"   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>81v.\+', -1)
+"endif
+
+"autocmd BufWritePre * %s/\s\+$//e
+"}}}
+
+if !has('nvim')
+" Return to last edit position when opening files
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Vim-only settings  ------------------------------------------------------- {{{
+colorscheme simple
+
+" This will enable code folding in vim files
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+highlight Folded ctermbg=none
+
+" q to close help and man page popups
+autocmd FileType help noremap <buffer> q :q<cr>
+autocmd FileType man noremap <buffer> q :q<cr>
+
+" }}}
+
+" Vim statuline config ----------------------------------------------------- {{{
+
 " Clear status line when vimrc is reloaded.
 set statusline=
 
@@ -133,15 +163,10 @@ set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %v\ %P
 " Show the status on the second to last line.
 set laststatus=2
 
-" This will enable code folding in vim files
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
-highlight Folded ctermbg=none
 " }}}
 
 " Plugin Settings ---------------------------------------------------------- {{{
+
 " YouCompleteMe
 nnoremap <leader>] :YcmCompleter GoTo<CR>
 " Modify below if you want less invasive semantic auto-complete
@@ -201,7 +226,7 @@ Plug 'Valloric/YouCompleteMe'
 
 " Extra
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'   
+Plug 'junegunn/fzf.vim'
 
 " Colors
 Plug 'lifepillar/vim-colortemplate'
@@ -209,3 +234,4 @@ Plug 'lifepillar/vim-colortemplate'
 " All of your Plugins must be added before the following line
 call plug#end()
 " }}}
+endif
