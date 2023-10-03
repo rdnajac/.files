@@ -57,8 +57,8 @@ set cindent
 set shiftwidth=8
 set tabstop=8
 
-" Key Mappings {{{
-let keymaps = "\<space>"
+" keymaps {{{
+let mapleader = " "
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -71,10 +71,11 @@ inoremap jk <esc>
 " insert blank line without leaving normal mode
 nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
+nnoremap <leader><space> i<space><esc>
+
 
 " toggle cursor line/column, listchars, and colorcolumn
-nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr>
-	\ :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
+nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
 
 "toggle highlight
 nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')
