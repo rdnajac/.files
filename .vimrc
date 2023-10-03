@@ -1,5 +1,5 @@
-" General settings
-" Defaulted in nvim {{{
+" general settings
+" nvim defaults {{{
 if !has('nvim')
 set nocompatible
 set autoindent smartindent
@@ -17,7 +17,7 @@ set wildmenu
 
 endif
 " }}}
-" Common between Vim and Neovim {{{
+" shared settings {{{
 filetype plugin on
 filetype indent on
 set whichwrap+=<,>,[,],h,l
@@ -58,7 +58,7 @@ set shiftwidth=8
 set tabstop=8
 
 " Key Mappings {{{
-let mapleader = "\<space>"
+let keymaps = "\<space>"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -72,13 +72,13 @@ inoremap jk <esc>
 nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
 
-" toggle cursor line and column and "list"
+" toggle cursor line/column, listchars, and colorcolumn
 nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr>
 	\ :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
 
 "toggle highlight
 nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')
-" Center searches -----------------------------------------------------------{{{
+" center searches -----------------------------------------------------------{{{
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -96,12 +96,18 @@ set cmdheight=1
 set showtabline=0
 set signcolumn=yes
 
-" Return to last edit position when opening files
+" return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-colorscheme gruvbox
+
+if &runtimepath =~? "gruvbox"
+	colorscheme gruvbox
+else
+	colorscheme ron
+endif
+
 set background=dark
 	
-" This will enable code folding in vim files
+" enable code folding in vim files
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker

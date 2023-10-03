@@ -16,7 +16,8 @@ alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
 # navigation
-alias qq='cd'
+alias qq='cd ~/f23-hmwk2-team14/linux/kernel'
+alias q3='cd ~/f23-hmwk2-team14/user/part3'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
@@ -49,6 +50,7 @@ function cd() {
 
 function ree {
     clear -x
+    echo ""
     echo "(╯°□°)╯︵ ┻━┻"
     echo ""
     exec bash
