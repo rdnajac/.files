@@ -22,7 +22,6 @@ Color: gold #FFD700 ~
 Normal     neongreen  eigengrau
 Comment    neongreen none t=italic
 bolded     neongreen  none  t=bold
-reversed none    none reverse
 lines   mypurple none
 
 Error bloodred gold
@@ -114,14 +113,15 @@ PmenuSel   neongreen  mypurple
 ;PmenuThumb
 ; }}}
 
+TabLine         -> normal 
+TabLineFill         -> normal 
 SignColumn       -> normal 
+
 StatusLineNC       -> reversed 
 StatusLineTerm     -> reversed 
 StatusLineTermNC   -> reversed
 StatusLine         -> reversed 
-TabLine         -> normal 
-TabLineFill         -> normal 
-Visual         -> reversed 
+Visual             -> reversed 
 
 ColorColumn        -> reversed
 Conceal            -> reversed
@@ -132,6 +132,7 @@ QuickFixLine       -> reversed
 CurSearch          -> reversed
 IncSearch          -> reversed
 Search             -> reversed 
+reversed none none reverse
 
 CursorLineSign     -> Folded 
 CursorLineFold     -> Folded 

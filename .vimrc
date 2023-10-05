@@ -14,6 +14,7 @@ set showcmd
 set smarttab
 set undodir=~/.vim/undo
 set wildmenu
+syntax on
 
 endif
 " }}}
@@ -27,7 +28,7 @@ set scrolloff=8
 set sidescrolloff=8
 set nowrap
 set lazyredraw
-set listchars=trail:~,tab:▸\  ",eol:¬
+set listchars=trail:~,tab:▸\
 set number
 set numberwidth=4
 set termguicolors
@@ -51,19 +52,21 @@ set wildmode=list:longest,full
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 " }}}
+
 " code style [Linux kernel coding style]
-"syntax on
 set cindent
 set shiftwidth=8
 set tabstop=8
 
 " keymaps {{{
-let mapleader = " "
+let mapleader = "\<space>"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " quicksave
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
+nnoremap <leader>q :bp<cr>
+"nnoremap <leader>q :bp <BAR> bd #<CR>
 
 " better escape
 inoremap jk <esc>
@@ -71,14 +74,16 @@ inoremap jk <esc>
 " insert blank line without leaving normal mode
 nnoremap <leader>o o<esc>
 nnoremap <leader>O O<esc>
+nnoremap <leader><tab> i<tab><esc>
 nnoremap <leader><space> i<space><esc>
-
 
 " toggle cursor line/column, listchars, and colorcolumn
 nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
 
 "toggle highlight
-nnoremap <silent><expr> <Leader>l (&hls && v:hlsearch ? ':nohls' : ':set hls')
+nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
+
 " center searches -----------------------------------------------------------{{{
 nnoremap n nzz
 nnoremap N Nzz
@@ -90,6 +95,16 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 " }}}
 " }}}
+" cool stuff
+nnoremap U <C-R> # redo
+nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+
+" indent/dedent what you just pasted
+nnoremap <leader>< V`]<
+nnoremap <leader>> V`]>
 
 " Vim GUI stuff ------------------------------------------------------------ {{{
 if !has('nvim')
@@ -100,8 +115,8 @@ set signcolumn=yes
 " return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-if &runtimepath =~? "mine"
-	colorscheme mine
+if  !empty(glob("~/.vim/colors/simple.vim"))	
+	colorscheme simple
 else
 	colorscheme ron
 endif
@@ -121,15 +136,7 @@ nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
 nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
 nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
-nnoremap <leader>q :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
-
-" Specify the behavior when swtching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
@@ -148,11 +155,14 @@ set statusline+=[%2v,\%P]
 " Show the status on the second to last line.
 set laststatus=2
 " }}}
+
 " Plugin Settings ---------------------------------------------------------- {{{
+
 " Enable the :Man command shipped inside Vim's man filetype plugin.
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
   runtime ftplugin/man.vim
 endif
+
 " q to close help and man page popups
 autocmd FileType help noremap <buffer> q :q<cr>
 autocmd FileType man noremap <buffer> q :q<cr>
