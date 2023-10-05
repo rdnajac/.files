@@ -100,8 +100,8 @@ set signcolumn=yes
 " return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-if &runtimepath =~? "gruvbox"
-	colorscheme gruvbox
+if &runtimepath =~? "mine"
+	colorscheme mine
 else
 	colorscheme ron
 endif

@@ -1,4 +1,5 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
+alias qq='cd ~/f23-hmwk3-team32/linux/kernel'
 
 alias vi='vim'
 alias nv='nvim'
@@ -16,8 +17,6 @@ alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
 # navigation
-alias qq='cd ~/f23-hmwk2-team14/linux/kernel'
-alias q3='cd ~/f23-hmwk2-team14/user/part3'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
