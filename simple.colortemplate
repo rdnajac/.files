@@ -7,25 +7,29 @@ Variant:    gui 256
 Background: dark
 
 ; Color palette
-Color:  neongreen  #39ff14 ~
-Color:  eigengrau  #16161d ~
-Color:  white #ffffff ~
-Color:  fuscia     #ff69ff ~
-Color:    mypurple      #6514FF ~
-Color:    jetblack        #343434 ~
-Color:    myblue  #14AFFF ~ 
-Color: palegreen #98FB98 ~
-Color: bloodred #880808 ~ 
-Color: gold #FFD700 ~
+Color: white 		#ffffff ~
+Color: black            #000000 ~
+Color: eigengrau  	#16161d ~
+
+Color: neongreen 	#39ff14 ~
+Color: mypurple      	#6514FF ~
+Color: myblue  		#14AFFF ~ 
+
+Color: fuscia     	#ff69ff ~
+Color: jetblack        	#343434 ~
+Color: palegreen 	#98FB98 ~
+Color: bloodred 	#880808 ~ 
+Color: gold 		#FFD700 ~
 
 
-Normal     neongreen  eigengrau
-Comment    neongreen none t=italic
 bolded     neongreen  none  t=bold
 lines   mypurple none
 
-Error bloodred gold
-Todo bloodred gold 
+Normal 	neongreen  black
+Comment	neongreen none t=italic
+Error 	bloodred gold
+Todo	bloodred gold 
+
 ;Underlined
 
 ; language syntaxes {{{
@@ -57,14 +61,14 @@ SpecialChar       -> Special
 SpecialComment    -> Special
 Tag               -> Special
 Delimiter         -> Special
-Special  myblue eigengrau 
+Special  myblue black
 
 
 Define            -> PreProc
 Include           -> PreProc
 Macro             -> PreProc
 PreCondit         -> PreProc
-PreProc           -> Normal
+PreProc fuscia black
 
 ; }}}
  
@@ -93,9 +97,7 @@ PreProc           -> Normal
 ;MoreMsg
 ;NonText
 ;Question
-;Search
 ;SpecialKey
-;TabLineSel
 ;Title
 
 ; {{{ menu colors 
@@ -115,6 +117,7 @@ PmenuSel   neongreen  mypurple
 
 TabLine         -> normal 
 TabLineFill         -> normal 
+;TabLineSel
 SignColumn       -> normal 
 
 StatusLineNC       -> reversed 
@@ -143,13 +146,14 @@ ToolbarLine   none none
 
 MessageWindow     -> WarningMsg
 PopupNotification -> WarningMsg
-;WarningMsg
+WarningMsg bloodred black
+
 
 lCursor           -> Cursor
 
-VertSplit -> lines 
-Folded    -> lines 
-LineNr   -> lines
+VertSplit  neongreen black
+Folded    neongreen eigengrau
+LineNr    mypurple black
 
 ; }}}
 
