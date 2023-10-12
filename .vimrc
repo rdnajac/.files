@@ -39,7 +39,7 @@ set showmatch
 set noerrorbells
 set novisualbell
 set t_vb=
-set clipboard=unnamed
+set clipboard=unnamedplus
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -95,7 +95,7 @@ nnoremap <C-u> <C-u>zz
 " }}}
 " }}}
 " cool stuff
-nnoremap U <C-r>  redo
+nnoremap U <C-r> redo
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
@@ -108,7 +108,6 @@ nnoremap <leader>> V`]>
 " Vim GUI stuff ------------------------------------------------------------ {{{
 if !has('nvim')
 set cmdheight=1
-set showtabline=0
 set signcolumn=yes
 set background=dark
 
@@ -119,7 +118,7 @@ else
 endif
 
 " return to last edit position when opening files
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
 	
 " enable code folding in vim files
 augroup filetype_vim
@@ -143,15 +142,18 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " statusline {{{
 
+" clear statusline
 set statusline=
-
+" git branch
 set statusline+=%{FugitiveStatusline()}
+" full path 
 set statusline+=\ %F\ %M\ %y\ %r
 set statusline+=%=
-set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ 
+" char values
 set statusline+=%=
+set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ 
+" visual column # and page position
 set statusline+=[%2v,\%P]
-
 set laststatus=2
 " }}}
 
@@ -214,3 +216,10 @@ Plug 'lifepillar/vim-colortemplate'
 call plug#end()
 " }}}
 endif
+
+" ChatGPT-gener
+augroup AutoOpenFold
+    autocmd!
+    " Trigger the autocommand when a buffer is read or a window is entered
+    autocmd BufWinEnter,BufReadPost * if foldlevel(line('$')) > 0 | normal! zo | endif
+augroup END
