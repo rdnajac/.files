@@ -4,6 +4,8 @@ alias qqq='cd ~/f23-hmwk3-team32/linux/kernel'
 alias q4='cd ~/f23-hmwk3-team32/user/part4'
 alias q5='cd ~/f23-hmwk3-team32/user/part5'
 
+alias kmake='cd ~/f23-hmwk3-team32/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
+
 alias ff='cd ~/.files'
 
 alias vi='vim'
@@ -41,7 +43,7 @@ alias rmdir='rm -drvI'
 #alias bmake ='bear make -j'
 
 # functions
-function cd() {
+function cl() {
     DIR="$*";
 	# if no DIR given, go home
 	if [ $# -lt 1 ]; then
