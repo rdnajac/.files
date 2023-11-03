@@ -1,5 +1,5 @@
 " general settings
-" nvim defaults {{{
+" nvim defaults 
 if !has('nvim')
 set nocompatible
 set autoindent smartindent
@@ -17,8 +17,8 @@ set wildmenu
 syntax on
 
 endif
-" }}}
-" shared settings {{{
+" 
+" shared settings 
 filetype plugin on
 filetype indent on
 set whichwrap+=<,>,[,],h,l
@@ -39,7 +39,7 @@ set showmatch
 set noerrorbells
 set novisualbell
 set t_vb=
-set clipboard=unnamedplus
+set clipboard=unnamed
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -51,14 +51,14 @@ set fileformat=unix
 set wildmode=list:longest,full
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
-" }}}
+" 
 
 " code style [Linux kernel coding style]
 set cindent
 set shiftwidth=8
 set tabstop=8
 
-" keymaps {{{
+" keymaps 
 let mapleader = "\<space>"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -83,7 +83,7 @@ nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr> :execute "set colorc
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 
-" center searches -----------------------------------------------------------{{{
+" center searches -----------------------------------------------------------
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -92,8 +92,8 @@ nnoremap g* g*zz
 nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
-" }}}
-" }}}
+" 
+" 
 " cool stuff
 nnoremap U <C-r> redo
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
@@ -105,7 +105,7 @@ nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 nnoremap <leader>< V`]<
 nnoremap <leader>> V`]>
 
-" Vim GUI stuff ------------------------------------------------------------ {{{
+" Vim GUI stuff ------------------------------------------------------------ 
 if !has('nvim')
 set cmdheight=1
 set signcolumn=yes
@@ -127,7 +127,7 @@ augroup filetype_vim
 augroup END
 "highlight Folded ctermbg=none
 
-" Buffer Management  {{{
+" Buffer Management  
 nnoremap <leader>+ <esc>:badd
 nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
 nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
@@ -136,11 +136,11 @@ nnoremap H :bprevious<CR>
 nmap <leader>bl :ls<CR>
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" }}}
+" 
 
-" }}}
+" 
 
-" statusline {{{
+" statusline 
 
 " clear statusline
 set statusline=
@@ -155,9 +155,9 @@ set statusline+=ascii:\ %3b\ hex:\ 0x%02B\
 " visual column # and page position
 set statusline+=[%2v,\%P]
 set laststatus=2
-" }}}
+" 
 
-" Plugin Settings ---------------------------------------------------------- {{{
+" Plugin Settings ---------------------------------------------------------- 
 
 " YouCompleteMe
 source ~/.files/ycm-config.vim
@@ -187,9 +187,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>e :NERDTreeToggle<CR>  " open and close file tree
 nnoremap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
 
-" }}}
+" 
 
-" {{{ Plugins
+"  Plugins
 " automatically downloads vim-plug to your machine if not found.
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -214,7 +214,7 @@ Plug 'lifepillar/vim-colortemplate'
 
 " All of your Plugins must be added before the following line
 call plug#end()
-" }}}
+" 
 endif
 
 " ChatGPT-gener
