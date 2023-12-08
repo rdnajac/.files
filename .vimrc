@@ -1,34 +1,25 @@
-" general settings
-" nvim defaults 
-if !has('nvim')
+" general settings {{{
 set nocompatible
+filetype plugin on
+filetype indent on
 set autoindent smartindent
 set autoread
 set backspace=indent,eol,start
 set encoding=utf-8
 set hidden
 set history=10000
-set hlsearch incsearch 
+set hlsearch incsearch
 set mouse=a
 set showcmd
 set smarttab
 set undodir=~/.vim/undo
-set wildmenu
-syntax on
-
-endif
-" 
-" shared settings 
-filetype plugin on
-filetype indent on
-set whichwrap+=<,>,[,],h,l
+"
 set magic
 set ignorecase smartcase
 set scrolloff=8
 set sidescrolloff=8
 set nowrap
 set lazyredraw
-set listchars=trail:~,tab:▸\
 set number
 set numberwidth=4
 set termguicolors
@@ -46,19 +37,30 @@ set undoreload=10000
 set nobackup nowb noswapfile
 set pumheight=10
 set showmatch
-set timeout timeoutlen=300
 set fileformat=unix
+set whichwrap+=<,>,[,],h,l
+set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
 " 
+" }}}
+color retrobox
+" remove trailing whitespace
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" code style [Linux kernel coding style]
-set cindent
-set shiftwidth=8
-set tabstop=8
+" editing
+syntax on
+set shiftwidth=4
+set tabstop=4
+set expandtab
 
-" keymaps 
+set listchars=trail:¿,tab:→\ 
+set list
+
+set timeout timeoutlen=300
+
+" keymaps
 let mapleader = "\<space>"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -76,14 +78,14 @@ nnoremap <leader>O O<esc>
 nnoremap <leader><tab> i<tab><esc>
 nnoremap <leader><space> i<space><esc>
 
-" toggle cursor line/column, listchars, and colorcolumn
-nnoremap <leader>c :set cursorline! cursorcolumn! list!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
+" toggle cursor line/column and colorcolumn
+nnoremap <leader>c :set cursorline! cursorcolumn!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr>
 
 "toggle highlight
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 
-" center searches -----------------------------------------------------------
+" center searches {{{
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -92,8 +94,9 @@ nnoremap g* g*zz
 nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
-" 
-" 
+" }}}
+
+
 " cool stuff
 nnoremap U <C-r> redo
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
@@ -105,29 +108,23 @@ nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 nnoremap <leader>< V`]<
 nnoremap <leader>> V`]>
 
-" Vim GUI stuff ------------------------------------------------------------ 
-if !has('nvim')
+" GUI {{{
 set cmdheight=1
 set signcolumn=yes
 set background=dark
 
-if  !empty(glob("~/.vim/colors/simple.vim"))	
-	colorscheme simple
-else
-	colorscheme ron
-endif
-
 " return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
-	
+
 " enable code folding in vim files
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 "highlight Folded ctermbg=none
+" }}}
 
-" Buffer Management  
+" Buffer Management
 nnoremap <leader>+ <esc>:badd
 nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
 nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
@@ -135,12 +132,14 @@ nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
 nmap <leader>bl :ls<CR>
 
+" q to close help and man page popups
+autocmd FileType help noremap <buffer> q :q<cr>
+autocmd FileType man noremap <buffer> q :q<cr>
+
+
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" 
 
-" 
-
-" statusline 
+" statusline {{{
 
 " clear statusline
 set statusline=
@@ -151,11 +150,11 @@ set statusline+=\ %F\ %M\ %y\ %r
 set statusline+=%=
 " char values
 set statusline+=%=
-set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ 
+set statusline+=ascii:\ %3b\ hex:\ 0x%02B\
 " visual column # and page position
 set statusline+=[%2v,\%P]
 set laststatus=2
-" 
+" }}}
 
 " Plugin Settings ---------------------------------------------------------- 
 
@@ -166,10 +165,6 @@ source ~/.files/ycm-config.vim
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
   runtime ftplugin/man.vim
 endif
-
-" q to close help and man page popups
-autocmd FileType help noremap <buffer> q :q<cr>
-autocmd FileType man noremap <buffer> q :q<cr>
 
 " ctrl-p
 let g:ctrlp_custom_ignore = {
@@ -187,7 +182,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>e :NERDTreeToggle<CR>  " open and close file tree
 nnoremap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
 
-" 
+"
 
 "  Plugins
 " automatically downloads vim-plug to your machine if not found.
@@ -208,18 +203,31 @@ Plug 'Valloric/YouCompleteMe'
 " Extra
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " Colors
 Plug 'lifepillar/vim-colortemplate'
 
 " All of your Plugins must be added before the following line
 call plug#end()
-" 
-endif
+"
 
-" ChatGPT-gener
+" ChatGPT-generated
 augroup AutoOpenFold
     autocmd!
     " Trigger the autocommand when a buffer is read or a window is entered
     autocmd BufWinEnter,BufReadPost * if foldlevel(line('$')) > 0 | normal! zo | endif
 augroup END
+
+" Create a mapping to open help for a selected word
+vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR>
+nnoremap <Shift>h :call OpenHelpForSelectedWord()<CR>
+
+" Define a function to open help for the selected word
+function! OpenHelpForSelectedWord()
+    let word = expand('<cword>')
+    execute 'help ' . word
+endfunction
+
+vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
+
