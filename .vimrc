@@ -43,17 +43,17 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set wildignore=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img,
-" 
-" }}}
+
 color retrobox
 " remove trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " editing
 syntax on
+" code style [Linux kernel coding style]
+set cindent
 set shiftwidth=8
 set tabstop=8
-set noexpandtab
 
 set listchars=trail:¿,tab:→\ 
 set list
@@ -108,7 +108,6 @@ nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 nnoremap <leader>< V`]<
 nnoremap <leader>> V`]>
 
-" GUI {{{
 set cmdheight=1
 set signcolumn=yes
 set background=dark
@@ -210,7 +209,6 @@ Plug 'lifepillar/vim-colortemplate'
 
 " All of your Plugins must be added before the following line
 call plug#end()
-"
 
 " ChatGPT-generated
 augroup AutoOpenFold
@@ -230,4 +228,17 @@ function! OpenHelpForSelectedWord()
 endfunction
 
 vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
+
+" Create a mapping to open help for a selected word
+vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR>
+nnoremap <Shift>h :call OpenHelpForSelectedWord()<CR>
+
+" Define a function to open help for the selected word
+function! OpenHelpForSelectedWord()
+    let word = expand('<cword>')
+    execute 'help ' . word
+endfunction
+
+vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
+
 
