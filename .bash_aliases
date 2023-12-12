@@ -1,11 +1,9 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
 #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 
-alias qq='cd ~/f23-hmwk4-team32/'
-#alias qqq='cd ~/f23-hmwk3-team32/linux/kernel'
-#alias q4='cd ~/f23-hmwk3-team32/user/part4'
-#alias q5='cd ~/f23-hmwk3-team32/user/part5'
-
+alias qq='cd ~/f23-hmwk6-team32/'
+alias qqq='qq && vim myez.c ezfs_ops.h'
+alias dna='cd ~/dna'
 alias kmake='cd ~/kernel_dev/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
 
 alias ff='cd ~/.files'

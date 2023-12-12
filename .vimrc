@@ -51,9 +51,9 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " editing
 syntax on
-set shiftwidth=4
-set tabstop=4
-set expandtab
+set shiftwidth=8
+set tabstop=8
+set noexpandtab
 
 set listchars=trail:¿,tab:→\ 
 set list
