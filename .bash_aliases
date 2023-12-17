@@ -3,6 +3,7 @@ echo "the computing scientist's main challenge is not to get confused by the com
 # set prompt
 if [ "$ZSH_VERSION" ]; then
   PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
+  #alias vim ='vim -S ~/.files/.vimrc'
 else
   #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 fi
