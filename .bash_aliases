@@ -1,14 +1,26 @@
-#sudo dmesg -C
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
+
+# set prompt
 #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 
-alias ff='cd ~/.files'
-alias qq='cd ~/f23-hmwk6-team32/'
-alias qqq='qq && vim myez.c ezfs_ops.h'
-alias kmake='cd ~/kernel_dev/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
+# clear ring buffer
+#sudo dmesg -C
 
+# shortcuts
+alias ff='cd ~/.files'
 alias dna='cd ~/dna'
 alias ads='cd ~/go/src/adscodex'
+
+# settings
+alias vimm='vim ~/.files/.vimrc'
+alias bashr='vim ~/.files/.bashrc'
+alias basha='vim ~/.files/.bash_aliases'
+alias nvv='cd ~/.config/nvim/lua/user'
+
+# linux kernel development
+alias qq='cd ~/kenel_dev/'
+alias kmake='cd ~/kernel_dev/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
+
 
 alias vi='vim'
 alias nv='nvim'
@@ -34,12 +46,6 @@ alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
-
-# settings
-alias vimm='vim ~/.files/.vimrc'
-alias bashr='vim ~/.files/.bashrc'
-alias basha='vim ~/.files/.bash_aliases'
-alias nvv='cd ~/.config/nvim/lua/user'
 
 alias mv='mv -v'
 alias rm='rm -I -v'
