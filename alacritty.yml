@@ -7,3 +7,8 @@ colors:
   primary:
     background: '#000000'
     foreground: '#39ff14'
+  
+  normal:
+    blue:    '#14afff'
+    magenta: '#ff69ff'
+

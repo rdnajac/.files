@@ -1,7 +1,12 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
 
 # set prompt
+if [ "$ZSH_VERSION" ]; then
+  PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
+else
 #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
+fi
+
 
 # clear ring buffer
 #sudo dmesg -C
@@ -35,7 +40,7 @@ alias kms='tmux kill-server'
 if [ "$BASH" ]; then
   alias ll='ls -AlFh --group-directories-first'
 else
-  alias ll='ls -AlFh'
+  alias ll='ls -AlFhG'
 fi
 
 alias l='ls -lFh --group-directories-first'
