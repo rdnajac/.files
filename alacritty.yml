@@ -1,0 +1,9 @@
+font:
+  family: 'JetBrains Mono'
+  style: Regular
+  size: 14.0
+
+colors:
+  primary:
+    background: '#000000'
+    foreground: '#39ff14'

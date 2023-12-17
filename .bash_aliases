@@ -1,4 +1,4 @@
-sudo dmesg -C
+#sudo dmesg -C
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
 #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 
@@ -20,8 +20,12 @@ alias tmx'=tmux attach-session'
 alias kms='tmux kill-server'
 
 # ls
-#alias ll='ls -Al --group-directories-first'
-alias ll='ls -AlFh --group-directories-first'
+if [ "$BASH" ]; then
+  alias ll='ls -AlFh --group-directories-first'
+else
+  alias ll='ls -AlFh'
+fi
+
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
@@ -32,10 +36,9 @@ alias ...'=cd ../..'
 alias ....'=cd ../../..'
 
 # settings
-alias vimm='vim ~/.vimrc'
-alias bashr='vim ~/.bashrc'
-alias basha='vim ~/.bash_aliases'
-alias bashf='vim ~/.bash_functions'
+alias vimm='vim ~/.files/.vimrc'
+alias bashr='vim ~/.files/.bashrc'
+alias basha='vim ~/.files/.bash_aliases'
 alias nvv='cd ~/.config/nvim/lua/user'
 
 alias mv='mv -v'
@@ -58,8 +61,32 @@ function cl() {
 
 function ree {
     clear -x
-    echo ""
-    echo "(╯°□°)╯︵ ┻━┻"
-    echo ""
-    exec bash
+    echo -e "\n(╯°□°)╯︵ ┻━┻\n"
+    if [ "$ZSH_VERSION" ]; then
+        exec zsh
+    else
+        exec bash
+    fi
 }
+
+save() {
+  # Check if the current working directory is ~/.files
+  if [ "$(pwd)" = "$HOME/.files" ]; then
+    # Change into the directory to make sure we are in ~/.files
+    cd "$HOME/.files" || exit 1
+
+    # Check if there are changes to commit
+    if git diff --quiet; then
+      echo "No changes to commit."
+    else
+      # Add all changes, commit, and push
+      git add .
+      git commit -m "update settings"
+      git push
+      echo "Changes committed and pushed."
+    fi
+  else
+    echo "Not in the ~/.files directory. Changes not saved."
+  fi
+}
+
