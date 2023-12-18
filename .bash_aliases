@@ -82,23 +82,37 @@ function ree {
 }
 
 save() {
-  # Check if the current working directory is ~/.files
   if [ "$(pwd)" = "$HOME/.files" ]; then
-    # Change into the directory to make sure we are in ~/.files
+    # Inside ~/.files directory
     cd "$HOME/.files" || exit 1
 
-    # Check if there are changes to commit
     if git diff --quiet; then
-      echo "No changes to commit."
+      echo "No changes to commit in .files."
     else
-      # Add all changes, commit, and push
       git add .
       git commit -m "update settings"
       git push
-      echo "Changes committed and pushed."
+      echo "Changes in .files committed and pushed."
     fi
   else
-    echo "Not in the ~/.files directory. Changes not saved."
+    # Not in ~/.files, so check the current Git repository
+    repo=$(git rev-parse --show-toplevel 2> /dev/null)
+    if [ $? -eq 0 ]; then
+      echo "You are currently in the Git repository located at: $repo"
+      read -p "Do you want to save changes in this repository? (y/n) " response
+
+      if [[ $response =~ ^[Yy]$ ]]; then
+        read -p "Enter your commit message: " commitMsg
+        git add .
+        git commit -m "$commitMsg"
+        git push
+        echo "Changes committed and pushed from $repo."
+      else
+        echo "Changes not saved."
+      fi
+    else
+      echo "You are not in a Git repository. Changes not saved."
+    fi
   fi
 }
 

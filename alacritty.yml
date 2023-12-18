@@ -3,6 +3,9 @@ font:
   style: Regular
   size: 14.0
 
+env:
+  TERM: xterm-256color
+
 colors:
   primary:
     background: '#000000'
