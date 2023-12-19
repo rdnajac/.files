@@ -1,7 +1,16 @@
 font:
-  family: 'JetBrains Mono'
-  style: Regular
   size: 14.0
+  normal:
+    family: 'JetBrainsMonoNL Nerd Font Mono'
+  bold:
+    family: 'JetBrainsMonoNL Nerd Font Mono'
+  italic:
+    family: 'JetBrainsMonoNL Nerd Font Mono'
+  bold_italic:
+    family: 'JetBrainsMonoNL Nerd Font Mono'
+
+mouse_bindings:
+  - { mouse: Right, action: Copy }
 
 env:
   TERM: xterm-256color
@@ -10,7 +19,6 @@ colors:
   primary:
     background: '#000000'
     foreground: '#39ff14'
-  
   normal:
     blue:    '#14afff'
     magenta: '#ff69ff'

@@ -15,13 +15,15 @@ fi
 # shortcuts
 alias ff='cd ~/.files'
 alias dna='cd ~/dna'
-alias ads='cd ~/go/src/adscodex'
+#alias ads='cd ~/go/src/adscodex'
+alias cpp='cd ~/cpp-sandbox'
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
 alias bashr='vim ~/.files/.bashrc'
 alias basha='vim ~/.files/.bash_aliases'
-alias nvv='cd ~/.config/nvim/lua/user'
+alias nvv='cd ~/.config/nvim/lua/user && ll'
+alias alac='vim ~/.files/alacritty.yml'
 
 # linux kernel development
 alias qq='cd ~/kenel_dev/'
@@ -81,38 +83,34 @@ function ree {
     fi
 }
 
+# lazy git add/commit/push
 save() {
-  if [ "$(pwd)" = "$HOME/.files" ]; then
-    # Inside ~/.files directory
-    cd "$HOME/.files" || exit 1
-
+  repo=$(git rev-parse --show-toplevel 2> /dev/null)
+  if [ $? -eq 0 ]; then
+    echo "You are currently in the Git repository located at: $repo"
     if git diff --quiet; then
-      echo "No changes to commit in .files."
+      echo "No changes to commit."
     else
-      git add .
-      git commit -m "update settings"
-      git push
-      echo "Changes in .files committed and pushed."
-    fi
-  else
-    # Not in ~/.files, so check the current Git repository
-    repo=$(git rev-parse --show-toplevel 2> /dev/null)
-    if [ $? -eq 0 ]; then
-      echo "You are currently in the Git repository located at: $repo"
-      read -p "Do you want to save changes in this repository? (y/n) " response
-
+      echo "Do you want to save changes in this repository? (y/n)"
+      read response
       if [[ $response =~ ^[Yy]$ ]]; then
-        read -p "Enter your commit message: " commitMsg
         git add .
+        # Default commit message based on the repository
+        if [ "$repo" = "$HOME/.files" ]; then
+          commitMsg="update settings"
+        else
+          echo "Enter your commit message:"
+          read commitMsg
+        fi
         git commit -m "$commitMsg"
         git push
         echo "Changes committed and pushed from $repo."
       else
         echo "Changes not saved."
       fi
-    else
-      echo "You are not in a Git repository. Changes not saved."
     fi
+  else
+    echo "You are not in a Git repository. Changes not saved."
   fi
 }
 
