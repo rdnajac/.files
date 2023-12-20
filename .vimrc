@@ -1,4 +1,4 @@
-color simple
+color myminimal
 " General settings and behavior {{{
 set nocompatible              " Ensure Vim behaves like Vim, not like vi
 syntax on                     " Enable syntax highlighting
@@ -107,6 +107,8 @@ set smartcase                 " Override ignorecase if search pattern contains u
 
 " Toggle highlight search
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " Search and replace word under cursor {{{
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
@@ -155,31 +157,27 @@ function! OpenHelpForSelectedWord()
     execute 'help ' . word
 endfunction
 
-vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR> " Open help for visual selection
-nnoremap <Shift>h :call OpenHelpForSelectedWord()<CR>       " Open help for word under cursor
+"vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR> " Open help for visual selection
+nnoremap ? :call OpenHelpForSelectedWord()<CR>       " Open help for word under cursor
 autocmd FileType help noremap <buffer> q :q<cr>             " Close help and man pages with 'q'
 autocmd FileType man noremap <buffer> q :q<cr>
 " }}}
 " }}}
 
 " Autocommands {{{
-" Handle folds {{{
+
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-augroup AutoOpenFold
-    autocmd!
-    autocmd BufWinEnter,BufReadPost * if foldlevel(line('$')) > 0 | normal! zo | endif
-augroup END
-" }}}
-
-" Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
+autocmd BufReadPost * if foldclosed('.') != -1 | execute "normal! zv" | endif
 
-" Close completion menu after completion
+
+" Close completion meun
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
 " }}}
 
 " Plugins {{{
@@ -225,4 +223,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>e :NERDTreeToggle<CR>  " Open and close file tree
 nnoremap <leader>n :NERDTreeFind<CR>    " Open current buffer in file tree
 " }}}
+
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
