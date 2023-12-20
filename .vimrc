@@ -1,4 +1,4 @@
-color myminimal
+color mycolor
 " General settings and behavior {{{
 set nocompatible              " Ensure Vim behaves like Vim, not like vi
 syntax on                     " Enable syntax highlighting
