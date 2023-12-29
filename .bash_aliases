@@ -40,10 +40,9 @@ alias tmx'=tmux attach-session'
 alias kms='tmux kill-server'
 
 # ls
-if [ "$BASH" ]; then
-  alias ll='ls -AlFh --group-directories-first'
-else
-  alias ll='ls -AlFhG'
+alias ll='ls -AlFh --group-directories-first'
+if [ !"$BASH" ]; then
+  alias ls='gls --color=auto'
 fi
 
 alias l='ls -lFh --group-directories-first'
