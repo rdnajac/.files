@@ -1,4 +1,5 @@
-color mycolor
+"color scheme
+color mono
 " General settings and behavior {{{
 set nocompatible              " Ensure Vim behaves like Vim, not like vi
 syntax on                     " Enable syntax highlighting
@@ -107,8 +108,6 @@ set smartcase                 " Override ignorecase if search pattern contains u
 
 " Toggle highlight search
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " Search and replace word under cursor {{{
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
@@ -142,6 +141,7 @@ nnoremap <leader>o o<esc>                 " Insert blank line below without leav
 nnoremap <leader>O O<esc>                 " Insert blank line above without leaving normal mode
 nnoremap <leader><tab> i<tab><esc>        " Insert tab without leaving normal mode
 nnoremap <leader><space> i<space><esc>    " Insert space without leaving normal mode
+
 nnoremap <leader>c :set cursorline! cursorcolumn!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr> " Toggle cursor line/column
 
 vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR> " Replace in visual selection
@@ -164,7 +164,7 @@ autocmd FileType man noremap <buffer> q :q<cr>
 " }}}
 " }}}
 
-" Autocommands {{{
+" Vim autocommands {{{
 
 augroup filetype_vim
     autocmd!
@@ -200,7 +200,6 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'lifepillar/vim-colortemplate'
 
 call plug#end()
 " }}}

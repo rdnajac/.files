@@ -17,16 +17,16 @@ alias ff='cd ~/.files'
 alias dna='cd ~/dna'
 #alias ads='cd ~/go/src/adscodex'
 alias cpp='cd ~/cpp-sandbox'
+alias qq='cd ~/gscs/my-http-server'
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
 alias bashr='vim ~/.files/.bashrc'
 alias basha='vim ~/.files/.bash_aliases'
-alias nvv='cd ~/.config/nvim/lua/user && ll'
+alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.yml'
 
 # linux kernel development
-alias qq='cd ~/kenel_dev/'
 alias kmake='cd ~/kernel_dev/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
 
 
