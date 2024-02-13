@@ -1,0 +1,14 @@
+---
+:body_foreground: [0, 255, 0] # Neon Green for the main text
+:body_background: [0, 0, 0] # Black background for contrast
+:code_foreground: [255, 165, 0] # Orange for code blocks, to stand out
+:code_background: [0, 0, 0] # Keeping the background consistent with black
+:blockquote_foreground: [255, 255, 0] # Bright Yellow for blockquotes, for emphasis
+:blockquote_background: [0, 0, 0] # Black background for blockquotes
+:header_foreground: [255, 0, 0] # Bold Red for headers, to grab attention
+:header_background: [0, 0, 0] # Black background for headers
+:link_foreground: [0, 191, 255] # Deep Sky Blue for links, making them noticeable
+:link_background: [0, 0, 0] # Black background for links
+:list_bullet_foreground: [160, 32, 240] # Purple for list bullets, to distinguish
+:list_bullet_background: [0, 0, 0] # Black background for list bullets
+

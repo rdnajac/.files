@@ -1,5 +1,5 @@
 "color scheme
-color mono
+color retrobox
 " General settings and behavior {{{
 set nocompatible              " Ensure Vim behaves like Vim, not like vi
 syntax on                     " Enable syntax highlighting
@@ -201,6 +201,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
 " }}}
 
@@ -222,6 +224,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>e :NERDTreeToggle<CR>  " Open and close file tree
 nnoremap <leader>n :NERDTreeFind<CR>    " Open current buffer in file tree
 " }}}
+
+" Or with a generic interface:
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+"let g:vimtex_compiler_method = 'latexrun'
 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 

@@ -9,15 +9,20 @@ else
 fi
 
 
+
 # clear ring buffer
 #sudo dmesg -C
 
 # shortcuts
 alias ff='cd ~/.files'
 alias dna='cd ~/dna'
+alias gs='cd ~/gscs'
+alias plt='cd ~/gscs/plt'
+alias csee='cd ~/gscs/csee4119'
 #alias ads='cd ~/go/src/adscodex'
 alias cpp='cd ~/cpp-sandbox'
-alias qq='cd ~/gscs/my-http-server'
+alias qq='cd ~/a_series_of_tubes'
+alias qqq='cd ~/gscs/my-http-server/libs/http-server/src'
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
@@ -27,8 +32,8 @@ alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.yml'
 
 # linux kernel development
-alias kmake='cd ~/kernel_dev/linux  && sudo make -j5 && sudo make modules_install -j3  && sudo make install && sudo reboot'
-
+alias kmake='cd ~/kernel_dev/linux && sudo make -j5 && \
+    sudo make modules_install -j3  && sudo make install && sudo reboot'
 
 alias vi='vim'
 alias nv='nvim'
@@ -39,12 +44,13 @@ alias tmux='tmux -2'
 alias tmx'=tmux attach-session'
 alias kms='tmux kill-server'
 
-# ls
-alias ll='ls -AlFh --group-directories-first'
+# use gnu ls and stat on apple os
 if [ !"$BASH" ]; then
   alias ls='gls --color=auto'
+  alias stat='gstat'
 fi
 
+alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
@@ -58,7 +64,17 @@ alias mv='mv -v'
 alias rm='rm -I -v'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
-#alias bmake ='bear make -j'
+
+alias bmake='bear -- make'
+alias 
+
+# valgrind in zsh???
+if [ -n "$ZSH_VERSION" ]; then
+    alias vg='leaks --atExit --'
+else
+    # Define the alias for Bash
+    alias vg='valgrind --leak-check=yes'
+fi
 
 # functions
 function cl() {
@@ -87,13 +103,22 @@ save() {
   repo=$(git rev-parse --show-toplevel 2> /dev/null)
   if [ $? -eq 0 ]; then
     echo "You are currently in the Git repository located at: $repo"
-    if git diff --quiet; then
+
+    # Perform make clean, ignoring errors
+    make clean || true
+
+    if git diff --quiet && git diff --cached --quiet; then
       echo "No changes to commit."
     else
       echo "Do you want to save changes in this repository? (y/n)"
       read response
       if [[ $response =~ ^[Yy]$ ]]; then
         git add .
+
+        # List files that are staged for commit
+        echo "Files staged for commit:"
+        git diff --cached --name-only
+
         # Default commit message based on the repository
         if [ "$repo" = "$HOME/.files" ]; then
           commitMsg="update settings"

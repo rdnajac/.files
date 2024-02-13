@@ -1,0 +1,95 @@
+---
+metadata:
+  border: d green on_black
+  marker: d green on_black
+  color: d green on_black
+emphasis:
+  bold: b
+  bold_character: "**"
+  italic: u i
+  italic_character: "_"
+  bold-italic: b u i
+highlight: b green on_black
+h1:
+  color: b intense_green on_black
+  pad: d green on_black
+  pad_char: "="
+h2:
+  color: b green on_black
+  pad: d green on_black
+  pad_char: "-"
+h3:
+  color: u b green
+h4:
+  color: u green
+h5:
+  color: b green
+h6:
+  color: b green
+link:
+  brackets: b green
+  text: u b bright_green
+  url: bright_green
+image:
+  bang: green
+  brackets: b green
+  title: bright_green
+  url: u bright_green
+list:
+  ul_char: "*"
+  bullet: b green
+  number: b green
+  color: green
+footnote:
+  brackets: b green on_black
+  caret: b green on_black
+  title: b green on_black
+  note: u green on_black
+code_span:
+  marker: b green
+  color: b green on_black
+  character: "`"
+code_block:
+  marker: green
+  character: ">"
+  bg: on_black
+  color: green on_black
+  border: green
+  title: green
+  eol: green on_black
+  pygments_theme: monokai
+blockquote:
+  marker:
+    character: ">"
+    color: green
+  color: b green
+dd:
+  term: green on_black
+  marker: d green
+  color: b green
+hr:
+  color: d green
+table:
+  border: d green
+  header: bright_green
+  divider: b green
+  color: green
+  bg: on_black
+html:
+  brackets: d green on_black
+  color: green on_black
+math:
+  brackets: b green
+  equation: b bright_green
+super: b bright_green
+text: green
+at_tags:
+  tag: bright_green
+  value: b green
+taskpaper:
+  marker: b green
+  project: b bright_green
+  task: green
+  note: d green
+---
+
