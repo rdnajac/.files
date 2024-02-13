@@ -66,7 +66,6 @@ alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 
 alias bmake='bear -- make'
-alias 
 
 # valgrind in zsh???
 if [ -n "$ZSH_VERSION" ]; then

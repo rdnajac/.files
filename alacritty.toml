@@ -6,7 +6,7 @@ TERM = "xterm-256color"
 padding = {x = 2, y = 2}
 
 # note this only works on macOS
-startup_mode = "SimpleFullscreen"
+# startup_mode = "SimpleFullscreen"
 
 
 [colors.normal]
@@ -14,7 +14,8 @@ blue = "#14afff"
 magenta = "#ff69ff"
 
 [colors.primary]
-background = "#16161d"
+#background = "#16161d"
+background = "#000000"
 foreground = "#39ff14"
 
 
