@@ -8,21 +8,16 @@ else
   #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 fi
 
-
-
-# clear ring buffer
-#sudo dmesg -C
-
 # shortcuts
+alias qq='cd ~/gscs'
+alias qq1='cl ~/gscs/csee4119/lab2-rdnajac'
+alias qq2='cl ~/gscs/ocaml/coms4115-spring2024-hw2-rdnajac'
 alias ff='cd ~/.files'
 alias dna='cd ~/dna'
 alias gs='cd ~/gscs'
-alias plt='cd ~/gscs/plt'
-alias csee='cd ~/gscs/csee4119'
-#alias ads='cd ~/go/src/adscodex'
 alias cpp='cd ~/cpp-sandbox'
-alias qq='cd ~/a_series_of_tubes'
-alias qqq='cd ~/gscs/my-http-server/libs/http-server/src'
+
+alias p3='python3'
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
@@ -47,7 +42,7 @@ alias kms='tmux kill-server'
 # use gnu ls and stat on apple os
 if [ !"$BASH" ]; then
   alias ls='gls --color=auto'
-  alias stat='gstat'
+  #alias stat='gstat'
 fi
 
 alias ll='ls -AlFh --group-directories-first'
