@@ -1,6 +1,6 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
 
-# set prompt
+# prompt
 if [ "$ZSH_VERSION" ]; then
   PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
   #alias vim ='vim -S ~/.files/.vimrc'
@@ -9,15 +9,14 @@ else
 fi
 
 # shortcuts
-alias qq='cd ~/gscs'
-alias qq1='cl ~/gscs/csee4119/lab2-rdnajac'
-alias qq2='cl ~/gscs/ocaml/coms4115-spring2024-hw2-rdnajac'
-alias ff='cd ~/.files'
-alias dna='cd ~/dna'
-alias gs='cd ~/gscs'
-alias cpp='cd ~/cpp-sandbox'
-
+alias vi='vim'
+alias nv='nvim'
+alias qq=''
 alias p3='python3'
+alias bd='cd -'
+alias ..'=cd ..'
+alias ...'=cd ../..'
+alias ....'=cd ../../..'
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
@@ -30,13 +29,8 @@ alias alac='vim ~/.files/alacritty.yml'
 alias kmake='cd ~/kernel_dev/linux && sudo make -j5 && \
     sudo make modules_install -j3  && sudo make install && sudo reboot'
 
-alias vi='vim'
-alias nv='nvim'
-alias bcat='batcat'
-
 # tmux
-alias tmux='tmux -2'
-alias tmx'=tmux attach-session'
+alias tmx='tmux attach-session'
 alias kms='tmux kill-server'
 
 # use gnu ls and stat on apple os
@@ -49,37 +43,18 @@ alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
-# navigation
-alias bd='cd -'
-alias ..'=cd ..'
-alias ...'=cd ../..'
-alias ....'=cd ../../..'
-
 alias mv='mv -v'
 alias rm='rm -I -v'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
-
 alias bmake='bear -- make'
 
-# valgrind in zsh???
-if [ -n "$ZSH_VERSION" ]; then
-    alias vg='leaks --atExit --'
-else
-    # Define the alias for Bash
-    alias vg='valgrind --leak-check=yes'
-fi
-
-# functions
 function cl() {
     DIR="$*";
-	# if no DIR given, go home
 	if [ $# -lt 1 ]; then
 		DIR=$HOME;
 	fi;
-    builtin cd "${DIR}" && \
-    # use your preferred ls command
-	ll
+    builtin cd "${DIR}" && ll
 }
 
 function ree {
@@ -94,41 +69,38 @@ function ree {
 
 # lazy git add/commit/push
 save() {
-  repo=$(git rev-parse --show-toplevel 2> /dev/null)
-  if [ $? -eq 0 ]; then
-    echo "You are currently in the Git repository located at: $repo"
-
-    # Perform make clean, ignoring errors
-    make clean || true
-
-    if git diff --quiet && git diff --cached --quiet; then
-      echo "No changes to commit."
-    else
-      echo "Do you want to save changes in this repository? (y/n)"
-      read response
-      if [[ $response =~ ^[Yy]$ ]]; then
-        git add .
-
-        # List files that are staged for commit
-        echo "Files staged for commit:"
-        git diff --cached --name-only
-
-        # Default commit message based on the repository
-        if [ "$repo" = "$HOME/.files" ]; then
-          commitMsg="update settings"
+    repo=$(git rev-parse --show-toplevel 2> /dev/null)
+    if [ $? -eq 0 ]; then
+        echo "You are currently in the Git repository located at: $repo"
+        make clean || true
+        if git diff --quiet && git diff --cached --quiet; then
+            echo "No changes to commit."
         else
-          echo "Enter your commit message:"
-          read commitMsg
+            echo "Do you want to save changes in this repository? (y/n)"
+            read response
+            if [[ $response =~ ^[Yy]$ ]]; then
+                git add .
+
+                echo "Files staged for commit:"
+                git diff --cached --name-only
+
+                echo "Enter your commit message:"
+                read msg
+                git commit -m "$msg"
+
+                echo "Do you want to push changes to the remote repository? (y/n)"
+                read response
+                if [[ $response =~ ^[Yy]$ ]]; then
+                    git push
+                    echo "Changes committed and pushed from $repo."
+                else echo "Changes committed but not pushed."
+                fi
+            else
+                echo "Changes not saved."
+            fi
         fi
-        git commit -m "$commitMsg"
-        git push
-        echo "Changes committed and pushed from $repo."
-      else
-        echo "Changes not saved."
-      fi
-    fi
-  else
+    else
     echo "You are not in a Git repository. Changes not saved."
-  fi
+    fi
 }
 
