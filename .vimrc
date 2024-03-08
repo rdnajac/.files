@@ -1,4 +1,3 @@
-"color scheme
 color retrobox
 " General settings and behavior {{{
 set nocompatible              " Ensure Vim behaves like Vim, not like vi

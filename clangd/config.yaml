@@ -1,6 +1,0 @@
-CompileFlags:
-  Remove: [ -mpreferred-stack-boundary=*, -mindirect-branch*, 
-            -fno-allow-store-data-races, -fconserve-stack, -mrecord-mcount,
-            -mfunction-return=*, -mskip-rax-setup, -mno-fp-ret-in-387,
-            -mno-var-tracking-assignments, -femit-struct-debug-baseonly,
-            -mabi=lp64 ]
