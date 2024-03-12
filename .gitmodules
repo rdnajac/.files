@@ -13,3 +13,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-pencil"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-pencil
 	url = https://github.com/preservim/vim-pencil.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
