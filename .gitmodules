@@ -1,3 +1,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
