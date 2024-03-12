@@ -4,3 +4,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-surround"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
