@@ -16,3 +16,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vimtex"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vimtex
+	url = https://github.com/lervag/vimtex.git
