@@ -22,3 +22,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/ultisnips"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/copilot.vim"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/copilot.vim
+	url = https://github.com/github/copilot.vim.git
