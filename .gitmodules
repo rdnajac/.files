@@ -7,3 +7,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-surround"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-commentary"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
