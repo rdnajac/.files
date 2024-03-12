@@ -1,0 +1,3 @@
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar.git
