@@ -10,3 +10,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-commentary"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-pencil"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-pencil
+	url = https://github.com/preservim/vim-pencil.git
