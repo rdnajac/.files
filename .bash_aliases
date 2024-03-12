@@ -1,14 +1,15 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
-
+alias cd='cl'
 # prompt
 if [ "$ZSH_VERSION" ]; then
-  PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
-  #alias vim ='vim -S ~/.files/.vimrc'
+    PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
+    #alias vim ='vim -S ~/.files/.vimrc'
 else
-  #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
+    #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 fi
 
 # shortcuts
+alias ff='cd ~/.files'
 alias vi='vim'
 alias nv='nvim'
 alias qq=''
@@ -35,8 +36,8 @@ alias kms='tmux kill-server'
 
 # use gnu ls and stat on apple os
 if [ !"$BASH" ]; then
-  alias ls='gls --color=auto'
-  #alias stat='gstat'
+    alias ls='gls --color=auto'
+    #alias stat='gstat'
 fi
 
 alias ll='ls -AlFh --group-directories-first'
@@ -48,12 +49,13 @@ alias rm='rm -I -v'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 alias bmake='bear -- make'
+alias vimfect='~/.files/scripts/vimfect.sh'
 
 function cl() {
     DIR="$*";
-	if [ $# -lt 1 ]; then
-		DIR=$HOME;
-	fi;
+    if [ $# -lt 1 ]; then
+        DIR=$HOME;
+    fi;
     builtin cd "${DIR}" && ll
 }
 
@@ -100,7 +102,7 @@ save() {
             fi
         fi
     else
-    echo "You are not in a Git repository. Changes not saved."
+        echo "You are not in a Git repository. Changes not saved."
     fi
 }
 
