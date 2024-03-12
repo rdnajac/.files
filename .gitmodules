@@ -19,3 +19,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vimtex"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vimtex
 	url = https://github.com/lervag/vimtex.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/ultisnips"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
