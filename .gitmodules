@@ -25,3 +25,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/copilot.vim"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/RootIgnore"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/RootIgnore
+	url = https://github.com/octref/RootIgnore.git
