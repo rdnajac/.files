@@ -1,4 +1,4 @@
-
+" ryan's .vimrc
 " under the hood {{{
 set nocompatible              " Vim behaves like Vim, not like vi
 filetype plugin on            " filetype detection and plugins
@@ -28,8 +28,6 @@ set wildignore+=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img
 " }}}
 " }}}
 
-" display {{{
-set background=dark           " Set the default background color
 
 " statusline {{{
 set statusline=                           " Clear statusline
@@ -41,15 +39,12 @@ set statusline+=[%2v,\%P]                 " Visual column number and page positi
 set laststatus=2                          " Always display the statusline
 " }}}
 
-
 " colorscheme {{{
-color retrobox
+set background=dark           " Set the default background color
+color  
 function! CycleColorschemes()
-    " List of colorschemes to cycle through
-    let s:colorschemes = [ 'default', 'habamax', 'retrobox', \
-                        'lunarperche' 'wildcharm', 'zaibatsu' ]
+    let s:colorschemes = [ 'default', 'habamax', 'retrobox', 'lunaperche', 'wildcharm', 'zaibatsu' ]
 
-    " static variable to record position
     if !exists("s:current")
         let s:current = 0
     endif
@@ -89,7 +84,6 @@ set tabstop=4                 " Set tab stop width
 set expandtab                 " Convert tabs to spaces
 " }}}
 
-" }}}
 " searh and matching {{{
 set magic                     " Enable pattern matching features in search
 set mat=2                     " Set match timeout
@@ -143,7 +137,6 @@ function! ToggleTabSettings()
   endif
 endfunction
 nnoremap <F2> :call ToggleTabSettings()<CR>
-" }}}
 
 " Keymaps {{{
 inoremap jk <esc>                         " Map 'jk' to escape in insert mode
@@ -178,6 +171,7 @@ function! SaveAndClean()
 endfunction
 nnoremap <leader>w :call SaveAndClean()<CR>
 " }}}
+" }}}
 
 " Help {{{
 " Enable the :Man command shipped inside Vim's man filetype plugin.
@@ -197,39 +191,35 @@ autocmd FileType help,man,netrw noremap <buffer> q :q<cr> " Close help, man page
 
 " }}}
 
-" Vim autocommands {{{
+" folding {{{
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
+" }}}
 
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
 autocmd BufReadPost * if foldclosed('.') != -1 | execute "normal! zv" | endif
 
-" Close completion meun
+" Close completion menu
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" }}}
 
-"Plug 'kien/ctrlp.vim'
 "Plug 'Valloric/YouCompleteMe'
-"Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-commentary'
-"Plug 'tpope/vim-surround'
-"Plug 'lervag/vimtex'
-
-" Plugin Settings {{{
-" YouCompleteMe settings
-source ~/.files/ycm-config.vim
+"source ~/.files/ycm-config.vim
 
 " ctrl-p settings
+let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
     \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
 \}
-" Use the nearest .git|.svn|.hg|.bzr directory as the cwd
-let g:ctrlp_working_path_mode = 'r'
-nmap <leader>p :CtrlP<cr>  " Enter file search mode
+
+" vim-pencil
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,text call pencil#init()
+augroup END
 
 " netrw {{{
 nnoremap <leader>e :Lexplore<CR>
@@ -243,4 +233,5 @@ let g:netrw_winsize = 25
 autocmd bufenter * if winnr("$") == 1 && &filetype == 'netrw' | q | endif
 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+
 
