@@ -13,6 +13,8 @@ set novisualbell              " Disable visual bells
 set t_vb=                     " Set visual bell pattern to none
 set timeout                   " Enable key timeout
 set timeoutlen=300            " Set key timeout length
+
+" undo
 set hidden                    " Allow hidden buffers
 set nobackup                  " Disable backup files
 set nowb                      " Disable write backup files
@@ -20,7 +22,16 @@ set noswapfile                " Disable swap files
 set undofile                  " Enable persistent undo
 set undolevels=1000           " Set number of undo levels
 set undoreload=10000          " Set number of lines for undo reload
+
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo")
+    call mkdir($HOME."/.vim/undo", "", 0700)
+endif
 set undodir=~/.vim/undo       " Set directory for undo files
+
+set undofile
 set autoread                  " Automatically reload files when changed externally
 " extensions to ignore {{{
 set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
@@ -41,7 +52,14 @@ set laststatus=2                          " Always display the statusline
 
 " colorscheme {{{
 set background=dark           " Set the default background color
-color  
+
+if has('patch-8.2.2552')
+    colorscheme retrobox
+else
+    colorscheme default
+endif
+
+color retrobox
 function! CycleColorschemes()
     let s:colorschemes = [ 'default', 'habamax', 'retrobox', 'lunaperche', 'wildcharm', 'zaibatsu' ]
 
@@ -187,7 +205,7 @@ endfunction
 nnoremap ? :call OpenHelpForSelectedWord()<CR>
 "vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR>
 
-autocmd FileType help,man,netrw noremap <buffer> q :q<cr> " Close help, man pages, and netrw with 'q'
+autocmd FileType help,man,netrw,quickfix noremap <buffer> q :q<cr> " Close help, man pages, and netrw with 'q'
 
 " }}}
 
@@ -204,6 +222,7 @@ autocmd BufReadPost * if foldclosed('.') != -1 | execute "normal! zv" | endif
 " Close completion menu
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+"if no buffers after closing a window, close the window
 
 "Plug 'Valloric/YouCompleteMe'
 "source ~/.files/ycm-config.vim
@@ -214,12 +233,6 @@ let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
     \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
 \}
-
-" vim-pencil
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd,text call pencil#init()
-augroup END
 
 " netrw {{{
 nnoremap <leader>e :Lexplore<CR>
@@ -233,5 +246,19 @@ let g:netrw_winsize = 25
 autocmd bufenter * if winnr("$") == 1 && &filetype == 'netrw' | q | endif
 
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+
+" ignore
+let g:RootIgnoreAgignore = 1
+
+" cool shit
+function! Run(command)
+    let l:command = a:command
+    let l:tempfile = tempname()
+    execute 'silent !'.l:command.' > '.l:tempfile
+    execute 'cfile '.l:tempfile
+    silent! call delete(l:tempfile)
+    copen
+    echo "Output of '".l:command."' loaded into quickfix list."
+endfunction
 
 

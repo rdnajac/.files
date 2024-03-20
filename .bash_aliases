@@ -8,7 +8,13 @@ else
     #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
 fi
 
+if [ "$ZSH_VERSION" ]; then
+    copy() { cat $1 | pbcopy }
+fi
+
+
 # shortcuts
+alias qq='~/gscs/csee4119/lab2-rdnajac'
 alias ff='cd ~/.files'
 alias vi='vim'
 alias nv='nvim'
