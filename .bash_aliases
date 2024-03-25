@@ -14,11 +14,10 @@ fi
 
 
 # shortcuts
-alias qq='~/gscs/csee4119/lab2-rdnajac'
+alias qq='cd ~/gscs/network_labs/lab3-rdnajac'
 alias ff='cd ~/.files'
 alias vi='vim'
 alias nv='nvim'
-alias qq=''
 alias p3='python3'
 alias bd='cd -'
 alias ..'=cd ..'
@@ -50,8 +49,10 @@ alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
-alias mv='mv -v'
-alias rm='rm -I -v'
+# be verbose and ask for promt on file 'deletion'
+alias mv='mv -vi'
+alias rm='rm -vi'
+
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 alias bmake='bear -- make'

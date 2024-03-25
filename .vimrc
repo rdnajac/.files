@@ -39,13 +39,26 @@ set wildignore+=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img
 " }}}
 " }}}
 
-
+" display settings {{{
+set cmdheight=1               " Set command line height
+set nowrap                    " Disable line wrapping
+set number                    " Show line numbers
+set numberwidth=3             " Set line number column width
+set pumheight=10              " Set popup menu height
+set scrolloff=8               " Set vertical scroll offset
+set showcmd                   " Show incomplete commands
+set showmatch                 " Show matching brackets
+set sidescrolloff=8           " Set horizontal scroll offset
+set signcolumn=yes            " Show sign column
+set termguicolors             " Enable true color support
 " statusline {{{
 set statusline=                           " Clear statusline
-set statusline+=%{FugitiveStatusline()}   " Git branch
+" TODO: skip fugitive if not installed
+"set statusline+=%{FugitiveStatusline()}   " Git branch
 set statusline+=\ %F\ %M\ %y\ %r          " File path, modified flag, file type, read-only flag
 set statusline+=%=                        " Right align the following items
-set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ " ASCII and hex value of char under cursor
+" TODO make this only show in certain filetypes
+"set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ " ASCII and hex value of char under cursor
 set statusline+=[%2v,\%P]                 " Visual column number and page position
 set laststatus=2                          " Always display the statusline
 " }}}
@@ -73,18 +86,6 @@ endfunction
 nnoremap <F5> :call CycleColorschemes()<CR>
 " }}}
 
-" display settings {{{
-set cmdheight=1               " Set command line height
-set nowrap                    " Disable line wrapping
-set number                    " Show line numbers
-set numberwidth=4             " Set line number column width
-set pumheight=10              " Set popup menu height
-set scrolloff=8               " Set vertical scroll offset
-set showcmd                   " Show incomplete commands
-set showmatch                 " Show matching brackets
-set sidescrolloff=8           " Set horizontal scroll offset
-set signcolumn=yes            " Show sign column
-set termguicolors             " Enable true color support
 " }}}
 
 " formatting {{{
@@ -209,11 +210,21 @@ autocmd FileType help,man,netrw,quickfix noremap <buffer> q :q<cr> " Close help,
 
 " }}}
 
-" folding {{{
-augroup filetype_vim
+
+augroup setfoldmethod
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
+
+" Set up custom fold markers for LaTeX files
+augroup setfoldmethod
+    autocmd!
+    autocmd FileType tex setlocal foldmethod=marker
+    autocmd FileType tex setlocal foldmarker={{{,}}}
+augroup END
+
+
+
 " }}}
 
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
@@ -222,7 +233,6 @@ autocmd BufReadPost * if foldclosed('.') != -1 | execute "normal! zv" | endif
 " Close completion menu
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-"if no buffers after closing a window, close the window
 
 "Plug 'Valloric/YouCompleteMe'
 "source ~/.files/ycm-config.vim
@@ -237,7 +247,7 @@ let g:ctrlp_custom_ignore = {
 " netrw {{{
 nnoremap <leader>e :Lexplore<CR>
 let g:netrw_liststyle = 3
-"let g:netrw_banner = 0 " disable banner
+let g:netrw_banner = 0 " disable banner
 let g:netrw_browse_split = 4 " open in previous window
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
@@ -261,4 +271,7 @@ function! Run(command)
     echo "Output of '".l:command."' loaded into quickfix list."
 endfunction
 
-
+augroup pencil
+  autocmd!
+  "autocmd FileType markdown, latex call pencil#init()
+augroup END
