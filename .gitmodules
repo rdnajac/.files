@@ -31,3 +31,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-snippets"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-tmux-navigator"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
