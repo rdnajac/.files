@@ -34,3 +34,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-tmux-navigator"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vimux"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vimux
+	url = https://github.com/preservim/vimux.git
