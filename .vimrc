@@ -1,185 +1,257 @@
 " ryan's .vimrc
-" under the hood {{{
-set nocompatible              " Vim behaves like Vim, not like vi
-filetype plugin on            " filetype detection and plugins
-filetype indent on            " filetype-specific indentation
-set mouse=a                   " Enable mouse in all modes
-set clipboard=unnamed         " Use system clipboard
-set backspace=indent,eol,start " Configure backspace behavior
-set whichwrap+=<,>,[,],h,l    " Configure wrapping for certain keys
-set lazyredraw                " Delay redrawing during macro execution
-set noerrorbells              " Disable error bells
-set novisualbell              " Disable visual bells
-set t_vb=                     " Set visual bell pattern to none
-set timeout                   " Enable key timeout
-set timeoutlen=300            " Set key timeout length
+" if this file is sourced, settings may within folds
+" under the hood {{{1
+filetype plugin indent on
 
-" undo
-set hidden                    " Allow hidden buffers
-set nobackup                  " Disable backup files
-set nowb                      " Disable write backup files
-set noswapfile                " Disable swap files
-set undofile                  " Enable persistent undo
-set undolevels=1000           " Set number of undo levels
-set undoreload=10000          " Set number of lines for undo reload
+" performance tweaks {{{2
+set timeoutlen=300
+set updatetime=100
+set lazyredraw
+set scrolloff=4 sidescrolloff=1
+set whichwrap+=<,>,[,],h,l
+set foldopen+=insert,jump
 
-if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim", "", 0770)
-endif
-if !isdirectory($HOME."/.vim/undo")
-    call mkdir($HOME."/.vim/undo", "", 0700)
-endif
-set undodir=~/.vim/undo       " Set directory for undo files
-
-set undofile
-set autoread                  " Automatically reload files when changed externally
-" extensions to ignore {{{
-set wildignore=*.o,*.out,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-set wildignore+=*.jpg,*.png,*.gif,*.pdf,*.exe,*.flv,*.img
-" }}}
-" }}}
-
-" display settings {{{
-set cmdheight=1               " Set command line height
-set nowrap                    " Disable line wrapping
-set number                    " Show line numbers
-set numberwidth=3             " Set line number column width
-set pumheight=10              " Set popup menu height
-set scrolloff=8               " Set vertical scroll offset
-set showcmd                   " Show incomplete commands
-set showmatch                 " Show matching brackets
-set sidescrolloff=8           " Set horizontal scroll offset
-set signcolumn=yes            " Show sign column
-set termguicolors             " Enable true color support
-" statusline {{{
-set statusline=                           " Clear statusline
-" TODO: skip fugitive if not installed
-"set statusline+=%{FugitiveStatusline()}   " Git branch
-set statusline+=\ %F\ %M\ %y\ %r          " File path, modified flag, file type, read-only flag
-set statusline+=%=                        " Right align the following items
-" TODO make this only show in certain filetypes
-"set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ " ASCII and hex value of char under cursor
-set statusline+=[%2v,\%P]                 " Visual column number and page position
-set laststatus=2                          " Always display the statusline
-" }}}
-
-" colorscheme {{{
-set background=dark           " Set the default background color
-
-if has('patch-8.2.2552')
-    colorscheme retrobox
-else
-    colorscheme default
-endif
-
-color retrobox
-function! CycleColorschemes()
-    let s:colorschemes = [ 'default', 'habamax', 'retrobox', 'lunaperche', 'wildcharm', 'zaibatsu' ]
-
-    if !exists("s:current")
-        let s:current = 0
+" vim settings that are default in neovim {{{2
+if !has("nvim")
+    syntax enable                   " prefer `:syntax enable` over `:syntax on
+    set autoindent smarttab         " enable auto-indent and smart tabbing
+    set autoread                    " auto reload files when changed outside of vim
+    set backspace=indent,eol,start  " backspace behavior
+    set encoding=utf-8              " nvim default is utf-8
+    set formatoptions+=j            " delete comment character when joining lines
+    set hidden                      " enable background buffers
+    set hlsearch incsearch          " highlighted, incremental search
+    set mouse=a                     " enable mouse in all modes
+    set nocompatible                " vim behaves like vim, not like vi
+    set noerrorbells novisualbell   " disable error bells and visual bells
+    set wildmenu wildmode=longest:full,full
+    if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man'
+        runtime ftplugin/man.vim
     endif
+endif
+" editor behavior {{{2
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set fillchars+=eob:\                " don't show end of buffer as a column of ~
+set fillchars+=stl:\                " display spaces properly in statusline
+set list listchars=trail:¿,tab:→\   " show trailing whitspace and tabs
+set nowrap linebreak                " no wrapping, but break lines appropriately if we do
+" searh and matching {{{3
+set ignorecase smartcase
+"set matchtime=2  " default is 5
+set iskeyword+=-  " treat hyphens as part of a word
+"set iskeyword+=_  " treat underscores as part of a word
+" display settings {{{2
+set background=dark termguicolors
+set completeopt=menuone,noselect
+set cursorline
+set number numberwidth=3
+set pumheight=10
+set showcmd cmdheight=1
+set showmatch
+set signcolumn=yes
+set splitbelow splitright
+if has('nvim')
+    set noshowmode      " disable showmode
+    set noshowcmd       " disable showcmd
+    set noruler         " disable ruler
+    set laststatus=3    " statusline option for nvim
+else
+    " not every version has retrobox
+    if has('patch-8.2.2552')
+        colorscheme retrobox
+    endif
+    " build our own statusline! {{{3
+    set laststatus=2                          " Always display the statusline
+    set statusline=                           " Clear statusline
+    " TODO: skip fugitive if not installed
+    set statusline+=%{FugitiveStatusline()}   " Git branch
+    set statusline+=\ %F\ %M\ %y\ %r          " File path, modified flag, file type, read-only flag
+    set statusline+=%=                        " Right align the following items
+    " TODO make this only show in certain filetypes
+    set statusline+=ascii:\ %3b\ hex:\ 0x%02B\ " ASCII and hex value of char under cursor
+    set statusline+=[%2v,\%P]                 " Visual column number and page position
+    " }}}
+endif
+" }}}
+" use an undofile instead of a swapfile {{{2
+set undofile noswapfile
+set undolevels=1000
+set undoreload=10000
+if !has('nvim')
+    let g:undo_dir = $HOME . "/.vim/.undo"
+    if !isdirectory(g:undo_dir)
+        call mkdir(g:undo_dir, "p", 0700)
+    endif
+    execute "set undodir=" . g:undo_dir
+endif
+" use the system clipboard {{{2
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamedplus
+    elseif has('unnamed')
+        set clipboard=unnamed
+    endif
+endif
+" ignore these files and folders {{{2
+set wildignore+=
+            \*.exe,*.out,*.cm*,*.o,*.a,*.so,*.dll,*.dylib,*.lib,*.bin,*.app,*.apk,*.dmg,*.iso,*.msi,*.deb,*.rpm,*.pkg,
+            \*.class,*.jar,*.pyo,*.pyd,*.node,*.swp,*.swo,*.tmp,*.temp,*.DS_Store,Thumbs.db,
+            \*/.git/*,*/.hg/*,*/.svn/*,
+            \*.pdf,*.aux,*.fdb_latexmk,*.fls,
+            \*.jpg,*.png,*.gif,*.bmp,*.tiff,*.ico,*.svg,*.webp,*.img,
+            \*.mp3,*.mp4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav,
+            \*.zip,*.tar.gz,*.rar,*.7z,*.tar.xz,*.tgz,
+            \*/node_modules/*,*/vendor/*,*/build/*,*/dist/*,*/out/*,*/bin/*,*/.vscode/*,*/__pycache__/*,*/.cache/*
 
-    let s:current = (s:current + 1) % len(s:colorschemes)
-    execute 'colorscheme ' . s:colorschemes[s:current]
-endfunction
-nnoremap <F5> :call CycleColorschemes()<CR>
 " }}}
 
-" }}}
+" keymaps {{{1
+let mapleader = "\<space>"
 
-" formatting {{{
-syntax on                     " Enable syntax highlighting
-set encoding=utf-8            " Use UTF-8 as the default encoding
-set fileformat=unix           " Set file format to Unix
-set listchars=trail:¿,tab:→\  " Show tabs and trailing spaces
-set list                      " Enable listchars
-set autoindent                " Automatically indent new lines
-set smartindent               " Enable smart indentation
-set smarttab                  " Insert spaces for tabs
-set cindent                   " Enable C-style indentation
-set shiftwidth=4              " Set width for auto-indents
-set tabstop=4                 " Set tab stop width
-set expandtab                 " Convert tabs to spaces
-" }}}
+" note on reserved mappings {{{2
+" the following keymaps are reserved for neovim mappings:
+" `<leaader>g` - git
+" `<leaader>l` - lsp
 
-" searh and matching {{{
-set magic                     " Enable pattern matching features in search
-set mat=2                     " Set match timeout
-set hlsearch                  " Highlight search results
-set incsearch                 " Incremental search
-set ignorecase                " Ignore case in search patterns
-set smartcase                 " Override ignorecase if search pattern contains uppercase
-set wildmenu                  " Enable wildmenu for command completion
-set wildmode=list:longest,full " Configure command completion
-
-" Toggle highlight search
+" normal mode keymaps {{{2
+" toggle highlight search
+" TODO add this to which-key
 nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
-" Search and replace word under cursor {{{
-nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
-nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
-nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
-nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
-" }}}
+" courtesy of learn vim the hard way {{{3
+"unmap <up> <down> <left> <right>
+inoremap jk <esc>
+vnoremap jk <esc>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+"}}}
 
-" Center searches {{{
-nnoremap n nzz                            " Center cursor after 'n'
-nnoremap N Nzz                            " Center cursor after 'N'
-nnoremap * *zz                            " Center cursor after '*'
-nnoremap # #zz                            " Center cursor after '#'
-nnoremap g* g*zz                          " Center cursor after 'g*'
-nnoremap g# g#zz                          " Center cursor after 'g#'
-nnoremap <C-d> <C-d>zz                    " Center cursor after Ctrl-d
-nnoremap <C-u> <C-u>zz                    " Center cursor after Ctrl-u
-" }}}
-" }}}
-
-" buffers and windows {{{
-set splitbelow                " Open new split panes below current pane
-set splitright                " Open new split panes to the right of current pane
-nnoremap <leader>+ <esc>:badd             " Add new buffer
-nnoremap <leader>- <esc>:vs<CR>:bnext<CR> " Vertical split and next buffer
-nnoremap <leader>_ <esc>:sp<CR>:bnext<CR> " Horizontal split and next buffer
-nnoremap L :bnext<CR>                     " Next buffer
-nnoremap H :bprevious<CR>                 " Previous buffer
-nmap <leader>bl :ls<CR>                   " List buffers
-" }}}
-
-" toggle linux tab rules
-" TODO move this to c ftplugin
-function! ToggleTabSettings()
-  if &tabstop == 4
-    set tabstop=8 shiftwidth=8 noexpandtab
-  else
-    set tabstop=4 shiftwidth=4 expandtab
-  endif
-endfunction
-nnoremap <F2> :call ToggleTabSettings()<CR>
-
-" Keymaps {{{
-inoremap jk <esc>                         " Map 'jk' to escape in insert mode
-let mapleader = "\<space>"                " Set leader key to space
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>  " Edit Vimrc in vertical split
-nnoremap <leader>sv :source $MYVIMRC<cr>  " Source Vimrc
-nnoremap <leader>q :bp <BAR> bd #<CR>     " Quick buffer close (also closes split)
+"nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :bp <BAR> bd #<CR>
+nnoremap <leader>Q :qa!<cr>
+"nnoremap <leader>l :set list!<cr>
 
 nnoremap <leader>o o<esc>                 " Insert blank line below without leaving normal mode
 nnoremap <leader>O O<esc>                 " Insert blank line above without leaving normal mode
 nnoremap <leader><tab> i<tab><esc>        " Insert tab without leaving normal mode
 nnoremap <leader><space> i<space><esc>    " Insert space without leaving normal mode
+
 nnoremap <leader>< V`]<       " Indent pasted text
 nnoremap <leader>> V`]>       " Dedent pasted text
 
-nnoremap <leader>c :set cursorline! cursorcolumn!<cr> :execute "set colorcolumn=" . (&colorcolumn == "" ? "81" :"")<cr> " Toggle cursor line/column
-
 vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR> " Replace in visual selection
 
-" quicksave and remove whitespace {{{
-function! SaveAndClean()
+" TODO test move text up and down
+nnoremap <silent> <A-j> :m .+1<CR>==
+nnoremap <silent> <A-k> :m .-2<CR>==
+"keymap("n", "<a-j>", "<esc>:m .+1<cr>==gi", opts) -- Alt-j
+"keymap("n", "<a-k>", "<esc>:m .-2<cr>==gi", opts) -- Alt-k
+
+" buffers and windows {{{2
+" buffer navigation {{{3
+nnoremap <leader>vs :vs<CR>
+nnoremap <leader>sp :sp<CR>
+nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
+nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
+nnoremap L :bnext<CR>
+nnoremap H :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <leader>bl :ls<CR>
+" switch between windows using ctrl {{{3
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-l> <C-w>l
+" navigate in terminal mode {{{3
+tnoremap <silent> <C-h> <C-\><C-n><C-w>h
+tnoremap <silent> <C-j> <C-\><C-n><C-w>j
+tnoremap <silent> <C-k> <C-\><C-n><C-w>k
+tnoremap <silent> <C-l> <C-\><C-n><C-w>l
+" search and replace {{{2
+" center searches {{{3
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+" find and replace word under cursor {{{3
+nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+" visual and visual block {{{2
+vnoremap < <gv
+vnoremap > >gv
+
+" move selected block of text up and down
+xnoremap <silent> J :move '>+1<CR>gv-gv
+xnoremap <silent> K :move '<-2<CR>gv-gv
+xnoremap <silent> <A-j> :move '>+1<CR>gv-gv
+xnoremap <silent> <A-k> :move '<-2<CR>gv-gv
+" paste without replacing clipboard
+xnoremap <silent> p "_dP
+
+
+" functions {{{1
+" ==============================================================================
+" Function: ToggleCursorColumn()
+" Description: Toggles the cursor column. Takes an optional argument to set the
+"             column number.
+" Usage: :call ToggleCursorColumn(80)
+" Keymap: <F4> (normal mode)
+" ==============================================================================
+function! ToggleCursorColumn(...)
+  let l:column = get(a:, 1, 81) " Default column number to 81 if not provided
+  if &colorcolumn == ""
+    execute "set colorcolumn=" . l:column
+  else
+    set colorcolumn=
+  endif
+  set cursorcolumn!
+endfunction
+nnoremap <F4> :call ToggleCursorColumn()<cr>
+
+" ==============================================================================
+" Function: GetInfo()
+" Description: Displays information about the word under the cursor.
+" Usage: :call GetInfo()
+" Keymap: ? (normal mode)
+" ==============================================================================
+function! GetInfo()
+    let l:word = expand('<cword>')
+    try
+        execute "tag " . l:word
+    catch
+        try
+            execute "help " . l:word
+        catch
+            try
+                execute "Man " . l:word
+            catch
+                echo "no info found for " . l:word
+            endtry
+        endtry
+    endtry
+endfunction
+nnoremap ? :call GetInfo()<CR>
+
+" ==============================================================================
+" Function: RemoveTrailingWhitespaceAndSave()
+" Description: Removes trailing whitespace from the current buffer and saves it.
+" Usage: :call RemoveTrailingWhitespaceAndSave()
+" Keymap: <F2> (normal mode)
+" ==============================================================================
+function! RemoveTrailingWhitespaceAndSave()
     let l:save_cursor = getpos(".")
     let l:before_length = join(getline(1,'$'), "\n")
-    %s/\s\+$//e " find and replace all whitespace with nothing
+    %s/\s\+$//e
     let l:after_length = join(getline(1,'$'), "\n")
     let l:bytes_deleted = strlen(l:before_length) - strlen(l:after_length)
     call setpos('.', l:save_cursor)
@@ -188,90 +260,143 @@ function! SaveAndClean()
         echohl WarningMsg | echom "Removed trailing whitespace: " . l:bytes_deleted . " byte(s) deleted." | echohl None
     endif
 endfunction
-nnoremap <leader>w :call SaveAndClean()<CR>
-" }}}
+nnoremap <F2> :call RemoveTrailingWhitespaceAndSave()<CR>
+
+" ==============================================================================
+" Function: ToggleTabSettings()
+" Description: Toggles between tab settings for C, C++, and Make files.
+" Usage: :call ToggleTabSettings()
+" Keymap: <F3> (normal mode)
+" ==============================================================================
+function! ToggleTabSettings()
+    if &l:tabstop == 4
+        setlocal tabstop=8 shiftwidth=8 noexpandtab
+    else
+        setlocal tabstop=4 shiftwidth=4 expandtab
+    endif
+endfunction
+nnoremap <F3> :call ToggleTabSettings()<CR>
+
+" ==============================================================================
+" Function: CycleColorschemes()
+" Description: Cycles through a list of colorschemes.
+" Usage: :call CycleColorschemes()
+" Keymap: <F5> (normal mode)
+" ==============================================================================
+function! CycleColorschemes()
+    let s:colorschemes = [ 'default', 'habamax', 'retrobox', 'lunaperche', 'wildcharm', 'zaibatsu' ]
+    if !exists("s:current")
+        let s:current = 0
+    endif
+    let s:current = (s:current + 1) % len(s:colorschemes)
+    execute 'colorscheme ' . s:colorschemes[s:current]
+endfunction
+nnoremap <F5> :call CycleColorschemes()<CR>
+
+" ==============================================================================
+" Function: NewCHeader()
+" Description: Creates a new C header file.
+" Usage: :call NewCHeader('filename')
+" ==============================================================================
+function! NewCHeader(filename)
+    let headerFilename = a:filename . ".h"
+    let capsFilename = toupper(a:filename)
+    let content = ["#ifndef _" . capsFilename . "_H", "#define _" . capsFilename . "_H", "", "#endif /* _" . capsFilename . "_H */"]
+    call writefile(content, headerFilename)
+    echo "header file created: " . headerFilename
+endfunction
+
+" autocommands {{{1
+augroup myautocmds
+    autocmd!
+
+    " move to last cursor position when opening a file
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
+
+    " close certain buffers with just `q`
+    autocmd FileType help,man,netrw,quickfix,git,lspinfo silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
+
+    " enable word wrapping and spell checking
+    autocmd FileType text,gitcommit,markdown,NeogitCommitMessage setlocal wrap spell
+
+    " tab settings for c cpp and make
+    autocmd FileType c setlocal cindent noet ts=8 sw=8
+    autocmd FileType cpp setlocal cindent et ts=4 sw=4
+    autocmd FileType make setlocal noet ts=8 sw=8
+
+    " TODO did I delete this from autocmds.lua?
+    " autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+
+    " line folding
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType tex setlocal foldmethod=marker foldmarker={{{,}}}
+
+augroup END
 " }}}
 
-" Help {{{
-" Enable the :Man command shipped inside Vim's man filetype plugin.
-if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
-  runtime ftplugin/man.vim
+" vim plugin settings {{{1
+let g:netrw_banner = 0
+if !has("nvim")
+    nnoremap <leader>e :Lexplore<CR>
+    let g:netrw_liststyle = 3
+    let g:netrw_browse_split = 4 " open in previous window
+    let g:netrw_altv = 1
+    let g:netrw_winsize = 15
+    autocmd bufenter * if winnr("$") == 1 && &filetype == 'netrw' | q | endif
 endif
 
-function! OpenHelpForSelectedWord()
-    let word = expand('<cword>')
-    execute 'help ' . word
-endfunction
+if exists(':CtrlP')
+    let g:ctrlp_working_path_mode = 'ra'
+endif
 
-nnoremap ? :call OpenHelpForSelectedWord()<CR>
-"vnoremap <leader>h :<C-U>call OpenHelpForSelectedWord()<CR>
+if exists(':UltiSnips')
+    let g:UltiSnipsSnippetDirectories   =[$HOME.'/.vim/UltiSnips']
+    let g:UltiSnipsExpandTrigger = "<tab>"
+    let g:UltiSnipsJumpForwardTrigger = "<tab>"
+    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+endif
 
-autocmd FileType help,man,netrw,quickfix noremap <buffer> q :q<cr> " Close help, man pages, and netrw with 'q'
+if exists(':VimtexInverseSearch')
+    let g:vimtex_view_method='skim'
+endif
 
-" }}}
+if exists(':ycm')
+"set completeopt-=preview
+"nnoremap <leader>] :YcmCompleter GoTo<CR>
+"nnoremap ? <plug>(YCMHover)
+let g:ycm_clangd_args = [ '--header-insertion=never' ]
 
+let g:ycm_enable_semantic_highlighting=1
+let MY_YCM_HIGHLIGHT_GROUP = {
+      \   'typeParameter': 'PreProc',
+      \   'parameter': 'Normal',
+      \   'variable': 'Normal',
+      \   'property': 'Normal',
+      \   'enumMember': 'Normal',
+      \   'event': 'Special',
+      \   'member': 'Normal',
+      \   'method': 'Normal',
+      \   'class': 'Special',
+      \   'namespace': 'Special',
+      \ }
 
-augroup setfoldmethod
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
+for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
+  call prop_type_add( 'YCM_HL_' . tokenType,
+                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
+endfor
 
-" Set up custom fold markers for LaTeX files
-augroup setfoldmethod
-    autocmd!
-    autocmd FileType tex setlocal foldmethod=marker
-    autocmd FileType tex setlocal foldmarker={{{,}}}
-augroup END
+"let g:ycm_enable_inlay_hints=1
+" Modify below if you want less invasive semantic auto-complete
+let g:ycm_semantic_triggers = {
+    \   'c,objc' : ['->', '.'],
+    \   'cpp,objcpp' : ['->', '.', '::'],
+    \   'perl' : ['->'],
+    \ }
 
-
-
-" }}}
-
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
-autocmd BufReadPost * if foldclosed('.') != -1 | execute "normal! zv" | endif
-
-" Close completion menu
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-
-"Plug 'Valloric/YouCompleteMe'
-"source ~/.files/ycm-config.vim
-
-" ctrl-p settings
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-    \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
-
-" netrw {{{
-nnoremap <leader>e :Lexplore<CR>
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0 " disable banner
-let g:netrw_browse_split = 4 " open in previous window
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-
-" close if netrw is the only buffer
-autocmd bufenter * if winnr("$") == 1 && &filetype == 'netrw' | q | endif
-
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-
-" ignore
-let g:RootIgnoreAgignore = 1
-
-" cool shit
-function! Run(command)
-    let l:command = a:command
-    let l:tempfile = tempname()
-    execute 'silent !'.l:command.' > '.l:tempfile
-    execute 'cfile '.l:tempfile
-    silent! call delete(l:tempfile)
-    copen
-    echo "Output of '".l:command."' loaded into quickfix list."
-endfunction
-
-augroup pencil
-  autocmd!
-  "autocmd FileType markdown, latex call pencil#init()
-augroup END
+let g:ycm_complete_in_comments_and_strings = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_show_diagnostics_ui=0
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:ycm_min_num_of_chars_for_completion = 99
+endif

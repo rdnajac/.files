@@ -63,7 +63,7 @@ function cl() {
     if [ $# -lt 1 ]; then
         DIR=$HOME;
     fi;
-    builtin cd "${DIR}" && ll
+    builtin cd "${DIR}" && l
 }
 
 function ree {
