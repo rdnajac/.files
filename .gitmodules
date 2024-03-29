@@ -43,3 +43,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-repeat"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/editorconfig-vim"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
