@@ -37,3 +37,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vimux"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vimux
 	url = https://github.com/preservim/vimux.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-which-key"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key.git
