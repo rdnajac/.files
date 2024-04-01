@@ -1,0 +1,37 @@
+# setup script to link dotfiles to the home directory
+
+dotfiles=$(git rev-parse --show-toplevel)
+
+function sync() {
+    filename=".$1"
+    if [ -e ~/$filename ]; then
+        echo "found $filename in home directory"
+        echo "moving $filename to $filename.old"
+        mv -iv ~/$filename ~/$filename.old
+    fi
+    echo "linking $1..."
+    ln -sfv $dotfiles/$1 ~/$filename
+}
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sync zshrc
+fi
+
+sync vim
+sync tmux.conf
+
+if command -v alacritty &>/dev/null; then
+    dir="$HOME/.config/alacritty"
+    mkdir -vp "$dir"
+    ln -sfn "$dotfiles/alacritty.toml" "$dir/alacritty.toml" 
+else
+    echo "Alacritty is not installed. Please install Alacritty first."
+fi
+
+# ensure we have tmux installed
+if ! command -v tmux &>/dev/null; then
+    echo "tmux is not installed. Please install tmux first."
+    exit 1
+fi
+
+exec $SHELL

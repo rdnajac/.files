@@ -1,19 +1,6 @@
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
+
 alias cd='cl'
-# prompt
-if [ "$ZSH_VERSION" ]; then
-    PS1='[%F{magenta}%*%f] %F{blue}%~%f ₽ '
-    #alias vim ='vim -S ~/.files/.vimrc'
-else
-    #PS1='\[\e[1;2m\]\t \[\e[0;1m\]\u\[\e[0;97m\]@\[\e[0;1m\]\h\[\e[0m\]:\[\e[96;1m\]\w\[\e[39m\]\$ '
-fi
-
-if [ "$ZSH_VERSION" ]; then
-    copy() { cat $1 | pbcopy }
-fi
-
-
-# shortcuts
 alias qq='cd ~/gscs/network_labs/lab3-rdnajac'
 alias ff='cd ~/.files'
 alias vi='vim'
@@ -23,19 +10,19 @@ alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
-alias vp='cd ~/.files/.vim/pack/plugins/start'
+alias vp='cd ~/.files/vim/pack/plugins/start'
 alias db='dune build '
 
 # settings
-alias vimm='vim ~/.files/.vimrc'
-alias bashr='vim ~/.files/.bashrc'
-alias basha='vim ~/.files/.bash_aliases'
+alias vimm='vim ~/.files/vim/vimrc'
+alias sha='vim ~/.files/shell/aliases'
 alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.toml'
 
-# linux kernel development
-alias kmake='cd ~/kernel_dev/linux && sudo make -j5 && \
-    sudo make modules_install -j3  && sudo make install && sudo reboot'
+alias kmake='cd ~/kernel_dev/linux && \
+                sudo make -j && \
+                sudo make modules_install -j3 && \
+                sudo make install && sudo reboot'
 
 # tmux
 alias tmux='tmux -2'
@@ -43,17 +30,10 @@ alias tmx='tmux attach-session'
 alias tmxx='vim ~/.files/.tmux.conf'
 alias kms='tmux kill-server'
 
-# use gnu ls and stat on apple os
-if [ !"$BASH" ]; then
-    alias ls='gls --color=auto'
-    #alias stat='gstat'
-fi
-
 alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
 
-# be verbose and ask for promt on file 'deletion'
 alias mv='mv -vi'
 alias rm='rm -vi'
 
@@ -73,11 +53,7 @@ function cl() {
 function ree {
     clear -x
     echo -e "\n(╯°□°)╯︵ ┻━┻\n"
-    if [ "$ZSH_VERSION" ]; then
-        exec zsh
-    else
-        exec bash
-    fi
+    exec $(basename $SHELL) 
 }
 
 # lazy git add/commit/push
