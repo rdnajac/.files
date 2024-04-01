@@ -46,3 +46,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/editorconfig-vim"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-markdown"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-markdown
+	url = https://github.com/preservim/vim-markdown.git
