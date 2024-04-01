@@ -27,7 +27,7 @@ alias kmake='cd ~/kernel_dev/linux && \
 # tmux
 alias tmux='tmux -2'
 alias tmx='tmux attach-session'
-alias tmxx='vim ~/.files/.tmux.conf'
+alias tmxx='vim ~/.files/tmux.conf'
 alias kms='tmux kill-server'
 
 alias ll='ls -AlFh --group-directories-first'
@@ -52,8 +52,9 @@ function cl() {
 
 function ree {
     clear -x
-    echo -e "\n(╯°□°)╯︵ ┻━┻\n"
-    exec $(basename $SHELL) 
+    tmux source-file ~/.tmux.conf 2> /dev/null
+    echo -e "(╯°□°)╯︵ ┻━┻"
+    exec $(basename $SHELL)
 }
 
 # lazy git add/commit/push

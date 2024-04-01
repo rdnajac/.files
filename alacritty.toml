@@ -19,28 +19,16 @@ foreground = "#39ff14"
 size = 13.0
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font Mono"
-# I think we can omit these and defaut to above
-# [font.bold]
-# family = "JetBrainsMonoNL Nerd Font Mono"
-# [font.italic]
-# family = "JetBrainsMonoNL Nerd Font Mono"
-# [font.bold_italic]
-# family = "JetBrainsMonoNL Nerd Font Mono"
 
 [[mouse.bindings]]
 action = "Copy"
 mouse = "Right"
 
-# disable closing window on cmd + w
 [[keyboard.bindings]]
 key = "W"
 mods = "Command"
 action = "None"
 
 [selection]
-# Semantic Escape Characters
-# same as below but in toml not yml
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 save_to_clipboard = true
-
-

@@ -1,37 +1,45 @@
-# setup script to link dotfiles to the home directory
+#!/bin/bash
 
-dotfiles=$(git rev-parse --show-toplevel)
+# Setup script to link dotfiles to the home directory
+sync_file() {
+    local src="$HOME/.files/$1"
+    local dest="$HOME/.$1"
 
-function sync() {
-    filename=".$1"
-    if [ -e ~/$filename ]; then
-        echo "found $filename in home directory"
-        echo "moving $filename to $filename.old"
-        mv -iv ~/$filename ~/$filename.old
+    if [ -e "$dest" ]; then
+        echo "Found .$1 in home directory."
+        if [ ! -L "$dest" ]; then
+            echo "Moving .$1 to .$1.old"
+            mv -iv "$dest" "$dest.old"
+        fi
     fi
-    echo "linking $1..."
-    ln -sfv $dotfiles/$1 ~/$filename
+    echo "Linking $1..."
+    ln -sfv "$src" "$dest"
 }
 
+# Sync files based on OS type
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    sync zshrc
+    sync_file zshrc
 fi
 
-sync vim
-sync tmux.conf
+# Always sync vim and tmux.conf
+sync_file vim
+sync_file tmux.conf
 
+# Alacritty configuration
 if command -v alacritty &>/dev/null; then
-    dir="$HOME/.config/alacritty"
-    mkdir -vp "$dir"
-    ln -sfn "$dotfiles/alacritty.toml" "$dir/alacritty.toml" 
+    alacritty_dir="$HOME/.config/alacritty"
+    mkdir -vp "$alacritty_dir"
+    ln -sfn "$HOME/.files/alacritty.toml" "$alacritty_dir/alacritty.toml" 
 else
     echo "Alacritty is not installed. Please install Alacritty first."
 fi
 
-# ensure we have tmux installed
+# Check for tmux installation
 if ! command -v tmux &>/dev/null; then
     echo "tmux is not installed. Please install tmux first."
     exit 1
 fi
 
+# Relaunch shell
 exec $SHELL
+
