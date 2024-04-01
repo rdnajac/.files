@@ -1,6 +1,3 @@
-[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar"]
-	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-vinegar
-	url = https://github.com/tpope/vim-vinegar.git
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -10,12 +7,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-commentary"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
-[submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-pencil"]
-	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-pencil
-	url = https://github.com/preservim/vim-pencil.git
-[submodule "/Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim"]
-	path = /Users/rdn/.files/.vim/pack/plugins/start/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim.git
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vimtex"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vimtex
 	url = https://github.com/lervag/vimtex.git

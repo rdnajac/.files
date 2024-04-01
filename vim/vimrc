@@ -1,17 +1,23 @@
 " ryan's .vimrc
-" if this file is sourced, settings may within folds
+" vim: set foldmethod=marker foldlevel=1:
+color scheme
 " under the hood {{{1
 filetype plugin indent on
+
+" formatting options {{{2
+set fo-=o
+" TODO what do we want to set conceal level to?
+set conceallevel=0
 
 " performance tweaks {{{2
 set timeoutlen=300
 set updatetime=100
 set lazyredraw
-set scrolloff=4 sidescrolloff=1
+set scrolloff=4 sidescrolloff=0
 set whichwrap+=<,>,[,],h,l
-set foldopen+=insert,jump
+"set foldopen+=insert,jump
 
-" vim settings that are default in neovim {{{2
+" neovim defaults {{{2
 if !has("nvim")
     syntax enable                   " prefer `:syntax enable` over `:syntax on
     set autoindent smarttab         " enable auto-indent and smart tabbing
@@ -45,23 +51,24 @@ set iskeyword+=-  " treat hyphens as part of a word
 " display settings {{{2
 set background=dark termguicolors
 set completeopt=menuone,noselect
-set cursorline
-set number numberwidth=3
+"set cursorline
+set number numberwidth=3 relativenumber
 set pumheight=10
 set showcmd cmdheight=1
 set showmatch
 set signcolumn=yes
 set splitbelow splitright
+
+
+" statusline {{{2
 if has('nvim')
-    set noshowmode      " disable showmode
-    set noshowcmd       " disable showcmd
-    set noruler         " disable ruler
+    "set noshowmode      " disable showmode
+    "set noshowcmd       " disable showcmd
+    "set noruler         " disable ruler
     set laststatus=3    " statusline option for nvim
+    set clipboard=unnamedplus
 else
-    " not every version has retrobox
-    if has('patch-8.2.2552')
-        colorscheme retrobox
-    endif
+        set clipboard=unnamed
     " build our own statusline! {{{3
     set laststatus=2                          " Always display the statusline
     set statusline=                           " Clear statusline
@@ -75,26 +82,25 @@ else
     " }}}
 endif
 " }}}
-" use an undofile instead of a swapfile {{{2
+" undofile {{{2
+" use an undofile instead of a swapfile
 set undofile noswapfile
 set undolevels=1000
 set undoreload=10000
 if !has('nvim')
-    let g:undo_dir = $HOME . "/.vim/.undo"
+    let g:undo_dir = $HOME . "/.vim/undo"
     if !isdirectory(g:undo_dir)
         call mkdir(g:undo_dir, "p", 0700)
     endif
     execute "set undodir=" . g:undo_dir
 endif
-" use the system clipboard {{{2
-if has('clipboard')
-    if has('unnamedplus')
-        set clipboard=unnamedplus
-    elseif has('unnamed')
-        set clipboard=unnamed
-    endif
+" use the system clipboard
+if has('nvim')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
 endif
-" ignore these files and folders {{{2
+" ignore these patterns {{{2
 set wildignore+=
             \*.exe,*.out,*.cm*,*.o,*.a,*.so,*.dll,*.dylib,*.lib,*.bin,*.app,*.apk,*.dmg,*.iso,*.msi,*.deb,*.rpm,*.pkg,
             \*.class,*.jar,*.pyo,*.pyd,*.node,*.swp,*.swo,*.tmp,*.temp,*.DS_Store,Thumbs.db,
@@ -106,56 +112,102 @@ set wildignore+=
             \*/node_modules/*,*/vendor/*,*/build/*,*/dist/*,*/out/*,*/bin/*,*/.vscode/*,*/__pycache__/*,*/.cache/*
 
 " }}}
-
 " keymaps {{{1
 let mapleader = "\<space>"
 
-" note on reserved mappings {{{2
-" the following keymaps are reserved for neovim mappings:
-" `<leaader>g` - git
-" `<leaader>l` - lsp
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :qa!<cr>
+nnoremap <leader>e :vs $MYVIMRC <cr>
+nnoremap <leader>s :source ~/.vimrc<cr>
+nnoremap <leader>h :set hlsearch!<cr>
+nnoremap <leader>n :set number!<cr>
+nnoremap <leader>r :set relativenumber!<cr>
+nnoremap <leader>c :set cu sorline!<cr>
+nnoremap <leader>t :set list!<cr>
+nnoremap <leader>o i<cr><esc>
+nnoremap <tab> i<tab><esc>
+nnoremap <space> i<space><esc>
+nnoremap > V`]>
+nnoremap < V`]<
 
-" normal mode keymaps {{{2
-" toggle highlight search
-" TODO add this to which-key
-nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+" ==============================================================================
+" whickey setup {{{2
+let g:which_key_map =  {}
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+call which_key#register('<Space>', "g:which_key_map")
+"}}}2
+nnoremap <leader>vx :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+nnoremap <leader>vp :VimuxPromptCommand<CR>
+nnoremap <leader>vl :VimuxRunLastCommand<CR>
+nnoremap <leader>vi :VimuxInspectRunner<CR>
+nnoremap <leader>vq :VimuxCloseRunner<CR>
+nnoremap <leader>vz :call VimuxZoomRunner()<CR>
+nnoremap <leader>vc :VimuxClearTerminalScreen<CR>
 
-" courtesy of learn vim the hard way {{{3
-"unmap <up> <down> <left> <right>
+
+let g:which_key_map['f'] = {
+      \ 'name' : '+file' ,
+      \ 'e' : [':Lexplore<cr>' , 'explore files'],
+      \ 's' : [':set list!<cr>' , 'toggle list'],
+      \ 'w' : [':set wrap!<cr>' , 'toggle wrap'],
+      \ 'h' : [':set hlsearch!<cr>' , 'toggle hlsearch'],
+      \ 'n' : [':set number!<cr>' , 'toggle number'],
+      \ 'r' : [':set relativenumber!<cr>' , 'toggle relativenumber'],
+      \ 'c' : [':set cursorline!<cr>' , 'toggle cursorline'],
+      \ }
+call which_key#register('f', "g:which_key_map")
+
+let g:which_key_map['g'] = {
+      \ 'name' : '+git' ,
+      \ 'b' : [':Git blame<cr>' , 'blame'],
+      \ 'c' : [':Git commit<cr>' , 'commit'],
+      \ 'd' : [':Git diff<cr>' , 'diff'],
+      \ 'e' : [':Git edit<cr>' , 'edit'],
+        \ 'l' : [':Git log<cr>' , 'log'],
+        \ 'r' : [':Git read<cr>' , 'read'],
+        \ 's' : [':Git status<cr>' , 'status'],
+        \ 'w' : [':Git write<cr>' , 'write'],
+        \ 'p' : [':Git push<cr>' , 'push'],
+        \ 'P' : [':Git pull<cr>' , 'pull'],
+        \ 'm' : [':Git merge<cr>' , 'merge'],
+        \ }
+call which_key#register('g', "g:which_key_map")
+
+
+" hardmode {{{2
+" unmap arrow keys in all modes {{{3
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" remap jk to escape in i/v/n modes {{{3
 inoremap jk <esc>
 vnoremap jk <esc>
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-"}}}
+inoremap kj <esc>
+vnoremap jk <esc>
+" Replace in visual selection
+vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
 
-"nnoremap <leader>q :q<cr>
-nnoremap <leader>w :w<cr>
-nnoremap <leader>q :bp <BAR> bd #<CR>
-nnoremap <leader>Q :qa!<cr>
-"nnoremap <leader>l :set list!<cr>
-
-nnoremap <leader>o o<esc>                 " Insert blank line below without leaving normal mode
-nnoremap <leader>O O<esc>                 " Insert blank line above without leaving normal mode
-nnoremap <leader><tab> i<tab><esc>        " Insert tab without leaving normal mode
-nnoremap <leader><space> i<space><esc>    " Insert space without leaving normal mode
-
-nnoremap <leader>< V`]<       " Indent pasted text
-nnoremap <leader>> V`]>       " Dedent pasted text
-
-vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR> " Replace in visual selection
-
-" TODO test move text up and down
+" TODO test move text up and down {{{3
 nnoremap <silent> <A-j> :m .+1<CR>==
 nnoremap <silent> <A-k> :m .-2<CR>==
 "keymap("n", "<a-j>", "<esc>:m .+1<cr>==gi", opts) -- Alt-j
 "keymap("n", "<a-k>", "<esc>:m .-2<cr>==gi", opts) -- Alt-k
 
-" buffers and windows {{{2
-" buffer navigation {{{3
-nnoremap <leader>vs :vs<CR>
-nnoremap <leader>sp :sp<CR>
-nnoremap <leader>- <esc>:vs<CR>:bnext<CR>
-nnoremap <leader>_ <esc>:sp<CR>:bnext<CR>
+" buffers and windows
+" use arrow keys to switch between windows
+nnoremap <silent> <right> <C-w>l
+nnoremap <silent> <left> <C-w>h
+nnoremap <silent> <up> <C-w>k
+nnoremap <silent> <down> <C-w>j
+
+" split windows like tmux?
+" nnoremap % :vs<CR>bnext<CR>
+" nnoremap " :sp<CR>bnext<CR>
+
 nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
 nnoremap <Tab> :bnext<CR>
@@ -180,16 +232,19 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
+nnoremap <C-u> <C-u>zzo
+
 " find and replace word under cursor {{{3
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+
 " visual and visual block {{{2
 vnoremap < <gv
 vnoremap > >gv
 
+" xmode {{{2
 " move selected block of text up and down
 xnoremap <silent> J :move '>+1<CR>gv-gv
 xnoremap <silent> K :move '<-2<CR>gv-gv
@@ -198,8 +253,73 @@ xnoremap <silent> <A-k> :move '<-2<CR>gv-gv
 " paste without replacing clipboard
 xnoremap <silent> p "_dP
 
-
 " functions {{{1
+
+" {{{ <F1> GetInfo()
+function! GetInfo()
+    let l:word = expand('<cword>')
+    try
+        execute "tag " . l:word
+    catch
+        try
+            execute "help " . l:word
+        catch
+            try
+                execute "Man " . l:word
+            catch
+                echo "no info found for " . l:word
+            endtry
+        endtry
+    endtry
+endfunction
+noremap <F1> :call GetInfo()<CR>
+" }}}
+
+" ==============================================================================
+" Function: RemoveTrailingWhitespaceAndSave() {{{2 <F2>
+" Description: Removes trailing whitespace from the current buffer and saves it.
+" Keymap: <F2> (normal mode)
+" ==============================================================================
+function! RemoveTrailingWhitespaceAndSave()
+  let l:save_cursor = getpos(".")
+  let l:before_length = join(getline(1,'$'), "\n")
+  %s/\s\+$//e
+  let l:after_length = join(getline(1,'$'), "\n")
+  let l:bytes_deleted = strlen(l:before_length) - strlen(l:after_length)
+  call setpos('.', l:save_cursor)
+  write!
+  if l:bytes_deleted > 0
+    echohl WarningMsg | echom "Removed trailing whitespace: " . l:bytes_deleted . " byte(s) deleted." | echohl None
+  endif
+endfunction
+nnoremap <F2> :call RemoveTrailingWhitespaceAndSave()<CR>
+
+" ==============================================================================
+" Function: FormatBufferSaveAndReload()
+" Description: Formats the current buffer using an external program depending
+" on filetype and saves, then reloads the buffer.
+" Keymap: <F3> (normal mode)
+" ==============================================================================
+function! FormatBufferSaveAndReload()
+    let l:filetype = &filetype
+    if l:filetype == 'vim'
+        execute "silent !vim -c 'normal gg=G' -c 'wqa' " . expand('%') | edit
+    elseif l:filetype == 'c' || l:filetype == 'cpp'
+        echo "Formatting c/cpp"
+        "execute "silent !clang-format -i " . expand('%') | edit
+    elseif l:filetype == 'python'
+        echo "Formatting python"
+        "execute "silent !autopep8 --in-place " . expand('%') | edit
+    elseif l:filetype == 'lua'
+        echo "Formatting lua"
+        "execute "silent !lua-format -i " . expand('%') | edit
+    elseif l:filetype == 'html'
+        "execute "silent !pretter --write " . expand('%') | edit
+    else
+        echo "No formatting available for filetype: " . l:filetype
+    endif
+endfunction
+
 " ==============================================================================
 " Function: ToggleCursorColumn()
 " Description: Toggles the cursor column. Takes an optional argument to set the
@@ -219,54 +339,10 @@ endfunction
 nnoremap <F4> :call ToggleCursorColumn()<cr>
 
 " ==============================================================================
-" Function: GetInfo()
-" Description: Displays information about the word under the cursor.
-" Usage: :call GetInfo()
-" Keymap: ? (normal mode)
-" ==============================================================================
-function! GetInfo()
-    let l:word = expand('<cword>')
-    try
-        execute "tag " . l:word
-    catch
-        try
-            execute "help " . l:word
-        catch
-            try
-                execute "Man " . l:word
-            catch
-                echo "no info found for " . l:word
-            endtry
-        endtry
-    endtry
-endfunction
-nnoremap ? :call GetInfo()<CR>
-
-" ==============================================================================
-" Function: RemoveTrailingWhitespaceAndSave()
-" Description: Removes trailing whitespace from the current buffer and saves it.
-" Usage: :call RemoveTrailingWhitespaceAndSave()
-" Keymap: <F2> (normal mode)
-" ==============================================================================
-function! RemoveTrailingWhitespaceAndSave()
-    let l:save_cursor = getpos(".")
-    let l:before_length = join(getline(1,'$'), "\n")
-    %s/\s\+$//e
-    let l:after_length = join(getline(1,'$'), "\n")
-    let l:bytes_deleted = strlen(l:before_length) - strlen(l:after_length)
-    call setpos('.', l:save_cursor)
-    write!
-    if l:bytes_deleted > 0
-        echohl WarningMsg | echom "Removed trailing whitespace: " . l:bytes_deleted . " byte(s) deleted." | echohl None
-    endif
-endfunction
-nnoremap <F2> :call RemoveTrailingWhitespaceAndSave()<CR>
-
-" ==============================================================================
 " Function: ToggleTabSettings()
 " Description: Toggles between tab settings for C, C++, and Make files.
 " Usage: :call ToggleTabSettings()
-" Keymap: <F3> (normal mode)
+" Keymap: <F10> (normal mode)
 " ==============================================================================
 function! ToggleTabSettings()
     if &l:tabstop == 4
@@ -275,23 +351,24 @@ function! ToggleTabSettings()
         setlocal tabstop=4 shiftwidth=4 expandtab
     endif
 endfunction
-nnoremap <F3> :call ToggleTabSettings()<CR>
+nnoremap <F10> :call ToggleTabSettings()<CR>
 
 " ==============================================================================
 " Function: CycleColorschemes()
 " Description: Cycles through a list of colorschemes.
 " Usage: :call CycleColorschemes()
-" Keymap: <F5> (normal mode)
+" Keymap: <F6> (normal mode)
 " ==============================================================================
 function! CycleColorschemes()
-    let s:colorschemes = [ 'default', 'habamax', 'retrobox', 'lunaperche', 'wildcharm', 'zaibatsu' ]
+    let s:colorschemes = [ 'default', 'habamax', 'retrobox',
+                \ 'lunaperche', 'wildcharm', 'zaibatsu' ]
     if !exists("s:current")
         let s:current = 0
     endif
     let s:current = (s:current + 1) % len(s:colorschemes)
     execute 'colorscheme ' . s:colorschemes[s:current]
 endfunction
-nnoremap <F5> :call CycleColorschemes()<CR>
+nnoremap <F6> :call CycleColorschemes()<CR>
 
 " ==============================================================================
 " Function: NewCHeader()
@@ -306,61 +383,17 @@ function! NewCHeader(filename)
     echo "header file created: " . headerFilename
 endfunction
 
-" autocommands {{{1
-augroup myautocmds
-    autocmd!
-
-    " move to last cursor position when opening a file
-    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
-
-    " close certain buffers with just `q`
-    autocmd FileType help,man,netrw,quickfix,git,lspinfo silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
-
-    " enable word wrapping and spell checking
-    autocmd FileType text,gitcommit,markdown,NeogitCommitMessage setlocal wrap spell
-
-    " tab settings for c cpp and make
-    autocmd FileType c setlocal cindent noet ts=8 sw=8
-    autocmd FileType cpp setlocal cindent et ts=4 sw=4
-    autocmd FileType make setlocal noet ts=8 sw=8
-
-    " TODO did I delete this from autocmds.lua?
-    " autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " line folding
-    autocmd FileType vim setlocal foldmethod=marker
-    autocmd FileType tex setlocal foldmethod=marker foldmarker={{{,}}}
-
-augroup END
-" }}}
 
 " vim plugin settings {{{1
 let g:netrw_banner = 0
-if !has("nvim")
-    nnoremap <leader>e :Lexplore<CR>
-    let g:netrw_liststyle = 3
-    let g:netrw_browse_split = 4 " open in previous window
-    let g:netrw_altv = 1
-    let g:netrw_winsize = 15
-    autocmd bufenter * if winnr("$") == 1 && &filetype == 'netrw' | q | endif
-endif
 
-if exists(':CtrlP')
-    let g:ctrlp_working_path_mode = 'ra'
-endif
+let g:UltiSnipsSnippetDirectories   =[$HOME.'/.vim/UltiSnips']
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-if exists(':UltiSnips')
-    let g:UltiSnipsSnippetDirectories   =[$HOME.'/.vim/UltiSnips']
-    let g:UltiSnipsExpandTrigger = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-endif
+let g:vimtex_view_method='skim'
 
-if exists(':VimtexInverseSearch')
-    let g:vimtex_view_method='skim'
-endif
-
-if exists(':ycm')
 "set completeopt-=preview
 "nnoremap <leader>] :YcmCompleter GoTo<CR>
 "nnoremap ? <plug>(YCMHover)
@@ -368,35 +401,62 @@ let g:ycm_clangd_args = [ '--header-insertion=never' ]
 
 let g:ycm_enable_semantic_highlighting=1
 let MY_YCM_HIGHLIGHT_GROUP = {
-      \   'typeParameter': 'PreProc',
-      \   'parameter': 'Normal',
-      \   'variable': 'Normal',
-      \   'property': 'Normal',
-      \   'enumMember': 'Normal',
-      \   'event': 'Special',
-      \   'member': 'Normal',
-      \   'method': 'Normal',
-      \   'class': 'Special',
-      \   'namespace': 'Special',
-      \ }
+            \   'typeParameter': 'PreProc',
+            \   'parameter': 'Normal',
+            \   'variable': 'Normal',
+            \   'property': 'Normal',
+            \   'enumMember': 'Normal',
+            \   'event': 'Special',
+            \   'member': 'Normal',
+            \   'method': 'Normal',
+            \   'class': 'Special',
+            \   'namespace': 'Special',
+            \ }
 
-for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
-  call prop_type_add( 'YCM_HL_' . tokenType,
-                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
-endfor
+"for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
+"  call prop_type_add( 'YCM_HL_' . tokenType,
+"                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
+"endfor
 
 "let g:ycm_enable_inlay_hints=1
 " Modify below if you want less invasive semantic auto-complete
 let g:ycm_semantic_triggers = {
-    \   'c,objc' : ['->', '.'],
-    \   'cpp,objcpp' : ['->', '.', '::'],
-    \   'perl' : ['->'],
-    \ }
+            \   'c,objc' : ['->', '.'],
+            \   'cpp,objcpp' : ['->', '.', '::'],
+            \   'perl' : ['->'],
+            \ }
 
 let g:ycm_complete_in_comments_and_strings = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_show_diagnostics_ui=0
 "let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:ycm_min_num_of_chars_for_completion = 99
-endif
+"let g:ycm_min_num_of_chars_for_completion = 99
+"
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+""function! CleverTab()
+"    let l:line = strpart( getline('.'), 0, col('.')-1)
+"    let l:lastchar = matchstr(getline('.'), '.\%' . col('.') . 'c')
+"    " if popup menu is visible, go to next in the list
+"    if pumvisible()
+"        return "\<C-n>"
+"    " if the just consists of spaces, indent
+"    elseif l:line =~ '^\s*$'
+"        return "\<Tab>"
+"    " if the last character is a slash, call file-completion
+"    elseif l:lastchar =~ "/"
+"        return "\<C-x>\<C-f>"
+"    " call omni completion if has omnifunc
+"    elseif len(&omnifunc) > 0
+"        return "\<C-x>\<C-o>"
+"    " call word completion otherwise
+"    else
+"        return "\<C-n>"
+"    endif
+"endfunction
+
+"inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+
+
+"

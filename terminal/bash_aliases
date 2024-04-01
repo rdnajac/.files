@@ -23,20 +23,24 @@ alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
+alias vp='cd ~/.files/.vim/pack/plugins/start'
+alias db='dune build '
 
 # settings
 alias vimm='vim ~/.files/.vimrc'
 alias bashr='vim ~/.files/.bashrc'
 alias basha='vim ~/.files/.bash_aliases'
 alias nvv='cd ~/.config/nvim/lua/ && ll'
-alias alac='vim ~/.files/alacritty.yml'
+alias alac='vim ~/.files/alacritty.toml'
 
 # linux kernel development
 alias kmake='cd ~/kernel_dev/linux && sudo make -j5 && \
     sudo make modules_install -j3  && sudo make install && sudo reboot'
 
 # tmux
+alias tmux='tmux -2'
 alias tmx='tmux attach-session'
+alias tmxx='vim ~/.files/.tmux.conf'
 alias kms='tmux kill-server'
 
 # use gnu ls and stat on apple os

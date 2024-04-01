@@ -1,9 +1,10 @@
-# see: `man 5 alacritty`
 [env]
 TERM = "xterm-256color"
 
 [window]
 padding = {x = 2, y = 2}
+dynamic_padding = true
+decorations = "full"
 
 [colors.normal]
 blue = "#14afff"
@@ -35,4 +36,11 @@ mouse = "Right"
 key = "W"
 mods = "Command"
 action = "None"
+
+[selection]
+# Semantic Escape Characters
+# same as below but in toml not yml
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = true
+
 
