@@ -21,9 +21,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     sync_file zshrc
 fi
 
-# Always sync vim and tmux.conf
-sync_file vim
+#sync_file vim
 sync_file tmux.conf
+sync_file gitconfig
 
 # Alacritty configuration
 if command -v alacritty &>/dev/null; then
