@@ -1,4 +1,5 @@
 " ryan's .vimrc
+" :
 " vim: set foldmethod=marker foldlevel=1:
 color scheme
 " under the hood {{{1
@@ -88,12 +89,12 @@ set undofile noswapfile
 set undolevels=1000
 set undoreload=10000
 if !has('nvim')
-    let g:undo_dir = $HOME . "/.vim/undo"
-    if !isdirectory(g:undo_dir)
-        call mkdir(g:undo_dir, "p", 0700)
+    if !isdirectory(expand("~/.vim/.undo"))
+        call mkdir(expand("~/.vim/.undo"), "p", 0700)
     endif
-    execute "set undodir=" . g:undo_dir
+    let &undodir=expand("~/.vim/.undo")
 endif
+
 " use the system clipboard
 if has('nvim')
     set clipboard=unnamedplus
@@ -459,4 +460,4 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 "inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 
 
-"
+au VimLeave * if filereadable("~/.vim/.netrwhist") | call delete("~/.vim/.netrwhist") | endif
