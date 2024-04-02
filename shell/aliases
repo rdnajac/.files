@@ -40,7 +40,7 @@ alias rm='rm -vi'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 alias bmake='bear -- make'
-alias vimfect='~/.files/scripts/vimfect.sh'
+alias vimfect='~/.files/vimfect'
 
 function cl() {
     DIR="$*";

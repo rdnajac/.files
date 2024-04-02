@@ -1,9 +1,32 @@
 " ryan's .vimrc
 " :
 " vim: set foldmethod=marker foldlevel=1:
-color scheme
+color yowish
+
+let g:yowish.colors = {
+			\	'background'        : ['#000000', 'none'],
+			\	'backgroundDark'    : ['#000000', 'none'],
+			\	'backgroundLight'   : ['#393939', '236'],
+			\	'comment'           : ['#6e6e6e', '242'],
+			\	'green'             : ['#2acf2a', '40'],
+			\	'lightBlue'         : ['#6699cc', '67'],
+			\	'lightGreen'        : ['#99cc99','108'],
+			\	'lightRed'          : ['#f2777a', '203'],
+			\	'lightViolet'       : ['#d09cea', '171'],
+			\	'lightYellow'       : ['#ffcc66', '222'],
+			\	'red'               : ['#f01d22', '160'],
+			\	'selected'          : ['#373b41', '234'],
+			\	'text'              : ['#cbcbcb', '251'],
+			\	'textDark'          : ['#bebebe', '249'],
+			\	'textExtraDark'     : ['#8c8c8c', '244'],
+			\	'textLight'         : ['#ebebeb', '255'],
+			\	'yellow'            : ['#39ff14', 'none'],
+			\ }
+
 " under the hood {{{1
 filetype plugin indent on
+" change the line fold fill
+set fillchars=fold:\ ,foldopen:▾,foldclose:▸,foldsep:│
 
 " formatting options {{{2
 set fo-=o
@@ -116,11 +139,35 @@ set wildignore+=
 " keymaps {{{1
 let mapleader = "\<space>"
 
+" clever tab completion {{{2
+""function! CleverTab()
+"    let l:line = strpart( getline('.'), 0, col('.')-1)
+"    let l:lastchar = matchstr(getline('.'), '.\%' . col('.') . 'c')
+"    " if popup menu is visible, go to next in the list
+"    if pumvisible()
+"        return "\<C-n>"
+"    " if the just consists of spaces, indent
+"    elseif l:line =~ '^\s*$'
+"        return "\<Tab>"
+"    " if the last character is a slash, call file-completion
+"    elseif l:lastchar =~ "/"
+"        return "\<C-x>\<C-f>"
+"    " call omni completion if has omnifunc
+"    elseif len(&omnifunc) > 0
+"        return "\<C-x>\<C-o>"
+"    " call word completion otherwise
+"    else
+"        return "\<C-n>"
+"    endif
+"endfunction
+"inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+
+" basic keymaps (<leader> + char) {{{2
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :qa!<cr>
-nnoremap <leader>e :vs $MYVIMRC <cr>
-nnoremap <leader>s :source ~/.vimrc<cr>
+nnoremap <leader>e :vs $MYVIMRC<cr>
+nnoremap <leader>s :source $MYVIMRC<cr>
 nnoremap <leader>h :set hlsearch!<cr>
 nnoremap <leader>n :set number!<cr>
 nnoremap <leader>r :set relativenumber!<cr>
@@ -132,22 +179,24 @@ nnoremap <space> i<space><esc>
 nnoremap > V`]>
 nnoremap < V`]<
 
-" ==============================================================================
-" whickey setup {{{2
-let g:which_key_map =  {}
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-call which_key#register('<Space>', "g:which_key_map")
-"}}}2
-nnoremap <leader>vx :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+" vimux keymaps {{{2
+nnoremap <leader>vx :call VeimuxRunCommand("clear; ./" . bufname("%"))<CR>
 nnoremap <leader>vp :VimuxPromptCommand<CR>
 nnoremap <leader>vl :VimuxRunLastCommand<CR>
 nnoremap <leader>vi :VimuxInspectRunner<CR>
 nnoremap <leader>vq :VimuxCloseRunner<CR>
 nnoremap <leader>vz :call VimuxZoomRunner()<CR>
 nnoremap <leader>vc :VimuxClearTerminalScreen<CR>
+" }}}2
+nnoremap <leader>db :call ChangeDirAndRun("db")<CR>
 
+" which key {{{2
+let g:which_key_map =  {}
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+call which_key#register('<Space>', "g:which_key_map")
 
+" prefix: <leader>f {{{3
 let g:which_key_map['f'] = {
       \ 'name' : '+file' ,
       \ 'e' : [':Lexplore<cr>' , 'explore files'],
@@ -160,6 +209,7 @@ let g:which_key_map['f'] = {
       \ }
 call which_key#register('f', "g:which_key_map")
 
+" prefix: <leader>g {{{3
 let g:which_key_map['g'] = {
       \ 'name' : '+git' ,
       \ 'b' : [':Git blame<cr>' , 'blame'],
@@ -176,15 +226,6 @@ let g:which_key_map['g'] = {
         \ }
 call which_key#register('g', "g:which_key_map")
 
-
-" hardmode {{{2
-" unmap arrow keys in all modes {{{3
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
-" remap jk to escape in i/v/n modes {{{3
 inoremap jk <esc>
 vnoremap jk <esc>
 inoremap kj <esc>
@@ -192,34 +233,23 @@ vnoremap jk <esc>
 " Replace in visual selection
 vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
 
-" TODO test move text up and down {{{3
-nnoremap <silent> <A-j> :m .+1<CR>==
-nnoremap <silent> <A-k> :m .-2<CR>==
-"keymap("n", "<a-j>", "<esc>:m .+1<cr>==gi", opts) -- Alt-j
-"keymap("n", "<a-k>", "<esc>:m .-2<cr>==gi", opts) -- Alt-k
+" TODO test move text up and down 
+nnoremap <silent> <M-j> :m .+1<CR>==
+nnoremap <silent> <M-k> :m .-2<CR>==
 
 " buffers and windows
-" use arrow keys to switch between windows
-nnoremap <silent> <right> <C-w>l
-nnoremap <silent> <left> <C-w>h
-nnoremap <silent> <up> <C-w>k
-nnoremap <silent> <down> <C-w>j
-
-" split windows like tmux?
-" nnoremap % :vs<CR>bnext<CR>
-" nnoremap " :sp<CR>bnext<CR>
 
 nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>bl :ls<CR>
-" switch between windows using ctrl {{{3
+" switch between windows using ctrl {{{2
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
-" navigate in terminal mode {{{3
+" navigate in terminal mode {{{2
 tnoremap <silent> <C-h> <C-\><C-n><C-w>h
 tnoremap <silent> <C-j> <C-\><C-n><C-w>j
 tnoremap <silent> <C-k> <C-\><C-n><C-w>k
@@ -387,77 +417,62 @@ endfunction
 
 " vim plugin settings {{{1
 let g:netrw_banner = 0
-
+let g:vimtex_view_method='skim'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:UltiSnipsSnippetDirectories   =[$HOME.'/.vim/UltiSnips']
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:vimtex_view_method='skim'
+" autocommands {{{1
+augroup myautocmds
+    autocmd!
 
-"set completeopt-=preview
-"nnoremap <leader>] :YcmCompleter GoTo<CR>
-"nnoremap ? <plug>(YCMHover)
-let g:ycm_clangd_args = [ '--header-insertion=never' ]
+    " move to last cursor position when opening a file
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
 
-let g:ycm_enable_semantic_highlighting=1
-let MY_YCM_HIGHLIGHT_GROUP = {
-            \   'typeParameter': 'PreProc',
-            \   'parameter': 'Normal',
-            \   'variable': 'Normal',
-            \   'property': 'Normal',
-            \   'enumMember': 'Normal',
-            \   'event': 'Special',
-            \   'member': 'Normal',
-            \   'method': 'Normal',
-            \   'class': 'Special',
-            \   'namespace': 'Special',
-            \ }
+    " close certain buffers with just `q`
+    autocmd FileType help,man,netrw,quickfix,git,lspinfo silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
 
-"for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
-"  call prop_type_add( 'YCM_HL_' . tokenType,
-"                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
-"endfor
+    " tab settings for c cpp and make
+    autocmd FileType c setlocal cindent noet ts=8 sw=8
+    autocmd FileType cpp setlocal cindent et ts=4 sw=4
+    autocmd FileType make setlocal noet ts=8 sw=8
 
-"let g:ycm_enable_inlay_hints=1
-" Modify below if you want less invasive semantic auto-complete
-let g:ycm_semantic_triggers = {
-            \   'c,objc' : ['->', '.'],
-            \   'cpp,objcpp' : ['->', '.', '::'],
-            \   'perl' : ['->'],
-            \ }
+    " line folding
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType tex setlocal foldmethod=marker foldmarker={{{,}}}
+    "autocmd FileType tex setlocal foldmethod=syntax foldlevel=2
 
-let g:ycm_complete_in_comments_and_strings = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_show_diagnostics_ui=0
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:ycm_min_num_of_chars_for_completion = 99
-"
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+    " remove netrw history on exit
+    au VimLeave * if filereadable("~/.vim/.netrwhist") | call delete("~/.vim/.netrwhist") | endif
 
-""function! CleverTab()
-"    let l:line = strpart( getline('.'), 0, col('.')-1)
-"    let l:lastchar = matchstr(getline('.'), '.\%' . col('.') . 'c')
-"    " if popup menu is visible, go to next in the list
-"    if pumvisible()
-"        return "\<C-n>"
-"    " if the just consists of spaces, indent
-"    elseif l:line =~ '^\s*$'
-"        return "\<Tab>"
-"    " if the last character is a slash, call file-completion
-"    elseif l:lastchar =~ "/"
-"        return "\<C-x>\<C-f>"
-"    " call omni completion if has omnifunc
-"    elseif len(&omnifunc) > 0
-"        return "\<C-x>\<C-o>"
-"    " call word completion otherwise
-"    else
-"        return "\<C-n>"
-"    endif
-"endfunction
+augroup END
+" }}}
 
-"inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+augroup AutoformatOCamlDune
+    autocmd!
+    au FileType ocaml setlocal ts=2 sw=2 expandtab
+    "autocmd FileType ocaml,dune nnoremap <buffer> <leader>w :call Dunefmt()<CR>
+    autocmd FileType ocaml,dune nmap <buffer> <F10> :VimuxRunLastCommand<CR>
+augroup END
 
+autocmd FileType markdown setlocal spell wrap foldlevel=2
 
-au VimLeave * if filereadable("~/.vim/.netrwhist") | call delete("~/.vim/.netrwhist") | endif
+function! Dunebuild()
+    execute '!dune build'
+endfunction
+
+function! Dunefmt()
+    write!
+    execute 'silent !dune fmt'
+    edit!
+    write
+endfunction
+
+function! ChangeDirAndRun(cmd)
+    let l:current_dir = expand('%:p:h')
+    let l:full_cmd = 'cd ' . l:current_dir . ' && ' . a:cmd
+    call VimuxRunCommand(l:full_cmd)
+endfunction
+

@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/Users/rdn/.files/vim/pack'
+let g:netrw_dirhist_7='/Users/rdn/.files/vim/pack/plugins'
+let g:netrw_dirhist_6='/Users/rdn/SOCKit/src/ast'
+let g:netrw_dirhist_5='/Users/rdn/SOCKit/src/execute'
+let g:netrw_dirhist_4='/Users/rdn/SOCKit/src/bytecode'
+let g:netrw_dirhist_3='/Users/rdn/SOCKit/lib/semant'
+let g:netrw_dirhist_2='/Users/rdn/SOCKit/lib'
+let g:netrw_dirhist_1='/Users/rdn/SOCKit/lib/parser'
