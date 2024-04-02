@@ -40,3 +40,6 @@
 [submodule "/Users/rdn/.files/.vim/pack/plugins/start/vim-markdown"]
 	path = /Users/rdn/.files/.vim/pack/plugins/start/vim-markdown
 	url = https://github.com/preservim/vim-markdown.git
+[submodule "/Users/rdn/.files/.vim/pack/plugins/start/yowish.vim"]
+	path = /Users/rdn/.files/.vim/pack/plugins/start/yowish.vim
+	url = https://github.com/KabbAmine/yowish.vim.git
