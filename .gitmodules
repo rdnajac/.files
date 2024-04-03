@@ -1,3 +1,6 @@
 [submodule "/Users/rdn/.files/vim/pack/plugins/--force/yowish.vim"]
 	path = /Users/rdn/.files/vim/pack/plugins/--force/yowish.vim
 	url = https://github.com/KabbAmine/yowish.vim.git
+[submodule "/Users/rdn/.files/vim/pack/plugins/start/tabline.vim"]
+	path = /Users/rdn/.files/vim/pack/plugins/start/tabline.vim
+	url = https://github.com/mkitt/tabline.vim.git

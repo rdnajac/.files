@@ -1,0 +1,76 @@
+
+call s:Hi('Constant'  , 'NONE' , s:color.lightRed    , 'NONE')
+call s:Hi('PreProc'   , 'NONE' , s:color.lightViolet , 'NONE')
+call s:Hi('Statement' , 'NONE' , s:color.lightYellow , 'NONE')
+call s:Hi('String'    , 'NONE' , s:color.lightGreen  , 'NONE')
+hi! link Character String
+
+call s:Hi('ColorColumn'  , s:color.backgroundDark   , s:color.yellow          , 'bold')
+
+if g:yowish.comment_italic
+	call s:Hi('Comment'  , 'NONE'                   , s:color.comment         , 'italic')
+else
+	call s:Hi('Comment'  , 'NONE'                   , s:color.comment         , 'NONE')
+endif
+
+call s:Hi('Conceal'      , 'NONE'                   , s:color.backgroundLight , 'NONE')
+call s:Hi('CursorLineNr' , 'NONE'                   , s:color.lightYellow     , 'NONE')
+call s:Hi('CursorLine'   , s:color.backgroundLight  , 'NONE'                  , 'NONE')
+call s:Hi('Cursor'       , s:color.text             , s:color.backgroundDark  , 'NONE')
+call s:Hi('DiffAdd'      , s:color.lightGreen       , s:color.backgroundDark  , 'NONE')
+call s:Hi('DiffChange'   , s:color.backgroundLight  , s:color.lightYellow     , 'NONE')
+call s:Hi('DiffDelete'   , s:color.lightRed         , s:color.backgroundDark  , 'NONE')
+call s:Hi('DiffText'     , 'NONE'                   , s:color.textDark        , 'NONE')
+call s:Hi('Directory'    , 'NONE'                   , s:color.textDark        , 'NONE')
+call s:Hi('ErrorMsg'     , s:color.red              , s:color.text            , 'bold')
+call s:Hi('Error'        , 'NONE'                   , s:color.red             , 'bold')
+call s:Hi('FoldColumn'   , s:color.columnBackground , s:color.columnElements  , 'NONE')
+call s:Hi('Identifier'   , 'NONE'                   , s:color.lightBlue       , 'NONE')
+call s:Hi('IncSearch'    , s:color.lightYellow      , s:color.background      , 'NONE')
+call s:Hi('LineNr'       , 'NONE'                   , s:color.backgroundLight , 'NONE')
+call s:Hi('MatchParen'   , 'NONE'                   , s:color.yellow          , 'bold')
+call s:Hi('ModeMsg'      , 'NONE'                   , s:color.yellow          , 'bold')
+call s:Hi('Normal'       , s:color.background       , s:color.text            , 'NONE')
+call s:Hi('PmenuSbar'    , s:color.selected         , s:color.lightYellow     , 'NONE')
+call s:Hi('Pmenu'        , s:color.backgroundLight  , s:color.textDark        , 'NONE')
+call s:Hi('PmenuSel'     , s:color.background       , s:color.text            , 'NONE')
+call s:Hi('Question'     , 'NONE'                   , s:color.lightGreen      , 'bold')
+call s:Hi('Search'       , s:color.yellow           , s:color.backgroundDark  , 'bold')
+call s:Hi('SpecialKey'   , 'NONE'                   , s:color.backgroundLight , 'NONE')
+call s:Hi('Special'      , 'NONE'                   , s:color.textLight       , 'NONE')
+
+let s:spell_bad_color = yowish#GetColorFor(g:yowish.spell_bad_color)
+call s:Hi('SpellBad'     , 'NONE'                   , s:spell_bad_color       , 'undercurl')
+
+call s:Hi('StatusLineNC' , s:color.backgroundLight  , s:color.text            , 'NONE')
+call s:Hi('StatusLine'   , s:color.yellow           , s:color.background      , 'NONE')
+call s:Hi('TabLineFill'  , 'NONE'                   , s:color.text            , 'NONE')
+call s:Hi('TabLine'      , s:color.backgroundLight  , s:color.textDark        , 'NONE')
+call s:Hi('TabLineSel'   , s:color.background       , s:color.yellow          , 'bold')
+call s:Hi('Title'        , 'NONE'                   , s:color.lightRed        , 'NONE')
+call s:Hi('Todo'         , 'NONE'                   , s:color.yellow          , 'NONE')
+call s:Hi('Type'         , 'NONE'                   , s:color.textDark        , 'NONE')
+call s:Hi('VertSplit'    , 'NONE'                   , s:color.yellow          , 'NONE')
+call s:Hi('Visual'       , s:color.selected         , 'NONE'                  , 'NONE')
+call s:Hi('WarningMsg'   , 'NONE'                   , s:color.yellow          , 'bold')
+call s:Hi('WildMenu'     , s:color.background       , s:color.yellow          , 'NONE')
+hi! link CursorColumn CursorLine
+hi! link diffAdded DiffAdd
+hi! link diffChanged DiffChange
+hi! link diffRemoved DiffDelete
+hi! link Folded FoldColumn
+hi! link NonText Conceal
+hi! link qfFileName Comment
+hi! link qfLineNr Statement
+hi! link qfSeparator qfLineNr
+hi! link SignColumn FoldColumn
+hi! link VisualNOS Visual
+if has('terminal')
+	call s:Hi('Terminal', s:color.backgroundDark, s:color.textDark, 'NONE')
+endif
+" Cleaning {{{1
+unlet s:color
+delfunction s:Hi
+" 1}}}
+
+" vim:ft=vim:fdm=marker:fmr={{{,}}}:

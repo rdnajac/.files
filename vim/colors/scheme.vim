@@ -1,13 +1,48 @@
 " vim:fdm=marker:foldlevel=0
-" setup
+" colorscheme
+
+" Version      : 
+" Creation     : 
+" Modification : 
+" Maintainer   : 
+" License      : This file is placed in the public domain.
+
+" initialization {{{1
 set background=dark
-highlight clear
-if exists("syntax_on")
+hi clear
+if exists('syntax_on')
 	syntax reset
 endif
 let g:colors_name = "scheme"
+" 1}}}
 
-" color palette
+" highlighting function {{{1
+function! Hi(group, fgColor, bgColor, style)
+  let l:gui_fg = type(a:fgColor) == v:t_list ? a:fgColor[0] : a:fgColor
+  let l:cterm_fg = type(a:fgColor) == v:t_list ? a:fgColor[1] : a:fgColor
+  let l:gui_bg = type(a:bgColor) == v:t_list ? a:bgColor[0] : a:bgColor
+  let l:cterm_bg = type(a:bgColor) == v:t_list ? a:bgColor[1] : a:bgColor
+  let l:gui_style = a:style
+  let l:cterm_style = a:style
+
+  if !has('gui_running') && exists('g:no_terminal_italic') && g:no_terminal_italic && a:style == 'italic'
+    let l:cterm_style = 'NONE'
+  endif
+
+  execute printf('hi %s guifg=%s guibg=%s gui=%s ctermfg=%s ctermbg=%s cterm=%s',
+        \ a:group, l:gui_fg, l:gui_bg, l:gui_style, l:cterm_fg, l:cterm_bg, l:cterm_style)
+endfunction
+
+" 1}}}
+
+
+" shell colors
+let s:bg = '#000000'
+let s:fg = '#39ff14'
+let s:blue = '#14afff'
+let s:magenta = '#ff69ff'
+
+" define color palette
 let s:lime   = "#39ff14"
 let s:light  = "#d4d4d5"
 let s:dark   = "#000000"
@@ -21,144 +56,143 @@ let s:green  = "#79dcaa"
 let s:red    = "#f87070"
 
 
-" Highlight helper function
-function! s:HL(item, fgColor, bgColor, style)
-	let command  = 'hi ' . a:item
-	let command .= ' ' . 'gui' . 'fg=' . a:fgColor
-	let command .= ' ' . 'gui' . 'bg=' . a:bgColor
-	let command .= ' ' . 'gui' . '=' . a:style
-	execute command
-endfunction
-
-
 " Primitives
-call s:HL('String'      , s:lime  , 'NONE' , 'NONE' )
-call s:HL('Number'      , s:light , 'NONE' , 'NONE' )
-call s:HL('Boolean'     , s:light , 'NONE' , 'NONE' )
-call s:HL('Float'       , s:light , 'NONE' , 'NONE' )
-call s:HL('Constant'    , s:light , 'NONE' , 'NONE' )
-call s:HL('Character'   , s:light , 'NONE' , 'NONE' )
-call s:HL('SpecialChar' , s:light , 'NONE' , 'NONE' )
+call s:Hi'String'      , s:lime  , 'NONE' , 'NONE' )
+call s:Hi'Number'      , s:light , 'NONE' , 'NONE' )
+call s:Hi'Boolean'     , s:light , 'NONE' , 'NONE' )
+call s:Hi'Float'       , s:light , 'NONE' , 'NONE' )
+call s:Hi'Constant'    , s:light , 'NONE' , 'NONE' )
+call s:Hi'Character'   , s:light , 'NONE' , 'NONE' )
+call s:Hi'SpecialChar' , s:light , 'NONE' , 'NONE' )
 
 " Specials
-call s:HL('Title'          , s:gray0  , 'NONE' , 'NONE' )
-call s:HL('Todo'           , s:yellow , 'NONE' , 'NONE' )
-call s:HL('Comment'        , s:gray0  , 'NONE' , 'NONE' )
-call s:HL('SpecialComment' , s:gray0  , 'NONE' , 'NONE' )
+call s:Hi'Title'          , s:gray0  , 'NONE' , 'NONE' )
+call s:Hi'Todo'           , s:yellow , 'NONE' , 'NONE' )
+call s:Hi'Comment'        , s:gray0  , 'NONE' , 'NONE' )
+call s:Hi'SpecialComment' , s:gray0  , 'NONE' , 'NONE' )
 
 " Lines                  , Columns
-call s:HL('LineNr'       , s:gray0 , 'NONE'  , 'NONE' )
-call s:HL('CursorLine'   , 'NONE'  , s:gray3 , 'NONE' )
-call s:HL('CursorLineNr' , s:light , s:gray3, 'NONE'  )
-call s:HL('SignColumn'   , s:gray3 , s:dark  , 'NONE' )
-call s:HL('ColorColumn'  , s:light , s:gray3 , 'NONE' )
-call s:HL('CursorColumn' , s:light , s:gray3 , 'NONE' )
+call s:Hi'LineNr'       , s:gray0 , 'NONE'  , 'NONE' )
+call s:Hi'CursorLine'   , 'NONE'  , s:gray3 , 'NONE' )
+call s:Hi'CursorLineNr' , s:light , s:gray3, 'NONE'  )
+call s:Hi'SignColumn'   , s:gray3 , s:dark  , 'NONE' )
+call s:Hi'ColorColumn'  , s:light , s:gray3 , 'NONE' )
+call s:Hi'CursorColumn' , s:light , s:gray3 , 'NONE' )
 
 " Visual
-call s:HL('Visual'    , 'NONE'   , s:gray1 , 'NONE' )
-call s:HL('VisualNOS' , s:gray3  , s:light , 'NONE' )
-call s:HL('Search'    , s:yellow , s:gray0 , 'NONE' )
-call s:HL('IncSearch' , s:yellow , s:gray0 , 'NONE' )
+call s:Hi'Visual'    , 'NONE'   , s:gray1 , 'NONE' )
+call s:Hi'VisualNOS' , s:gray3  , s:light , 'NONE' )
+call s:Hi'Search'    , s:yellow , s:gray0 , 'NONE' )
+call s:Hi'IncSearch' , s:yellow , s:gray0 , 'NONE' )
 
 " Spelling
-call s:HL('SpellBad'   , s:red , s:dark , 'NONE' )
-call s:HL('SpellCap'   , s:red , s:dark , 'NONE' )
-call s:HL('SpellLocal' , s:red , s:dark , 'NONE' )
-call s:HL('SpellRare'  , s:red , s:dark , 'NONE' )
+call s:Hi'SpellBad'   , s:red , s:dark , 'NONE' )
+call s:Hi'SpellCap'   , s:red , s:dark , 'NONE' )
+call s:Hi'SpellLocal' , s:red , s:dark , 'NONE' )
+call s:Hi'SpellRare'  , s:red , s:dark , 'NONE' )
 
 " Messages
-call s:HL('ErrorMsg'   , s:red    , s:dark , 'NONE' )
-call s:HL('WarningMsg' , s:yellow , s:dark , 'NONE' )
-call s:HL('ModeMsg'    , s:light  , s:dark , 'NONE' )
-call s:HL('MoreMsg'    , s:light  , s:dark , 'NONE' )
-call s:HL('Error'      , s:red    , s:dark , 'NONE' )
+call s:Hi'ErrorMsg'   , s:red    , s:dark , 'NONE' )
+call s:Hi'WarningMsg' , s:yellow , s:dark , 'NONE' )
+call s:Hi'ModeMsg'    , s:light  , s:dark , 'NONE' )
+call s:Hi'MoreMsg'    , s:light  , s:dark , 'NONE' )
+call s:Hi'Error'      , s:red    , s:dark , 'NONE' )
 
 " Preprocessor Directives
-call s:HL('Include'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Define'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Macro'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('PreCondit'	  , s:light	, 'NONE', 'NONE' )
-call s:HL('PreProc'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Include'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Define'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Macro'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'PreCondit'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'PreProc'		  , s:light	, 'NONE', 'NONE' )
 
 " Bindings
-call s:HL('Identifier'	  , s:light	, 'NONE', 'NONE' )
-call s:HL('Function'	  , s:light	, 'NONE', 'NONE' )
-call s:HL('Keyword'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Operator'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Identifier'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Function'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Keyword'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Operator'	  , s:light	, 'NONE', 'NONE' )
 
 " Types
-call s:HL('Type'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Typedef'	  	  , s:light	, 'NONE', 'NONE' )
-call s:HL('StorageClass'  , s:light	, 'NONE', 'NONE' )
-call s:HL('Structure'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Type'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Typedef'	  	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'StorageClass'  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Structure'	  , s:light	, 'NONE', 'NONE' )
 
 " Flow Control
-call s:HL('Statement'	  , s:light	, 'NONE', 'NONE' )
-call s:HL('Conditional'	  , s:light	, 'NONE', 'NONE' )
-call s:HL('Repeat'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Label'		  , s:light	, 'NONE', 'NONE' )
-call s:HL('Exception'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Statement'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Conditional'	  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Repeat'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Label'		  , s:light	, 'NONE', 'NONE' )
+call s:Hi'Exception'	  , s:light	, 'NONE', 'NONE' )
 
 " Misc
-call s:HL('Normal'     , s:light , s:dark  , 'NONE'      )
-call s:HL('Cursor'     , s:dark  , s:light , 'NONE'      )
-call s:HL('Underlined' , s:light , 'NONE'  , 'underline' )
-call s:HL('SpecialKey' , s:light , 'NONE'  , 'NONE'      )
-call s:HL('NonText'    , s:light , 'NONE'  , 'NONE'      )
-call s:HL('Directory'  , s:light , 'NONE'  , 'NONE'      )
+call s:Hi'Normal'     , s:light , s:dark  , 'NONE'      )
+call s:Hi'Cursor'     , s:dark  , s:light , 'NONE'      )
+call s:Hi'Underlined' , s:light , 'NONE'  , 'underline' )
+call s:Hi'SpecialKey' , s:light , 'NONE'  , 'NONE'      )
+call s:Hi'NonText'    , s:light , 'NONE'  , 'NONE'      )
+call s:Hi'Directory'  , s:light , 'NONE'  , 'NONE'      )
 
 " Fold
-call s:HL('FoldColumn'	  , s:light, s:gray3 , 'NONE' )
-call s:HL('Folded'		  , s:light, s:gray3 , 'NONE' )
+call s:Hi'FoldColumn'	  , s:light, s:gray3 , 'NONE' )
+call s:Hi'Folded'		  , s:light, s:gray3 , 'NONE' )
 
 " Parens
-call s:HL('MatchParen'	  , s:dark, s:light , 'NONE' )
+call s:Hi'MatchParen'	  , s:dark, s:light , 'NONE' )
 
 " Popup Menu
-call s:HL('Pmenu'      , s:light , s:gray1 , 'NONE' )
-call s:HL('PmenuSbar'  , s:dark  , s:gray3 , 'NONE' )
-call s:HL('PmenuSel'   , s:dark  , s:light , 'NONE' )
-call s:HL('PmenuThumb' , s:dark  , s:light , 'NONE' )
+call s:Hi'Pmenu'      , s:light , s:gray1 , 'NONE' )
+call s:Hi'PmenuSbar'  , s:dark  , s:gray3 , 'NONE' )
+call s:Hi'PmenuSel'   , s:dark  , s:light , 'NONE' )
+call s:Hi'PmenuThumb' , s:dark  , s:light , 'NONE' )
 
 " Split
-call s:HL('VertSplit'	  , s:gray1, s:dark , 'bold' )
+call s:Hi'VertSplit'	  , s:gray1, s:dark , 'bold' )
 
 " Others
-call s:HL('Debug'        , s:light , 'NONE'  , 'NONE' )
-call s:HL('Delimiter'    , s:light , 'NONE'  , 'NONE' )
-call s:HL('Question'     , s:light , 'NONE'  , 'NONE' )
-call s:HL('Special'      , s:light , 'NONE'  , 'NONE' )
-call s:HL('StatusLine'   , s:light , s:gray2 , 'NONE' )
-call s:HL('StatusLineNC' , s:light , s:gray2 , 'NONE' )
-call s:HL('Tag'          , s:light , 'NONE'  , 'NONE' )
-call s:HL('WildMenu'     , s:dark  , s:light , 'NONE' )
-call s:HL('TabLine'      , s:light , s:gray2 , 'NONE' )
+call s:Hi'Debug'        , s:light , 'NONE'  , 'NONE' )
+call s:Hi'Delimiter'    , s:light , 'NONE'  , 'NONE' )
+call s:Hi'Question'     , s:light , 'NONE'  , 'NONE' )
+call s:Hi'Special'      , s:light , 'NONE'  , 'NONE' )
+call s:Hi'StatusLine'   , s:light , s:gray2 , 'NONE' )
+call s:Hi'StatusLineNC' , s:light , s:gray2 , 'NONE' )
+call s:Hi'Tag'          , s:light , 'NONE'  , 'NONE' )
+call s:Hi'WildMenu'     , s:dark  , s:light , 'NONE' )
+call s:Hi'TabLine'      , s:light , s:gray2 , 'NONE' )
 
 " Diff
-call s:HL('DiffAdd'    , s:green  , 'NONE' , 'NONE' )
-call s:HL('DiffChange' , s:yellow , 'NONE' , 'NONE' )
-call s:HL('DiffDelete' , s:red    , 'NONE' , 'NONE' )
-call s:HL('DiffText'   , s:dark   , 'NONE' , 'NONE' )
+call s:Hi'DiffAdd'    , s:green  , 'NONE' , 'NONE' )
+call s:Hi'DiffChange' , s:yellow , 'NONE' , 'NONE' )
+call s:Hi'DiffDelete' , s:red    , 'NONE' , 'NONE' )
+call s:Hi'DiffText'   , s:dark   , 'NONE' , 'NONE' )
 
 " GitGutter
-call s:HL('GitGutterAdd'          , s:green  , 'NONE' , 'NONE' )
-call s:HL('GitGutterChange'       , s:yellow , 'NONE' , 'NONE' )
-call s:HL('GitGutterDelete'       , s:red    , 'NONE' , 'NONE' )
-call s:HL('GitGutterChangeDelete' , s:dark   , 'NONE' , 'NONE' )
+call s:Hi'GitGutterAdd'          , s:green  , 'NONE' , 'NONE' )
+call s:Hi'GitGutterChange'       , s:yellow , 'NONE' , 'NONE' )
+call s:Hi'GitGutterDelete'       , s:red    , 'NONE' , 'NONE' )
+call s:Hi'GitGutterChangeDelete' , s:dark   , 'NONE' , 'NONE' )
 
 " Vimscript
-call s:HL('vimFunc'          , s:light , 'NONE' , 'NONE' )
-call s:HL('vimUserFunc'      , s:light , 'NONE' , 'NONE' )
-call s:HL('vimLineComment'   , s:gray0 , 'NONE' , 'NONE' )
-call s:HL('vimCommentString' , s:gray0 , 'NONE' , 'NONE' )
-
-" NERDTree
-call s:HL('NERDTreeCWD'            , s:gray1 , 'NONE' , 'NONE' )
-call s:HL('NERDTreeFile'           , s:light , 'NONE' , 'NONE' )
-call s:HL('NERDTreeNodeDelimiters' , s:light , 'NONE' , 'NONE' )
+call s:Hi'vimFunc'          , s:light , 'NONE' , 'NONE' )
+call s:Hi'vimUserFunc'      , s:light , 'NONE' , 'NONE' )
+call s:Hi'vimLineComment'   , s:gray0 , 'NONE' , 'NONE' )
+call s:Hi'vimCommentString' , s:gray0 , 'NONE' , 'NONE' )
 
 
-" FZF
-call s:HL('fzf1' , s:light , s:gray2 , 'NONE' )
-call s:HL('fzf2' , s:light , s:gray2 , 'NONE' )
-call s:HL('fzf3' , s:light , s:gray2 , 'NONE' )
+"exec 'hi! link ColorColumn REVERSED'
+"exec 'hi! link Conceal REVERSED'
+"exec 'hi! link Cursor REVERSED'
+"exec 'hi! link CursorColumn REVERSED'
+"exec 'hi! link CursorLine REVERSED'
+"exec 'hi! link CursorLineNr REVERSED'
+"exec 'hi! link CurSearch REVERSED'
+"exec 'hi! link IncSearch REVERSED'
+"exec 'hi! link MatchParen REVERSED'
+"exec 'hi! link QuickFixLine REVERSED'
+"exec 'hi! link Search REVERSED'
+"exec 'hi! link StatusLine REVERSED'
+"exec 'hi! link StatusLineNC REVERSED'
+"exec 'hi! link StatusLineTerm REVERSED'
+"exec 'hi! link StatusLineTermNC REVERSED'
+"exec 'hi! link Visual REVERSED'
+"exec 'hi! link VisualNOS REVERSED'
+

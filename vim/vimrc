@@ -23,6 +23,8 @@ let g:yowish.colors = {
 			\	'yellow'            : ['#39ff14', 'none'],
 			\ }
 
+
+autocmd ColorScheme * highlight WhichKeyFloat ctermbg=255 guibg=#000000
 " under the hood {{{1
 filetype plugin indent on
 " change the line fold fill
@@ -164,7 +166,25 @@ let mapleader = "\<space>"
 
 " basic keymaps (<leader> + char) {{{2
 nnoremap <leader>w :w<cr>
-nnoremap <leader>q :q<cr>
+"nnoremap <leader>q :w!<cr>:bd<cr>
+
+function! SmartQuit()
+  if winnr('$') > 1
+    " More than one window is open.
+    bnext | 1wincmd w | q
+  else
+    " Only one window is open.
+    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
+      " More than one buffer is open, close the current buffer.
+      bnext | bd# | 1wincmd w
+    else
+      " Last buffer, quit Vim.
+      quit
+    endif
+  endif
+endfunction
+
+nnoremap <leader>q :call SmartQuit()<cr>
 nnoremap <leader>Q :qa!<cr>
 nnoremap <leader>e :vs $MYVIMRC<cr>
 nnoremap <leader>s :source $MYVIMRC<cr>
