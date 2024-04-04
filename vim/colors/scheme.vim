@@ -1,12 +1,6 @@
 " vim:fdm=marker:foldlevel=0
 " colorscheme
 
-" Version      : 
-" Creation     : 
-" Modification : 
-" Maintainer   : 
-" License      : This file is placed in the public domain.
-
 " initialization {{{1
 set background=dark
 hi clear

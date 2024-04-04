@@ -11,6 +11,7 @@ alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
 alias vp='cd ~/.files/vim/pack/plugins/start'
+alias vpp='cd ~/.files/vim/after/plugin'
 alias db='dune build '
 
 # settings
@@ -94,3 +95,7 @@ save() {
     fi
 }
 
+edit() {
+    local absolute_path=$(realpath "$1")
+    tmux send-keys -t 0 ":e $absolute_path" Enter
+}
