@@ -7,9 +7,9 @@ if [ $# -eq 0 ]; then
 else
     if git submodule add "https://github.com/$1.git"; then
         echo "$0 successfully added $1 as a submodule"
-    else 
-        echo "error adding $1"; 
-    fi 
+    else
+        echo "error adding $1";
+    fi
 fi
 )
 vimfect "$@"

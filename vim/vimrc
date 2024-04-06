@@ -1,19 +1,22 @@
-" vim: set foldmethod=marker foldlevel=1:
+
+" vim: set foldmethod=marker foldlevel=2:
+
+map <F9> :packadd vimuxecute<CR>
 set fillchars=fold:\ ,foldopen:▾,foldclose:▸,foldsep:│
 set wildmenu
-set wildmode=list:longest
+set wildmode=longest:full,full
+packadd yowish.vim
 color yowish
 " {{{2
 let g:yowish.colors = {
             \	'background'        : ['#000000', 'none'],
             \	'backgroundDark'    : ['#000000', 'none'],
-            \	'backgroundLight'   : ['#393939', '236'],
             \	'comment'           : ['#6e6e6e', '242'],
             \	'green'             : ['#2acf2a', '40'],
-            \	'lightBlue'         : ['#6699cc', '67'],
-            \	'lightGreen'        : ['#99cc99','108'],
+            \	'lightViolet'         : ['#14afff', '67'],
+            \	'lightGreen'        : ['#39ff14','none'], 
             \	'lightRed'          : ['#f2777a', '203'],
-            \	'lightViolet'       : ['#d09cea', '171'],
+            \	'lightBlue'       : ['#d09cea', '171'],
             \	'lightYellow'       : ['#ffcc66', '222'],
             \	'red'               : ['#f01d22', '160'],
             \	'selected'          : ['#373b41', '234'],
@@ -45,7 +48,7 @@ set whichwrap+=<,>,[,],h,l
 " neovim defaults {{{2
 if !has("nvim")
     syntax enable                   " prefer `:syntax enable` over `:syntax on
-    set autoindent smarttab         " enable auto-indent and smart tabbing
+     set autoindent smarttab         " enable auto-indent and smart tabbing
     set autoread                    " auto reload files when changed outside of vim
     set backspace=indent,eol,start  " backspace behavior
     set encoding=utf-8              " nvim default is utf-8
@@ -168,20 +171,19 @@ nnoremap < V`]<
 
 " which key {{{2
 let g:which_key_map =  {}
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-call which_key#register('<Space>', "g:which_key_map")
+"nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+"vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+"call which_key#register('<Space>', "g:which_key_map")
 
-" prefix: <leader>f {{{3
+" maps for junegunn/fzf.vim {{{2
 let g:which_key_map['f'] = {
-            \ 'name' : '+file' ,
-            \ 'e' : [':Lexplore<cr>' , 'explore files'],
-            \ 's' : [':set list!<cr>' , 'toggle list'],
-            \ 'w' : [':set wrap!<cr>' , 'toggle wrap'],
-            \ 'h' : [':set hlsearch!<cr>' , 'toggle hlsearch'],
-            \ 'n' : [':set number!<cr>' , 'toggle number'],
-            \ 'r' : [':set relativenumber!<cr>' , 'toggle relativenumber'],
-            \ 'c' : [':set cursorline!<cr>' , 'toggle cursorline'],
+            \ 'name' : '+fzf/find/' ,
+            \ 'f' : [':Files<cr>' , 'files'],
+            \ 'g' : [':GFiles<cr>' , 'git files'],
+            \ 'b' : [':Buffers<cr>' , 'buffers'],
+            \ 'h' : [':History<cr>' , 'history'],
+            \ 'm' : [':Marks<cr>' , 'marks'],
+            \ 't' : [':Tags<cr>' , 'tags'],
             \ }
 call which_key#register('f', "g:which_key_map")
 
