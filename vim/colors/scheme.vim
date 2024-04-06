@@ -1,21 +1,21 @@
-" vim:fdm=marker:foldlevel=0
+" vim:fdm=marker:foldlevel=0 ts=2 sw=2 et
 " colorscheme
 
 " initialization {{{1
 set background=dark
 hi clear
 if exists('syntax_on')
-	syntax reset
+  syntax reset
 endif
 let g:colors_name = "scheme"
 " 1}}}
 
 " highlighting function {{{1
-function! Hi(group, fgColor, bgColor, style)
-  let l:gui_fg = type(a:fgColor) == v:t_list ? a:fgColor[0] : a:fgColor
-  let l:cterm_fg = type(a:fgColor) == v:t_list ? a:fgColor[1] : a:fgColor
-  let l:gui_bg = type(a:bgColor) == v:t_list ? a:bgColor[0] : a:bgColor
-  let l:cterm_bg = type(a:bgColor) == v:t_list ? a:bgColor[1] : a:bgColor
+function! Hi(group, fg, bg, style)
+  let l:gui_fg    = type(a:fg) == v:t_list ? a:fg[0] : a:fg
+  let l:cterm_fg  = type(a:fg) == v:t_list ? a:fg[1] : a:fg
+  let l:gui_bg    = type(a:bg) == v:t_list ? a:bg[0] : a:bg
+  let l:cterm_bg  = type(a:bg) == v:t_list ? a:bg[1] : a:bg
   let l:gui_style = a:style
   let l:cterm_style = a:style
 

@@ -41,7 +41,6 @@ alias rm='rm -vi'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 alias bmake='bear -- make'
-alias vimfect='~/.files/vimfect'
 
 function cl() {
     DIR="$*";
@@ -53,7 +52,6 @@ function cl() {
 
 function ree {
     clear -x
-    tmux source-file ~/.tmux.conf 2> /dev/null
     echo -e "(╯°□°)╯︵ ┻━┻"
     exec $(basename $SHELL)
 }
@@ -99,3 +97,6 @@ edit() {
     local absolute_path=$(realpath "$1")
     tmux send-keys -t 0 ":e $absolute_path" Enter
 }
+
+# alias so we don't have to install
+alias vimfect='/Users/rdn/.files/vim/pack/plugins/start/vimfect.sh'
