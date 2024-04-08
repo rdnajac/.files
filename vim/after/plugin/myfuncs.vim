@@ -1,51 +1,18 @@
-" vim functions mapped to function keys
-" vim: set ft=vim: set foldmethod=syntax:
-
-
-function! GetInfo()
-    let l:word = expand('<cword>')
-    try
-        execute "tag " . l:word
-    catch
-        try
-            execute "help " . l:word
-        catch
-            try
-                execute "Man " . l:word
-            catch
-                echo "no info found for " . l:word
-            endtry
-        endtry
-    endtry
+function! RunFileInDir()
+    let l:dir = expand('%:p:h')
+    let l:file = expand('%:t')
+    let l:cmd = 'cd ' . l:dir . ' && ./' . l:file
+    call VimuxRunCommand (l:cmd)
 endfunction
-noremap <F1> :call GetInfo()<CR>
 
-
-" Function: RemoveTrailingWhitespaceAndSave()
-" ==============================================================================
-" Description: Removes trailing whitespace from the current buffer and saves it.
-" Keymap: <F2> (normal mode)
-" ==============================================================================
-function! RemoveTrailingWhitespaceAndSave()
-  let l:save_cursor = getpos(".")
-  let l:before_length = join(getline(1,'$'), "\n")
-  %s/\s\+$//e
-  let l:after_length = join(getline(1,'$'), "\n")
-  let l:bytes_deleted = strlen(l:before_length) - strlen(l:after_length)
-  call setpos('.', l:save_cursor)
-  write!
-  if l:bytes_deleted > 0
-    echohl WarningMsg | echom "Removed trailing whitespace: " . l:bytes_deleted . " byte(s) deleted." | echohl None
-  endif
+function! ExecuteCurrentFile()
+    let l:thisfile = expand('%')
+    if !executable(l:thisfile)
+        silent !chmod +x %
+    endif
+    call RunFileInDir()
 endfunction
-nnoremap <F2> :call RemoveTrailingWhitespaceAndSave()<CR>
 
-" ==============================================================================
-" Function: FormatBufferSaveAndReload()
-" Description: Formats the current buffer using an external program depending
-" on filetype and saves, then reloads the buffer.
-" Keymap: <F3> (normal mode)
-" ==============================================================================
 function! FormatBufferSaveAndReload()
     let l:filetype = &filetype
     if l:filetype == 'vim'
@@ -77,14 +44,6 @@ function! ToggleCursorColumn(...)
 endfunction
 nnoremap <F4> :call ToggleCursorColumn()<cr>
 
-function! ToggleTabSettings()
-    if &l:tabstop == 4
-        setlocal tabstop=8 shiftwidth=8 noexpandtab
-    else
-        setlocal tabstop=4 shiftwidth=4 expandtab
-    endif
-endfunction
-
 function! CycleColorschemes()
     let s:colorschemes = [ 'default', 'habamax', 'retrobox',
                 \ 'lunaperche', 'wildcharm', 'zaibatsu' ]
@@ -94,13 +53,7 @@ function! CycleColorschemes()
     let s:current = (s:current + 1) % len(s:colorschemes)
     execute 'colorscheme ' . s:colorschemes[s:current]
 endfunction
-nnoremap <F6> :call CycleColorschemes()<CR>
 
-" ==============================================================================
-" Function: NewCHeader()
-" Description: Creates a new C header file.
-" Usage: :call NewCHeader('filename')
-" ==============================================================================
 function! NewCHeader(filename)
     let headerFilename = a:filename . ".h"
     let capsFilename = toupper(a:filename)
@@ -109,6 +62,3 @@ function! NewCHeader(filename)
     echo "header file created: " . headerFilename
 endfunction
 
-function! F1()
-    " call getinfo
-endfunction

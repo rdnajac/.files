@@ -1,13 +1,12 @@
+" vim: set foldmethod=marker foldlevel=1:
 
-" vim: set foldmethod=marker foldlevel=2:
-
-map <F9> :packadd vimuxecute<CR>
 set fillchars=fold:\ ,foldopen:▾,foldclose:▸,foldsep:│
 set wildmenu
 set wildmode=longest:full,full
+
+" yowish {{{2
 packadd yowish.vim
 color yowish
-" {{{2
 let g:yowish.colors = {
             \	'background'        : ['#000000', 'none'],
             \	'backgroundDark'    : ['#000000', 'none'],
@@ -30,8 +29,8 @@ let g:yowish.colors = {
 
 " under the hood {{{1
 filetype plugin indent on
-
 set showcmd cmdheight=1
+
 " formatting options {{{2
 set fo-=o
 " TODO what do we want to set conceal level to?
@@ -284,35 +283,21 @@ xnoremap <silent> <A-k> :move '<-2<CR>gv-gv
 " paste without replacing clipboard
 xnoremap <silent> p "_dP
 
+" }}}2
 
-" vim plugin settings {{{1
+map <F10> :call VimuxPromptCommand()<CR>
+
+ " vim plugin settings
 let g:netrw_banner = 0
 let g:vimtex_view_method='skim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-let g:UltiSnipsSnippetDirectories   =[$HOME.'/.vim/UltiSnips']
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " autocommands {{{1
-augroup myautocmds
-    autocmd!
-
-    " move to last cursor position when opening a file
-    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
-
-    " close certain buffers with just `q`
-    autocmd FileType help,man,netrw,quickfix,git,lspinfo silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
-
-    autocmd FileType c setlocal cindent noet ts=8 sw=8
-    autocmd FileType cpp setlocal cindent et ts=4 sw=4
-    autocmd FileType make setlocal noet ts=8 sw=8
-
-    autocmd FileType tex setlocal wrap spell wrap spelllang=en_us foldmethod=syntax foldlevel=2 
-    autocmd FileType markdown setlocal wrap spell wrap spelllang=en_us foldmethod=syntax foldlevel=2 
-
+aug myautocmds
+    au!
+    au FileType help,man,netrw,quickfix silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
     au VimLeave * if filereadable("~/.vim/.netrwhist") | call delete("~/.vim/.netrwhist") | endif
-
-augroup END
+aug END
 " }}}
 
