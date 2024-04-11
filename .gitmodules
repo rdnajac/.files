@@ -34,3 +34,6 @@
 [submodule "vim/pack/plugins/start/vim-commentary"]
 	path = vim/pack/plugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/pack/plugins/start/markdown-preview.nvim"]
+	path = vim/pack/plugins/start/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim.git

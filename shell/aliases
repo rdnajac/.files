@@ -1,3 +1,4 @@
+# vim: ft=sh
 echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
 
 alias cd='cl'
@@ -15,7 +16,8 @@ alias vpp='cd ~/.files/vim/after/plugin'
 alias db='dune build '
 
 # settings
-alias vimm='vim ~/.files/vim/vimrc'
+alias vimm='vim ~/.files/vim/vimrcx.vim'
+alias vimc='cd ~/.files/vim/colors'
 alias sha='vim ~/.files/shell/aliases'
 alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.toml'

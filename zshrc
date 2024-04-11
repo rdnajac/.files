@@ -9,7 +9,6 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 # copy file contents to clipboard
 copy() { cat $1 | pbcopy }
 
-# Load Git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 

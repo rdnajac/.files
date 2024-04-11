@@ -1,53 +1,20 @@
-" vim: set foldmethod=marker foldlevel=1:
+" vim:ft=vim:fdm=marker:fmr={{{,}}}:
 
-set fillchars=fold:\ ,foldopen:▾,foldclose:▸,foldsep:│
-set wildmenu
-set wildmode=longest:full,full
-
-" yowish {{{2
-packadd yowish.vim
-color yowish
-let g:yowish.colors = {
-            \	'background'        : ['#000000', 'none'],
-            \	'backgroundDark'    : ['#000000', 'none'],
-            \	'comment'           : ['#6e6e6e', '242'],
-            \	'green'             : ['#2acf2a', '40'],
-            \	'lightViolet'         : ['#14afff', '67'],
-            \	'lightGreen'        : ['#39ff14','none'], 
-            \	'lightRed'          : ['#f2777a', '203'],
-            \	'lightBlue'       : ['#d09cea', '171'],
-            \	'lightYellow'       : ['#ffcc66', '222'],
-            \	'red'               : ['#f01d22', '160'],
-            \	'selected'          : ['#373b41', '234'],
-            \	'text'              : ['#cbcbcb', '251'],
-            \	'textDark'          : ['#bebebe', '249'],
-            \	'textExtraDark'     : ['#8c8c8c', '244'],
-            \	'textLight'         : ['#ebebeb', '255'],
-            \	'yellow'            : ['#ffbe3c','215'],
-            \ }
-" }}}2
-
-" under the hood {{{1
+" under the hood {{{2
 filetype plugin indent on
 set showcmd cmdheight=1
-
-" formatting options {{{2
-set fo-=o
-" TODO what do we want to set conceal level to?
-set conceallevel=0
-
-" performance tweaks {{{2
 set timeoutlen=300
 set updatetime=100
 set lazyredraw
 set scrolloff=4 sidescrolloff=0
 set whichwrap+=<,>,[,],h,l
-"set foldopen+=insert,jump
+set foldopen+=insert,jump
+set shiftwidth=2 tabstop=4 expandtab
+set nowrap linebreak
 
-" neovim defaults {{{2
-if !has("nvim")
+if !has('nvim')
     syntax enable                   " prefer `:syntax enable` over `:syntax on
-     set autoindent smarttab         " enable auto-indent and smart tabbing
+    set autoindent smarttab         " enable auto-indent and smart tabbing
     set autoread                    " auto reload files when changed outside of vim
     set backspace=indent,eol,start  " backspace behavior
     set encoding=utf-8              " nvim default is utf-8
@@ -63,46 +30,26 @@ if !has("nvim")
     set clipboard=unnamed
 else
     set clipboard=unnamedplus
+    "set noshowmode      " disable showmode
+    "set noshowcmd       " disable showcmd
+    "set noruler         " disable ruler
 endif
-" editor behavior {{{2
-set shiftwidth=4
-set tabstop=4
-set expandtab
-set fillchars+=eob:\                " don't show end of buffer as a column of ~
-set fillchars+=stl:\                " display spaces properly in statusline
-set list listchars=trail:¿,tab:→\   " show trailing whitspace and tabs
-set nowrap linebreak                " no wrapping, but break lines appropriately if we do
 " searh and matching {{{3
 set ignorecase smartcase
 "set matchtime=2  " default is 5
 set iskeyword+=-  " treat hyphens as part of a word
 "set iskeyword+=_  " treat underscores as part of a word
-" display settings {{{2
+" }}}3
+" display settings {{{3
 set background=dark termguicolors
-set completeopt=menuone,noselect
-"set cursorline
+set cursorline
 set number numberwidth=3 relativenumber
 set pumheight=10
 set showmatch
 set signcolumn=yes
 set splitbelow splitright
-
-
-" statusline {{{2
-if has('nvim')
-    "set noshowmode      " disable showmode
-    "set noshowcmd       " disable showcmd
-    "set noruler         " disable ruler
-    set laststatus=3    " statusline option for nvim
-else
-    set laststatus=0                          " Always display the statusline
-    " TODO: skip fugitive if not installed
-                  " Visual column number and page position
-    " }}}
-endif
-
-" undofile {{{2
-" use an undofile instead of a swapfile
+" }}}3
+" undofile {{{3
 set undofile noswapfile
 set undolevels=1000
 set undoreload=10000
@@ -112,14 +59,8 @@ if !has('nvim')
     endif
     let &undodir=expand("~/.vim/.undo")
 endif
-
-" use the system clipboard
-if has('nvim')
-    set clipboard=unnamedplus
-else
-    set clipboard=unnamed
-endif
-" ignore these patterns {{{2
+" }}}3
+" ignore these patterns {{{3
 set wildignore+=
             \*.exe,*.out,*.cm*,*.o,*.a,*.so,*.dll,*.dylib,*.lib,*.bin,*.app,*.apk,*.dmg,*.iso,*.msi,*.deb,*.rpm,*.pkg,
             \*.class,*.jar,*.pyo,*.pyd,*.node,*.swp,*.swo,*.tmp,*.temp,*.DS_Store,Thumbs.db,
@@ -130,29 +71,12 @@ set wildignore+=
             \*.zip,*.tar.gz,*.rar,*.7z,*.tar.xz,*.tgz,
             \*/node_modules/*,*/vendor/*,*/build/*,*/dist/*,*/out/*,*/bin/*,*/.vscode/*,*/__pycache__/*,*/.cache/*
 
+" }}}3
 " }}}
-" keymaps {{{1
+" key mappings {{{1
 let mapleader = "\<space>"
-" basic keymaps (<leader> + char) {{{2
 nnoremap <leader>w :w<cr>
 "nnoremap <leader>q :w!<cr>:bd<cr>
-
-function! SmartQuit()
-    if winnr('$') > 1
-        " More than one window is open.
-        bnext | 1wincmd w | q
-    else
-        " Only one window is open.
-        if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
-            " More than one buffer is open, close the current buffer.
-            bnext | bd# | 1wincmd w
-        else
-            " Last buffer, quit Vim.
-            quit
-        endif
-    endif
-endfunction
-
 nnoremap <leader>q :call SmartQuit()<cr>
 nnoremap <leader>Q :qa!<cr>
 nnoremap <leader>e :vs $MYVIMRC<cr>
@@ -168,13 +92,30 @@ nnoremap <space> i<space><esc>
 nnoremap > V`]>
 nnoremap < V`]<
 
-" which key {{{2
+inoremap jk <esc>
+vnoremap jk <esc>
+inoremap kj <esc>
+vnoremap jk <esc>
+
+" Replace in visual selection
+vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
+
+" TODO test move text up and down
+nnoremap <silent> <M-j> :m .+1<CR>==
+nnoremap <silent> <M-k> :m .-2<CR>==
+
+" buffers and windows
+nnoremap L :bnext<CR>
+nnoremap H :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <leader>bl :ls<CR>
+
 let g:which_key_map =  {}
 "nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 "vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 "call which_key#register('<Space>', "g:which_key_map")
 
-" maps for junegunn/fzf.vim {{{2
 let g:which_key_map['f'] = {
             \ 'name' : '+fzf/find/' ,
             \ 'f' : [':Files<cr>' , 'files'],
@@ -186,7 +127,6 @@ let g:which_key_map['f'] = {
             \ }
 call which_key#register('f', "g:which_key_map")
 
-" prefix: <leader>g {{{3
 let g:which_key_map['g'] = {
             \ 'name' : '+git' ,
             \ 'b' : [':Git blame<cr>' , 'blame'],
@@ -203,101 +143,27 @@ let g:which_key_map['g'] = {
             \ }
 call which_key#register('g', "g:which_key_map")
 
-inoremap jk <esc>
-vnoremap jk <esc>
-inoremap kj <esc>
-vnoremap jk <esc>
-" Replace in visual selection
-vnoremap <leader>` :s/\%V`\(.*\)`/`&`/<CR>
 
-" TODO test move text up and down
-nnoremap <silent> <M-j> :m .+1<CR>==
-nnoremap <silent> <M-k> :m .-2<CR>==
-
-" buffers and windows
-nnoremap L :bnext<CR>
-nnoremap H :bprevious<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-nnoremap <leader>bl :ls<CR>
-" clever tab completion {{{2
-""function! CleverTab()
-"    let l:line = strpart( getline('.'), 0, col('.')-1)
-"    let l:lastchar = matchstr(getline('.'), '.\%' . col('.') . 'c')
-"    " if popup menu is visible, go to next in the list
-"    if pumvisible()
-"        return "\<C-n>"
-"    " if the just consists of spaces, indent
-"    elseif l:line =~ '^\s*$'
-"        return "\<Tab>"
-"    " if the last character is a slash, call file-completion
-"    elseif l:lastchar =~ "/"
-"        return "\<C-x>\<C-f>"
-"    " call omni completion if has omnifunc
-"    elseif len(&omnifunc) > 0
-"        return "\<C-x>\<C-o>"
-"    " call word completion otherwise
-"    else
-"        return "\<C-n>"
-"    endif
-"endfunction
-"inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
-
-" switch between windows using ctrl {{{2
-nnoremap <silent> <C-h> <C-w>h
-nnoremap <silent> <C-j> <C-w>j
-nnoremap <silent> <C-k> <C-w>k
-nnoremap <silent> <C-l> <C-w>l
-" navigate in terminal mode {{{2
-tnoremap <silent> <C-h> <C-\><C-n><C-w>h
-tnoremap <silent> <C-j> <C-\><C-n><C-w>j
-tnoremap <silent> <C-k> <C-\><C-n><C-w>k
-tnoremap <silent> <C-l> <C-\><C-n><C-w>l
-" search and replace {{{2
-" center searches {{{3
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zzo
-
-" find and replace word under cursor {{{3
-nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
-nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
-nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
-nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
-
-" visual and visual block {{{2
-vnoremap < <gv
-vnoremap > >gv
-
-" move selected block of text up and down
-xnoremap <silent> J :move '>+1<CR>gv-gv
-xnoremap <silent> K :move '<-2<CR>gv-gv
-xnoremap <silent> <A-j> :move '>+1<CR>gv-gv
-xnoremap <silent> <A-k> :move '<-2<CR>gv-gv
-
-" paste without replacing clipboard
-xnoremap <silent> p "_dP
-
-" }}}2
-
-map <F10> :call VimuxPromptCommand()<CR>
-
- " vim plugin settings
+" netrw settings {{{
 let g:netrw_banner = 0
+let g:netrw_liststyle =  3
+let g:netrw_winsize = 25
+nnoremap <leader><tab> : Lexplore<CR>
+" }}}
+
 let g:vimtex_view_method='skim'
+
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" autocommands {{{1
 aug myautocmds
     au!
     au FileType help,man,netrw,quickfix silent! nnoremap <silent> <buffer> q :close<CR> | set nobuflisted
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
+    "au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"zv" | endif
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | if winline() >= winheight(0) - 3 | exe "normal! zb" | endif | endif
     au VimLeave * if filereadable("~/.vim/.netrwhist") | call delete("~/.vim/.netrwhist") | endif
 aug END
-" }}}
 
+nnoremap \ll :MarkdownPreview<cr>
+
+
+runtime vimrcx.vim " load experimental settings

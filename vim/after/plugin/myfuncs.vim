@@ -1,18 +1,3 @@
-function! RunFileInDir()
-    let l:dir = expand('%:p:h')
-    let l:file = expand('%:t')
-    let l:cmd = 'cd ' . l:dir . ' && ./' . l:file
-    call VimuxRunCommand (l:cmd)
-endfunction
-
-function! ExecuteCurrentFile()
-    let l:thisfile = expand('%')
-    if !executable(l:thisfile)
-        silent !chmod +x %
-    endif
-    call RunFileInDir()
-endfunction
-
 function! FormatBufferSaveAndReload()
     let l:filetype = &filetype
     if l:filetype == 'vim'
@@ -54,11 +39,5 @@ function! CycleColorschemes()
     execute 'colorscheme ' . s:colorschemes[s:current]
 endfunction
 
-function! NewCHeader(filename)
-    let headerFilename = a:filename . ".h"
-    let capsFilename = toupper(a:filename)
-    let content = ["#ifndef _" . capsFilename . "_H", "#define _" . capsFilename . "_H", "", "#endif /* _" . capsFilename . "_H */"]
-    call writefile(content, headerFilename)
-    echo "header file created: " . headerFilename
-endfunction
+
 
