@@ -42,8 +42,6 @@ def _get_python_binary(exec_prefix, pyver):
         default = ""
     if default and os.path.exists(default):
         return default
-    if sys.platform[:3] == "win":
-        return exec_prefix / "python.exe"
     bin_path = exec_prefix / "bin"
     exec_path = (bin_path / f"python{pyver[0]}.{pyver[1]}").resolve()
     if exec_path.exists():
@@ -56,14 +54,10 @@ def _get_python_binary(exec_prefix, pyver):
 
 
 def _get_pip(venv_path):
-    if sys.platform[:3] == "win":
-        return venv_path / "Scripts" / "pip.exe"
     return venv_path / "bin" / "pip"
 
 
 def _get_virtualenv_site_packages(venv_path, pyver):
-    if sys.platform[:3] == "win":
-        return venv_path / "Lib" / "site-packages"
     return venv_path / "lib" / f"python{pyver[0]}.{pyver[1]}" / "site-packages"
 
 
