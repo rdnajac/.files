@@ -1,8 +1,17 @@
 import collections
+import black
 import os
+import subprocess
 import sys
+import time
+import venv
 import vim
+from pathlib import Path
 
+pyver = sys.version_info[:3]
+if pyver < (3, 8):
+    print("Sorry, Black requires Python 3.8+ to run.")
+    sys.exit(1)
 
 def strtobool(text):
     if text.lower() in ["y", "yes", "t", "true", "on", "1"]:
@@ -53,40 +62,10 @@ def _get_python_binary(exec_prefix, pyver):
     raise ValueError("python executable not found")
 
 
-def _get_pip(venv_path):
-    return venv_path / "bin" / "pip"
-
-
 def _get_virtualenv_site_packages(venv_path, pyver):
     return venv_path / "lib" / f"python{pyver[0]}.{pyver[1]}" / "site-packages"
-
-
-def _initialize_black_env(upgrade=False):
-    if vim.eval("g:black_use_virtualenv ? 'true' : 'false'") == "false":
-        if upgrade:
-            print("Upgrade disabled due to g:black_use_virtualenv being disabled.")
-            print(
-                "Either use your system package manager (or pip) to upgrade black separately,"
-            )
-            print("or modify your vimrc to have 'let g:black_use_virtualenv = 1'.")
-            return False
-        else:
-            # Nothing needed to be done.
-            return True
-
-    pyver = sys.version_info[:3]
-    if pyver < (3, 8):
-        print("Sorry, Black requires Python 3.8+ to run.")
-        return False
-
-    from pathlib import Path
-    import subprocess
-    import venv
-
     virtualenv_path = Path(vim.eval("g:black_virtualenv")).expanduser()
-    virtualenv_site_packages = str(
-        _get_virtualenv_site_packages(virtualenv_path, pyver)
-    )
+    virtualenv_site_packages = str(virtualenv_path / "lib" / f"python{pyver[0]}.{pyver[1]}" / "site-packages")
     first_install = False
     if not virtualenv_path.is_dir():
         print("Please wait, one time setup for Black.")
@@ -120,7 +99,7 @@ def _initialize_black_env(upgrade=False):
         print("Upgrading Black with pip...")
     if first_install or upgrade:
         subprocess.run(
-            [str(_get_pip(virtualenv_path)), "install", "-U", "black"],
+            [str(virtualenv_path / "bin" / "pip"), "install", "-U", "black"],
             stdout=subprocess.PIPE,
         )
         print("DONE! You are all set, thanks for waiting ✨ 🍰 ✨")
@@ -132,10 +111,6 @@ def _initialize_black_env(upgrade=False):
         sys.path.insert(0, virtualenv_site_packages)
     return True
 
-
-if _initialize_black_env():
-    import black
-    import time
 
 
 def get_target_version(tv):
@@ -235,10 +210,3 @@ def get_configs():
         for flag in FLAGS
     }
 
-
-def BlackUpgrade():
-    _initialize_black_env(upgrade=True)
-
-
-def BlackVersion():
-    print(f"Black, version {black.__version__} on Python {sys.version}.")
