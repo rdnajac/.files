@@ -96,8 +96,11 @@ save() {
 }
 
 edit() {
-    local absolute_path=$(realpath "$1")
-    tmux send-keys -t 0 ":e $absolute_path" Enter
+    if [ ! -f "$1" ]; then
+        touch "$1"
+    fi
+    local filename=$(realpath "$1")
+    tmux send-keys -t 0 ":e $filename" Enter
 }
 
 # alias so we don't have to install
