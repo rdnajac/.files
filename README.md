@@ -33,10 +33,25 @@ net-tools netcat rsync curl wget strace lld mtools
 git clone git@github.com:vim/vim.git
 ```
 
-setup ycm
+setup ycm clangd completer
 ```
-[12:49:46] ~/.files/scripts ₽ cat ycm-setup.sh
 cd ~/.vim/plugged/YouCompleteMe
 git submodule update --init --recursive
 ./install.py --clangd-completer
 ```
+
+## custom tab completions for disrete function arguments vim
+```
+function BlackComplete(ArgLead, CmdLine, CursorPos)
+  return [
+\    'target_version=py36',
+\    'target_version=py37',
+\    'target_version=py38',
+\    'target_version=py39',
+\    'target_version=py310',
+\  ]
+endfunction
+
+command! -nargs=* -complete=customlist,BlackComplete Black :call black#Black(<f-args>)
+```
+

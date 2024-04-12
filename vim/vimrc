@@ -167,3 +167,10 @@ nnoremap \ll :MarkdownPreview<cr>
 
 
 runtime vimrcx.vim " load experimental settings
+
+" function to run the current line as a : command
+function! RunLine()
+    let cmd = getline('.')
+    execute cmd
+endfunction
+nnoremap <silent> <leader>rl :call RunLine()<cr>

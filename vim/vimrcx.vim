@@ -23,3 +23,4 @@ function! ReplaceSelection()
 endfunction
 xnoremap <leader>r :<C-u>call ReplaceSelection()<CR>
 
+let g:vim_markdown_fenced_languages =[ 'bash=sh', 'python', 'php', 'html', 'c', 'cpp', 'sql', 'vim', 'dockerfile', 'plaintext', 'markdown' ]
