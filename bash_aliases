@@ -1,13 +1,18 @@
-# vim: ft=sh 
+# vim: ft=sh fdm=marker
 
 alias cd='cl'
 alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $(basename $SHELL)'
+
 alias ll='ls -AlFh --group-directories-first'
 alias l='ls -lFh --group-directories-first'
 alias lt='ls --human-readable --size -1 -S --classify'
-alias qq='cd ~/gscs/network_labs/lab3-rdnajac'
+# quick access 
+alias qq='cd ~/gscs/'     
+alias qa='cd ~/project-a-series-of-tubes'
 alias ff='cd ~/.files'
-#alias vi='vim'
+
+# executables
+alias vi='vim'
 alias nv='nvim'
 alias p3='python3'
 alias py3='python3'
@@ -20,13 +25,9 @@ alias vpp='cd ~/.files/vim/after/plugin'
 alias db='dune build '
 alias vimm='vim ~/.files/vim/vimrcx.vim'
 alias vimc='cd ~/.files/vim/colors'
-alias sha='vim ~/.files/aliases'
+alias sha='vim ~/.files/bash_aliases'
 alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.toml'
-alias kmake='cd ~/kernel_dev/linux && \
-                sudo make -j && \
-                sudo make modules_install -j3 && \
-                sudo make install && sudo reboot'
 alias tmux='tmux -2'
 alias tmx='tmux attach-session'
 alias tmxx='vim ~/.files/tmux.conf'
@@ -35,7 +36,21 @@ alias mv='mv -vi'
 alias rm='rm -vi'
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
+# git {{{
+alias ga='git add'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gcl='git clone'
+alias gp='git push'
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log'
+# }}}
 alias bmake='bear -- make'
+alias kmake='cd ~/kernel_dev/linux && \
+                sudo make -j && \
+                sudo make modules_install -j3 && \
+                sudo make install && sudo reboot'
 
 function cl() {
     DIR="$*";
@@ -43,45 +58,6 @@ function cl() {
         DIR=$HOME;
     fi;
     builtin cd "${DIR}" && l
-}
-
-
-
-# lazy git add/commit/push
-save() {
-    repo=$(git rev-parse --show-toplevel 2> /dev/null)
-    if [ $? -eq 0 ]; then
-        echo "You are currently in the Git repository located at: $repo"
-        make clean || true
-        if git diff --quiet && git diff --cached --quiet; then
-            echo "No changes to commit."
-        else
-            echo "Do you want to save changes in this repository? (y/n)"
-            read response
-            if [[ $response =~ ^[Yy]$ ]]; then
-                git add .
-
-                echo "Files staged for commit:"
-                git diff --cached --name-only
-
-                echo "Enter your commit message:"
-                read msg
-                git commit -m "$msg"
-
-                echo "Do you want to push changes to the remote repository? (y/n)"
-                read response
-                if [[ $response =~ ^[Yy]$ ]]; then
-                    git push
-                    echo "Changes committed and pushed from $repo."
-                else echo "Changes committed but not pushed."
-                fi
-            else
-                echo "Changes not saved."
-            fi
-        fi
-    else
-        echo "You are not in a Git repository. Changes not saved."
-    fi
 }
 
 edit() {
@@ -92,5 +68,4 @@ edit() {
     tmux send-keys -t 0 ":e $filename" Enter
 }
 
-# alias so we don't have to install
 alias vimfect='/Users/rdn/.files/vim/pack/plugins/start/vimfect.sh'
