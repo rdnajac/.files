@@ -1,12 +1,16 @@
-# vim: ft=sh
-echo "the computing scientist's main challenge is not to get confused by the complexities of his own making"
+# vim: ft=sh 
 
 alias cd='cl'
+alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $(basename $SHELL)'
+alias ll='ls -AlFh --group-directories-first'
+alias l='ls -lFh --group-directories-first'
+alias lt='ls --human-readable --size -1 -S --classify'
 alias qq='cd ~/gscs/network_labs/lab3-rdnajac'
 alias ff='cd ~/.files'
-alias vi='vim'
+#alias vi='vim'
 alias nv='nvim'
 alias p3='python3'
+alias py3='python3'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
@@ -14,32 +18,21 @@ alias ....'=cd ../../..'
 alias vp='cd ~/.files/vim/pack/plugins/start'
 alias vpp='cd ~/.files/vim/after/plugin'
 alias db='dune build '
-
-# settings
 alias vimm='vim ~/.files/vim/vimrcx.vim'
 alias vimc='cd ~/.files/vim/colors'
-alias sha='vim ~/.files/shell/aliases'
+alias sha='vim ~/.files/aliases'
 alias nvv='cd ~/.config/nvim/lua/ && ll'
 alias alac='vim ~/.files/alacritty.toml'
-
 alias kmake='cd ~/kernel_dev/linux && \
                 sudo make -j && \
                 sudo make modules_install -j3 && \
                 sudo make install && sudo reboot'
-
-# tmux
 alias tmux='tmux -2'
 alias tmx='tmux attach-session'
 alias tmxx='vim ~/.files/tmux.conf'
 alias kms='tmux kill-server'
-
-alias ll='ls -AlFh --group-directories-first'
-alias l='ls -lFh --group-directories-first'
-alias lt='ls --human-readable --size -1 -S --classify'
-
 alias mv='mv -vi'
 alias rm='rm -vi'
-
 alias cpv='rsync -ahv --info=progress2'
 alias rmdir='rm -drvI'
 alias bmake='bear -- make'
@@ -52,11 +45,7 @@ function cl() {
     builtin cd "${DIR}" && l
 }
 
-function ree {
-    clear -x
-    echo -e "(╯°□°)╯︵ ┻━┻"
-    exec $(basename $SHELL)
-}
+
 
 # lazy git add/commit/push
 save() {

@@ -87,7 +87,6 @@ nnoremap <leader>r :set relativenumber!<cr>
 nnoremap <leader>c :set cu sorline!<cr>
 nnoremap <leader>t :set list!<cr>
 nnoremap <leader>o i<cr><esc>
-nnoremap <tab> i<tab><esc>
 nnoremap <space> i<space><esc>
 nnoremap > V`]>
 nnoremap < V`]<
@@ -107,7 +106,6 @@ nnoremap <silent> <M-k> :m .-2<CR>==
 " buffers and windows
 nnoremap L :bnext<CR>
 nnoremap H :bprevious<CR>
-nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>bl :ls<CR>
 
@@ -174,3 +172,7 @@ function! RunLine()
     execute cmd
 endfunction
 nnoremap <silent> <leader>rl :call RunLine()<cr>
+
+" override default to hide folder
+let g:black_virtualenv = "~/.vim/.black"
+

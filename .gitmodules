@@ -40,3 +40,6 @@
 [submodule "vim/pack/plugins/start/vim-markdown"]
 	path = vim/pack/plugins/start/vim-markdown
 	url = https://github.com/preservim/vim-markdown.git
+[submodule "vim/pack/plugins/start/YouCompleteMe"]
+	path = vim/pack/plugins/start/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git

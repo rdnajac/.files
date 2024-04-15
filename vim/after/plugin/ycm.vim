@@ -30,10 +30,20 @@ let g:ycm_semantic_triggers = {
 let g:ycm_complete_in_comments_and_strings = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_show_diagnostics_ui=0
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+set completeopt-=preview
+
+nnoremap <leader>] :YcmCompleter GoTo<CR>
+nnoremap ? <plug>(YCMHover)
+nnoremap <leader>g :YcmCompleter GoTo<CR>
+nnoremap gd :YcmCompleter GoToDefinition<CR>
+nnoremap gy :YcmCompleter GoToDeclaration<CR>
+nnoremap gi :YcmCompleter GoToImplementation<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
+nnoremap gs :YcmCompleter GoToType<CR>
+
 "let g:ycm_min_num_of_chars_for_completion = 99
-"set completeopt-=preview
 "nnoremap <leader>] :YcmCompleter GoTo<CR>
 "nnoremap ? <plug>(YCMHover)
 
