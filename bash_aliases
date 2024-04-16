@@ -1,34 +1,37 @@
-# vim: ft=sh fdm=marker
-alias cd='cl'
+# vim: ft=sh fdm=marker fdl=1
 alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $SHELL'
 
-# quick access
-alias qq='cd ~/gscs/'
-alias qa='cd ~/project-a-series-of-tubes'
-alias ff='cd ~/.files'
-
-alias ll='ls -AlFh --group-directories-first'
-alias l='ls -lFh --group-directories-first'
-alias lt='ls --human-readable --size -1 -S --classify'
-
+# file management {{{1
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias cp='cp -vi'
 alias mkdir='mkdir -pv'
 alias rmdir='rm -drvI'
 
-# navigation {{{1
+# navigation shortcuts {{{1
+alias cd='cl'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
 
-# shortcuts to vim folders {{{1
-alias plug='cd ~/.vim/pack/plugins/start'
+# projects {{{2
+alias qq='cd ~/gscs/'
+alias qa='cd ~/project-a-series-of-tubes'
+alias ff='cd ~/.files'
+
+# vim folders {{{2
+alias vv='cd ~/.vim'
 alias vc='cd ~/.vim/colors'
 alias vp='cd ~/.vim/after/plugin'
 alias vfp='cd ~/.vim/after/ftplugin'
+alias plug='cd ~/.vim/pack/plugins/start'
 alias nvv='cd ~/.config/nvim/lua/ '
+
+# ls with flags {{{1
+alias ll='ls -AlFh --group-directories-first'
+alias l='ls -lFh --group-directories-first'
+alias lt='ls --human-readable --size -1 -S --classify'
 
 # edit config files in vim {{{1
 alias vx='vim ~/.files/vim/vimrcx.vim'
@@ -42,7 +45,7 @@ alias p3='python3'
 alias py3='python3'
 alias db='dune build '
 
-# tmux {{{1
+# tmux {{{2
 alias tmux='tmux -2'
 alias tmx='tmux attach-session'
 alias tmxx='vim ~/.files/tmux.conf'
@@ -52,7 +55,7 @@ alias tl='tmux list-sessions'
 alias ts='tmux new-session -s'
 alias td='tmux detach'
 
-# git {{{1
+# git {{{2
 alias ga='git add'
 alias gc='git commit'
 alias gcm='git commit -m'
@@ -62,7 +65,7 @@ alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
 
-# make {{{1
+# make {{{2
 alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && \
                 sudo make -j && \
@@ -70,10 +73,7 @@ alias kmake='cd ~/kernel_dev/linux && \
                 sudo make install && sudo reboot'
 # }}}
 
-alias vimfect='/Users/rdn/.files/vim/pack/plugins/start/vimfect.sh'
-
 # functions {{{1
-
 # cd to a directory and list its contents {{{2
 function cl() {
     DIR="$*";
