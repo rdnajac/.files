@@ -1,24 +1,25 @@
 # vim: ft=sh fdm=marker fdl=1
 alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $SHELL'
 
-# file management {{{1
-alias mv='mv -vi'
-alias rm='rm -vi'
-alias cp='cp -vi'
-alias mkdir='mkdir -pv'
-alias rmdir='rm -drvI'
-
 # navigation shortcuts {{{1
 alias cd='cl'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
 alias ....'=cd ../../..'
-
 # projects {{{2
 alias qq='cd ~/gscs/'
 alias qa='cd ~/project-a-series-of-tubes'
+alias qw='cd ~/gscs/ChIP'
+alias qs='cd ~/SOCKit'
 alias ff='cd ~/.files'
+
+# file management {{{1
+alias mv='mv -vi'
+alias rm='rm -vi'
+alias cp='cp -vi'
+alias mkdir='mkdir -pv'
+alias rmdir='rm -drvI'
 
 # vim folders {{{2
 alias vv='cd ~/.vim'
