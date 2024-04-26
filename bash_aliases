@@ -3,6 +3,9 @@ alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $SHELL'
 
 alias vimba='vim -c "source %" -c "q"' # vimballs, anyone? 
 
+alias embiggen='tar -xvzf'
+alias unbiggen='tar -cvzf'
+
 # navigation shortcuts {{{1
 alias cd='cl'
 alias bd='cd -'
