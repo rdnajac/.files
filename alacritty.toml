@@ -18,7 +18,9 @@ foreground = "#39ff14"
 [font]
 size = 13.0
 [font.normal]
-family = "JetBrainsMonoNL Nerd Font Mono"
+#family = "JetBrainsMonoNL Nerd Font Mono"
+family = "JetBrains Mono"
+# family = "JetBrains Mono NL"
 
 [[mouse.bindings]]
 action = "Copy"

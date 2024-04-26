@@ -1,15 +1,14 @@
 [user]
-	email = rdn2108@columbia.edu
+	email = ryan.najac@columbia.edu
 	name = Ryan D. Najac
+    username = rdnajac
 [init]
 	defaultBranch = main
 [core]
-	excludesFile = ~/.files/.gitignore
+	editor = vim
 [credential "https://github.com"]
-	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [pull]
 	rebase = false
@@ -18,3 +17,8 @@
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -1,6 +1,8 @@
 # vim: ft=sh fdm=marker fdl=1
 alias ree='clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec $SHELL'
 
+alias vimba='vim -c "source %" -c "q"' # vimballs, anyone? 
+
 # navigation shortcuts {{{1
 alias cd='cl'
 alias bd='cd -'
@@ -38,6 +40,7 @@ alias lt='ls --human-readable --size -1 -S --classify'
 alias vx='vim ~/.files/vim/vimrcx.vim'
 alias ba='vim ~/.files/bash_aliases'
 alias alac='vim ~/.files/alacritty.toml'
+alias ssx='vim ~/.ssh/config'
 
 # executables {{{1
 alias vi='vim'
@@ -45,6 +48,7 @@ alias nv='nvim'
 alias p3='python3'
 alias py3='python3'
 alias db='dune build '
+alias vim-remote='vim scp://aws/home/ubuntu/'
 
 # tmux {{{2
 alias tmux='tmux -2'
@@ -91,5 +95,11 @@ edit() {
     fi
     local filename=$(realpath "$1")
     tmux send-keys -t 0 ":e $filename" Enter
+}
+
+# use vim's netrw to browse files over ssh {{{1
+#
+function vim-remote() {
+  vim scp://aws/${1}
 }
 

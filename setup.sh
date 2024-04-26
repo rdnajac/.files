@@ -1,5 +1,7 @@
 #!/bin/bash
-REPO_ROOT="$(git rev-parse --show-toplevel)"
+(
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && git rev-parse --show-toplevel)"
+
 CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 ##
@@ -21,12 +23,12 @@ symlink() {
 }
 
 symlink tmux.conf
-symlink vimrc
-symlink zshrc
 
-command -v alacritty > /dev/null && \
-  mkdir -vp "$CONFIG_HOME/alacritty" && \
-  ln -sfn "$REPO_ROOT/alacritty/alacritty.yml" \
-  "$CONFIG_HOME/alacritty/alacritty.yml"
+# [[ command zsh > /dev/null ]] && symlink zshrc
 
+# command -v alacritty > /dev/null && \
+#   mkdir -vp "$CONFIG_HOME/alacritty" && \
+#   ln -sfn "$REPO_ROOT/alacritty/alacritty.yml" \
+#   "$CONFIG_HOME/alacritty/alacritty.yml"
+)
 exec $SHELL
