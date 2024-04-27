@@ -5,6 +5,8 @@ alias vimba='vim -c "source %" -c "q"' # vimballs, anyone?
 
 alias embiggen='tar -xvzf'
 alias unbiggen='tar -cvzf'
+alias copy-folder='rsync -avz --progress'
+
 
 # navigation shortcuts {{{1
 alias cd='cl'
@@ -28,6 +30,8 @@ alias rmdir='rm -drvI'
 
 # vim folders {{{2
 alias vv='cd ~/.vim'
+alias vvv='vim ~/.vim/vimrc'
+alias vvx='vim ~/.vim/xvimrc.vim'
 alias vc='cd ~/.vim/colors'
 alias vp='cd ~/.vim/after/plugin'
 alias vfp='cd ~/.vim/after/ftplugin'

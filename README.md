@@ -1,10 +1,22 @@
 # .files
 did you know that you can get quick access to the ascii table with `man ascii`?
 
-```sh 
-# check these out
- brew install bash-doc
+## fun with brace expansion
+```bash
+mv file{,.old}  # add an extension
+mv file{,.}old  # hide a file
+mv file.{old,new}  # "convert" a file
 ```
+
+## bash
+| command | description |
+| --- | --- |
+| `!!` | repeat last command |
+| `!$` | last argument of last command |
+| `!^` | first argument of last command |
+| `!-n` | nth command in history |
+| `!n` | nth command in history |
+
 
 ### font 
 - [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
@@ -16,20 +28,20 @@ did you know that you can get quick access to the ascii table with `man ascii`?
 
 ## tmux cheatsheet
 - `ctrl+b` prefix
-- `ctrl+a` also prefix
+- `ctrl+a` prefix2
+apparently both of these conflict with bash and vim
 
-the following commands are in the form of prefix plus \<key>
 
-| key | command | notes |
-| --- | --- | ---
+| prefix + \<key> | command |
+| --- | --- |
 | `d` | detach | detach from session |
 | `w` | list windows |
 | `:` | enter command mode |
-| `r` | reload tmux config |
 | `&` | kill window |
 | `x` | kill pane |
-| `\|` | split pane "horizontally" | `unbind '"'` and `bind \| split-window -h` | 
-| `-` | split pane "vertically" | `unbind %` and `bind - split-window -v` |
+| `r` | reload tmux config (see: `~/.tmux.conf`) |
+| `-` | `unbind %` and `bind - split-window -v` |
+| `\|` | `unbind '"'` and `bind \| split-window -h` | 
 
 
 ```
