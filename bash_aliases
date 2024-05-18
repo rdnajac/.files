@@ -89,13 +89,18 @@ alias tmx='vim ~/.files/tmux.conf'
 # executables {{{2
 alias vi='vim'
 alias nv='nvim'
+
+# python {{{3
+alias py='python'
 alias p3='python3'
 alias py3='python3'
+
+# dune {{{3
 alias db='dune build'
 alias dc='dune clean'
 alias df='dune fmt'
 
-# tmux {{{2
+# tmux {{{3
 alias tmux='tmux -2'
 alias tma='tmux attach-session'
 alias kms='tmux kill-server'
@@ -104,7 +109,7 @@ alias tl='tmux list-sessions'
 alias ts='tmux new-session -s'
 alias td='tmux detach'
 
-# git {{{2
+# git {{{3
 alias ga=' git add'
 alias gaa='git add --all'
 alias gcm='git commit -m'
@@ -114,17 +119,15 @@ alias gs=' git status'
 alias gd=' git diff'
 alias gl=' git log'
 alias gnew='git checkout -b'
+alias gba='git branch -a'
 
-# make {{{2
+# make {{{3
 alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
                 sudo make modules_install  -j $(nproc) && \
                 sudo make install && sudo reboot'
 
 # functions {{{1
-
-# if you `source` this file you can use these functions
-# they work like aliases but can take positional arguments
 
 edit   () { touch "${1}" &&  tmux send-keys -t 0 ":e $(realpath "${1}")" Enter; }
 vimba  () { [[ "${1}" == *.vba.gz ]] && vim -c "source %" -c "q" "${1}"; }
