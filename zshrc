@@ -32,3 +32,10 @@ PSERROR='%(?.√.%F{red}exit %F{yellow}%?)%f'
 PSRUB="₽ "
 PS1="${PSTIME} ${PSPWD} ${PSERROR} ${NEWLINE}${PSRUB}"
 
+# opam init wants to add this to .zshrc:
+#[[ ! -r /Users/rdn/.opam/opam-init/init.zsh ]] || source /Users/rdn/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# Otherwise, every time you you will need to run:
+
+# eval $(opam env)
+

@@ -41,7 +41,8 @@ alias vv='cd ~/.vim'
 alias vc='cd ~/.vim/colors'
 alias vp='cd ~/.vim/after/plugin'
 alias vf='cd ~/.vim/after/ftplugin'
-alias plug='cd ~/.vim/pack/plugins/'
+alias plug='cd ~/.vim/pack/foo/'
+alias pack='cd ~/.vim/pack/foo/'
 alias nvv=' cd ~/.config/nvim/lua/'
 
 # }}}1
