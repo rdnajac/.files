@@ -53,7 +53,7 @@ alias rm='rm -vi'
 alias cp='cp -vi'
 alias mkdir='mkdir -v'
 alias link='ln -vsfFwh' # see `man ln`
-alias chx='chmod +x'    # make a file executable
+alias chx='chmod u+x'    # make a file executable
 alias lock='chmod -w'   # make a file read-only
 alias sync='rsync -avz --progress'
 ec2sync() { rsync -avz --progress "${1}" "aws:~/${2:-}"; }
@@ -90,6 +90,10 @@ alias tmx='vim ~/.files/tmux.conf'
 # executables {{{2
 alias vi='vim'
 alias nv='nvim'
+
+# aws {{{3
+alias awsstart='aws ec2 start-instances --instance-ids $MY_EC2_ID'
+alias awsstop='aws ec2 stop-instances --instance-ids $MY_EC2_ID'
 
 # python {{{3
 alias py='python'
