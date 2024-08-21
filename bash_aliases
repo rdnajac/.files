@@ -1,14 +1,16 @@
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 
-# first, let's handle macos compatibility...
 if [[ $(uname) == "Darwin" ]]; then
-	# brew install coreutils
-	# use GNU ls for consistency
+	# brew install coreutils for GNU ls, etc.
 	alias ls='gls'
 
 	# brew install ctags
-	# use Exuberant Ctags from homebrew
+	# use Exuberant Ctags
 	alias ctags='$(brew --prefix)/bin/ctags'
+
+	# os-specific aliases
+	alias copy='pbcopy'
+	alias paste='pbpaste'
 fi
 
 # ls
@@ -123,12 +125,12 @@ alias mymysql='mysql -u labaf_ryan -p -h palomerolab.org --ssl-mode=REQUIRED'
 
 ree() { clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec "$SHELL"; }
 
-# function to tmux send keys pane 0 :e $1 Enter wbut 1 is the full path
+# function to tmux send keys pane 0 
+# and change to the pane
 edit()
 {
 	local fullpath=$(readlink -f $1)
 	tmux send-keys -t 0 ":e $fullpath" Enter
-	# and change to the pane
 	tmux select-pane -t 0
 }
 
