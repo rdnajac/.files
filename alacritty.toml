@@ -4,23 +4,20 @@ TERM = "xterm-256color"
 [window]
 padding = {x = 2, y = 2}
 dynamic_padding = true
-decorations = "full"
+startup_mode = "SimpleFullscreen"
 
 [colors.normal]
 blue = "#14afff"
 magenta = "#ff69ff"
 
 [colors.primary]
-#background = "#16161d"
 background = "#000000"
 foreground = "#39ff14"
 
 [font]
-size = 13.0
+size = 12.0
 [font.normal]
-#family = "JetBrainsMonoNL Nerd Font Mono"
-#family = "JetBrains Mono NL"
-family = "JetBrains Mono"
+family = "JetBrainsMonoNL Nerd Font Mono"
 
 [[mouse.bindings]]
 action = "Copy"

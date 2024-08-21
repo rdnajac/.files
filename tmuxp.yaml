@@ -1,0 +1,20 @@
+session_name: mytmuxpsession 
+windows:
+  - window_name: cbmf
+    layout: tiled
+    shell_command_before:
+      - cd ~/cbmf
+    panes:
+      - vim **/*.md
+      - cd scripts 
+      - echo my-ec2 
+
+  - window_name: vim-config
+    layout: tiled
+    shell_command_before:
+      - cd ~/.vim
+    panes:
+      - vim **/*.vim
+      - cd autoload 
+      - cd pack/vimfect
+      - cd ~/.files

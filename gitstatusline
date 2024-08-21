@@ -1,0 +1,22 @@
+
+
+gitstatusline()
+{
+	branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+	if [[ ! -n "$branch" ]]; then
+		echo "👾"
+		return
+	fi
+	staged=$(git diff --cached --numstat | wc -l | tr -d ' ')
+	unstaged=$(git diff --numstat | wc -l | tr -d ' ')
+	untracked=$(git ls-files --others --exclude-standard | wc -l | tr -d ' ')
+	ignored=$(git ls-files --others --exclude-standard --ignored | wc -l | tr -d ' ')
+	echo -e "#[fg=black]${branch}#[fg=default] #[fg=blue]${staged}#[fg=default] #[fg=red]${unstaged}#[fg=default] #[fg=yellow]${untracked}#[fg=default] #[fg=magenta]${ignored}#[fg=default]"
+}
+#echo "${branch}" ✅"${staged}" ❌"${unstaged}" ❔"${untracked}" 🚫"${ignored}"
+#echo -e "👾${branch}\t\t✅${staged}\t❌${unstaged}\t❔${untracked}\t🚫${ignored}"
+#printf "👾%s\t✅%s\t❌%s\t❔%s\t🚫%s\n" "${branch}" "${staged}" "${unstaged}" "${untracked}" "${ignored}"
+#echo -e "\e[1;30m${branch}\e[0m \e[1;34m${staged}\e[0m \e[1;31m${unstaged}\e[0m \e[1;33m${untracked}\e[0m \e[1;35m${ignored}\e[0m"
+#echo -e "#[fg=black]${branch}#[fg=default] #[fg=blue]${staged}#[fg=default] #[fg=red]${unstaged}#[fg=default] #[fg=yellow]${untracked}#[fg=default] #[fg=magenta]${ignored}#[fg=default]"
+
+
