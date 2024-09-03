@@ -22,7 +22,8 @@ symlink() {
     ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-symlink tmux.conf
+# symlink tmux.conf
+symlink zshrc
 
 # [[ command zsh > /dev/null ]] && symlink zshrc
 
