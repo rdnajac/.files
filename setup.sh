@@ -26,8 +26,15 @@ symlink tmux.conf
 read -p "Do you want to clone vim config? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    cd ~ && git clone git@github.com:rdnajac/.vim.git
+    cd ~ && git clone --recurse-submodules
 fi
+
+read -p "Do you want to copy nvim config? [y/n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	ln -sfn $REPO_ROOT/nvim $CONFIG_HOME
+fi
+
 
 # [[ command zsh > /dev/null ]] && symlink zshrc
 if [ "$(uname)" = "Darwin" ]; then
