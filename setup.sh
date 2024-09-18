@@ -4,11 +4,8 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && git rev-parse --show-topleve
 
 CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
-##
-# Function: symlink
-# Description: create a symlink in the home directory
+# Create a symlink in the home directory
 # Arguments: $1 - dotfile name (e.g. tmux.conf)
-#
 symlink() {
     local dest="$HOME/.$1"
     if [ -e "$HOME/.$1" ]; then
@@ -22,10 +19,20 @@ symlink() {
     ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-# symlink tmux.conf
-symlink zshrc
+symlink bash_aliases
+symlink tmux.conf
+
+# Promt to clone vim config
+read -p "Do you want to clone vim config? [y/n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    cd ~ && git clone git@github.com:rdnajac/.vim.git
+fi
 
 # [[ command zsh > /dev/null ]] && symlink zshrc
+if [ "$(uname)" = "Darwin" ]; then
+	symlink zshrc
+fi
 
 # command -v alacritty > /dev/null && \
 #   mkdir -vp "$CONFIG_HOME/alacritty" && \

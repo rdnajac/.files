@@ -1,5 +1,9 @@
 # My .files
 
+Download a patched version of [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
+from [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/NoLigatures/Regular)
+with all the glyphs we need for neovim.
+
 ## Config
 
 - [Alacritty](https://alacritty.org/config-alacritty.html)
@@ -20,18 +24,12 @@ ssh-keygen -t ed25519 -C "ryan.najac@columbia.edu"
 pbcopy < ~/.ssh/id_ed25519.pub
 ```
 
+> [!NOTE]
+> This command works on macOS. For Linux, use `xclip` instead of `pbcopy`.
+
 [Test SSH connection](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection)
 
 ```sh
 ssh -T git@github.com
 ```
-
-### font
-
-- [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
-
-- download a patched version of JetBrainsMono from [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/NoLigatures/Regular)
-
-> [!NOTE]
-> iTerm2 supports ligatures, but Alacritty does not
 

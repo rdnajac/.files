@@ -2,6 +2,9 @@ source ~/.files/bash_aliases
 alias zr='vim ~/.zshrc'
 alias vimhome='cd /opt/homebrew/Cellar/vim/9.1.0600/share/vim/vim91/'
 
+copy() { pbcopy < ${1:-/dev/stdin}; printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "${1:-/dev/stdin}"; }
+paste() { pbpaste > ${1:-/dev/stdout}; printf "\033[0;31mPasted contents of clipboard to %s\033[0m\n" "${1:-/dev/stdout}"; }
+
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload bashcompinit && bashcompinit
@@ -28,7 +31,6 @@ PS1="${PSTIME} ${PSPWD} ${PSERROR}${NEWLINE}${PSRUB}"
 
 # https://tldp.org/LDP/abs/html/optimizations.htm
 # export LC_ALL=C
-# ( ͡° ͜ʖ ͡°) What are you doing Dave?
 
 alias mm=micromamba
 # >>> mamba initialize >>>
@@ -43,3 +45,6 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+chruby ruby-3.1.3 # run chruby to see actual version

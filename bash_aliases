@@ -15,11 +15,10 @@ fi
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 
-alias qq='cd ~/cbmf'
+alias qq='cd ~/Repositories/cbmf'
 alias ff='cd ~/.files'
 alias dt='cd ~/Desktop'
 alias dl='cd ~/Downloads'
-alias me='cd ~/gscs/resume'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
@@ -119,3 +118,11 @@ embiggen()
 	esac
 }
 alias unbiggen='tar -cvzf'
+
+# TODO make separate micromamba file and source it
+# add mm installation script to dotfiles
+
+alias jekyll='bundle exec jekyll'
+alias prettier='npx prettier --write'
+alias serve='micromamba run -n mkdocs mkdocs serve'
+
