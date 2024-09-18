@@ -32,7 +32,7 @@ fi
 read -p "Do you want to copy nvim config? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	ln -sfn $REPO_ROOT/nvim $CONFIG_HOME
+  ln -svf ~/.files/nvim ~/.config/nvim
 fi
 
 
