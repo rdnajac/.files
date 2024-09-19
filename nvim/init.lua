@@ -23,8 +23,6 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
   require("lazy").setup({
     ui = { border = "rounded", },
     change_detection = { enabled = true, notify = false, },
@@ -41,7 +39,5 @@ vim.api.nvim_create_autocmd("VimEnter", {
       { import = "plugins" },
     },
   })
-  end,
-})
 
 
