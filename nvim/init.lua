@@ -1,32 +1,35 @@
 vim.cmd("source ~/.vim/vimrc")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+require 'autocmds'
+require 'colors'
+
+-- https://lsp-zero.netlify.app/docs/tutorial.html#complete-code
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local uv = vim.uv or vim.loop
+
+-- Auto-install lazy.nvim if not present
+if not uv.fs_stat(lazypath) then
+  print('Installing lazy.nvim....')
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--branch=stable",
-    lazyrepo,
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
+  print('Done.')
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
   require("lazy").setup({
-    ui = {
-      border = "rounded",
-    },
-    change_detection = {
-      enabled = true,
-      notify = false,
-    },
+    ui = { border = "rounded", },
+    change_detection = { enabled = true, notify = false, },
     install = { colorscheme = { "tokyonight-night" } },
     spec = {
-      { import = "plugins" },
       {
         "folke/tokyonight.nvim",
         lazy = false,
@@ -35,8 +38,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
           vim.cmd([[colorscheme tokyonight-night]])
         end,
       },
+      { import = "plugins" },
     },
   })
   end,
 })
+
 
