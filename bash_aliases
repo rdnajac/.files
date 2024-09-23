@@ -15,7 +15,7 @@ fi
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 
-alias qq='cd ~/Repositories/cbmf'
+alias qq='cd ~/rdnajac'
 alias ff='cd ~/.files'
 alias dt='cd ~/Desktop'
 alias dl='cd ~/Downloads'
@@ -67,7 +67,7 @@ alias alac='vim ~/.files/alacritty.toml'
 # use the system default python3
 alias p3='/usr/bin/python3'
 
-alias tmux='tmux -2'
+# alias tmux='tmux -2'
 alias tma='tmux attach-session'
 alias kms='tmux kill-server'
 alias ta='tmux attach-session -t'
