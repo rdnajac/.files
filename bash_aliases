@@ -12,6 +12,7 @@ else
 	alias ls='ls -F --color=auto --human-readable --group-directories-first'
 fi
 
+alias lv='lvim'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 
@@ -57,6 +58,7 @@ alias pack='cd ~/.vim/pack/vimfect'
 
 alias nv='nvim'
 alias nvv=' cd ~/.config/nvim/lua/'
+alias nvvv='nvim ~/.config/nvim/init.lua'
 
 # edit config files
 alias ba='vim ~/.files/bash_aliases'
