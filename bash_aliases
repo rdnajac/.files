@@ -1,25 +1,23 @@
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
-
-alias grep='grep --color=auto'
+export LS_COLORS="$(~/.files/extra/lscolors.py)"
 
 if [ "$(uname)" = "Darwin" ]; then
 	# use GNU ls and exuberant ctags on macOS
 	# brew install coreutils ctags
-	alias ls='gls -F --color=auto'
+	alias ls='gls -F --color=auto --group-directories-first'
 	alias ctags='$(brew --prefix)/bin/ctags'
 else
 	# not supported on macOS
 	alias ls='ls -F --color=auto --human-readable --group-directories-first'
 fi
 
-alias lv='lvim'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
-
-alias qq='cd ~/rdnajac'
-alias ff='cd ~/.files'
-alias dt='cd ~/Desktop'
-alias dl='cd ~/Downloads'
+cl() { builtin cd "${1:-$HOME}" && ls; }
+alias qq='cl ~/Desktop/rdnajac/cpp-sandbox/src'
+alias ff='cl ~/.files'
+alias dt='cl ~/Desktop'
+alias dl='cl ~/Downloads'
 alias bd='cd -'
 alias ..'=cd ..'
 alias ...'=cd ../..'
@@ -28,23 +26,21 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-cl() { builtin cd "${1:-$HOME}" && ls; }
-
-# file management
+alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias rmf='rm -f'
 alias rmrf='rm -rf'
 alias rmd='rm -drvI'
-alias cp='cp -vi'
+alias rmdir='rm -drvI'
 alias mkdir='mkdir -v'
+
 alias link='ln -vsfFwh' # see `man ln`
 alias chx='chmod u+x'   # make a file executable
 alias lock='chmod -w'   # make a file read-only
 # rsync all non-hidden files and directories
 alias sync='rsync -avz --progress --exclude=".*"'
 
-alias cim='vim'
 alias v='vim'
 alias vv='cd ~/.vim'
 alias vvv='vim ~/.vim/vimrc'
@@ -57,14 +53,14 @@ alias timtex='vim ~/.vim/after/ftplugin/tex.vim'
 alias pack='cd ~/.vim/pack/vimfect'
 
 alias nv='nvim'
-alias nvv=' cd ~/.config/nvim/lua/'
-alias nvvv='nvim ~/.config/nvim/init.lua'
+alias nvv='vim ~/.config/nvim/init.lua'
 
 # edit config files
 alias ba='vim ~/.files/bash_aliases'
 alias ssx='vim ~/.ssh/config'
 alias tmx='vim ~/.files/tmux.conf'
 alias alac='vim ~/.files/alacritty.toml'
+alias gitc='vim ~/.files/gitconfig'
 
 # use the system default python3
 alias p3='/usr/bin/python3'
@@ -85,46 +81,26 @@ alias gp=' git push'
 alias gs=' git status'
 alias gd=' git diff'
 alias gl=' git log'
-alias gne='git checkout -b'
 alias gba='git branch -a'
 alias gsub='git submodule'
 
-# other aliases
-alias ex='gh copilot explain'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+alias explain='gh copilot explain'
 alias suggest='gh copilot suggest'
+
 alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
              sudo make modules_install && sudo make install'
-alias mdfmt='prettier --write **/*.md'
-alias mymysql='mysql -u labaf_ryan -p -h palomerolab.org --ssl-mode=REQUIRED'
-alias sesh='tmuxp load ~/.files/tmuxp.yaml'
+
+# fat fingers!
+alias mg='mv' # harder to quit than vim
+alias cim='vim'
 
 ree() { clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec "$SHELL"; }
 
-edit()
-{
-	fullpath="$(readlink -f "$1")"
-	tmux send-keys -t 0 ":e $fullpath" Enter
-	tmux select-pane -t 0
-}
-
-embiggen()
-{
-	case "$1" in 
-		*.gz)  tar -xvzf "$1" ;;
-		*.tar) tar -xvf "$1" ;;
-		*.zip) unzip "$1" ;;
-		*.rar) unrar x "$1" ;;
-		*.7z)  7z x "$1" ;;
-		*) echo "embiggen: unknown file type" ;;
-	esac
-}
-alias unbiggen='tar -cvzf'
-
-# TODO make separate micromamba file and source it
-# add mm installation script to dotfiles
-
 alias jekyll='bundle exec jekyll'
-alias prettier='npx prettier --write'
 alias serve='micromamba run -n mkdocs mkdocs serve'
 
+CML() { touch CMakeLists.txt; }

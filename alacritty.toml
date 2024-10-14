@@ -8,8 +8,7 @@ startup_mode = "SimpleFullscreen"
 
 [shell]
 program = "/opt/homebrew/bin/tmux"
-args = ["-2"]
-
+args = ["-2",  "new-session", "-A", "-s", "alacritty-sesh"]
 
 [colors.normal]
 blue = "#14afff"
