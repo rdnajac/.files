@@ -34,6 +34,12 @@ if [ "$(uname)" = "Darwin" ]; then
 	make_symlink "zshrc"
 fi
 
+prompt_user() {
+	printf "%s [y/n] " "$1"
+	read -r REPLY
+	[ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]
+}
+
 if prompt_user "Do you want to clone vim config?"; then
 	# Uncomment and specify the desired git repository
 	# git clone --recurse-submodules <vim_repo_url> ~/.vim
