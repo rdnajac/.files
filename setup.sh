@@ -41,9 +41,15 @@ prompt_user() {
 }
 
 if prompt_user "Do you want to clone vim config?"; then
-	# Uncomment and specify the desired git repository
-	# git clone --recurse-submodules <vim_repo_url> ~/.vim
-	echo "Cloning vim config..."
+	# if there is already a vimdir, move it
+	if [ -d ~/.vim ]; then
+		echo "Found ~/.vim directory."
+		if [ ! -L ~/.vim ]; then
+			echo "Moving ~/.vim to ~/.vim.old"
+			mv -iv ~/.vim ~/.vim.old
+		fi
+	fi
+	git clone --recurse-submodules git@github.com:rdnajac/.vim.git ~/.vim
 fi
 
 exec "$SHELL"
