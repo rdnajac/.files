@@ -19,7 +19,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Enable command-line autocompletion
 autoload -Uz compinit && compinit
-# autoload bashcompinit && bashcompinit
+autoload bashcompinit && bashcompinit
 
 # Add custom completion scripts to the fpath
 fpath=(~/.zsh $fpath)
@@ -28,8 +28,7 @@ fpath=(~/.zsh $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 
 # AWS CLI completion
-#complete -C '/usr/local/bin/aws_completer' aws
-compdef _aws '/usr/local/bin/aws_completer'
+complete -C '/opt/homebrew/bin/aws_completer' aws
 
 
 autoload -Uz vcs_info
@@ -66,3 +65,4 @@ fi
 unset __mamba_setup
 # <<< mamba initialize <<<
 alias mm='micromamba'
+export PATH=$PATH:/opt/aws/mountpoint-s3/bin

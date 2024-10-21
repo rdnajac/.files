@@ -98,9 +98,18 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 alias mg='mv' # harder to quit than vim
 alias cim='vim'
 
-ree() { clear -x; echo -e "(╯°□°)╯︵ ┻━┻"; exec "$SHELL"; }
+ree() {
+	clear -x
+	echo -e "(╯°□°)╯︵ ┻━┻"
+	exec "$SHELL"
+}
 
 alias jekyll='bundle exec jekyll'
 alias serve='micromamba run -n mkdocs mkdocs serve'
+alias pretty='prettier --write .'
+alias pip=pip3
+alias zz=fg
+
+alias vimcuda='vim scp://rdnCUDA/~/CLionProjects/cuda/'
 
 CML() { touch CMakeLists.txt; }

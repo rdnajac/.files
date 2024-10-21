@@ -10,11 +10,11 @@
 	editor = vim
 
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [pull]
@@ -32,3 +32,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[alias]
+	uncommit = reset HEAD~1
+	recommit = commit --amend --no-edit
+	undo = reset --soft HEAD^
+	editcommit = commit --amend
+	logg = log --color --oneline -a --graph

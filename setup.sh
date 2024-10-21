@@ -1,49 +1,36 @@
 #!/bin/bash
-(
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && git rev-parse --show-toplevel)"
-
-CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+echo "$REPO_ROOT"
 
 # Create a symlink in the home directory
 # Arguments: $1 - dotfile name (e.g. tmux.conf)
-symlink() {
-    local dest="$HOME/.$1"
-    if [ -e "$HOME/.$1" ]; then
-        echo "found .$1 in home directory"
-        if [ ! -L "$dest" ]; then
-            echo "moving .$1 to .$1.old"
-            mv -iv "$dest" "$dest.old"
-        fi
-    fi
-    echo "linking $1..."
-    ln -sfv "$REPO_ROOT/$1" "$dest"
+make_symlink() {
+	local dest="${HOME}/.${1}"
+	if [ -e "$dest" ]; then
+		echo "found .$1 in home directory"
+		if [ ! -L "$dest" ]; then
+			echo "moving .$1 to .$1.old"
+			mv -iv "$dest" "$dest.old"
+		fi
+	fi
+	echo "linking $1..."
+	ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-symlink bash_aliases
-symlink tmux.conf
+make_symlink bash_aliases
+make_symlink tmux.conf
+make_symlink alacritty.toml
 
-# Promt to clone vim config
+# Prompt to clone vim config
 read -p "Do you want to clone vim config? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    cd ~ && git clone --recurse-submodules
+	# (cd ~ && git clone --recurse-submodules)
 fi
 
-read -p "Do you want to copy nvim config? [y/n] " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  ln -svf ~/.files/nvim ~/.config/nvim
-fi
-
-
-# [[ command zsh > /dev/null ]] && symlink zshrc
+# [[ command zsh > /dev/null ]] && make_symlink zshrc
 if [ "$(uname)" = "Darwin" ]; then
-	symlink zshrc
+	make_symlink zshrc
 fi
 
-# command -v alacritty > /dev/null && \
-#   mkdir -vp "$CONFIG_HOME/alacritty" && \
-#   ln -sfn "$REPO_ROOT/alacritty/alacritty.yml" \
-#   "$CONFIG_HOME/alacritty/alacritty.yml"
-)
-exec $SHELL
+exec "$SHELL"
