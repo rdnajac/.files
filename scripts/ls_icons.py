@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import os
-
 
 def color(code):
     return f"0;{code}"

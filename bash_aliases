@@ -14,7 +14,7 @@ fi
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 cl() { builtin cd "${1:-$HOME}" && ls; }
-alias qq='cl ~/Desktop/rdnajac/cpp-sandbox/src'
+alias qq='cl ~/Desktop/palomerolab/cbmf'
 alias ff='cl ~/.files'
 alias dt='cl ~/Desktop'
 alias dl='cl ~/Downloads'
@@ -53,7 +53,8 @@ alias timtex='vim ~/.vim/after/ftplugin/tex.vim'
 alias pack='cd ~/.vim/pack/vimfect'
 
 alias nv='nvim'
-alias nvv='vim ~/.config/nvim/init.lua'
+alias nvv='cd ~/.config/nvim/'
+alias nvl='nvim ./**/*.lua'
 
 # edit config files
 alias ba='vim ~/.files/bash_aliases'
@@ -76,6 +77,7 @@ alias td='tmux detach'
 alias ga=' git add'
 alias gaa='git add --all'
 alias gcm='git commit -m'
+alias gcma='git commit -m -a'
 alias gcl='git clone'
 alias gp=' git push'
 alias gs=' git status'
@@ -98,18 +100,12 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 alias mg='mv' # harder to quit than vim
 alias cim='vim'
 
-ree() {
-	clear -x
-	echo -e "(╯°□°)╯︵ ┻━┻"
-	exec "$SHELL"
-}
-
-alias jekyll='bundle exec jekyll'
-alias serve='micromamba run -n mkdocs mkdocs serve'
 alias pretty='prettier --write .'
 alias pip=pip3
 alias zz=fg
 
 alias vimcuda='vim scp://rdnCUDA/~/CLionProjects/cuda/'
+alias lazypath='cd ~/.local/share/nvim/'
 
-CML() { touch CMakeLists.txt; }
+
+ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }

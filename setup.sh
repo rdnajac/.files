@@ -28,6 +28,7 @@ make_symlink "alacritty.toml"
 make_symlink "bash_aliases"
 make_symlink "gitconfig"
 make_symlink "tmux.conf"
+make_symlink "condarc"
 
 # Symlink zshrc if on macOS
 if [ "$(uname)" = "Darwin" ]; then
@@ -41,7 +42,7 @@ prompt_user() {
 }
 
 if prompt_user "Do you want to clone vim config?"; then
-	# if there is already a vimdir, move it
+	# if there is already a vim dir, move it
 	if [ -d ~/.vim ]; then
 		echo "Found ~/.vim directory."
 		if [ ! -L ~/.vim ]; then
@@ -49,7 +50,7 @@ if prompt_user "Do you want to clone vim config?"; then
 			mv -iv ~/.vim ~/.vim.old
 		fi
 	fi
-	git clone --recurse-submodules git@github.com:rdnajac/.vim.git ~/.vim
+	git clone --recurse-submodules https://github.com/rdnajac/.vim.git ~/.vim
 fi
 
 exec "$SHELL"

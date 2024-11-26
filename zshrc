@@ -1,6 +1,6 @@
 source ~/.files/bash_aliases
 alias zr='vim ~/.zshrc'
-alias vimhome='cd /opt/homebrew/Cellar/vim/9.1.0600/share/vim/vim91/'
+alias vimhome='cd /opt/homebrew/Cellar/vim/9.1.0850/share/vim/vim91/'
 
 copy() {
     echo "copy called with arguments: $@"
@@ -44,7 +44,8 @@ NEWLINE=$'\n'
 PSPWD='%F{blue}%~%f'
 PSTIME='%F{magenta}%D{%s}%f'
 PSERROR='%(?.√.%F{red}exit %F{yellow}%?)%f'
-PSRUB="₽ "
+# PSRUB="₽ "
+PSRUB="👾 "
 PS1="${PSTIME} ${PSPWD} ${PSERROR}${NEWLINE}${PSRUB}"
 
 # ruby
@@ -55,7 +56,7 @@ chruby ruby-3.1.3 # run chruby to see actual version
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/Users/rdn/Desktop/micromamba';
+export MAMBA_ROOT_PREFIX='/Users/rdn/micromamba';
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
@@ -65,4 +66,7 @@ fi
 unset __mamba_setup
 # <<< mamba initialize <<<
 alias mm='micromamba'
-export PATH=$PATH:/opt/aws/mountpoint-s3/bin
+alias conda='micromamba'
+
+# add Rscript to path
+export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin

@@ -6,9 +6,9 @@ padding = {x = 2, y = 2}
 dynamic_padding = true
 #startup_mode = "SimpleFullscreen"
 
-[shell]
-program = "/opt/homebrew/bin/tmux"
-args = ["-2",  "new-session", "-A", "-s", "alacritty-sesh"]
+# [shell]
+# program = "/opt/homebrew/bin/tmux"
+# args = ["-2",  "new-session", "-A", "-s", "alacritty-sesh"]
 
 [colors.normal]
 blue = "#14afff"

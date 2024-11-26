@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+## Easy to read and modify LS_COLORS
 
-import os
+# Define basic colors
+BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(30, 38)
 
 
 def color(code):
@@ -11,13 +13,10 @@ def bold(code):
     return f"1;{code}"
 
 
-# Define basic colors
-BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(30, 38)
-
 # Define color schemes
 ls_colors = {
     "di": bold(BLUE),  # directory
-    "ln": bold(YELLOW),  # symbolic link
+    "ln": bold(CYAN),  # symbolic link
     "pi": color(YELLOW),  # pipe
     "so": color(YELLOW),  # socket
     "bd": color(YELLOW),  # block device
@@ -62,6 +61,7 @@ ls_colors = {
     "*.pdf": bold(YELLOW),
     "*.xls": bold(YELLOW),
     "*.xlsx": bold(YELLOW),
+    # Text
     "*.txt": color(YELLOW),
     "*.csv": color(YELLOW),
     "*.tsv": color(YELLOW),
@@ -71,6 +71,10 @@ ls_colors = {
     "*.yaml": color(YELLOW),
     "*.yml": color(YELLOW),
     "*.toml": color(YELLOW),
+    "*rc": color(YELLOW),
+    "*.conf": color(YELLOW),
+    "*config": color(YELLOW),
+    "*_aliases": color(YELLOW),
     # Code
     "*.c": color(GREEN),
     "*.cpp": color(GREEN),
