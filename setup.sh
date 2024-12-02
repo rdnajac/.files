@@ -1,56 +1,53 @@
 #!/usr/bin/env sh
+set -eu
 
 # Get the root of the repository
 REPO_ROOT="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
+
 echo "Repository Root: $REPO_ROOT"
 
-# Create a symlink in the home directory
-# Arguments: $1 - dotfile name (e.g. tmux.conf)
-make_symlink() {
-	if [ "$1" = "" ]; then
-		echo "Error: No filename provided."
-		return 1
+# Move existing files to backups if not symlinks
+backup_if_exists() {
+	if [ -e "$1" ] && [ ! -L "$1" ]; then
+		mv -iv "$1" "$1.old"
 	fi
+}
 
+# Create a symlink in the home directory
+make_symlink() {
 	dest="${HOME}/.$1"
-	if [ -e "$dest" ]; then
-		echo "Found .$1 in home directory."
-		if [ ! -L "$dest" ]; then
-			echo "Moving .$1 to .$1.old"
-			mv -iv "$dest" "$dest.old"
-		fi
-	fi
-	echo "Linking $1..."
+	backup_if_exists "$dest"
 	ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-make_symlink "alacritty.toml"
-make_symlink "bash_aliases"
-make_symlink "gitconfig"
-make_symlink "tmux.conf"
-make_symlink "condarc"
+dotfiles="alacritty.toml bash_aliases gitconfig tmux.conf condarc"
+
+for dotfile in $dotfiles; do
+	make_symlink "$dotfile"
+done
 
 # Symlink zshrc if on macOS
 if [ "$(uname)" = "Darwin" ]; then
 	make_symlink "zshrc"
 fi
 
+# Prompt the user for additional actions
 prompt_user() {
-	printf "%s [y/n] " "$1"
-	read -r REPLY
-	[ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]
+	printf "%s [y/n]: " "$1"
+	read -r reply
+	case "$reply" in
+		[yY]) return 0 ;;
+		*) return 1 ;;
+	esac
 }
 
-if prompt_user "Do you want to clone vim config?"; then
-	# if there is already a vim dir, move it
-	if [ -d ~/.vim ]; then
-		echo "Found ~/.vim directory."
-		if [ ! -L ~/.vim ]; then
-			echo "Moving ~/.vim to ~/.vim.old"
-			mv -iv ~/.vim ~/.vim.old
-		fi
-	fi
-	git clone --recurse-submodules https://github.com/rdnajac/.vim.git ~/.vim
+# Clone vim config if requested
+if prompt_user "Do you want to clone the vim config?"; then
+	backup_if_exists "$HOME/.vim"
+
+	echo "Cloning vim config..."
+	git clone --recurse-submodules https://github.com/rdnajac/.vim.git "$HOME/.vim"
 fi
 
+# Restart shell
 exec "$SHELL"
