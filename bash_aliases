@@ -89,8 +89,8 @@ alias gsub='git submodule'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
-alias explain='gh copilot explain'
-alias suggest='gh copilot suggest'
+alias explain='gh copilot explain '
+alias suggest='gh copilot suggest '
 
 alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \

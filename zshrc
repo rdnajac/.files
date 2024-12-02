@@ -1,4 +1,6 @@
 source ~/.files/bash_aliases
+source ~/extras/ps1_zsh
+
 alias zr='vim ~/.zshrc'
 alias vimhome='cd /opt/homebrew/Cellar/vim/9.1.0850/share/vim/vim91/'
 
@@ -70,3 +72,6 @@ alias conda='micromamba'
 
 # add Rscript to path
 export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
+
+# add copilot aliases
+eval "$(gh copilot alias -- zsh)"
