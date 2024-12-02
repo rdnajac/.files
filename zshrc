@@ -1,56 +1,17 @@
 source ~/.files/bash_aliases
-source ~/extras/ps1_zsh
+source ~/.files/zsh/promptstring.zsh
+# source ~/.files/zsh/gitbranch.zsh
+# source ~/.files/zsh/clipboardfunctions.zsh
+source ~/.files/zsh/completion.zsh
 
 alias zr='vim ~/.zshrc'
-alias vimhome='cd /opt/homebrew/Cellar/vim/9.1.0850/share/vim/vim91/'
-
-copy() {
-    echo "copy called with arguments: $@"
-    pbcopy < "${1:-/dev/stdin}"
-    printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "${1:-/dev/stdin}"
-}
-
-paste() {
-    echo "paste called with arguments: $@"
-    pbpaste > "${1:-/dev/stdout}"
-    printf "\033[0;31mPasted contents of clipboard to %s\033[0m\n" "${1:-/dev/stdout}"
-}
+alias mm='micromamba'
+alias conda='micromamba'
 
 # Set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Enable command-line autocompletion
-autoload -Uz compinit && compinit
-autoload bashcompinit && bashcompinit
-
-# Add custom completion scripts to the fpath
-fpath=(~/.zsh $fpath)
-
-# Git completion
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-
-# AWS CLI completion
-complete -C '/opt/homebrew/bin/aws_completer' aws
-
-
-autoload -Uz vcs_info
-precmd() { vcs_info }
-setopt prompt_subst
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-
-NEWLINE=$'\n'
-PSPWD='%F{blue}%~%f'
-PSTIME='%F{magenta}%D{%s}%f'
-PSERROR='%(?.√.%F{red}exit %F{yellow}%?)%f'
-# PSRUB="₽ "
-PSRUB="👾 "
-PS1="${PSTIME} ${PSPWD} ${PSERROR}${NEWLINE}${PSRUB}"
-
-# ruby
+# Set up Ruby environment
 source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 chruby ruby-3.1.3 # run chruby to see actual version
@@ -67,11 +28,6 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-alias mm='micromamba'
-alias conda='micromamba'
 
 # add Rscript to path
 export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
-
-# add copilot aliases
-eval "$(gh copilot alias -- zsh)"

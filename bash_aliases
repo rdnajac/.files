@@ -104,8 +104,6 @@ alias pretty='prettier --write .'
 alias pip=pip3
 alias zz=fg
 
-alias vimcuda='vim scp://rdnCUDA/~/CLionProjects/cuda/'
 alias lazypath='cd ~/.local/share/nvim/'
-
 
 ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
