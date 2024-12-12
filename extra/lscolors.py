@@ -75,6 +75,7 @@ ls_colors = {
     "*.conf": color(YELLOW),
     "*config": color(YELLOW),
     "*_aliases": color(YELLOW),
+    "*wezterm.lua": color(YELLOW),
     # Code
     "*.c": color(GREEN),
     "*.cpp": color(GREEN),

@@ -55,6 +55,11 @@ alias pack='cd ~/.vim/pack/vimfect'
 alias nv='nvim'
 alias nvv='cd ~/.config/nvim/'
 alias nvl='nvim ./**/*.lua'
+# alias L='nvim -c "let g:LAZY = 1"'
+# alias L='nvim -c "let g:LAZY = v:true" '
+alias L='LAZY=1 nvim'
+alias LL='LAZY=1 nvl'
+alias pnv='PROF=1 nvim'
 
 # edit config files
 alias ba='vim ~/.files/bash_aliases'
@@ -62,6 +67,7 @@ alias ssx='vim ~/.ssh/config'
 alias tmx='vim ~/.files/tmux.conf'
 alias alac='vim ~/.files/alacritty.toml'
 alias gitc='vim ~/.files/gitconfig'
+alias wez='vim ~/.files/wezterm.lua'
 
 # use the system default python3
 alias p3='/usr/bin/python3'
@@ -90,7 +96,7 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 alias explain='gh copilot explain '
-alias suggest='gh copilot suggest '
+alias \?\?='gh copilot suggest '
 
 alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
