@@ -6,8 +6,7 @@ autoload bashcompinit && bashcompinit
 fpath=(~/.zsh $fpath)
 
 # Git completion
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 
 # AWS CLI completion
 complete -C '/opt/homebrew/bin/aws_completer' aws
-

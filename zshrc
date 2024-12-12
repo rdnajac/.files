@@ -1,12 +1,14 @@
 source ~/.files/bash_aliases
 source ~/.files/zsh/promptstring.zsh
 # source ~/.files/zsh/gitbranch.zsh
-# source ~/.files/zsh/clipboardfunctions.zsh
+source ~/.files/zsh/clipboardfunctions.zsh
 source ~/.files/zsh/completion.zsh
 
 alias zr='vim ~/.zshrc'
 alias mm='micromamba'
 alias conda='micromamba'
+
+alias nvim='/opt/nvim-macos-arm64/bin/nvim'
 
 # Set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -31,3 +33,8 @@ unset __mamba_setup
 
 # add Rscript to path
 export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
+
+# warning: be sure to add `/Users/rdn/.cargo/bin` to your PATH to be able to run the installed binaries
+export PATH="$HOME/.cargo/bin:$PATH"
+
+setopt interactivecomments

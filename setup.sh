@@ -36,8 +36,8 @@ prompt_user() {
 	printf "%s [y/n]: " "$1"
 	read -r reply
 	case "$reply" in
-		[yY]) return 0 ;;
-		*) return 1 ;;
+	[yY]) return 0 ;;
+	*) return 1 ;;
 	esac
 }
 

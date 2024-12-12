@@ -2,13 +2,15 @@
 TERM = "xterm-256color"
 
 [window]
-padding = {x = 2, y = 2}
+padding = { x = 2, y = 2 }
 dynamic_padding = true
-#startup_mode = "SimpleFullscreen"
+opacity = 0.8
+decorations = "Buttonless"
+startup_mode = "SimpleFullscreen"
 
-# [shell]
+# [terminal.shell]
 # program = "/opt/homebrew/bin/tmux"
-# args = ["-2",  "new-session", "-A", "-s", "alacritty-sesh"]
+# args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
 
 [colors.normal]
 blue = "#14afff"
@@ -21,7 +23,7 @@ foreground = "#39ff14"
 [font]
 size = 13.0
 [font.normal]
-family = "JetBrainsMonoNL Nerd Font Mono"
+# family = "JetBrainsMono Nerd Font"
 
 [[mouse.bindings]]
 action = "Copy"
@@ -35,3 +37,5 @@ action = "None"
 [selection]
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 save_to_clipboard = true
+
+# [terminal]
