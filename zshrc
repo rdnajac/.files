@@ -1,14 +1,21 @@
+setopt interactivecomments # Don't error on `#` in command line
+# https://unix.stackexchange.com/questions/598440/zsh-indic-fonts-support-rendering-issue-which-is-working-fine-on-bash
+# setopt COMBINING_CHARS
+# export LC_COLLATE=C
+
 source ~/.files/bash_aliases
-source ~/.files/zsh/promptstring.zsh
-# source ~/.files/zsh/gitbranch.zsh
-source ~/.files/zsh/clipboardfunctions.zsh
-source ~/.files/zsh/completion.zsh
+
+source ~/.files/scripts/zsh/promptstring.zsh
+# source ~/.files/scripts/zsh/gitbranch.zsh
+source ~/.files/scripts/zsh/clipboardfunctions.zsh
+source ~/.files/scripts/zsh/completion.zsh
 
 alias zr='vim ~/.zshrc'
 alias mm='micromamba'
 alias conda='micromamba'
-
 alias nvim='/opt/nvim-macos-arm64/bin/nvim'
+alias brewup='brew update; brew upgrade; brew cleanup -s;'
+# alias vim='nvim'
 
 # Set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -17,6 +24,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 chruby ruby-3.1.3 # run chruby to see actual version
+
+# Add executables to PATH
+export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -30,11 +41,3 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-
-# add Rscript to path
-export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
-
-# warning: be sure to add `/Users/rdn/.cargo/bin` to your PATH to be able to run the installed binaries
-export PATH="$HOME/.cargo/bin:$PATH"
-
-setopt interactivecomments

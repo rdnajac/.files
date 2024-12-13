@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 ## Easy to read and modify LS_COLORS
 
-# Define basic colors
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(30, 38)
 
 
@@ -13,7 +12,6 @@ def bold(code):
     return f"1;{code}"
 
 
-# Define color schemes
 ls_colors = {
     "di": bold(BLUE),  # directory
     "ln": bold(CYAN),  # symbolic link
@@ -82,6 +80,9 @@ ls_colors = {
     "*.py": color(GREEN),
     "*.js": color(GREEN),
     "*.sh": color(GREEN),
+    "*.zsh": color(GREEN),
+    "*.bash": color(GREEN),
+    "*.lua": color(GREEN),
 }
 
 

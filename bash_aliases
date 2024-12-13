@@ -1,5 +1,5 @@
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
-export LS_COLORS="$(~/.files/extra/lscolors.py)"
+export LS_COLORS="$(~/.files/scripts/lscolors.py)"
 
 if [ "$(uname)" = "Darwin" ]; then
 	# use GNU ls and exuberant ctags on macOS
@@ -67,7 +67,7 @@ alias ssx='vim ~/.ssh/config'
 alias tmx='vim ~/.files/tmux.conf'
 alias alac='vim ~/.files/alacritty.toml'
 alias gitc='vim ~/.files/gitconfig'
-alias wez='vim ~/.files/wezterm.lua'
+alias wz='nvim ~/.files/wezterm.lua'
 
 # use the system default python3
 alias p3='/usr/bin/python3'
@@ -110,6 +110,6 @@ alias pretty='prettier --write .'
 alias pip=pip3
 alias zz=fg
 
-alias lazypath='cd ~/.local/share/nvim/'
+alias Lazypath='cd ~/.local/share/nvim/'
 
 ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
