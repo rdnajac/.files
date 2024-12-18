@@ -17,6 +17,9 @@ alias nvim='/opt/nvim-macos-arm64/bin/nvim'
 alias brewup='brew update; brew upgrade; brew cleanup -s;'
 # alias vim='nvim'
 
+# nvim oil-ssh://[username@]hostname[:port]/[path]
+oil() { /opt/nvim-macos-arm64/bin/nvim oil-ssh://$1; }
+
 # Set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
 

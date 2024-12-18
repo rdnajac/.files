@@ -112,4 +112,5 @@ alias zz=fg
 
 alias Lazypath='cd ~/.local/share/nvim/'
 
+
 ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
