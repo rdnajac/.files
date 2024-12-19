@@ -43,7 +43,8 @@ alias sync='rsync -avz --progress --exclude=".*"'
 
 alias v='vim'
 alias vv='cd ~/.vim'
-alias vvv='vim ~/.vim/vimrc'
+# alias vvv='vim ~/.vim/vimrc'
+alias vvv='vim ~/.vimrc'
 alias vc='vim ~/.vim/colors/scheme.vim'
 alias vp='vim ~/.vim/after/plugin/config.vim'
 alias vimmd='vim ~/.vim/after/ftplugin/markdown.vim'
@@ -112,5 +113,5 @@ alias zz=fg
 
 alias Lazypath='cd ~/.local/share/nvim/'
 
-
 ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
+# vim: ft=sh

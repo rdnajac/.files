@@ -20,7 +20,7 @@ make_symlink() {
 	ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-dotfiles="alacritty.toml bash_aliases gitconfig tmux.conf condarc"
+dotfiles="alacritty.toml bash_aliases gitconfig tmux.conf condarc vimrc"
 
 for dotfile in $dotfiles; do
 	make_symlink "$dotfile"
@@ -44,7 +44,6 @@ prompt_user() {
 # Clone vim config if requested
 if prompt_user "Do you want to clone the vim config?"; then
 	backup_if_exists "$HOME/.vim"
-
 	echo "Cloning vim config..."
 	git clone --recurse-submodules https://github.com/rdnajac/.vim.git "$HOME/.vim"
 fi
