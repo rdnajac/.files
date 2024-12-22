@@ -7,6 +7,7 @@ let &backupdir   = s:VIMHOME . '.backup//'
 let &viminfofile = s:VIMHOME . '.viminfo'
 let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
 " let &verbosefile = s:VIMHOME . '.vimlog.txt'
+" TODO let git handle this with `gitkeep` files
 if !isdirectory(&undodir)   | call mkdir(&undodir,   'p', 0700) | endif
 if !isdirectory(&directory) | call mkdir(&directory, 'p', 0700) | endif
 if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p', 0700) | endif
@@ -24,7 +25,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-call plug#end() " automatically executes `filetype plugin indent` on and `syntax enable`
+call plug#end() " automatically executes `filetype plugin indent on` and `syntax enable`
 
 set termguicolors
 set runtimepath+=~/.local/share/nvim/lazy/tokyonight.nvim/extras/vim
@@ -45,6 +46,10 @@ set showmatch
 set timeoutlen=420
 set updatetime=69
 
+" keymaps
 nnoremap ; :
+cnoremap ; :
+vnoremap ; <CR>
 cnoremap ?? verbose set?<Left>
+
 " vim: ft=vim fdm=marker sw=2 sts=2

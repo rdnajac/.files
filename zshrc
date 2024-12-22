@@ -15,7 +15,12 @@ alias mm='micromamba'
 alias conda='micromamba'
 alias nvim='/opt/nvim-macos-arm64/bin/nvim'
 alias brewup='brew update; brew upgrade; brew cleanup -s;'
-# alias vim='nvim'
+alias vimfect='~/Desktop/rdnajac/vimfect/vimfect'
+alias vim='nvim'
+alias biovim='cd ~/.vim/pack/vimfect/start/vim-bioflow/'
+
+# clone personal repos with ssh
+Clone () { git clone "git@github.com:rdnajac/${1}.git"; }
 
 # nvim oil-ssh://[username@]hostname[:port]/[path]
 oil() { /opt/nvim-macos-arm64/bin/nvim oil-ssh://$1; }
