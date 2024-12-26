@@ -3,6 +3,8 @@ setopt interactivecomments # Don't error on `#` in command line
 # setopt COMBINING_CHARS
 # export LC_COLLATE=C
 
+export EDITOR=/opt/nvim-macos-arm64/bin/nvim
+
 source ~/.files/bash_aliases
 
 source ~/.files/scripts/zsh/promptstring.zsh
@@ -10,32 +12,29 @@ source ~/.files/scripts/zsh/promptstring.zsh
 source ~/.files/scripts/zsh/clipboardfunctions.zsh
 source ~/.files/scripts/zsh/completion.zsh
 
-alias zr='vim ~/.zshrc'
+# aliases for my laptop
+alias ls='gls -F --color=auto --group-directories-first'
+alias ctags='$(brew --prefix)/bin/ctags'
 alias mm='micromamba'
 alias conda='micromamba'
-alias nvim='/opt/nvim-macos-arm64/bin/nvim'
 alias brewup='brew update; brew upgrade; brew cleanup -s;'
-alias vimfect='~/Desktop/rdnajac/vimfect/vimfect'
-alias vim='nvim'
-alias biovim='cd ~/.vim/pack/vimfect/start/vim-bioflow/'
 
 # clone personal repos with ssh
 Clone () { git clone "git@github.com:rdnajac/${1}.git"; }
 
-# nvim oil-ssh://[username@]hostname[:port]/[path]
-oil() { /opt/nvim-macos-arm64/bin/nvim oil-ssh://$1; }
-
-# Set up Homebrew environment
+# set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Set up Ruby environment
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-chruby ruby-3.1.3 # run chruby to see actual version
-
-# Add executables to PATH
+# add executables to PATH
+export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:/opt/nvim-macos-arm64/bin
 export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
-export PATH="$HOME/.cargo/bin:$PATH"
+
+# set up Ruby environment
+# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+# source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+# chruby ruby-3.1.3 # run chruby to see actual version
+
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!

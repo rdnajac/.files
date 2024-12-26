@@ -7,13 +7,15 @@ dynamic_padding = true
 opacity = 0.8
 decorations = "Buttonless"
 startup_mode = "SimpleFullscreen"
+option_as_alt = 'OnlyLeft'
 
 # [terminal.shell]
 # program = "/opt/homebrew/bin/tmux"
 # args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
 
 [font]
-size = 13.37
+# size = 13.37
+size = 15
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font"
 
