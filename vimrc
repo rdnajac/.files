@@ -20,12 +20,17 @@ endif
 
 call plug#begin()
 Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-call plug#end() " automatically executes `filetype plugin indent on` and `syntax enable`
+call plug#end() 
+" automatically executes `filetype plugin indent on` and `syntax enable`
+
+packadd vim-apathy
+packadd vim-eunuch
 
 set termguicolors
 set runtimepath+=~/.local/share/nvim/lazy/tokyonight.nvim/extras/vim

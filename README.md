@@ -20,12 +20,20 @@ ssh-keygen -t ed25519 -C "ryan.najac@columbia.edu"
 
 [Add SSH key to GitHub](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
+On macOS:
+
 ```sh
 pbcopy < ~/.ssh/id_ed25519.pub
 ```
 
-> [!NOTE]
-> This command works on macOS. For Linux, use `xclip` instead of `pbcopy`.
+On Linux:
+
+```sh
+xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+
+> [!IMPORTANT]
+> Add the new key [here](https://github.com/settings/keys)
+```
 
 [Test SSH connection](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection)
 
