@@ -30,10 +30,10 @@ On Linux:
 
 ```sh
 xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+```
 
 > [!IMPORTANT]
 > Add the new key [here](https://github.com/settings/keys)
-```
 
 [Test SSH connection](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection)
 
