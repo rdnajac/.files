@@ -56,6 +56,9 @@ alias   wz='${EDITOR:-vim} ~/.files/wezterm.lua'
 alias   zr='${EDITOR:-vim} ~/.files/zshrc'
 alias  ssx='${EDITOR:-vim} ~/.ssh/config'
 
+alias vimmd='${EDITOR:-vim} ~/.vim/after/ftplugin/markdown.vim'
+alias vimsh='${EDITOR:-vim} ~/.vim/after/ftplugin/sh.vim'
+
 # use the system default python3
 alias p3='/usr/bin/python3'
 alias pip=pip3
