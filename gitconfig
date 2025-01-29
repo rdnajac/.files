@@ -29,6 +29,9 @@
 
 [diff]
 	tool = vimdiff
+
+[mergetool "vimdiff"]
+    layout = LOCAL,MERGED,REMOTE
   
 
 [filter "lfs"]

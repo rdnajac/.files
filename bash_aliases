@@ -50,11 +50,13 @@ alias zz=fg
 # edit config files
 alias alac='${EDITOR:-vim} ~/.files/alacritty.toml'
 alias   ba='${EDITOR:-vim} ~/.files/bash_aliases'
+alias   bf='${EDITOR:-vim} ~/.files/bash_functions'
 alias gitc='${EDITOR:-vim} ~/.files/gitconfig'
 alias  tmx='${EDITOR:-vim} ~/.files/tmux.conf'
 alias   wz='${EDITOR:-vim} ~/.files/wezterm.lua'
 alias   zr='${EDITOR:-vim} ~/.files/zshrc'
 alias  ssx='${EDITOR:-vim} ~/.ssh/config'
+alias  pro='${EDITOR:-vim} ~/.profile'
 
 alias vimmd='${EDITOR:-vim} ~/.vim/after/ftplugin/markdown.vim'
 alias vimsh='${EDITOR:-vim} ~/.vim/after/ftplugin/sh.vim'
@@ -98,6 +100,5 @@ alias mg='mv' # harder to quit than vim
 alias cim='vim'
 
 alias pretty='prettier --write .'
-
-ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
+alias rscript='Rscript'
 # vim: ft=sh
