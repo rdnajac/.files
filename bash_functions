@@ -6,4 +6,4 @@ ree() { clear -x && echo -e "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
 Clone() { git clone "git@github.com:rdnajac/${1}.git"; }
 
 # browse files over ssh
-Oil() { nvim "oil-ssh://${1}/~}"; }
+Oil() { nvim "oil-ssh://${1}/~" -c "Oil" ; }

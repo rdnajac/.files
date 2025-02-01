@@ -1,4 +1,3 @@
-echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 export LS_COLORS="$(~/.files/scripts/lscolors.py)"
 
 alias ls='ls -F --color=auto --human-readable --group-directories-first'

@@ -1,3 +1,5 @@
+# alacritty.toml - Alacritty configuration file
+# https://alacritty.org/config-alacritty.html
 [env]
 TERM = "xterm-256color"
 
@@ -7,11 +9,11 @@ dynamic_padding = true
 opacity = 0.8
 decorations = "Buttonless"
 startup_mode = "SimpleFullscreen"
-option_as_alt = 'OnlyLeft'
+option_as_alt = 'Both'
 
-# [terminal.shell]
-# program = "/opt/homebrew/bin/tmux"
-# args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
+[terminal.shell]
+program = "/opt/homebrew/bin/tmux"
+args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
 
 [font]
 size = 13.37
@@ -23,13 +25,15 @@ family = "JetBrainsMonoNL Nerd Font"
 action = "Copy"
 mouse = "Right"
 
-[[keyboard.bindings]]
-key = "W"
-mods = "Command"
-action = "None"
+[keyboard]
+bindings = [
+  # don't accidentally open new alacritty app instances
+  { key = "W", mods = "Command", action = "None" },
+  { key = "T", mods = "Command", action = "None" },
+  { key = "N", mods = "Command", action = "None" },
+]
 
 [selection]
-semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 save_to_clipboard = true
 
 # Tokyonight colors
@@ -37,11 +41,14 @@ save_to_clipboard = true
 background = '#000000'
 foreground = '#c0caf5'
 
-#[colors.cursor]
-#cursor = '#c0caf5'
-#text = '#1a1b26'
+[cursor]
+style = { shape = "Beam" }
+vi_mode_style = { shape = "Block" }
 
-# Normal colors
+[colors.cursor]
+cursor = '#c0caf5'
+text = '#1a1b26'
+
 [colors.normal]
 black = '#15161e'
 red = '#f7768e'
@@ -52,7 +59,6 @@ magenta = '#bb9af7'
 cyan = '#7dcfff'
 white = '#a9b1d6'
 
-# Bright colors
 [colors.bright]
 black = '#414868'
 red = '#ff899d'
@@ -63,7 +69,6 @@ magenta = '#c7a9ff'
 cyan = '#a4daff'
 white = '#c0caf5'
 
-# Indexed Colors
 [[colors.indexed_colors]]
 index = 16
 color = '#ff9e64'
