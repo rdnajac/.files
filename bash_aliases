@@ -13,10 +13,14 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
 cl() { builtin cd "${1:-$HOME}" && \ls; }
-alias qq='cl ~/Desktop/palomerolab/cbmf'
+alias qq='cl ~/palomerolab'
+alias qqq='cl ~/rdnajac'
 alias ff='cl ~/.files'
+
+# macos
 alias dt='cl ~/Desktop'
 alias dl='cl ~/Downloads'
+alias doc='cl ~/Documents'
 
 alias cp='cp -vi'
 alias mv='mv -vi'

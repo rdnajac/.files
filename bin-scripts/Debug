@@ -1,0 +1,10 @@
+#!/bin/sh
+# prings a uellow message to stderr
+# printf "\033[31m%S\033[0m\n" >&2
+# again with %s
+if [ $# -eq 0 ]; then
+  printf "\033[33m%s\033[0m\n" "usage: $0 message" >&2
+exit 1
+fi
+
+printf "\033[33m%s\033[0m\n" "$*" >&2

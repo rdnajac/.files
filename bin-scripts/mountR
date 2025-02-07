@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sshfs RSS:/home/ubuntu/.cache/R.nvim ~/.remoteR
