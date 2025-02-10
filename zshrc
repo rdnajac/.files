@@ -11,6 +11,7 @@ source <(fzf --zsh)
 source ~/.files/config/fzf.sh
 
 # aliases for my laptop
+alias rmcrap='rm -rf **/.{DS_Store,netrwhist}'
 alias ls='gls -F --color=auto --group-directories-first'
 alias ctags='$(brew --prefix)/bin/ctags'
 alias mm='micromamba'

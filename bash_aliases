@@ -13,8 +13,8 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
 cl() { builtin cd "${1:-$HOME}" && \ls; }
-alias qq='cl ~/palomerolab'
-alias qqq='cl ~/rdnajac'
+alias qq='cl ~/GitHub/palomerolab'
+alias qqq='cl ~/GitHub/rdnajac'
 alias ff='cl ~/.files'
 
 # macos
