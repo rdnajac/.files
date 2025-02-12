@@ -15,6 +15,7 @@ alias .......='cd ../../../../../..'
 cl() { builtin cd "${1:-$HOME}" && \ls; }
 alias qq='cl ~/GitHub/palomerolab'
 alias qqq='cl ~/GitHub/rdnajac'
+alias G='cl ~/GitHub'
 alias ff='cl ~/.files'
 
 # macos
@@ -51,12 +52,12 @@ alias pnv='PROF=1 nvim'
 alias zz=fg
 
 # edit config files
-alias alac='${EDITOR:-vim} ~/.files/alacritty.toml'
 alias   ba='${EDITOR:-vim} ~/.files/bash_aliases'
 alias   bf='${EDITOR:-vim} ~/.files/bash_functions'
 alias gitc='${EDITOR:-vim} ~/.files/gitconfig'
-alias  tmx='${EDITOR:-vim} ~/.files/tmux.conf'
-alias   wz='${EDITOR:-vim} ~/.files/wezterm.lua'
+alias  tmx='${EDITOR:-vim} ~/.files/terminals/tmux.conf'
+alias alac='${EDITOR:-vim} ~/.files/terminals/alacritty.toml'
+alias   wz='${EDITOR:-vim} ~/.files/terminals/wezterm.lua'
 alias   zr='${EDITOR:-vim} ~/.files/zshrc'
 alias  ssx='${EDITOR:-vim} ~/.ssh/config'
 alias  pro='${EDITOR:-vim} ~/.profile'
