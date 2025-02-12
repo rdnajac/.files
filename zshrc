@@ -11,14 +11,14 @@ source <(fzf --zsh)
 source ~/.files/config/fzf.sh
 
 # aliases for my laptop
-alias rmcrap='rm -rf **/.{DS_Store,netrwhist}'
+alias brewup='brew update; brew upgrade; brew cleanup -s;'
 alias ls='gls -F --color=auto --group-directories-first'
 alias ctags='$(brew --prefix)/bin/ctags'
+alias conda='micromamba'
 alias mm='micromamba'
 alias mminstall='micromamba install -c conda-forge -c bioconda'
-alias conda='micromamba'
-alias brewup='brew update; brew upgrade; brew cleanup -s;'
 alias Lazypath='cl ~/.local/share/nvim/lazy/'
+alias repro='nvim -u ~/GitHub/repro.lua'
 # set up Homebrew environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
