@@ -1,16 +1,18 @@
 # My .files
 
-Download a patched version of [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
-from [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/NoLigatures/Regular)
-with all the glyphs we need for neovim.
+[`vim`](.vim/README.md)
 
 ## Config
 
 - [Alacritty](https://alacritty.org/config-alacritty.html)
 
-## GitHub
+> [!IMPORTANT]
+>
+>Download a patched version of [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
+>with all the glyphs we need for neovim from
+>[nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/NoLigatures/Regular)
 
-How to connect to GitHub with SSH:
+## Connect to GitHub with SSH
 
 [Generate new SSH key](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
@@ -20,15 +22,11 @@ ssh-keygen -t ed25519 -C "ryan.najac@columbia.edu"
 
 [Add SSH key to GitHub](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
-On macOS:
-
 ```sh
+# On macOS:
 pbcopy < ~/.ssh/id_ed25519.pub
-```
 
-On Linux:
-
-```sh
+# On Linux:
 xclip -selection clipboard < ~/.ssh/id_ed25519.pub
 ```
 
@@ -39,10 +37,4 @@ xclip -selection clipboard < ~/.ssh/id_ed25519.pub
 
 ```sh
 ssh -T git@github.com
-```
-
-## Try this:
-
-```sh
-mv ~/.config/nvim{,.bak}
 ```
