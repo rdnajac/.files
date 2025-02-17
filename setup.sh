@@ -20,7 +20,7 @@ make_symlink() {
 	ln -sfv "$REPO_ROOT/$1" "$dest"
 }
 
-dotfiles="alacritty.toml bash_aliases gitconfig tmux.conf condarc vimrc"
+dotfiles="terminals/alacritty.toml gitconfig terminals/tmux.conf condarc"
 
 for dotfile in $dotfiles; do
 	make_symlink "$dotfile"

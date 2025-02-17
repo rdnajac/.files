@@ -1,6 +1,7 @@
 #!/bin/bash
-
 # Clone personal repos with ssh
+
+# TODO: add flag to clone from palomerolab
 
 if [ -z "$1" ]; then
   echo "Usage: ${1} <repo>"

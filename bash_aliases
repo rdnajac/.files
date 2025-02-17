@@ -1,5 +1,3 @@
-export LS_COLORS="$(~/.files/scripts/lscolors.py)"
-
 alias ls='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
@@ -13,10 +11,10 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
 cl() { builtin cd "${1:-$HOME}" && \ls; }
-alias qq='cl ~/GitHub/palomerolab'
-alias qqq='cl ~/GitHub/rdnajac'
-alias G='cl ~/GitHub'
-alias ff='cl ~/.files'
+alias qq='cl ~/Desktop/GitHub/palomerolab'
+alias qqq='cl ~/Desktop/GitHub/rdnajac'
+alias G='cl ~/Desktop/GitHub'
+alias ff='cl ~/Desktop/GitHub/rdnajac/.files'
 
 # macos
 alias dt='cl ~/Desktop'
@@ -40,8 +38,8 @@ alias sync='rsync -avz --progress --exclude=".*"'
 
 alias v='vim'
 alias nv='nvim'
-alias vv='cd ~/.vim'
-alias nvv='cd ~/.config/nvim/'
+alias vv='qqq && cd .vim'
+alias nvv='qqq && cd nvim'
 alias vvv='nvim ~/.vim/vimrc'
 alias nvl='nvim ./**/*.lua'
 # alias L='nvim'
@@ -51,14 +49,6 @@ alias pnv='PROF=1 nvim'
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process; fg brings it back
 alias zz=fg
 
-# edit config files
-alias   ba='${EDITOR:-vim} ~/.files/bash_aliases'
-alias   bf='${EDITOR:-vim} ~/.files/bash_functions'
-alias gitc='${EDITOR:-vim} ~/.files/gitconfig'
-alias  tmx='${EDITOR:-vim} ~/.files/terminals/tmux.conf'
-alias alac='${EDITOR:-vim} ~/.files/terminals/alacritty.toml'
-alias   wz='${EDITOR:-vim} ~/.files/terminals/wezterm.lua'
-alias   zr='${EDITOR:-vim} ~/.files/zshrc'
 alias  ssx='${EDITOR:-vim} ~/.ssh/config'
 alias  pro='${EDITOR:-vim} ~/.profile'
 

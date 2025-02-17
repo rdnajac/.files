@@ -16,7 +16,8 @@ program = "/opt/homebrew/bin/tmux"
 args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
 
 [font]
-size = 13.37
+# size = 13.37
+size = 12.4
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font"
 
