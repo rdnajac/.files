@@ -1,3 +1,7 @@
 # HACK: https://www.reddit.com/r/zsh/comments/3ubrdr/comment/cxe7ejm
 ZDOTDIR=$HOME/.zsh # actually a symbolic link
-# . $ZDOTDIR/.zshenv # load the true .zshenv
+# .  # load the true .zshenv
+
+if [ -f "${ZDOTDIR}/.zshenv" ]; then
+    . "${ZDOTDIR}/.zshenv"
+fi
