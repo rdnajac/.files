@@ -82,8 +82,8 @@ augroup mySyntax
   autocmd BufReadPost,BufNewFile *.vim  if search('vim9script', 'nw') == 0 | syn match Error /^\s*#.*$/ | endif
 augroup END
 
-highlight CommentBacktickString guibg=NONE guifg=#39ff14
-syntax region CommentBacktickString start=/`/ end=/`/ contained containedin=.*Comment
+highlight CommentStringInBackticks guibg=NONE guifg=#39ff14
+syntax region CommentStringInBackticks start=/`/ end=/`/ contained containedin=.*Comment
 
 augroup quit_on_q
   autocmd!
