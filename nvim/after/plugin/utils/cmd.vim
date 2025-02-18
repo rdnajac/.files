@@ -5,9 +5,9 @@ function GetSnacksTerm()
   vim.g.MyTermChannel = vim.bo[MyTerm.buf].channel
   vim.cmd([[ 
     call chansend(g:MyTermChannel, "tmux new-session -A -s snacks-sesh \n")
-    nunmap <c-\>
-    nnoremap <c-\> :lua Snacks.terminal.toggle()<CR>
-    tnoremap <c-\> :lua Snacks.terminal.toggle()<CR>
+    nunmap ,,
+    nnoremap ,, :lua Snacks.terminal.toggle()<CR>
+    tnoremap ,, :lua Snacks.terminal.toggle()<CR>
     ]])
   end
 EOF
@@ -82,6 +82,6 @@ command! SendLine call SendLine()
 command! -range SendSelection <line1>,<line2>call SendSelection()
 
 " keymaps
-" nnoremap <silent> <c-\> <cmd>GetSnacksTerm<CR>
-" nnoremap <silent> <cr> <cmd>SendLine<CR>
-" vnoremap <silent> <cr> <cmd>SendSelection<CR>
+nnoremap <silent> ,, <cmd>GetSnacksTerm<CR>
+nnoremap <silent> ,. <cmd>SendLine<CR>
+vnoremap <silent> <cr> <cmd>SendSelection<CR>

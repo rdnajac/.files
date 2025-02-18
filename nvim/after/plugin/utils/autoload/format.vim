@@ -40,7 +40,7 @@ function! format#buffer() abort
       endif
     endif
     write
-    echom 'Buffer formatted with "' . l:formatter . '" and saved!'
+    " echom 'Buffer formatted with "' . l:formatter . '" and saved!'
   catch
     echohl ErrorMsg
     echomsg 'Error: ' . v:exception
@@ -49,6 +49,6 @@ function! format#buffer() abort
   finally
     call winrestview(l:winview)
     " HACK: stops `Press ENTER`
-    call feedkeys(" ")
+    " call feedkeys(" ")
   endtry
 endfunction

@@ -64,7 +64,7 @@ augroup END
 
 silent! colorscheme tokyonight-night
 
-" syntax settings
+" syntax `set22_  _ tings`
 " https://stackoverflow.com/a/28399202/26469286
 " For files that don't have filetype-specific syntax rules
 " autocmd BufNewFile,BufRead *syntax match NotPrintableAscii "[^\x20-\x7F]"
@@ -78,11 +78,12 @@ augroup mySyntax
   autocmd!
   autocmd BufNewFile,BufRead * syntax match Evil /“\|”/
   autocmd Syntax * syntax match Evil /“\|”/
-  autocmd Syntax * syntax region CommentBacktickString start=/`/ end=/`/ contained containedin=.*Comment
-  autocmd Syntax * highlight link CommentBacktickString String
   " highlight error for vim scripts
   autocmd BufReadPost,BufNewFile *.vim  if search('vim9script', 'nw') == 0 | syn match Error /^\s*#.*$/ | endif
 augroup END
+
+highlight CommentBacktickString guibg=NONE guifg=#39ff14
+syntax region CommentBacktickString start=/`/ end=/`/ contained containedin=.*Comment
 
 augroup quit_on_q
   autocmd!

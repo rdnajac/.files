@@ -1,6 +1,21 @@
 -- init.lua
 require('config.lazy').load({
-  -- performance = { rtp = { paths = { vim.fn.expand('~/Desktop/GitHub/rdnajac/after') } } },
+  performance = {
+    reset_packpath = true,
+    rtp = {
+      reset = true,
+      disabled_plugins = {
+        'gzip',
+        -- 'matchit',
+        -- 'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
   profiling = {
     loader = false,
     require = false,

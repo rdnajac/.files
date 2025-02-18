@@ -124,18 +124,19 @@ return {
       -- },
     },
 
+    cmdline = {
+      enabled = false,
+      sources = {},
+    },
+
     sources = {
       compat = {},
       default = { 'lazydev', 'path', 'lsp', 'buffer', 'copilot' },
       per_filetype = {
         -- lua = { 'lazydev', 'path', 'lsp', 'buffer' },
       },
-      cmdline = {
-        enabled = false,
-        sources = {},
-      },
-      providers = {
 
+      providers = {
         path = {
           name = 'Path',
           module = 'blink.cmp.sources.path',

@@ -33,27 +33,13 @@ function M.load(opts)
     pkg = { enabled = false },
     rocks = { enabled = false },
     ---@diagnostic disable-next-line: assign-type-mismatch
-    dev = { path = '~/GitHub', patterns = { 'rdnajac' }, fallback = true },
+    dev = { path = '~/Desktop/GitHub', patterns = { 'rdnajac' }, fallback = true },
     install = { colorscheme = { 'tokyonight' } },
     ui = {
       border = 'rounded',
       -- stylua: ignore
-      custom_keys = { ["<localleader>d"] = function(plugin) dd(plugin) end, },
-    },
-    performance = {
-      reset_packpath = true,
-      rtp = {
-        reset = true,
-        disabled_plugins = {
-          'gzip',
-          -- 'matchit',
-          -- 'matchparen',
-          'netrwPlugin',
-          'tarPlugin',
-          'tohtml',
-          'tutor',
-          'zipPlugin',
-        },
+      custom_keys = {
+        ["<localleader>d"] = function(plugin) dd(plugin) end,
       },
     },
   }, opts or {})

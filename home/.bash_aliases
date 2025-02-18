@@ -1,3 +1,5 @@
+# check out `/usr/share/doc/bash` for examples
+
 alias ls='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
@@ -11,15 +13,15 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
 cl() { builtin cd "${1:-$HOME}" && \ls; }
+# TODO: use zoxide instead
+alias dt='cd ~/Desktop'
+alias dl='cd ~/Downloads'
+alias doc='cl ~/Documents'
+alias G='cl ~/Desktop/GitHub'
 alias qq='cl ~/Desktop/GitHub/palomerolab'
 alias qqq='cl ~/Desktop/GitHub/rdnajac'
-alias G='cl ~/Desktop/GitHub'
 alias ff='cl ~/Desktop/GitHub/rdnajac/.files'
 
-# macos
-alias dt='cl ~/Desktop'
-alias dl='cl ~/Downloads'
-alias doc='cl ~/Documents'
 
 alias cp='cp -vi'
 alias mv='mv -vi'
@@ -36,13 +38,7 @@ alias lock='chmod -w'   # make a file read-only
 # rsync all non-hidden files and directories
 alias sync='rsync -avz --progress --exclude=".*"'
 
-alias v='vim'
 alias nv='nvim'
-alias vv='qqq && cd .vim'
-alias nvv='qqq && cd nvim'
-alias vvv='nvim ~/.vim/vimrc'
-alias nvl='nvim ./**/*.lua'
-# alias L='nvim'
 alias L='LAZY=1 nvim'
 alias pnv='PROF=1 nvim'
 
@@ -50,7 +46,9 @@ alias pnv='PROF=1 nvim'
 alias zz=fg
 
 alias  ssx='${EDITOR:-vim} ~/.ssh/config'
-alias  pro='${EDITOR:-vim} ~/.profile'
+# alias vvv='${EDITOR:-vim} ~/.vim/vimrc'
+alias vvv='vim ~/.vim/vimrc'
+
 
 alias vimmd='${EDITOR:-vim} ~/.vim/after/ftplugin/markdown.vim'
 alias vimsh='${EDITOR:-vim} ~/.vim/after/ftplugin/sh.vim'
@@ -95,4 +93,3 @@ alias cim='vim'
 
 alias pretty='prettier --write .'
 alias rscript='Rscript'
-# vim: ft=sh
