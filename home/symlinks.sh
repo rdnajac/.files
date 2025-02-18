@@ -2,10 +2,8 @@
 ## Symlink all dotfiles to the home directory
 
 for dotfile in ./.*; do
-    # Skip . and ..
-    if [ "$dotfile" = "./." ] || [ "$dotfile" = "./.." ]; then
-        continue
-    fi
-    ln -sfnv "$(realpath "$dotfile")" "${HOME}/${dotfile}"
+	if [ "$dotfile" = "./." ] || [ "$dotfile" = "./.." ]; then
+		continue # Skip `.` and `..`
+	fi
+	ln -sfnv "$(realpath "$dotfile")" "${HOME}/${dotfile}"
 done
-

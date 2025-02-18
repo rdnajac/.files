@@ -1,20 +1,25 @@
+# .zshrc - my custom zsh configuration
+
+# initialization {{{
+setopt interactivecomments # Don't error on `#` in command line
+
+# aliases {{{
+
 # THISDIR=$(cd "$(dirname "$0")" && pwd)
 # THISDIR="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
-THISDIR="/Users/rdn/Desktop/GitHub/rdnajac/.files/"
-setopt interactivecomments # Don't error on `#` in command line
+THISDIR="SCRIPT_DIR="$(dirname "$(readlink -f "$0")")""
+
 
 export LS_COLORS="$(/Users/rdn/Desktop/GitHub/rdnajac/.files/etc/LS_PY)"
 export EDITOR=/opt/nvim-macos-arm64/bin/nvim
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
-source "${THISDIR}/scripts/zsh/promptstring.zsh"
-# source "${THISDIR}/scripts/zsh/gitbranch.zsh"
-source "${THISDIR}/scripts/zsh/clipboardfunctions.zsh"
-source "${THISDIR}/scripts/zsh/completion.zsh"
-FZF_ALT_C_COMMAND= source <(fzf --zsh)
-source "${THISDIR}/config/fzf.sh"
-source <(tree-sitter complete --shell zsh)
+# source "${THISDIR}/scripts/zsh/promptstring.zsh"
+# source "${THISDIR}/scripts/zsh/clipboardfunctions.zsh"
+# source "${THISDIR}/scripts/zsh/completion.zsh"
+# FZF_ALT_C_COMMAND= source <(fzf --zsh)
+# source "${THISDIR}/config/fzf.sh"
+# source <(tree-sitter complete --shell zsh)
 
 # load common aliases
 if [ -f ~/.bash_aliases ]; then
@@ -31,6 +36,16 @@ alias mminstall='micromamba install -c conda-forge -c bioconda'
 alias Lazypath='cl ~/.local/share/nvim/lazy/'
 # alias repro='nvim -u ~/GitHub/repro.lua'
 
+# Enable command-line autocompletion
+# autoload -Uz compinit && compinit
+# autoload bashcompinit && bashcompinit
+
+# Add custom completion scripts to the fpath
+# fpath=(~/.zsh/completions $fpath)
+
+# complete -C '/opt/homebrew/bin/aws_completer' aws
+# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+# zstyle ':completion:*:*:wezterm:*' script ~/.zsh/_wezterm
 
 # add executables to PATH
 export PATH=$PATH:$THISDIR/bin/
@@ -47,7 +62,7 @@ export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
 alias   ba='${EDITOR:-vim} $HOME/.bash_aliases'
 alias  tmx='${EDITOR:-vim} $HOME/.tmux.conf'
 alias alac='${EDITOR:-vim} $HOME/.alacritty.toml'
-alias   zr='${EDITOR:-vim} $HOME/.zshrc'
+alias   zr='${EDITOR:-vim} ${ZDOTDIR:-HOME}/.zshrc'
 
 export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/micromamba';
 export MAMBA_ROOT_PREFIX='/Users/rdn/micromamba';
@@ -59,7 +74,6 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-cat "${THISDIR}"/bin/dijkstra
 
 # better cat
 alias cat=bat
@@ -68,3 +82,5 @@ alias ls=eza
 # better cd
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"
 alias cd=z
+
+# \cat "${THISDIR}"/dijkstra

@@ -22,14 +22,13 @@ alias qq='cl ~/Desktop/GitHub/palomerolab'
 alias qqq='cl ~/Desktop/GitHub/rdnajac'
 alias ff='cl ~/Desktop/GitHub/rdnajac/.files'
 
-
+# make verbose default
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias rmf='rm -f'
 alias rmrf='rm -rf'
 alias rmd='rm -drvI'
-alias rmdir='rm -drvI'
 alias mkdir='mkdir -v'
 
 alias link='ln -vsfFwh' # see `man ln`
