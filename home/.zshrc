@@ -12,9 +12,9 @@ source "${THISDIR}/scripts/zsh/promptstring.zsh"
 # source "${THISDIR}/scripts/zsh/gitbranch.zsh"
 source "${THISDIR}/scripts/zsh/clipboardfunctions.zsh"
 source "${THISDIR}/scripts/zsh/completion.zsh"
-# source <(/opt/homebrew/bin/fzf --zsh)
 FZF_ALT_C_COMMAND= source <(fzf --zsh)
 source "${THISDIR}/config/fzf.sh"
+source <(tree-sitter complete --shell zsh)
 
 # load common aliases
 if [ -f ~/.bash_aliases ]; then
@@ -63,6 +63,8 @@ cat "${THISDIR}"/bin/dijkstra
 
 # better cat
 alias cat=bat
+# better ls
+alias ls=eza
 # better cd
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"
 alias cd=z
