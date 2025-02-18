@@ -15,6 +15,7 @@ cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 - [`lazy.nvim` plugin manager](https://lazy.folke.io/)
 - [LazyVim](https://www.lazyvim.org)
 - [`lsp-zero`](https://lsp-zero.netlify.app/docs/)
+- <https://boltless.me/posts/neovim-config-without-plugins-2025/>
 
 ---
 

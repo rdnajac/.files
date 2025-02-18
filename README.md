@@ -1,15 +1,20 @@
 # My .files
 
 [`vim`](.vim/README.md)
+[`nvim`](nvim/README.md)
 
 ## Config
 
+Terminal emulators
+
 - [Alacritty](https://alacritty.org/config-alacritty.html)
+- [WezTerm](https://wezterm.org/config/lua/general.html)
+- [Kitty](https://sw.kovidgoyal.net/kitty/conf/)
+
 
 > [!IMPORTANT]
->
->Download a patched version of [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
->with all the glyphs we need for neovim from
+> Download a patched version of [`JetBrainsMono`](https://github.com/JetBrains/JetBrainsMono)
+> with all the glyphs we need for neovim from
 >[nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/NoLigatures/Regular)
 
 ## Connect to GitHub with SSH

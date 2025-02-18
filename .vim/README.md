@@ -2,6 +2,11 @@
 
 My Vim configuration.
 
+## Resources
+
+- [Five Minute Vimscript](http://andrewscala.com/vimscript/)
+- [Extra vim-plug stuff](https://github.com/junegunn/vim-plug/wiki/extra)
+
 ## netrw
 
 h: netrw provides 'ssh hints':
