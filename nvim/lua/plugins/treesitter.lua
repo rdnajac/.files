@@ -22,12 +22,15 @@ return {
     config = function()
       ---@type TSConfig
       require('nvim-treesitter.configs').setup({
-        highlight = { enable = true },
+        highlight = {
+          enable = false,
+          additional_vim_regex_highlighting = true,
+        },
         indent = { enable = true },
         ensure_installed = {
           'bash',
           'c',
-          'comment',
+          -- 'comment',
           'diff',
           'html',
           'javascript',

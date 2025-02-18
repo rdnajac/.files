@@ -6,11 +6,14 @@ setopt interactivecomments # Don't error on `#` in command line
 export LS_COLORS="$(/Users/rdn/Desktop/GitHub/rdnajac/.files/etc/LS_PY)"
 export EDITOR=/opt/nvim-macos-arm64/bin/nvim
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 source "${THISDIR}/scripts/zsh/promptstring.zsh"
 # source "${THISDIR}/scripts/zsh/gitbranch.zsh"
 source "${THISDIR}/scripts/zsh/clipboardfunctions.zsh"
 source "${THISDIR}/scripts/zsh/completion.zsh"
-source <(/opt/homebrew/bin/fzf --zsh)
+# source <(/opt/homebrew/bin/fzf --zsh)
+FZF_ALT_C_COMMAND= source <(fzf --zsh)
 source "${THISDIR}/config/fzf.sh"
 
 # load common aliases
@@ -28,7 +31,6 @@ alias mminstall='micromamba install -c conda-forge -c bioconda'
 alias Lazypath='cl ~/.local/share/nvim/lazy/'
 # alias repro='nvim -u ~/GitHub/repro.lua'
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # add executables to PATH
 export PATH=$PATH:$THISDIR/bin/

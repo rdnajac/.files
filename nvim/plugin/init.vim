@@ -1,6 +1,7 @@
 " make sure these commands run first!
 " no Ex mode, instead Q formats and saves
 nnoremap Q <nop>
+nnoremap gQ <nop>
 " avoid conflicts with tmux
 nnoremap <C-f> <nop>
 
@@ -147,4 +148,7 @@ vnoremap > >gv
 
 nnoremap ` ~
 nnoremap ~ `
+
+nmap <c-c> ciw
+
 " vim: fdm=marker fdl=0

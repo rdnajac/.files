@@ -4,4 +4,4 @@ if !exists(':Abolish')
 endif
 
 " BUG: https://stackoverflow.com/questions/18514671/vim-abbreviation-also-applies-to-search-bug
-Abolish -cmdline {w,W,q,Q}{q,Q,w,W} wqa!
+" Abolish -cmdline {w,W,q,Q}{q,Q,w,W} wqa!
