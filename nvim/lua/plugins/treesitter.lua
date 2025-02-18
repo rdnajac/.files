@@ -13,6 +13,19 @@ return {
       -- during startup.
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')
+
+      -- configure installation of custom parser
+      require('nvim-treesitter.parsers').get_parser_configs().comment = {
+        install_info = {
+          -- url = 'https://github.com/rdnajac/tree-sitter-comment',
+          -- BUG: not working... might need to require("nvim-treesitter.install").prefer_git = true
+          -- install locally instead:
+          url = '~/Desktop/GitHub/rdnajac/tree-sitter-comment',
+          files = { 'src/parser.c' },
+          branch = 'main',
+          -- requires_generate_from_grammar = true,
+        },
+      }
     end,
     cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
     keys = {
@@ -23,13 +36,14 @@ return {
       ---@type TSConfig
       require('nvim-treesitter.configs').setup({
         highlight = {
-          enable = false,
-          additional_vim_regex_highlighting = true,
+          enable = true,
+          additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
         ensure_installed = {
           'bash',
           'c',
+          -- XXX: use custom parser instead
           -- 'comment',
           'diff',
           'html',
@@ -68,14 +82,14 @@ return {
           },
         },
         textobjects = {
-        -- stylua: ignore
-        move = {
-          enable = true,
-          goto_next_start     = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
-          goto_next_end       = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
-          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
-          goto_previous_end   = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
-        },
+          -- stylua: ignore
+          move = {
+            enable = true,
+            goto_next_start     = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+            goto_next_end       = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+            goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+            goto_previous_end   = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+          },
         },
       })
     end,
@@ -84,7 +98,6 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     event = 'VeryLazy',
-    enabled = true,
     config = function()
       -- If treesitter is already loaded, we need to run config again for textobjects
       if LazyVim.is_loaded('nvim-treesitter') then

@@ -151,4 +151,6 @@ nnoremap ~ `
 
 nmap <c-c> ciw
 
+command! Wq wqa!
+
 " vim: fdm=marker fdl=0
