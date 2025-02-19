@@ -1,5 +1,11 @@
 " ~/.vim/after/ftplugin/sh.vim
 
+" setlocal includeexpr=substitute(v:fname, '\${\(\k\+\)}', '$\1', 'g')
+" setlocal includeexpr=substitute(v:fname ,'\v\$\{(\w+)}','$\1','g')
+setlocal includeexpr=substitute(v:fname, '\v\${(\w+)}', '$\1', 'g')
+
+
+
 "on an empty file, enter the shebang !#/bin/bash<CR><CR> and stay in insert
 " autocmd BufNewFile *.sh exec "normal! i#!/bin/bash\<CR>\<CR>"
 

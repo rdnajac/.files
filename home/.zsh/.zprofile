@@ -1,5 +1,6 @@
 echo 'sourcing .zprofile!'
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export HISTFILE=~/$ZDOTDIR/.zsh_history
 
 export EDITOR=/opt/nvim-macos-arm64/bin/nvim
 # TODO: use a better path
@@ -12,3 +13,5 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:/opt/nvim-macos-arm64/bin
 export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin
 # TODO: symlink to ~/.local/bin (or wherever micromamba is)
+
+eval "$(/opt/homebrew/bin/brew shellenv)"

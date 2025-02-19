@@ -36,6 +36,23 @@ noremap kj <esc>
 nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 
+" center searches
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap * *zzzv
+nnoremap # #zzzv
+nnoremap g* g*zzzv
+nnoremap g# g#zzzv
+
+" better completion
+inoremap <silent> ,o <C-x><C-o>
+inoremap <silent> ,f <C-x><C-f>
+inoremap <silent> ,i <C-x><C-i>
+inoremap <silent> ,l <C-x><C-l>
+inoremap <silent> ,n <C-x><C-n>
+inoremap <silent> ,t <C-x><C-]>
+inoremap <silent> ,u <C-x><C-u>
+
 set tabline=%!ui#tabline()
 set statusline=%!ui#statusline()
 set showtabline=2

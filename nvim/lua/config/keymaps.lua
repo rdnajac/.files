@@ -100,7 +100,7 @@ wk.add({
   { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
   { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\l', function() quickconfig('lazy')  end, desc = 'lazy'},
+  { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},

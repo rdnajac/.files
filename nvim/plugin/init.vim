@@ -85,26 +85,21 @@ set wildignore+=*.mp*p4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav
 set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 " }}}
 
+" keymaps
+
 " stop pressing shift for cmd
 nnoremap ; :
 cnoremap ; <CR>
 cnoreabbrev ?? verbose set?<Left>
 cnoreabbrev !! !./%
 
+nmap <c-c> ciw
 vnoremap <C-s> :sort<CR>
 
 " buffer navigation
 nnoremap <tab> :bnext<CR>
 nnoremap <s-tab> :bprev<CR>
 nnoremap <localleader><Tab> :b#<CR>
-
-" center searches
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap * *zzzv
-nnoremap # #zzzv
-nnoremap g* g*zzzv
-nnoremap g# g#zzzv
 
 " indent/dedent in normal mode with < and >
 nnoremap > V`]>
@@ -117,24 +112,8 @@ vnoremap <silent> p "_dP
 " duplicate and comment out line
 nmap yc yygccp
 
-" time abbreviations
-ia <expr> DT strftime('%B %d, %Y')
-ia <expr> dt strftime('%Y-%m-%d')
-ia <expr> tm strftime('%H:%M:%S')
-ia <expr> dtm strftime('%Y-%m-%d %H:%M:%S')
-ia LR LAST REVISION: <C-R>=strftime('%Y-%m-%d')<CR>
-
 " quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
 nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
-
-" better completion
-inoremap <silent> ,o <C-x><C-o>
-inoremap <silent> ,f <C-x><C-f>
-inoremap <silent> ,i <C-x><C-i>
-inoremap <silent> ,l <C-x><C-l>
-inoremap <silent> ,n <C-x><C-n>
-inoremap <silent> ,t <C-x><C-]>
-inoremap <silent> ,u <C-x><C-u>
 
 " from LazyVim
 " add undo break-points (:help i_ctrl-g_u)
@@ -146,11 +125,12 @@ inoremap ; ;<c-g>u
 vnoremap < <gv
 vnoremap > >gv
 
+" swap marks and casetoggle
 nnoremap ` ~
 nnoremap ~ `
 
-nmap <c-c> ciw
-
+" fat fingers"
+" creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
 
 " vim: fdm=marker fdl=0

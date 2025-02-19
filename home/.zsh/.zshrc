@@ -2,6 +2,11 @@
 
 setopt interactivecomments # Don't error on `#` in command line
 
+. $ZDOTDIR/promptstring.zsh
+. $ZDOTDIR/clipboardfunctions.zsh
+. $ZDOTDIR/completion.zsh
+. ${ZDOTDIR}/nnn.zsh
+
 # aliases {{{
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -21,10 +26,6 @@ alias  tmx='${EDITOR:-vim} $HOME/.tmux.conf'
 alias alac='${EDITOR:-vim} $HOME/.alacritty.toml'
 alias   zr='${EDITOR:-vim} ${ZDOTDIR:-$HOME}/.zshrc'
 # }}}
-
-. $ZDOTDIR/promptstring.zsh
-. $ZDOTDIR/clipboardfunctions.zsh
-. $ZDOTDIR/completion.zsh
 
 # FZF_ALT_C_COMMAND= source <(fzf --zsh)
 # source "${THISDIR}/config/fzf.sh"
@@ -48,8 +49,11 @@ unset __mamba_setup
 
 alias cat=bat
 alias ls=eza
-# better cd
+
+alias n=nnn
+
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"
 alias cd=z
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+# vim: ft=sh fdm=marker fdl=0

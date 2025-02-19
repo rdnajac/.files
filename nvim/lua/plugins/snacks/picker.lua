@@ -11,8 +11,8 @@ return {
     input = {
       -- stylua: ignore
       keys = {
-        ['<a-c>'] = { 'toggle_cwd', mode = { 'n', 'i' }, },
-        ['<c-t>'] = { 'trouble_open', mode = { 'n', 'i' }, },
+        ['<a-c>'] = { 'toggle_cwd',   mode = { 'n', 'i' }, },
+        ['<a-t>'] = { 'trouble_open', mode = { 'n', 'i' }, },
       } ,
     },
   },

@@ -59,21 +59,6 @@ return {
     },
   },
 
-  -- configure LuaLS for editing your Neovim config
-  {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    cmd = 'LazyDev',
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        { path = 'LazyVim', words = { 'LazyVim' } },
-        { path = 'snacks.nvim', words = { 'Snacks' } },
-        { path = 'lazy.nvim', words = { 'LazyVim' } },
-      },
-    },
-  },
-
   -- session management
   {
     'folke/persistence.nvim',
@@ -166,10 +151,12 @@ return {
   -- replaces the UI for messages, cmdline, and the popupmenu
   {
     'folke/noice.nvim',
+    enabled = false,
+    -- TODO: set cmdheight=0 when enabled
     opts = {
       signature = { auto_open = { enabled = false } },
       cmdline = {
-        enabled = true,
+        enabled = false,
         view = 'cmdline',
         format = {
           cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
@@ -183,4 +170,6 @@ return {
       lsp = { signature = { auto_open = { enabled = false } } },
     },
   },
+
+  -- TODO: edgy?
 }

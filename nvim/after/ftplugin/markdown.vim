@@ -11,7 +11,7 @@ setlocal commentstring=>\ %s
 vmap <buffer> ,k S]f]a()<Esc>hp
 
 " Turn url into hyperlink
-vmap <buffer> <alt-S-K> S)i[]<Left>
+vmap <buffer> ,K S)<Left>i[]<Esc><Left>
 
 " Insert an octothorpe at the beginning of the line that already has text
 nnoremap <buffer> <localleader>h ^i#<Space><Esc>
