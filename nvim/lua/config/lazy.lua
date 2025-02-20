@@ -33,7 +33,7 @@ function M.load(opts)
     pkg = { enabled = false },
     rocks = { enabled = false },
     ---@diagnostic disable-next-line: assign-type-mismatch
-    dev = { path = '~/Desktop/GitHub', patterns = { 'rdnajac' }, fallback = true },
+    dev = { path = '~/GitHub', patterns = { 'rdnajac' }, fallback = true },
     install = { colorscheme = { 'tokyonight' } },
     ui = {
       border = 'rounded',

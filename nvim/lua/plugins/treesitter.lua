@@ -20,7 +20,7 @@ return {
           -- url = 'https://github.com/rdnajac/tree-sitter-comment',
           -- BUG: not working... might need to require("nvim-treesitter.install").prefer_git = true
           -- install locally instead:
-          url = '~/Desktop/GitHub/rdnajac/tree-sitter-comment',
+          url = '~/GitHub/rdnajac/tree-sitter-comment',
           files = { 'src/parser.c' },
           branch = 'main',
           -- requires_generate_from_grammar = true,

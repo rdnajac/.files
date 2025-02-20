@@ -10,7 +10,7 @@ return {
 
     -- find
     { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
-    { '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, desc = 'Config File' },
+    { '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, desc = 'Neovim Config File' },
     { '<leader>ff', function() Snacks.picker.files() end, desc = 'Find Files' },
     { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Git Files' },
     { '<leader>fp', function() Snacks.picker.projects() end, desc = 'Projects' },
@@ -19,8 +19,9 @@ return {
     { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
     { '<leader>fl', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
     { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File' },
-    { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/Desktop/GitHub/rdnajac/.vim')}) end, desc = 'Find Vim Config File' },
-    { '<leader>f.', function() Snacks.picker('files', {cwd = vim.fnkeys.expand('~/Desktop/GitHub/rdnajac/.files')}) end, desc = 'Dotfiles' },
+    { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/rdnajac/.vim')}) end, desc = 'Find Vim Config File' },
+    { '<leader>f.', function() Snacks.picker('files', {cwd = vim.fnkeys.expand('~/GitHub/rdnajac/.files')}) end, desc = 'Dotfiles' },
+    { '<leader>fC', function() Snacks.picker.files({ cwd = vim.fn.expand('~/GitHub/rdnajac/.files')}) end, desc = 'Config File' },
 
     -- git
     { '<leader>gb', function() Snacks.git.blame_line() end, desc = 'Git Blame Line' },

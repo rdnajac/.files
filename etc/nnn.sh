@@ -18,11 +18,13 @@ L:$HOME/.local/share/nvim/lazy/;\
 # NOTE: use single quotes for `NNN_PLUG` to avoid shell expansion
 export NNN_PLUG="\
 f:fzopen;\
-l:!lazygit;\
-n:!nvim;\
-x:!chmod +x '$nnn';\
+l:! lazygit*;\
+n:! nvim*;\
+x:! chmod +x '$nnn';\
+y:.cbcp;\
 z:autojump;\
 "
+# y:! echo '$nnn' | pbcopy*;\
 
 # export NNN_SSHFS='sshfs -o reconnect,idmap=user,cache_timeout=3600'
 

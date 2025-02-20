@@ -1,15 +1,6 @@
 " ~/.vim/after/ftplugin/sh.vim
-
-" setlocal includeexpr=substitute(v:fname, '\${\(\k\+\)}', '$\1', 'g')
-" setlocal includeexpr=substitute(v:fname ,'\v\$\{(\w+)}','$\1','g')
-setlocal includeexpr=substitute(v:fname, '\v\${(\w+)}', '$\1', 'g')
-
-
-
-"on an empty file, enter the shebang !#/bin/bash<CR><CR> and stay in insert
-" autocmd BufNewFile *.sh exec "normal! i#!/bin/bash\<CR>\<CR>"
-
-" inoremap <buffer> bbb #!/bin/bash<CR>
+" on an empty file, enter the shebang line
+autocmd BufNewFile *.sh exec "normal! i#!/bin/bash\<CR>\<CR>"
 
 " use shellfmt and shellharden to format shell scripts
 " setlocal formatprg=shellharden\ --transform\ <(shfmt\ -bn\ -sr\ %)
