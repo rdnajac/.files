@@ -17,10 +17,10 @@ cl() { builtin cd "${1:-$HOME}" && \ls; }
 alias dt='cd ~/Desktop'
 alias dl='cd ~/Downloads'
 alias doc='cl ~/Documents'
-alias G='cl ~/Desktop/GitHub'
-alias qq='cl ~/Desktop/GitHub/palomerolab'
-alias qqq='cl ~/Desktop/GitHub/rdnajac'
-alias ff='cl ~/Desktop/GitHub/rdnajac/.files'
+alias G='cl ~/GitHub'
+alias qq='cl ~/GitHub/palomerolab'
+alias qqq='cl ~/GitHub/rdnajac'
+alias ff='cl ~/GitHub/rdnajac/.files'
 
 # make verbose default
 alias cp='cp -vi'
@@ -44,25 +44,15 @@ alias pnv='PROF=1 nvim'
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process; fg brings it back
 alias zz=fg
 
-alias  ssx='${EDITOR:-vim} ~/.ssh/config'
-# alias vvv='${EDITOR:-vim} ~/.vim/vimrc'
+alias ssx='${EDITOR:-vim} ~/.ssh/config'
 alias vvv='vim ~/.vim/vimrc'
-
-
-alias vimmd='${EDITOR:-vim} ~/.vim/after/ftplugin/markdown.vim'
-alias vimsh='${EDITOR:-vim} ~/.vim/after/ftplugin/sh.vim'
 
 # use the system default python3
 alias p3='/usr/bin/python3'
 alias pip=pip3
 
 # alias tmux='tmux -2'
-alias tma='tmux attach-session'
 alias kms='tmux kill-server'
-alias ta='tmux attach-session -t'
-alias tl='tmux list-sessions'
-alias ts='tmux new-session -s'
-alias td='tmux detach'
 
 alias   ga='git add'
 alias  gaa='git add --all'

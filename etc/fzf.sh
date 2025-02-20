@@ -1,3 +1,5 @@
+FZF_ALT_C_COMMAND= source <(fzf --zsh)
+
 # export FZF_COMPLETION_TRIGGER='``'
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --highlight-line \

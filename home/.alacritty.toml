@@ -13,7 +13,7 @@ option_as_alt = 'Both'
 
 [terminal.shell]
 program = "/opt/homebrew/bin/tmux"
-args = ["-2", "new-session", "-A", "-s", "alacritty-sesh"]
+args = ["-2", "new-session", "-A", "-s", "alacritty-sesh",]
 
 [font]
 # size = 13.37

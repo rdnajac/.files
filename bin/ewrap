@@ -1,6 +1,15 @@
 #!/usr/bin/env sh
 
+# Define the tmux pane name
+TMUX_PANE_NAME="nnn_visual"
+
 if [ -n "$TMUX" ]; then
-	# tmux session running
-	tmux split-window -h "nvim \"$*\""
+	if tmux list-panes -F '#T' | grep -q "^$TMUX_PANE_NAME$"; then
+		PANE_ID=$(tmux list-panes -F '#{pane_id}:#{pane_title}' \
+			| grep "$TMUX_PANE_NAME" | cut -d: -f1)
+		tmux send-keys -t "$PANE_ID" "Escape" ":e $*" "Enter"
+	else
+		tmux split-window -h -p 80 "nvim \"$*\""
+		tmux select-pane -T "$TMUX_PANE_NAME"
+	fi
 fi

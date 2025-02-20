@@ -1,1 +1,0 @@
-nvim -u ~/Desktop/GitHub/rdnajac/.files/nvim/repro/repro.lua $@
