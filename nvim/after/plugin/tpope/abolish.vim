@@ -6,7 +6,7 @@ endif
 let g:loaded_abolish = 1
 
 " HACK: hardcoded path
-let g:abolish_save_file = expand('~/Desktop/GitHub/rdnajac/after/plugin/tpope/abolish_save_file.vim')
+let g:abolish_save_file = expand('~/GitHub/rdnajac/after/plugin/tpope/abolish_save_file.vim')
 
 " }}}1
 " Utility functions {{{1
