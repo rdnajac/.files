@@ -1,5 +1,6 @@
 -- autocmds.lua
 -- ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
+vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- Create shorthand for nvim_create_autocmd API
 local au = vim.api.nvim_create_autocmd

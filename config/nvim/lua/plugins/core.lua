@@ -37,5 +37,6 @@ return {
   { 'nvim-lua/plenary.nvim', lazy = true },
   { 'MunifTanjim/nui.nvim', lazy = true },
   { 'max397574/better-escape.nvim', opts = {}, event = 'VeryLazy' },
+  { 'christoomey/vim-tmux-navigator' },
   { dir = '~/GitHub/src/vim-tbone/' },
 }
