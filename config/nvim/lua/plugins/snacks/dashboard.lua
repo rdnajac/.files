@@ -37,10 +37,6 @@ get confused by the complexities of his own making
     {
       icon = ' ',
       title = 'Projects',
-      key = 'p',
-      action = function()
-        Snacks.picker.projects()
-      end,
       section = 'projects',
       indent = 2,
       padding = 1,

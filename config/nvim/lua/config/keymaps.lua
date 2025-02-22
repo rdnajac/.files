@@ -110,3 +110,7 @@ wk.add({
   { '\\vf', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.vim')}) end, desc = 'Vim Files' },
   { '\\vr', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
 })
+
+vim.cmd([[
+  nmap - <leader>e
+]])

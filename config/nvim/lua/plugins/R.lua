@@ -2,12 +2,12 @@ return {
   'R-nvim/R.nvim',
   opts = {
     -- R_args = { '--quiet', '--no-save' },
-    R_args = { '--quiet' },
-    -- TODO: remoteR
-    -- R_app = vim.fn.expand('~/.files/bin-scripts/sshR'),
-    -- R_cmd = vim.fn.expand('~/.files/bin-scripts/sshR'),
-    -- cpmpldir = vim.fn.expand('~/.remoteR'),
-    -- remote_compldir = '/home/remotelogin/.cache/R.nvim',
-    -- local_R_library_dir = '/path/to/local/R/library', -- where nvimcom is installed
+    R_app = '/Users/rdn/.local/bin/sshR',
+    R_cmd = '/Users/rdn/.local/bin/sshR',
+    compldir = '/Users/rdn/.remoteR',
+    remote_compldir = '/home/ubuntu/.cache/R.nvim',
+    local_R_library_dir = '/Users/rdn/tmp'
+    -- local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
+    -- local_R_library_dir = '/home/ubuntu/tmp/nvimcom'
   },
 }

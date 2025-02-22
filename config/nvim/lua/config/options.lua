@@ -1,7 +1,7 @@
 -- LazyVim options must be set here
 -- for all other options, go to ~/.vim/plugin/_init.vim
 vim.g.lazyvim_check_order = false
-vim.g.snacks_animate = false
+vim.g.snacks_animate = true
 vim.g.autoformat = false
 vim.g.lazyvim_cmp = 'blink.cmp'
 vim.g.ai_cmp = true

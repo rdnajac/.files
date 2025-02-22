@@ -32,7 +32,7 @@ return {
           { '<localleader>f', group = 'Files', icon = { icon = ' ', color = 'blue' } },
           { '<locealleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
           -- stylua: ignore start
-          { '<leader>b', group = 'buffer', expand = function() return require('which-key.extras').expand.buf() end, },
+          { '<leader>b', group = 'buffer',  expand = function() return require('which-key.extras').expand.buf() end, },
           { '<c-w>',     group = 'windows', expand = function() return require('which-key.extras').expand.win() end, },
           -- stylua: ignore end
           { 'gx', desc = 'Open with system app' },
@@ -146,52 +146,5 @@ return {
       { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
       { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
     },
-  },
-
-  -- replaces the UI for messages, cmdline, and the popupmenu
-  {
-    'folke/noice.nvim',
-    enabled = false,
-    -- TODO: set cmdheight=0 when enabled
-    opts = {
-      signature = { auto_open = { enabled = false } },
-      cmdline = {
-        enabled = false,
-        view = 'cmdline',
-        format = {
-          cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
-          filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },
-        },
-      },
-      presets = {
-        command_palette = false,
-        lsp_doc_border = true,
-      },
-      lsp = { signature = { auto_open = { enabled = false } } },
-    },
-  },
-
-  -- TODO: edgy?
-  {
-    'folke/edgy.nvim',
-    enabled = true,
-    ---@module 'edgy'
-    ---@param opts Edgy.Config
-    opts = function(_, opts)
-      for _, pos in ipairs({ 'top', 'bottom', 'left', 'right' }) do
-        opts[pos] = opts[pos] or {}
-        table.insert(opts[pos], {
-          ft = 'snacks_terminal',
-          size = { height = 0.4 },
-          title = '%{b:snacks_terminal.id}: %{b:term_title}',
-          filter = function(_buf, win)
-            return vim.w[win].snacks_win
-              and vim.w[win].snacks_win.position == pos
-              and vim.w[win].snacks_win.relative == 'editor'
-              and not vim.w[win].trouble_preview
-          end,
-        })
-      end
-    end,
   },
 }
