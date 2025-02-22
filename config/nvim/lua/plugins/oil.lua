@@ -3,14 +3,19 @@ return {
   lazy = false,
   cmd = 'Oil',
   keys = {
-    { '-', '<CMD>Oil --float<CR>', desc = 'Open parent directory in floating window' },
-    { '_', '<CMD>Oil<CR>', desc = 'Open home directory' },
+    -- { '-', ':vs | wincmd w | vertical resize 25 | Oil<CR>', desc = 'Open parent directory in floating window' },
+    { '_', '<CMD>Oil --float<CR>', desc = 'Open home directory' },
+    -- { '-', '<cmd>vsplit | Oil<CR> ', desc = 'Open parent directory in a split' },
+    -- seleact the first window after split
+    -- { '-', '<cmd>vsplit | Oil<CR> <cmd>wincmd w', desc = 'Open parent directory in a split' },
   },
   init = function()
     vim.cmd([[
     au FileType oil setlocal nowrap nonumber norelativenumber
     au FileType oil silent! nnoremap <silent> <buffer> <Tab> :<C-U>close<CR>
     au FileType oil silent! nnoremap <silent> <buffer> q     :<C-U>close<CR>
+
+
     ]])
   end,
 
@@ -26,6 +31,8 @@ return {
 
     return {
       view_options = {
+
+        winbar = '%!v:lua.get_oil_winbar()',
         default_file_explorer = true,
         skip_confirm_for_simple_edits = true,
         prompt_save_on_select_new_entry = false,

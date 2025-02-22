@@ -44,7 +44,7 @@ alias pnv='PROF=1 nvim'
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process; fg brings it back
 alias zz=fg
 
-alias ssx='${EDITOR:-vim} ~/.ssh/config'
+alias ssx='nvim ~/.ssh/config'
 alias vvv='vim ~/.vim/vimrc'
 
 # use the system default python3
