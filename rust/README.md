@@ -13,3 +13,24 @@ if on MacOS, with `brew install <package>`.
 | [`zoxide`](https://github.com/ajeetdsouza/zoxide) | `cd`     |
 | [`procs`](https://github.com/dalance/procs)       |          |
 | [`dust`](https://github.com/bootandy/dust)        | `du`     |
+
+
+## eza
+
+
+### plugins/preview-tui
+
+uses the following command to display directories
+
+```sh
+fifo_pager eza -T --group-directories-first --colour=always -L 3
+```
+
+Testing other eza commands
+
+```sh
+eza -T --group-directories-first --colour=always -L 3 --icons=auto
+```
+```
+
+```

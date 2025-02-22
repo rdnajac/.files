@@ -1,28 +1,35 @@
 #!/bin/sh
 
-export VISUAL=ewrap
+export VISUAL=E
 
 # -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
 # -E use $EDITOR for internal undetached edits
 # -H show hidden files
 export NNN_OPTS="eEH"
-
+export NNN_FIFO=/tmp/nnn.fifo nnn
+export NNN_SPLITSIZE=80                         # previewer split size percentage
 # bookmarks
 export NNN_BMS="\
-G:$HOME/GitHub;\
 .:$HOME/GitHub/rdnajac/.files;\
+c:$HOME/.config;\
+p:$HOME/GitHub/palomerolab/;\
+q:$HOME/GitHub/src/nnn/;\
+r:$HOME/GitHub/rdnajac/;\
+s:$HOME/GitHub/src/;\
+G:$HOME/GitHub;\
 L:$HOME/.local/share/nvim/lazy/;\
 "
 
 # plugins
-# NOTE: use single quotes for `NNN_PLUG` to avoid shell expansion
 export NNN_PLUG="\
 f:fzopen;\
 l:! lazygit*;\
 n:! nvim*;\
-x:! chmod +x '$nnn';\
+p:-preview-tui;\
+x:! chmod +x "$nnn";\
 y:.cbcp;\
 z:autojump;\
+H:hello;\
 "
 # y:! echo '$nnn' | pbcopy*;\
 

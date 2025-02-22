@@ -2,6 +2,13 @@
 
 # Define the tmux pane name
 TMUX_PANE_NAME="nnn_visual"
+NNN_SPLITSIZE=${NNN_SPLITSIZE:-80}                         # previewer split size percentage
+
+# check if the variable $NVIM is set
+if [ -n "$NVIM" ]; then
+  echo "nvim is set. exiting..."
+  exit 1
+fi
 
 if [ -n "$TMUX" ]; then
 	if tmux list-panes -F '#T' | grep -q "^$TMUX_PANE_NAME$"; then
@@ -9,7 +16,7 @@ if [ -n "$TMUX" ]; then
 			| grep "$TMUX_PANE_NAME" | cut -d: -f1)
 		tmux send-keys -t "$PANE_ID" "Escape" ":e $*" "Enter"
 	else
-		tmux split-window -h -p 80 "nvim \"$*\""
+		tmux split-window -h -p "$NNN_SPLITSIZE" "nvim \"$*\""
 		tmux select-pane -T "$TMUX_PANE_NAME"
 	fi
 fi
