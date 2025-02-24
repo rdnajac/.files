@@ -62,3 +62,15 @@ Snacks.toggle({
     vim.opt.colorcolumn = state and '81' or ''
   end,
 }):map('<leader>u\\', { desc = 'Toggle Color Column' })
+
+-- TODO:
+-- Snacks.toggle({
+--   name = 'Send Line on <CR>',
+--   get = function()
+--     -- check if there is a keymap for SendLine
+--     -- return vim.opt.colorcolumn:get()[1] == '81'
+--   end,
+--   set = function(state)
+--     vim.opt.colorcolumn = state and '81' or ''
+--   end,
+-- }):map('<leader>u\\', { desc = 'Toggle Color Column' })

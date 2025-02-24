@@ -4,8 +4,8 @@ return {
   opts = {
 
     cmdline = {
-      enabled = false,
-      view = 'cmdline',
+      enabled = true,
+      -- view = 'cmdline',
       format = {
         cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
         filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },
@@ -65,6 +65,6 @@ return {
       vim.cmd([[messages clear]])
     end
     require('noice').setup(opts)
-    vim.vmd([[set cmdheight=0]])
+    vim.cmd([[set cmdheight=0]])
   end,
 }

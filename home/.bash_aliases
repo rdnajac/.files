@@ -12,15 +12,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-cl() { builtin cd "${1:-$HOME}" && \ls; }
-# TODO: use zoxide instead
-alias dt='cd ~/Desktop'
-alias dl='cd ~/Downloads'
-alias doc='cl ~/Documents'
-alias G='cl ~/GitHub'
-alias qq='cl ~/GitHub/palomerolab'
-alias qqq='cl ~/GitHub/rdnajac'
-alias ff='cl ~/GitHub/rdnajac/.files'
+cl() { builtin cd "${1:-$HOME}" && ls; }
 
 # make verbose default
 alias cp='cp -vi'

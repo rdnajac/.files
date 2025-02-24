@@ -109,8 +109,15 @@ wk.add({
   { '\\vv', function() quickconfig('~/.vim/plugin/init.vim') end, desc = 'Vim Settings',  icon = { icon = ' ', color = 'red' }},
   { '\\vf', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.vim')}) end, desc = 'Vim Files' },
   { '\\vr', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
+
+  { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
+  { '<leader>ot', 'oTODO:<esc>gccA<space>', desc = 'Insert TODO' },
+  { '<leader>ob', 'oBUG:<esc>gccA<space>', desc = 'Insert BUG' },
+  { '<leader>oh', 'oHACK:<esc>gccA<space>', desc = 'Insert HACK' },
+
+  { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
+  { '<leader>Ot', 'OTODO:<esc>gccA<space>', desc = 'Insert TODO' },
+  { '<leader>Ob', 'OBUG:<esc>gccA<space>', desc = 'Insert BUG' },
+  { '<leader>Oh', 'OHACK:<esc>gccA<space>', desc = 'Insert HACK' },
 })
 
-vim.cmd([[
-  nmap - <leader>e
-]])

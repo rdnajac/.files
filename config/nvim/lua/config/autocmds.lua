@@ -1,6 +1,6 @@
 -- autocmds.lua
 -- ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
-vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 -- Create shorthand for nvim_create_autocmd API
 local au = vim.api.nvim_create_autocmd
@@ -26,7 +26,7 @@ au('FileType', {
   group = aug('special_buffer_winhl'),
   pattern = { 'man', 'help' },
   callback = function()
-    vim.cmd([[ setlocal winhighlight=Normal:NormalFloat ]])
+    vim.cmd([[ hi NormalFloat guibg=#1f2335 | setlocal winhighlight=Normal:NormalFloat ]])
   end,
 })
 

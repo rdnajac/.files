@@ -14,6 +14,7 @@ get confused by the complexities of his own making
     end,
   },
 
+  -- stylua: ignore
   sections = {
     {
       section = 'terminal',
@@ -32,18 +33,19 @@ get confused by the complexities of his own making
       end,
       section = 'recent_files',
       indent = 2,
-      padding = 1,
     },
     {
       icon = ' ',
       title = 'Projects',
-      section = 'projects',
-      indent = 2,
-      padding = 1,
+      key = 'p',
+      action = function()
+        Snacks.picker.projects()
+      end,
+      -- section = 'projects',
+      -- indent = 2,
     },
     { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy' },
     { icon = ' ', key = 'x', desc = 'Lazy Extras', action = ':LazyExtras' },
-    -- stylua: ignore
     { icon = ' ', key = 'c', desc = 'Config', action = function() Snacks.picker('files', { cwd = vim.fn.stdpath('config') }) end, },
     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     { padding = 1 },

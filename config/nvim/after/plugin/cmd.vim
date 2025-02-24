@@ -80,3 +80,14 @@ nnoremap <silent> ,, <cmd>GetSnacksTerm<CR>
 nnoremap <silent> ,. <cmd>SendLine<CR>
 vnoremap <silent> <cr> <cmd>SendSelection<CR>
 nnoremap <silent> ,<cr> <cmd>RunFile<CR>
+
+" TODO: create a toggle
+" create a variable to toggle if we should send on enter
+if !exists('g:sendLineOnEnter')
+  let g:sendLineOnEnter = 1
+endif
+
+if g:sendLineOnEnter
+  " send the line on enter
+  nnoremap <silent> <cr> <cmd>SendLine<CR>
+endif

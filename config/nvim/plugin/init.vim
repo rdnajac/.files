@@ -1,24 +1,40 @@
+" init.vim
 " make sure these commands run first!
+" vim sources files alphebetically, so this file should be named _init.vim
+" for neovim config, keep this as the only file in plugin/
+
+" Define a variable outside any function blocks to store the path to this file
+let s:vimrc = expand('<sfile>')
+
+if !exists('*ReloadVimConfig')
+  function! ReloadVimConfig() abort
+    execute 'source ' . s:vimrc | echo 'Sourced ' . s:vimrc . '!'
+  endfunction
+endif
+
+if !exists('*VimConfig')
+  function! VimConfig() abort
+    execute 'edit ' . s:vimrc
+  endfunction
+endif
+
+" Just like my vimrc!
+nnoremap <leader>v :call VimConfig()<CR>
+nnoremap <leader>r :call ReloadVimConfig()<CR>
+
 " no Ex mode, instead Q formats and saves
 nnoremap Q <nop>
 nnoremap gQ <nop>
 " avoid conflicts with tmux
 nnoremap <C-f> <nop>
 
-if has('nvim')
-  lua vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
-elseif system('uname') =~? '^darwin'
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
-
 set shiftwidth=8
 set tabstop=8
 set autochdir
 set autoread
 set autowrite
-set completeopt=menuone,noselect,preview
+" set completeopt=menuone,noselect,preview
+set completeopt=menu,preview
 " set noconfirm
 set cursorline
 set foldopen+=insert,jump
@@ -43,6 +59,10 @@ set list
 set scrolloff=5
 set sidescrolloff=0
 
+set inccommand=nosplit
+set splitkeep=screen
+
+
 set wildmenu
 " XXX: keep this!
 set wildmode=longest:full,full
@@ -58,11 +78,10 @@ set fillchars+=stl:\ ,
 
 set listchars=trail:¿,tab:→\    " show trailing whitespace and tabs
 
-augroup noCmdwin
-  autocmd!
-  autocmd CmdwinEnter * quit
-augroup END
+" Quit immediately if we accidentally open a command window
+augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
 
+" Set shiftwidth and softtabstop for different filetypes {{{
 augroup FileTypeSettings
   autocmd!
   " set default for all files, then override for specific filetypes
@@ -72,10 +91,19 @@ augroup FileTypeSettings
   autocmd FileType cpp,cuda       setlocal sw=4 sts=4
   autocmd FileType python         setlocal sw=4 sts=4
   " autocmd FileType tex            setlocal            fdm=syntax
-  autocmd FileType vim,lua        setlocal kp=:help
+  autocmd FileType vim,lua        setlocal sw=2 sts=2 kp=:help
   autocmd FileType vim,lua,sh     setlocal nonumber norelativenumber numberwidth=2
 augroup END
-
+" }}}
+" clipboard {{{
+if has('nvim')
+  lua vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
+elseif system('uname') =~? '^darwin'
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
+" }}}
 " ignored files and directories {{{
 set wildignore+=*.o,*.out,*.a,*.so,*.lib,*.bin,*/.git/*,*.swp,*.swo,
 set wildignore+=*.pdf,*.aux,*.fdb_latexmk,*.fls " LaTeX files
@@ -85,11 +113,7 @@ set wildignore+=*.mp*p4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav
 set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 " }}}
 
-" keymaps
-
-" stop pressing shift for cmd
 nnoremap ; :
-cnoremap ; <CR>
 cnoreabbrev ?? verbose set?<Left>
 cnoreabbrev !! !./%
 
@@ -132,5 +156,9 @@ nnoremap ~ `
 " fat fingers"
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
+
+nmap - <leader>e
+
+cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
 " vim: fdm=marker fdl=0

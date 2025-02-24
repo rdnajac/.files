@@ -3,7 +3,7 @@
 return {
   sources = {
     files = { follow = true },
-    -- TODO: not like this...
+    -- TODO: this doesn't work
     notifications = { win = { preview = { wo = { wrap = true } } } },
     keymaps = { layout = { preset = 'vertical' } },
   },

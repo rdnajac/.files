@@ -1,4 +1,3 @@
--- local wk = require('which-key')
 return {
   {
     'folke/which-key.nvim',

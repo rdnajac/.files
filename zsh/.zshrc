@@ -26,7 +26,7 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 
 # uncomment to replace cd with zoxide
-# eval "${$(zoxide init zsh):s#_files -/#_cd#}"
-# alias cd=z
+eval "${$(zoxide init zsh):s#_files -/#_cd#}"
+alias cd=z
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
