@@ -25,7 +25,7 @@ return {
         window = { border = 'single' },
       },
       ghost_text = {
-        enabled = true,
+        enabled = false,
         show_with_selection = true,
         show_without_selection = false,
       },
@@ -57,8 +57,6 @@ return {
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       -- ['<C-space>'] = { 'show_and_insert', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'cancel' },
-      -- FIXME: this make a delay in insert mode when trying to escape
-      -- ['<esc>'] = { 'cancel', 'fallback' },
       ['<C-y>'] = { 'select_and_accept' },
 
       ['<Up>'] = { 'select_prev', 'fallback' },
@@ -67,7 +65,7 @@ return {
       ['<C-n>'] = { 'select_next', 'fallback' },
 
       ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-      ['<C-j>'] = { 'select_and_accept' },
+      ['<C-j>'] = { 'select_and_accept', 'fallback' },
       ['j'] = {
         function(cmp)
           if cmp.is_menu_visible() then
@@ -109,19 +107,6 @@ return {
         end,
         'fallback',
       },
-
-      -- return ctx.mode ~= "cmdline"
-      -- ['<CR>'] = {
-      --   function(cmp)
-      --     -- if not in cmdline
-      --     if vim.fn.mode() ~= 'c' then
-      --       if cmp.is_menu_visible() then
-      --         return cmp.accept()
-      --       end
-      --     end
-      --   end,
-      --   'fallback',
-      -- },
     },
 
     cmdline = {
@@ -131,9 +116,10 @@ return {
 
     sources = {
       compat = {},
-      default = { 'lazydev', 'path', 'lsp', 'buffer', 'copilot' },
+      default = { 'lazydev', 'path', 'lsp', 'buffer', 'snippets' },
       per_filetype = {
         -- lua = { 'lazydev', 'path', 'lsp', 'buffer' },
+        sh = { 'path', 'snippets', 'buffer' },
       },
 
       providers = {
@@ -153,19 +139,38 @@ return {
           },
         },
 
+        snippets = {
+          name = 'Snippets',
+          module = 'blink.cmp.sources.snippets',
+          score_offset = 111,
+
+          opts = {
+            friendly_snippets = false,
+            search_paths = { vim.fn.stdpath('config') .. '/snippets' },
+            global_snippets = { 'all' },
+            extended_filetypes = {},
+            ignored_filetypes = {},
+            get_filetype = function(context)
+              return vim.bo.filetype
+            end,
+            -- Set to '+' to use the system clipboard, or '"' to use the unnamed register
+            clipboard_register = nil,
+          },
+        },
+
         lazydev = {
           name = 'LazyDev',
           module = 'lazydev.integrations.blink',
           score_offset = 100, -- show at a higher priority than lsp
         },
 
-        copilot = {
-          name = 'copilot',
-          module = 'blink-cmp-copilot',
-          kind = 'Copilot',
-          score_offset = 100,
-          async = true,
-        },
+        -- copilot = {
+        --   name = 'copilot',
+        --   module = 'blink-cmp-copilot',
+        --   kind = 'Copilot',
+        --   score_offset = 99,
+        --   async = true,
+        -- },
       },
     },
   },

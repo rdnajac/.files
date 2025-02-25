@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    ---@class PluginLspOpts
+    ---@class lspconfig.Config
     opts = function(_, opts)
       local Keys = require('lazyvim.plugins.lsp.keymaps').get()
       -- stylua: ignore
@@ -40,6 +40,12 @@ return {
               },
             },
           },
+        },
+
+        bashls = {
+          capabilities = require('blink.cmp').get_lsp_capabilities({
+            textDocument = { completion = { completionItem = { snippetSupport = false } } },
+          }),
         },
       }
     end,

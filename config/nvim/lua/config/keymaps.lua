@@ -114,10 +114,12 @@ wk.add({
   { '<leader>ot', 'oTODO:<esc>gccA<space>', desc = 'Insert TODO' },
   { '<leader>ob', 'oBUG:<esc>gccA<space>', desc = 'Insert BUG' },
   { '<leader>oh', 'oHACK:<esc>gccA<space>', desc = 'Insert HACK' },
+  { '<leader>oh', 'oFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
 
   { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
   { '<leader>Ot', 'OTODO:<esc>gccA<space>', desc = 'Insert TODO' },
   { '<leader>Ob', 'OBUG:<esc>gccA<space>', desc = 'Insert BUG' },
   { '<leader>Oh', 'OHACK:<esc>gccA<space>', desc = 'Insert HACK' },
+  { '<leader>Oh', 'OFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
 })
 

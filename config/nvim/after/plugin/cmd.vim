@@ -91,3 +91,8 @@ if g:sendLineOnEnter
   " send the line on enter
   nnoremap <silent> <cr> <cmd>SendLine<CR>
 endif
+
+augroup MyTerminal
+  autocmd!
+  autocmd Filetype sh,markdown nnoremap <silent> <cr> <cmd>SendLine<CR>
+augroup END

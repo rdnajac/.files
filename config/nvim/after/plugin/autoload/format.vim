@@ -22,6 +22,7 @@ endfunction
 function! format#buffer() abort
   let l:winview = winsaveview()
   let l:formatter = !empty(&formatexpr) ? &formatexpr : &formatprg
+  write
 
   try
     if empty(l:formatter) || &ft == 'vim'

@@ -2,22 +2,12 @@ return {
   'stevearc/oil.nvim',
   lazy = false,
   cmd = 'Oil',
-  keys = {
-    -- { '-', ':vs | wincmd w | vertical resize 25 | Oil<CR>', desc = 'Open parent directory in floating window' },
-    { '_', '<CMD>Oil --float<CR>', desc = 'Open home directory' },
-    -- { '-', '<cmd>vsplit | Oil<CR> ', desc = 'Open parent directory in a split' },
-    -- seleact the first window after split
-    -- { '-', '<cmd>vsplit | Oil<CR> <cmd>wincmd w', desc = 'Open parent directory in a split' },
-  },
-  init = function()
-    vim.cmd([[
-    au FileType oil setlocal nowrap nonumber norelativenumber
-    au FileType oil silent! nnoremap <silent> <buffer> <Tab> :<C-U>close<CR>
-    au FileType oil silent! nnoremap <silent> <buffer> q     :<C-U>close<CR>
-
-
-    ]])
-  end,
+  keys = { { '-', '<CMD>Oil --float<CR>', desc = 'Open home directory' }, },
+  -- init = function()
+  --   vim.cmd([[
+  --   au FileType oil setlocal nowrap nonumber norelativenumber
+  --   ]])
+  -- end,
 
   opts = function()
     local git_status = require('util.git').new_git_status()
@@ -62,7 +52,10 @@ return {
         end,
       },
 
+      -- stylua: ignore
       keymaps = {
+        ['q'] = { desc = 'Quit buffer', callback = function() vim.cmd('q!') end, },
+        ['<Tab>'] = { desc = 'Quit buffer', callback = function() vim.cmd('q!') end, },
         ['gi'] = {
           desc = 'Toggle file detail view',
           callback = function()

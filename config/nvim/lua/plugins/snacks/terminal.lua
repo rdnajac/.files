@@ -1,6 +1,3 @@
--- TODO: no winbar
---
---
 -- Terminal Mappings
 local function term_nav(dir)
   ---@param self snacks.terminal
@@ -23,7 +20,7 @@ return {
     },
     wo = {
       winbar = '',
-      -- winhighlight = 'Normal:MyWin',
+      winhighlight = 'Normal:NormalFloat',
     },
   },
 }

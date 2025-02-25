@@ -74,3 +74,14 @@ Snacks.toggle({
 --     vim.opt.colorcolumn = state and '81' or ''
 --   end,
 -- }):map('<leader>u\\', { desc = 'Toggle Color Column' })
+
+Snacks.toggle({
+  name = 'Auto Advance (Line Feed)',
+  get = function()
+    return vim.g.cmd_auto_advance == '1'
+  end,
+  set = function(state)
+    vim.g.cmd_auto_advance = state and '1' or '0'
+  end,
+}):map('<localleader>ta', { desc = 'Toggle Auto Advance' })
+

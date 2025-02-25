@@ -26,7 +26,7 @@ au('FileType', {
   group = aug('special_buffer_winhl'),
   pattern = { 'man', 'help' },
   callback = function()
-    vim.cmd([[ hi NormalFloat guibg=#1f2335 | setlocal winhighlight=Normal:NormalFloat ]])
+    vim.cmd([[ setlocal winhighlight=Normal:NormalFloat ]])
   end,
 })
 

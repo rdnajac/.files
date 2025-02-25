@@ -33,8 +33,8 @@ set tabstop=8
 set autochdir
 set autoread
 set autowrite
-" set completeopt=menuone,noselect,preview
-set completeopt=menu,preview
+set completeopt=menuone,noselect,preview
+" set completeopt=menu,preview
 " set noconfirm
 set cursorline
 set foldopen+=insert,jump
@@ -156,8 +156,6 @@ nnoremap ~ `
 " fat fingers"
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
-
-nmap - <leader>e
 
 cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 

@@ -1,6 +1,19 @@
 return {
   {
+    'github/copilot.vim',
+    enabled = false,
+    init = function()
+      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
+      })
+      vim.g.copilot_no_tab_map = true
+    end,
+  },
+
+  {
     'zbirenbaum/copilot.lua',
+    enabled = true,
     cmd = 'Copilot',
     build = ':Copilot auth',
     event = 'BufReadPost',
@@ -31,25 +44,6 @@ return {
           help = true,
         },
       }
-    end,
-  },
-
-  {
-    'nvim-lualine/lualine.nvim',
-    optional = true,
-    event = 'VeryLazy',
-    opts = function(_, opts)
-      table.insert(
-        opts.sections.lualine_x,
-        2,
-        LazyVim.lualine.status(LazyVim.config.icons.kinds.Copilot, function()
-          local clients = package.loaded['copilot'] and LazyVim.lsp.get_clients({ name = 'copilot', bufnr = 0 }) or {}
-          if #clients > 0 then
-            local status = require('copilot.api').status.data.status
-            return (status == 'InProgress' and 'pending') or (status == 'Warning' and 'error') or 'ok'
-          end
-        end)
-      )
     end,
   },
 }

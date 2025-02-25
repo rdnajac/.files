@@ -1,0 +1,85 @@
+{
+  "name": "my-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "json",
+        "path": "./json.json"
+      },
+      {
+        "language": "cmake",
+        "path": "./cmake.json"
+      },
+      {
+        "language": "lua",
+        "path": "./snippets/lua/lua.json"
+      },
+      {
+        "language": "luadoc",
+        "path": "./snippets/lua/luadoc.json"
+      },
+      {
+        "language": "dockerfile",
+        "path": "./snippets/docker/docker_file.json"
+      },
+      {
+        "language": "yaml",
+        "path": "./snippets/docker/docker-compose.json"
+      },
+      {
+        "language": "editorconfig",
+        "path": "./editorconfig.json"
+      },
+      {
+        "language": "gitcommit",
+        "path": "./gitcommit.json"
+      },
+      {
+        "language": "global",
+        "path": "./global.json"
+      },
+      {
+        "language": "html",
+        "path": "./html.json"
+      },
+      {
+        "language": [
+          "plaintex",
+          "tex"
+        ],
+        "path": "./latex.json"
+      },
+      {
+        "language": "loremipsum",
+        "path": "./loremipsum.json"
+      },
+      {
+        "language": "make",
+        "path": "./make.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./markdown.json"
+      },
+      {
+        "language": "quarto",
+        "path": "./quarto.json"
+      },
+      {
+        "language": "r",
+        "path": "./r.json"
+      },
+      {
+        "language": "rmarkdown",
+        "path": "./rmarkdown.json"
+      },
+      {
+        "language": [
+          "sh",
+          "zsh"
+        ],
+        "path": "./sh.json"
+      }
+    ]
+  }
+}
