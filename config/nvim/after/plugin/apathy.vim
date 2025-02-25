@@ -15,16 +15,6 @@ setglobal define=
 
 setglobal isfname+=@-@
 
-augroup apathy_sh
-  autocmd!
-  autocmd FileType sh,zsh call apathy#Prepend('path', apathy#EnvSplit($PATH))
-  autocmd FileType sh,zsh setglobal isfname+={,}
-  autocmd FileType sh,zsh setglobal isfname-==
-  autocmd FileType sh,zsh setlocal include=^\\s*\\%(\\.\\\|source\\)\\s
-  autocmd FileType sh,zsh setlocal define=\\<\\%(\\i\\+\\s*()\\)\\@=
-  autocmd FileType sh,zsh call apathy#Undo()
-augroup END
-
 " function! s:CPreProcIncludes(exe, opts) abort
 "   let paths = []
 "   let active = 0

@@ -20,3 +20,13 @@ let &l:formatprg = 'shellharden --transform <(shfmt -bn -sr %)'
 "   -fn, --func-next-line    function opening braces are placed on a separate line
 
 " compiler shellcheck
+
+setlocal isfname+={,}
+setlocal isfname-==
+if exists('g:loaded_apathy')
+  call apathy#Prepend('path', apathy#EnvSplit($PATH))
+  setlocal include=^\\s*\\%(\\.\\\|source\\)\\s
+  setlocal define=\\<\\%(\\i\\+\\s*()\\)\\@=
+  call apathy#Undo()
+endif
+

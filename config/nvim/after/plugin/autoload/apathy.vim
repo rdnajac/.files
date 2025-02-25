@@ -1,6 +1,3 @@
-" Location: autoload/apathy.vim
-" Author: Tim Pope <http://tpo.pe/>
-
 if exists('g:autoloaded_apathy')
   finish
 endif
