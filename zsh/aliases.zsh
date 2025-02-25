@@ -3,7 +3,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 alias brewup='brew update; brew upgrade; brew cleanup -s;'
-alias ls='gls -F --color=auto --group-directories-first'
+# alias ls='gls -F --color=auto --group-directories-first'
 alias ctags='$(brew --prefix)/bin/ctags'
 alias conda='micromamba'
 alias mm='micromamba'
@@ -21,4 +21,5 @@ alias   nn='nvim ${DOTDIR}/etc/nnn.sh'
 alias cat=bat
 # alias ls=eza
 alias ls='eza --group-directories-first --colour=always --icons=auto'
-alias ll='eza --tree -l --group-directories-first --colour=always --icons=auto --git-ignore'
+alias ll='eza --tree -l -L 1 --group-directories-first --colour=always --icons=auto --git-ignore'
+# alias lt='eza --tree -l --group-directories-first --colour=always --icons=auto'
