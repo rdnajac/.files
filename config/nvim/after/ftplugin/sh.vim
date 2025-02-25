@@ -23,7 +23,7 @@ let &l:formatprg = 'shellharden --transform <(shfmt -bn -sr %)'
 
 setlocal isfname+={,}
 setlocal isfname-==
-if exists('g:loaded_apathy')
+if exists('g:autoloaded_apathy')
   call apathy#Prepend('path', apathy#EnvSplit($PATH))
   setlocal include=^\\s*\\%(\\.\\\|source\\)\\s
   setlocal define=\\<\\%(\\i\\+\\s*()\\)\\@=

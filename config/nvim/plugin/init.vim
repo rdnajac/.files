@@ -159,4 +159,14 @@ command! Wq wqa!
 
 cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
+" let g:loaded_apathy = 1 " {{{
+if &g:path =~# '\v^\.,/%(usr|emx)/include,,$'
+  setglobal path=.,,
+endif
+setglobal include=
+setglobal includeexpr=
+setglobal define=
+
+setglobal isfname+=@-@
+" }}}
 " vim: fdm=marker fdl=0

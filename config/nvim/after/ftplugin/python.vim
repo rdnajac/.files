@@ -1,4 +1,4 @@
-if !exists('g:loaded_apathy')
+if !exists('g:autoloaded_apathy')
   if !exists('g:python_path')
     let g:python_path = split(system(get(g:, 'python_executable', 'python') . ' -c "import sys; print(''\n''.join(sys.path))"')[0:-2], "\n", 1)
     if v:shell_error
