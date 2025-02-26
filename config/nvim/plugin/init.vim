@@ -32,6 +32,7 @@ set shiftwidth=8
 set tabstop=8
 set autochdir
 set autoread
+set noswapfile
 set autowrite
 set completeopt=menuone,noselect,preview
 " set completeopt=menu,preview

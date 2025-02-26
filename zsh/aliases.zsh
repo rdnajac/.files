@@ -16,7 +16,7 @@ alias nvserver='nvim --listen ~/.cache/nvim/server.pipe'
 alias   ba='nvim $HOME/.bash_aliases'
 alias  tmx='nvim $HOME/.config/tmux/tmux.conf'
 alias alac='nvim $HOME/.alacritty.toml'
-alias   zr='nvim ${ZDOTDIR:-$HOME}/.zsh'
+alias   zr='nvim ${ZDOTDIR:-$HOME/.zsh}'
 alias   nn='nvim ${DOTDIR}/etc/nnn.sh'
 
 # better versions of things in rust
