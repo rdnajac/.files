@@ -36,5 +36,6 @@ return {
   },
 
   { 'max397574/better-escape.nvim', opts = {}, event = 'InsertEnter' },
-  { 'tpope/vim-tbone' }
+  { 'tpope/vim-tbone' },
+  { 'jalvesaq/vimcmdline', ft = 'python' },
 }

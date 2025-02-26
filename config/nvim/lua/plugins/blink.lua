@@ -35,14 +35,17 @@ return {
         draw = { treesitter = { 'lsp' } },
       },
       -- Controls when to request completion items from the sources and show the completion menu.
+      -- uncomment to use non-default setting
       trigger = {
+        -- prefetch_on_insert = false,
         show_in_snippet = false,
-        show_on_keyword = true,
-        show_on_trigger_character = true,
-        show_on_accept_on_trigger_character = true,
-        show_on_insert_on_trigger_character = true,
+        -- show_on_keyword = false,
+        -- show_on_trigger_character = false,
+        -- show_on_accept_on_trigger_character = false,
+        -- show_on_insert_on_trigger_character = false,
       },
       -- Manages the completion list and its behavior when selecting items.
+      -- default is true for both `preselect` and `auto_insert`
       list = {
         selection = {
           preselect = true,
@@ -142,7 +145,7 @@ return {
         snippets = {
           name = 'Snippets',
           module = 'blink.cmp.sources.snippets',
-          score_offset = 111,
+          -- score_offset = 111,
 
           opts = {
             friendly_snippets = false,
