@@ -22,9 +22,7 @@ function M.load(opts)
         { import = 'lazyvim.plugins.linting' },
         { import = 'lazyvim.plugins.ui' },
         { import = 'lazyvim.plugins.xtras' },
-        { import = 'lazyvim.plugins.extras.ai.copilot-chat' },
-        { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-        { import = 'lazyvim.plugins.extras.editor.navic' },
+        { 'nvim-lua/plenary.nvim', lazy = true },
         -- for lang extras, see `~/.config/nvim/lazyvim.json`
       },
       { import = 'plugins' },

@@ -35,8 +35,6 @@ return {
     },
   },
 
-  { 'nvim-lua/plenary.nvim', lazy = true },
-  { 'MunifTanjim/nui.nvim', lazy = true },
   { 'max397574/better-escape.nvim', opts = {}, event = 'InsertEnter' },
   { 'tpope/vim-tbone' }
 }
