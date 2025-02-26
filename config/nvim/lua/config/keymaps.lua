@@ -105,16 +105,15 @@ wk.add({
   { '\\vr', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
 
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
-  -- TODO: remap should gcc into a comment
-  { '<leader>ot', 'oTODO:<esc>gccA<space>', { desc = 'Insert TODO', remap = true } },
-  { '<leader>ob', 'oBUG:<esc>gccA<space>', desc = 'Insert BUG' },
-  { '<leader>oh', 'oHACK:<esc>gccA<space>', desc = 'Insert HACK' },
-  { '<leader>of', 'oFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
+  { '<leader>ot', 'oTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO'},
+  { '<leader>ob', 'oBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+  { '<leader>oh', 'oHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+  { '<leader>of', 'oFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 
   { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>Ot', 'OTODO:<esc>gccA<space>', desc = 'Insert TODO' },
-  { '<leader>Ob', 'OBUG:<esc>gccA<space>', desc = 'Insert BUG' },
-  { '<leader>Oh', 'OHACK:<esc>gccA<space>', desc = 'Insert HACK' },
-  { '<leader>Of', 'OFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
+  { '<leader>Ot', 'OTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO' },
+  { '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+  { '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+  { '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 })
 

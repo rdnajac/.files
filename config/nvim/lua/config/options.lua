@@ -6,8 +6,8 @@ vim.g.autoformat = false
 vim.g.lazyvim_cmp = 'blink.cmp'
 vim.g.ai_cmp = true
 -- TODO: why wont these defaults default?
-vim.g.lazyvim_picker = 'snacks'
-vim.g.lazyvim_explorer = 'snacks'
+-- vim.g.lazyvim_picker = 'snacks'
+-- vim.g.lazyvim_explorer = 'snacks'
 
 local set = vim.opt
 
