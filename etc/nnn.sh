@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export VISUAL=E
+export VISUAL=e
 
 # -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
 # -E use $EDITOR for internal undetached edits

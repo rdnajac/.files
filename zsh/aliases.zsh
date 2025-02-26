@@ -8,13 +8,15 @@ alias ctags='$(brew --prefix)/bin/ctags'
 alias conda='micromamba'
 alias mm='micromamba'
 alias mminstall='micromamba install -c conda-forge -c bioconda'
+alias nvserver='nvim --listen ~/.cache/nvim/server.pipe'
+
 # alias repro='nvim -u ~/GitHub/repro.lua'
 
 # quickly edit config files
 alias   ba='nvim $HOME/.bash_aliases'
 alias  tmx='nvim $HOME/.config/tmux/tmux.conf'
 alias alac='nvim $HOME/.alacritty.toml'
-alias   zr='nvim ${ZDOTDIR:-$HOME}/.zshrc'
+alias   zr='nvim ${ZDOTDIR:-$HOME}/.zsh'
 alias   nn='nvim ${DOTDIR}/etc/nnn.sh'
 
 # better versions of things in rust

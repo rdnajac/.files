@@ -13,6 +13,6 @@ for confdir in ./config/*; do
 done
 
 for binfile in ./bin/*; do
-	# ln -sfnv "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
-	cp -fvr "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
+	ln -sfnv "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
+	# cp -fvr "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
 done
