@@ -1,73 +1,64 @@
+-- config/nvim/lua/plugins/oil.lua
 return {
   'stevearc/oil.nvim',
   lazy = false,
   cmd = 'Oil',
-  keys = { { '-', '<CMD>Oil --float<CR>', desc = 'Open home directory' }, },
-  -- init = function()
-  --   vim.cmd([[
-  --   au FileType oil setlocal nowrap nonumber norelativenumber
-  --   ]])
-  -- end,
+  keys = { { '-', '<CMD>Oil --float<CR>', desc = 'Open Oil in floating window' } },
+  opts = {
+    default_file_explorer = true,
+    columns = {},
+    buf_options = {
+      buflisted = false,
+      bufhidden = 'hide',
+    },
+    win_options = {
+      number = false,
+      relativenumber = false,
+    },
+    delete_to_trash = false,
+    prompt_save_on_select_new_entry = true,
+    skip_confirm_for_simple_edits = true,
+    constrain_cursor = 'name',
+    watch_for_changes = true,
+    view_options = {
+      show_hidden = false,
+      winbar = '%!v:lua.get_oil_winbar()',
+    },
 
-  opts = function()
-    local git_status = require('util.git').new_git_status()
-    local refresh = require('oil.actions').refresh
-    local orig_refresh = refresh.callback
-
-    refresh.callback = function(...)
-      git_status = require('util.git').new_git_status()
-      orig_refresh(...)
-    end
-
-    return {
-      view_options = {
-
-        winbar = '%!v:lua.get_oil_winbar()',
-        default_file_explorer = true,
-        skip_confirm_for_simple_edits = true,
-        prompt_save_on_select_new_entry = false,
-        constrain_cursor = 'name',
-
-        buf_options = {
-          buflisted = false,
-          bufhidden = 'hide',
-        },
-
-        -- TODO: set blacklist? use fugitive?
-        is_hidden_file = function(name, bufnr)
-          local dir = require('oil').get_current_dir(bufnr)
-          local is_dotfile = vim.startswith(name, '.') and name ~= '..'
-
-          -- If no local directory (e.g., for SSH connections), hide only dotfiles
-          if not dir then
-            return is_dotfile
-          end
-
-          -- Dotfiles are hidden unless tracked
-          if is_dotfile then
-            return not git_status[dir].tracked[name]
+    keymaps = {
+      ['h'] = { 'actions.parent', mode = 'n' },
+      ['<Left>'] = { 'actions.parent', mode = 'n' },
+      ['l'] = { 'actions.select', mode = 'n' },
+      ['<Right>'] = { 'actions.select', mode = 'n' },
+      ['q'] = { 'actions.close', mode = 'n' },
+      ['<Tab>'] = { 'actions.close', mode = 'n' },
+      ['gi'] = {
+        desc = 'Toggle file detail view',
+        callback = function()
+          detail = not detail
+          if detail then
+            require('oil').set_columns({ 'icon', 'permissions', 'size', 'mtime' })
           else
-            return false
+            require('oil').set_columns({})
           end
         end,
       },
+    },
 
-      -- stylua: ignore
-      keymaps = {
-        ['q'] = { desc = 'Quit buffer', callback = function() vim.cmd('q!') end, },
-        ['<Tab>'] = { desc = 'Quit buffer', callback = function() vim.cmd('q!') end, },
-        ['gi'] = {
-          desc = 'Toggle file detail view',
-          callback = function()
-            detail = not detail
-            if detail then
-              require('oil').set_columns({ 'icon', 'permissions', 'size', 'mtime' })
-            else
-              require('oil').set_columns({ 'icon' })
-            end
-          end,
-        },
-      },
-    }
-  end,
+    -- Extra arguments to pass to SCP when moving/copying files over SSH
+    extra_scp_args = {},
+    -- EXPERIMENTAL support for performing file operations with git
+    git = {
+      -- Return true to automatically git add/mv/rm files
+      add = function(path)
+        return false
+      end,
+      mv = function(src_path, dest_path)
+        return false
+      end,
+      rm = function(path)
+        return false
+      end,
+    },
+  },
 }
