@@ -27,17 +27,11 @@ map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'",      { desc = 'Up',   expr =
 map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, '<Up>',   "v:count == 0 ? 'gk' : 'k'", { desc = 'Up',   expr = true, silent = true })
 
--- Move to window using the <ctrl> hjkl keys
-map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window',  remap = true })
-map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window', remap = true })
-map('n', '<C-k>', '<C-w>k', { desc = 'Go to Upper Window', remap = true })
-map('n', '<C-l>', '<C-w>l', { desc = 'Go to Right Window', remap = true })
-
--- Resize window using <ctrl> arrow keys
-map('n', '<C-Up>',    '<cmd>resize  +2<cr>',          { desc = 'Increase Window Height' })
-map('n', '<C-Down>',  '<cmd>resize  -2<cr>',          { desc = 'Decrease Window Height' })
-map('n', '<C-Left>',  '<cmd>vertical resize  -2<cr>', { desc = 'Decrease Window Width' })
-map('n', '<C-Right>', '<cmd>vertical resize  +2<cr>', { desc = 'Increase Window Width' })
+-- Resize window using <option> arrow keys
+map('n', '<M-Up>',    '<cmd>resize  +2<cr>',          { desc = 'Increase Window Height' })
+map('n', '<M-Down>',  '<cmd>resize  -2<cr>',          { desc = 'Decrease Window Height' })
+map('n', '<M-Left>',  '<cmd>vertical resize  -2<cr>', { desc = 'Decrease Window Width' })
+map('n', '<M-Right>', '<cmd>vertical resize  +2<cr>', { desc = 'Increase Window Width' })
 
 -- Move Lines
 map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
@@ -111,15 +105,16 @@ wk.add({
   { '\\vr', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
 
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>ot', 'oTODO:<esc>gccA<space>', desc = 'Insert TODO' },
+  -- TODO: remap should gcc into a comment
+  { '<leader>ot', 'oTODO:<esc>gccA<space>', { desc = 'Insert TODO', remap = true } },
   { '<leader>ob', 'oBUG:<esc>gccA<space>', desc = 'Insert BUG' },
   { '<leader>oh', 'oHACK:<esc>gccA<space>', desc = 'Insert HACK' },
-  { '<leader>oh', 'oFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
+  { '<leader>of', 'oFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
 
   { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
   { '<leader>Ot', 'OTODO:<esc>gccA<space>', desc = 'Insert TODO' },
   { '<leader>Ob', 'OBUG:<esc>gccA<space>', desc = 'Insert BUG' },
   { '<leader>Oh', 'OHACK:<esc>gccA<space>', desc = 'Insert HACK' },
-  { '<leader>Oh', 'OFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
+  { '<leader>Of', 'OFIXME:<esc>gccA<space>', desc = 'Insert FIXME' },
 })
 

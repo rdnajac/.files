@@ -37,9 +37,5 @@ return {
 
   { 'nvim-lua/plenary.nvim', lazy = true },
   { 'MunifTanjim/nui.nvim', lazy = true },
-  { 'akinsho/bufferline.nvim', enabled = true, },
-  { 'nvim-lualine/lualine.nvim', enabled = true, },
-  { 'christoomey/vim-tmux-navigator' },
-  { dir = '~/GitHub/src/vim-tbone/' },
-  { 'max397574/better-escape.nvim', opts = {}, event = 'VeryLazy' },
+  { 'max397574/better-escape.nvim', opts = {}, event = 'InsertEnter' },
 }
