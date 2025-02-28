@@ -31,11 +31,8 @@ nnoremap <C-f> <nop>
 set shiftwidth=8
 set tabstop=8
 set autoread
-set noswapfile
 set autowrite
-set completeopt=menuone,noselect,preview
-" set completeopt=menu,preview
-" set noconfirm
+set completeopt=menu,preview,preinsert
 set cursorline
 set foldopen+=insert,jump
 set ignorecase smartcase
