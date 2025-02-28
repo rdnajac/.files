@@ -84,11 +84,12 @@ nnoremap <silent> ,<cr> <cmd>RunFile<CR>
 " TODO: create a toggle
 " create a variable to toggle if we should send on enter
 if !exists('g:sendLineOnEnter')
-  let g:sendLineOnEnter = 1
+  let g:sendLineOnEnter = 0
 endif
 
 if g:sendLineOnEnter
   " send the line on enter
+  " TODO: the toggle should set and unset this?
   nnoremap <silent> <cr> <cmd>SendLine<CR>
 endif
 

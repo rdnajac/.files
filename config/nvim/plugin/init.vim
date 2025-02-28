@@ -30,13 +30,9 @@ nnoremap <C-f> <nop>
 
 set shiftwidth=8
 set tabstop=8
-set autochdir
 set autoread
-set noswapfile
 set autowrite
-set completeopt=menuone,noselect,preview
-" set completeopt=menu,preview
-" set noconfirm
+set completeopt=menu,preview,preinsert
 set cursorline
 set foldopen+=insert,jump
 set ignorecase smartcase
@@ -114,9 +110,6 @@ set wildignore+=*.mp*p4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav
 set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 " }}}
 
-nnoremap ; :
-cnoreabbrev ?? verbose set?<Left>
-cnoreabbrev !! !./%
 
 nmap <c-c> ciw
 vnoremap <C-s> :sort<CR>
@@ -154,11 +147,14 @@ vnoremap > >gv
 nnoremap ` ~
 nnoremap ~ `
 
+" cmdline abbreviations
+nnoremap ; :
+cnoreabbrev ?? verbose set?<Left>
+" cnoreabbrev !! !./%
+cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 " fat fingers"
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
-
-cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
 " let g:loaded_apathy = 1 " {{{
 if &g:path =~# '\v^\.,/%(usr|emx)/include,,$'

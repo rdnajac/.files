@@ -3,9 +3,11 @@
 return {
   sources = {
     files = { follow = true },
-    -- TODO: this doesn't work
-    notifications = { win = { preview = { wo = { wrap = true } } } },
-    keymaps = { layout = { preset = 'vertical' } },
+    notifications = {
+      win = { preview = { wo = { wrap = true } } },
+      layout = { preset = 'vertical', fullscreen = true },
+    },
+    keymaps = { layout = { preset = 'vertical', fullscreen = true } },
   },
   win = {
     input = {

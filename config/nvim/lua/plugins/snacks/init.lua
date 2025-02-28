@@ -27,7 +27,10 @@ return {
     bigfile = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
-    notifier = { enabled = true },
+    notifier = {
+      style = 'fancy',
+      date_format = "%T"
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },

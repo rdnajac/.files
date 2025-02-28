@@ -1,6 +1,6 @@
 # check out `/usr/share/doc/bash` for examples
 
-alias ls='ls -F --color=auto --human-readable --group-directories-first'
+# alias ls='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 
@@ -33,7 +33,7 @@ alias nv='nvim'
 alias L='LAZY=1 nvim'
 alias pnv='PROF=1 nvim'
 
-# NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process; fg brings it back
+# NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process; fg bringshttps://help.ilab.agilent.com/45533-reporting/297102-reporting it back
 alias zz=fg
 
 alias ssx='nvim ~/.ssh/config'

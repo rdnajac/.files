@@ -14,17 +14,7 @@ function M.load(opts)
     root = lazyroot,
     ---@type LazySpec
     spec = {
-      {
-        'LazyVim/LazyVim',
-        { import = 'lazyvim.plugins.init' },
-        { import = 'lazyvim.plugins.lsp.init' },
-        { import = 'lazyvim.plugins.formatting' },
-        { import = 'lazyvim.plugins.linting' },
-        { import = 'lazyvim.plugins.ui' },
-        { import = 'lazyvim.plugins.xtras' },
-        { 'nvim-lua/plenary.nvim', lazy = true },
-        -- for lang extras, see `~/.config/nvim/lazyvim.json`
-      },
+      { 'LazyVim/LazyVim', import = 'lazyvim.plugins', },
       { import = 'plugins' },
     },
     lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
@@ -37,7 +27,9 @@ function M.load(opts)
       border = 'rounded',
       -- stylua: ignore
       custom_keys = {
-        ["<localleader>d"] = function(plugin) dd(plugin) end,
+        ["<localleader>d"] = { function(plugin) dd(plugin) end, desc = 'Debug Plugin'},
+        ["<localleader>g"] = { function(plugin) Snacks.picker.grep({cwd=plugin.dir}) end, desc = 'Grep Plugin Directory' },
+        ["<localleader>f"] = { function(plugin) Snacks.picker.files({cwd=plugin.dir}) end, desc = 'Find Plugin File' },
       },
     },
   }, opts or {})

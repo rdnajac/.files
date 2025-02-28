@@ -1,8 +1,9 @@
 return {
+  { 'echasnovski/mini.pairs', enabled = false },
 
   {
     'echasnovski/mini.surround',
-    event = 'VeryLazy',
+    event = 'InsertEnter',
     opts = {
       mappings = {
         add = 'ys',

@@ -1,71 +1,49 @@
 return {
   'folke/noice.nvim',
   enabled = true,
-  event = 'VeryLazy',
-  opts = {
 
+  ---@class NoiceConfig
+  opts = {
+    lsp = { signature = { auto_open = { enabled = false } } },
+    presets = {
+      lsp_doc_border = true,
+    },
     cmdline = {
-      enabled = true,
-      -- view = 'cmdline',
       format = {
         cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
         filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },
       },
     },
 
-    lsp = {
-      signature = { auto_open = { enabled = false } },
-      override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        ['cmp.entry.get_documentation'] = true,
-      },
-    },
-
     routes = {
       {
         filter = {
-          event = 'msg_show',
-          any = {
-            { find = '%d+L, %d+B' },
-            { find = '; after #%d+' },
-            { find = '; before #%d+' },
-          },
+          cmdline = '^:%s*!',
+          kind = 'shell_out',
         },
-        view = 'mini',
+        view = 'split',
       },
-    },
-
-    presets = {
-      bottom_search = true,
-      command_palette = true,
-      -- command_palette = false,
-      long_message_to_split = true,
-      lsp_doc_border = true,
+      {
+        filter = {
+          event = 'msg_show',
+          find = '^E486: Pattern not found',
+          --  find = 'E85: There is no listed buffer',
+          --  find = 'E490: No fold found',
+          --  find = 'Already at oldest change',
+        },
+        opts = { skip = true },
+      },
     },
   },
 
-    -- stylua: ignore
-    keys = {
-      { "<leader>sn", "", desc = "+noice"},
-      { "<C-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
-      { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
-      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
-      { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
-      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
-      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
+  keys = {
+    {
+      '<M-Enter>',
+      function()
+        require('noice').redirect(vim.fn.getcmdline())
+      end,
+      mode = 'c',
+      desc = 'Redirect Cmdline',
     },
-
-  config = function(_, opts)
-    -- HACK: noice shows messages from before it was enabled,
-    -- but this is not ideal when Lazy is installing plugins,
-    -- so clear the messages in this case.
-    if vim.o.filetype == 'lazy' then
-      vim.cmd([[messages clear]])
-    end
-    require('noice').setup(opts)
-    vim.cmd([[set cmdheight=0]])
-  end,
+  },
 }
