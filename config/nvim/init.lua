@@ -1,5 +1,4 @@
 -- init.lua
-vim.opt.verbosefile= '/Users/rdn/nvim.log'
 require('config.lazy').load({
   performance = {
     reset_packpath = true,
