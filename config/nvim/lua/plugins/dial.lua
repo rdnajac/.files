@@ -124,6 +124,8 @@ return {
         r = {
           new_dial({ 'TRUE', 'FALSE' }, false),
           new_dial({ 'row', 'col' }, false),
+          -- XXX: remove once project is complete
+          new_dial({ 'PHIP', 'PHF6' }, false),
         },
       },
     }

@@ -1,7 +1,7 @@
 return {
   {
     'github/copilot.vim',
-    enabled = true,
+    enabled = false,
     -- init = function()
     --   vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
     --     expr = true,
@@ -13,7 +13,7 @@ return {
 
   {
     'zbirenbaum/copilot.lua',
-    enabled = false,
+    enabled = true,
     opts = {
       suggestion = {
         enabled = true,

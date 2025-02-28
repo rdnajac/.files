@@ -16,6 +16,7 @@ set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
 set.undofile = true
 set.undolevels = 10000
 
+set.cmdheight = 0
 -- set.shellcmdflag = '-ic' -- the `c` flag is for interactive shell
 set.mousescroll = 'ver:2,hor:0'
 set.pumblend = 0

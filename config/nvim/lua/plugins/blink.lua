@@ -2,115 +2,70 @@
 -- ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/coding/blink.lua
 return {
   'Saghen/blink.cmp',
-  -- build = 'cargo build --release',
-  version = '*',
-  event = 'InsertEnter',
   dependencies = {
-    { 'saghen/blink.compat', opts = {} },
-    { 'giuxtaposition/blink-cmp-copilot' },
     { 'rafamadriz/friendly-snippets', enabled = false },
   },
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    appearance = {
-      nerd_font_variant = 'mono',
-      -- kind_icons = LazyVim.config.icons.kinds,
-    },
     completion = {
       accept = { auto_brackets = { enabled = false } },
       documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
+        -- auto_show = false,
         window = { border = 'single' },
       },
       ghost_text = {
-        enabled = false,
+        enabled = true,
         show_with_selection = true,
         show_without_selection = false,
       },
       menu = {
-        auto_show = false, -- pull up the completion menu with <c-space>
+        auto_show = true, -- pull up the completion menu with <c-space>
         border = 'rounded',
         draw = { treesitter = { 'lsp' } },
       },
       -- Controls when to request completion items from the sources and show the completion menu.
-      -- uncomment to use non-default setting
       trigger = {
-        -- prefetch_on_insert = false,
         show_in_snippet = false,
         -- show_on_keyword = false,
-        -- show_on_trigger_character = false,
-        -- show_on_accept_on_trigger_character = false,
-        -- show_on_insert_on_trigger_character = false,
+        show_on_trigger_character = true,
+        show_on_accept_on_trigger_character = true,
+        show_on_insert_on_trigger_character = true,
       },
       -- Manages the completion list and its behavior when selecting items.
       -- default is true for both `preselect` and `auto_insert`
       list = {
         selection = {
           preselect = true,
-          auto_insert = true,
+          auto_insert = false,
         },
       },
     },
     signature = { enabled = true, window = { border = 'single' } },
 
     keymap = {
-      preset = 'none',
-      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      -- ['<C-space>'] = { 'show_and_insert', 'show_documentation', 'hide_documentation' },
-      ['<C-e>'] = { 'hide', 'cancel' },
+      preset = 'super-tab',
+      ['<C-e>'] = { 'hide', 'cancel', 'fallback' },
       ['<C-y>'] = { 'select_and_accept' },
-
-      ['<Up>'] = { 'select_prev', 'fallback' },
-      ['<Down>'] = { 'select_next', 'fallback' },
-      ['<C-p>'] = { 'select_prev', 'fallback' },
-      ['<C-n>'] = { 'select_next', 'fallback' },
-
       ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-      ['<C-j>'] = { 'select_and_accept', 'fallback' },
-      ['j'] = {
-        function(cmp)
-          if cmp.is_menu_visible() then
-            return cmp.select_next()
-          end
-        end,
-        'fallback',
+      ['<C-j>'] = { 'select_next', 'fallback' },
+      -- ['j'] = {
+      --   function(cmp)
+      --     if cmp.is_menu_visible() then
+      --       return cmp.select_next()
+      --     end
+      --   end,
+      --   'fallback',
+      -- },
+      -- ['k'] = {
+      --   function(cmp)
+      --     if cmp.is_menu_visible() then
+      --       return cmp.select_prev()
+      --     end
+      --   end,
+      --   'fallback',
+      -- },
       },
-
-      ['k'] = {
-        function(cmp)
-          if cmp.is_menu_visible() then
-            return cmp.select_prev()
-          end
-        end,
-        'fallback',
-      },
-
-      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-      -- TODO: keep continuing filepaths
-      -- TODO: can we just make it like zsh?
-      ['<Tab>'] = {
-        function(cmp)
-          if cmp.snippet_active() then
-            return cmp.accept()
-          else
-            return cmp.select_and_accept()
-          end
-        end,
-        'snippet_forward',
-        'fallback',
-      },
-
-      ['<Space>'] = {
-        function(cmp)
-          if cmp.is_menu_visible() then
-            return cmp.accept()
-          end
-        end,
-        'fallback',
-      },
-    },
 
     cmdline = {
       enabled = false,
@@ -134,11 +89,11 @@ return {
           opts = {
             trailing_slash = true,
             label_trailing_slash = true,
-            -- get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
             get_cwd = function(_)
               return vim.fn.getcwd()
+              -- return Snacks.git.get_root()
             end,
-            show_hidden_files_by_default = false,
+            show_hidden_files_by_default = true,
           },
         },
 

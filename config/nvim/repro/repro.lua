@@ -5,11 +5,19 @@ load(vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/ma
 ---@diagnostic disable: missing-fields
 require('lazy.minit').repro({
   spec = {
-    { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
-    -- add any other plugins here
+    { 'folke/tokyonight.nvim' },
+    {
+      'folke/noice.nvim',
+      dependencies = {
+        'MunifTanjim/nui.nvim',
+        'rcarriga/nvim-notify',
+      },
+      opts = {},
+    },
+    -- { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
   },
 })
 
 vim.cmd([[
-cmap ?? verbose set?<left><space>
+colorscheme tokyonight
 ]])

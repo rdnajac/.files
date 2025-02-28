@@ -21,7 +21,4 @@ alias   nn='nvim ${DOTDIR}/etc/nnn.sh'
 
 # better versions of things in rust
 alias cat=bat
-# alias ls=eza
-alias ls='eza --group-directories-first --colour=always --icons=auto'
-alias ll='eza --tree -l -L 1 --group-directories-first --colour=always --icons=auto --git-ignore'
-# alias lt='eza --tree -l --group-directories-first --colour=always --icons=auto'
+alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
