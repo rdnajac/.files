@@ -3,15 +3,13 @@
 # TODO Make these POSIX-compliant
 . $DOTDIR/etc/nnn.sh
 . $DOTDIR/etc/fzf.sh
+. $DOTDIR/etc/mamba.sh
 
 . $ZDOTDIR/promptstring.zsh
 . $ZDOTDIR/clipboardfunctions.zsh
 . $ZDOTDIR/aliases.zsh
 . $ZDOTDIR/options.zsh
-
 # FIXME:
-. $DOTDIR/etc/mamba.sh
-set +x
 . $ZDOTDIR/completion.zsh
 
 # set up Ruby environment
@@ -21,5 +19,9 @@ set +x
 
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"
 alias cd=z
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."

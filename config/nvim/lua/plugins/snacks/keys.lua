@@ -24,10 +24,7 @@ return {
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
   { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/rdnajac/.vim')}) end, desc = 'Find Vim Config File' },
-  { '<leader>f.', function() Snacks.picker('files', {hidden = true, cwd = vim.fn.expand('~/GitHub/rdnajac/.files')}) end, desc = 'Dotfiles' },
-  -- { '<leader>f.', function() Snacks.picker('files', {cwd = vim.fnkeys.expand('~/GitHub/rdnajac/.files'), hidden=true}) end, desc = 'Dotfiles' },
-  -- { '<leader>f.', function() Snacks.picker.files({hidden = true, cwd = vim.fnkeys.expand('~/GitHub/rdnajac/.files')}) end, desc = 'Dotfiles' },
-  { '<leader>fC', function() Snacks.picker.files({ cwd = vim.fn.expand('~/GitHub/rdnajac/.files')}) end, desc = 'Config File' },
+  { '<leader>f.', function() Snacks.picker('files', {hidden = true, cwd = vim.fn.expand('$DOTDIR')}) end, desc = 'Dotfiles' },
 
   -- git
   { '<leader>gb', function() Snacks.git.blame_line() end, desc = 'Git Blame Line' },

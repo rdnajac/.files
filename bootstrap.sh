@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 ## Symlink all dotfiles
 
-THISDIR=$(realpath "$0")
+THISDIR=$(dirname "$(realpath "$0")")
 
 for dotfile in ./home/.*; do
 	if [ "$(basename "$dotfile")" = "." ] || [ "$(basename "$dotfile")" = ".." ]; then
@@ -22,7 +22,7 @@ done
 # zsh
 # IMPORTANT! use double quotes around EOF
 cat << EOF > "$HOME/.zshenv"
-set -x
+export DOTDIR=$THISDIR
 export ZDOTDIR=$THISDIR/zsh
 
 if [ -f "$ZDOTDIR/.zshenv" ]; then
