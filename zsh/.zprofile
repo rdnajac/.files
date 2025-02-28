@@ -1,6 +1,7 @@
 # export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:/usr/local/bin
 
 export EDITOR=vim
 export LS_COLORS="$($DOTDIR/etc/LS_PY)"
