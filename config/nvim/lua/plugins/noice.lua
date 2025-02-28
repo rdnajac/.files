@@ -8,8 +8,6 @@ return {
     presets = {
       lsp_doc_border = true,
     },
-
-    ------@type table<string, CmdlineFormat>
     cmdline = {
       format = {
         cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
@@ -19,7 +17,10 @@ return {
 
     routes = {
       {
-        filter = { cmdline = '^:!' },
+        filter = {
+          cmdline = '^:%s*!',
+          kind = 'shell_out',
+        },
         view = 'split',
       },
       {
