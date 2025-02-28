@@ -199,5 +199,6 @@ return {
     },
   },
 
+  { 'folke/flash.nvim', enabled = false },
   { 'max397574/better-escape.nvim', opts = {}, event = 'InsertEnter' },
 }

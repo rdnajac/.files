@@ -3,7 +3,10 @@
 return {
   sources = {
     files = { follow = true },
-    notifications = { win = { preview = { wo = { wrap = true } } } },
+    notifications = {
+      win = { preview = { wo = { wrap = true } } },
+      layout = { preset = 'vertical', fullscreen = true },
+    },
     keymaps = { layout = { preset = 'vertical', fullscreen = true } },
   },
   win = {

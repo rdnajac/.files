@@ -6,15 +6,8 @@ load(vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/ma
 require('lazy.minit').repro({
   spec = {
     { 'folke/tokyonight.nvim' },
-    {
-      'folke/noice.nvim',
-      dependencies = {
-        'MunifTanjim/nui.nvim',
-        'rcarriga/nvim-notify',
-      },
-      opts = {},
-    },
-    -- { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
+    { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
+    { 'folke/noice.nvim', enabled = false}
   },
 })
 

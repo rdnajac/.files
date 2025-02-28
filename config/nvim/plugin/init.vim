@@ -113,11 +113,6 @@ set wildignore+=*.mp*p4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav
 set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 " }}}
 
-" cmdline abbreviations
-nnoremap ; :
-cnoreabbrev ?? verbose set?<Left>
-cnoreabbrev !! !./%
-cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
 nmap <c-c> ciw
 vnoremap <C-s> :sort<CR>
@@ -155,10 +150,14 @@ vnoremap > >gv
 nnoremap ` ~
 nnoremap ~ `
 
+" cmdline abbreviations
+nnoremap ; :
+cnoreabbrev ?? verbose set?<Left>
+" cnoreabbrev !! !./%
+cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 " fat fingers"
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
-
 
 " let g:loaded_apathy = 1 " {{{
 if &g:path =~# '\v^\.,/%(usr|emx)/include,,$'
