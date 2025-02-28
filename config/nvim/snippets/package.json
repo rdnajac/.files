@@ -2,46 +2,31 @@
   "name": "my-snippets",
   "contributes": {
     "snippets": [
-      {
-        "language": "json",
-        "path": "./json.json"
-      },
-      {
-        "language": "cmake",
-        "path": "./cmake.json"
-      },
-      {
-        "language": "lua",
-        "path": "./snippets/lua/lua.json"
-      },
-      {
-        "language": "luadoc",
-        "path": "./snippets/lua/luadoc.json"
-      },
-      {
-        "language": "dockerfile",
-        "path": "./snippets/docker/docker_file.json"
-      },
-      {
-        "language": "yaml",
-        "path": "./snippets/docker/docker-compose.json"
-      },
-      {
-        "language": "editorconfig",
-        "path": "./editorconfig.json"
-      },
-      {
-        "language": "gitcommit",
-        "path": "./gitcommit.json"
-      },
-      {
-        "language": "global",
-        "path": "./global.json"
-      },
-      {
-        "language": "html",
-        "path": "./html.json"
-      },
+      { "language": "c",            "path": "./snippets/c/c.json" },
+      { "language": "cdoc",         "path": "./snippets/c/cdoc.json" },
+      { "language": "cpp",          "path": "./snippets/cpp/cpp.json" },
+      { "language": "cppdoc",       "path": "./snippets/cpp/cppdoc.json" },
+      { "language": "json",         "path": "./json.json" },
+      { "language": "cmake",        "path": "./cmake.json" },
+      { "language": "lua",          "path": "./snippets/lua/lua.json" },
+      { "language": "luadoc",       "path": "./snippets/lua/luadoc.json" },
+      { "language": "dockerfile",   "path": "./snippets/docker/docker_file.json" },
+      { "language": "yaml",         "path": "./snippets/docker/docker-compose.json" },
+      { "language": "editorconfig", "path": "./editorconfig.json" },
+      { "language": "gitcommit",    "path": "./gitcommit.json" },
+      { "language": "global",       "path": "./global.json" },
+      { "language": "html",         "path": "./html.json" },
+      { "language": "loremipsum",   "path": "./loremipsum.json" },
+      { "language": "make",         "path": "./make.json" },
+      { "language": "markdown",     "path": "./markdown.json" },
+      { "language": "quarto",       "path": "./quarto.json" },
+      { "language": "r",            "path": "./r.json" },
+      { "language": "rmarkdown",    "path": "./rmarkdown.json" },
+      { "language": "pydoc",        "path": "./snippets/python/pydoc.json" },
+      { "language": "python",       "path": "./snippets/python/python.json" },
+      { "language": "python",       "path": "./snippets/python/comprehension.json" },
+      { "language": "python",       "path": "./snippets/python/unittest.json" },
+      { "language": "python",       "path": "./snippets/python/debug.json" },
       {
         "language": [
           "plaintex",
@@ -50,36 +35,22 @@
         "path": "./latex.json"
       },
       {
-        "language": "loremipsum",
-        "path": "./loremipsum.json"
-      },
-      {
-        "language": "make",
-        "path": "./make.json"
-      },
-      {
-        "language": "markdown",
-        "path": "./markdown.json"
-      },
-      {
-        "language": "quarto",
-        "path": "./quarto.json"
-      },
-      {
-        "language": "r",
-        "path": "./r.json"
-      },
-      {
-        "language": "rmarkdown",
-        "path": "./rmarkdown.json"
-      },
-      {
         "language": [
           "sh",
           "zsh"
         ],
         "path": "./sh.json"
-      }
+      },
+      {
+        "language": [
+          "ocaml",
+          "ocamlinterface"
+        ],
+        "path": "./snippets/ocaml/ocaml.json"
+      },
+      { "language": "ocaml.ocamllex", "path": "./snippets/ocaml/ocamllex.json" },
+      { "language": "dune-project", "path": "./snippets/ocaml/dune-project.json" },
+      { "language": "dune", "path": "./snippets/ocaml/dune.json" }
     ]
   }
 }
