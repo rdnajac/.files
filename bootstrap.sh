@@ -3,9 +3,9 @@
 
 for dotfile in ./home/.*; do
 	if [ "$dotfile" = "./." ] || [ "$dotfile" = "./.." ]; then
-		continue # Skip `.` and `..`
+		continue
 	fi
-	ln -sfnv "$(realpath "$dotfile")" "${HOME}/${dotfile}"
+	ln -sfnv "$(realpath "$dotfile")" "${HOME}/$(basename "$dotfile")"
 done
 
 for confdir in ./config/*; do
