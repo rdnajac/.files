@@ -49,22 +49,22 @@ return {
       ['<C-y>'] = { 'select_and_accept' },
       ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
-      -- ['j'] = {
-      --   function(cmp)
-      --     if cmp.is_menu_visible() then
-      --       return cmp.select_next()
-      --     end
-      --   end,
-      --   'fallback',
-      -- },
-      -- ['k'] = {
-      --   function(cmp)
-      --     if cmp.is_menu_visible() then
-      --       return cmp.select_prev()
-      --     end
-      --   end,
-      --   'fallback',
-      -- },
+      ['j'] = {
+        function(cmp)
+          if cmp.is_menu_visible() then
+            return cmp.select_next()
+          end
+        end,
+        'fallback',
+      },
+      ['k'] = {
+        function(cmp)
+          if cmp.is_menu_visible() then
+            return cmp.select_prev()
+          end
+        end,
+        'fallback',
+      },
       },
 
     cmdline = {
