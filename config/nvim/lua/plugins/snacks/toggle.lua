@@ -85,3 +85,16 @@ Snacks.toggle({
   end,
 }):map('<localleader>ta', { desc = 'Toggle Auto Advance' })
 
+Snacks.toggle({
+  name = 'Noice',
+  get = function()
+    return require('noice.config').is_running()
+  end,
+  set = function(state)
+    if state then
+      require('noice').enable()
+    else
+      require('noice').disable()
+    end
+  end,
+}):map('<leader>uN', { desc = 'Toggle Noice' })
