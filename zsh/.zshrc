@@ -7,7 +7,6 @@ export PATH=$PATH:/usr/local/bin
 
 export EDITOR=vim
 export LS_COLORS="$($DOTDIR/etc/LS_PY)"
-
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -29,6 +28,8 @@ set +x
 . $ZDOTDIR/clipboardfunctions.zsh
 . $ZDOTDIR/aliases.zsh
 . $ZDOTDIR/options.zsh
+. $ZDOTDIR/zle.zsh
+
 # FIXME:
 . $ZDOTDIR/completion.zsh
 
