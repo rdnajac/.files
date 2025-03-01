@@ -14,8 +14,22 @@ function M.load(opts)
     root = lazyroot,
     ---@type LazySpec
     spec = {
-      { 'LazyVim/LazyVim', import = 'lazyvim.plugins', },
+      {
+        'LazyVim/LazyVim',
+        -- import = 'lazyvim.plugins'
+        { import = 'lazyvim.plugins.init' },
+        { import = 'lazyvim.plugins.lsp.init' },
+        { import = 'lazyvim.plugins.formatting' },
+        { import = 'lazyvim.plugins.linting' },
+        { import = 'lazyvim.plugins.ui' },
+        { import = 'lazyvim.plugins.xtras' },
+        { 'nvim-lua/plenary.nvim', lazy = true },
+        -- for lang extras, see `~/.config/nvim/lazyvim.json`
+      },
       { import = 'plugins' },
+      -- these only need to be disabled if we import ALL LazyVim plugins
+      -- { 'folke/flash.nvim', enabled = false },
+      -- { 'echasnovski/mini.pairs', enabled = false },
     },
     lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
     pkg = { enabled = false },

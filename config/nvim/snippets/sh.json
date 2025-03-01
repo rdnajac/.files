@@ -13,7 +13,7 @@
 
   "for": {
     "prefix": "for",
-    "body": "for ${1:VAR} in ${0:LIST}\ndo\n\techo \"\\$${1:VAR}\"\ndone\n",
+    "body": "for ${1:VAR} in ${2:LIST}\ndo\n\t${3:echo} \"\\$${1:VAR}\"\ndone\n",
     "description": "for loop"
   },
 
@@ -22,6 +22,7 @@
     "body": "echo \"${0:message}\"",
     "description": "Echo a message."
   },
+
   "read": {
     "prefix": "read",
     "body": "read -r ${0:VAR}",

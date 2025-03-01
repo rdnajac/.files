@@ -7,7 +7,7 @@ require('lazy.minit').repro({
   spec = {
     { 'folke/tokyonight.nvim' },
     { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
-    { 'folke/noice.nvim', enabled = false}
+    { 'folke/noice.nvim', enabled = false },
   },
 })
 

@@ -14,6 +14,7 @@ return {
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...) Snacks.debug.inspect(...) end
         _G.bt = function()    Snacks.debug.backtrace()  end
+        _G.snack = function(...) Snacks.meta.snack(...) end
         -- Override print to use snacks for `:=` command
         vim.print = _G.dd
         -- Set up toggles
@@ -29,7 +30,7 @@ return {
     input = { enabled = true },
     notifier = {
       style = 'fancy',
-      date_format = "%T"
+      date_format = '%T',
     },
     quickfile = { enabled = true },
     scope = { enabled = true },

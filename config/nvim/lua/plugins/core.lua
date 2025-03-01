@@ -16,7 +16,7 @@ return {
       },
       on_highlights = function(hl, c)
         hl['String'] = { fg = '#39ff14' }
-        hl['NormalFloat'] = { bg = '#1f2335' }
+        -- hl['NormalFloat'] = { bg = '#1f2335' }
       end,
     },
   },

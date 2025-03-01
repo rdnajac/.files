@@ -1,13 +1,17 @@
+local str = [[
+The computing scientist's main challenge is not to
+get confused by the complexities of his own making
+]]
+
+local cmd = 'pokeget unown-l unown unown-z unown-y --hide-name; sleep .1;'
+-- local cmd = 'pokeget unown-r unown-y unown unown-n 2> /dev/null',
+-- local cmd = 'pokeget unown-n unown-v unown-i unown-m 2> /dev/null',
+
 ---@class snacks.dashboard.Config
 return {
   preset = {
-    header = [[
-The computing scientist's main challenge is not to
-get confused by the complexities of his own making
-]],
-    keys = {},
+    header = str,
   },
-
   formats = {
     key = function(item)
       return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } }
@@ -16,16 +20,10 @@ get confused by the complexities of his own making
 
   -- stylua: ignore
   sections = {
+    { section = 'terminal', cmd = cmd, indent = 5, padding = 1 },
+    { section = 'startup', padding = 1, },
     {
-      section = 'terminal',
-      cmd = 'pokeget unown-l unown unown-z unown-y --hide-name; sleep .1;',
-      -- cmd = 'pokeget unown-r unown-y unown unown-n 2> /dev/null',
-      -- cmd = 'pokeget unown-n unown-v unown-i unown-m 2> /dev/null',
-    },
-    { padding = 1 },
-    { section = 'startup', padding = 1, align = 'left' },
-    {
-      icon = ' ',
+      icon = ' ',
       title = 'Recent Files',
       key = 'f',
       action = function()
@@ -40,5 +38,6 @@ get confused by the complexities of his own making
     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     { padding = 1 },
     { section = 'header' },
+    -- { section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, indent = 8 },
   },
 }

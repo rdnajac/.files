@@ -20,7 +20,7 @@ return {
     },
     wo = {
       winbar = '',
-      winhighlight = 'Normal:NormalFloat',
+      -- winhighlight = 'Normal:NormalFloat',
     },
   },
 }

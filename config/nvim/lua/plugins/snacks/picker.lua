@@ -2,6 +2,27 @@
 ---@class snacks.picker.Config
 return {
   sources = {
+    explorer = {
+      win = {
+        list = {
+          keys = {
+            ['-'] = 'explorer_up',
+            ['l'] = 'confirm',
+            ['h'] = 'explorer_close', -- close directory
+            ['<Right>'] = 'confirm',
+            ['<Left>'] = 'explorer_close', -- close directory
+            ['r'] = 'explorer_rename',
+            ['c'] = 'explorer_copy',
+            ['m'] = 'explorer_move',
+            ['o'] = 'explorer_open', -- open with system application
+            ['P'] = 'toggle_preview',
+            ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
+            ['p'] = 'explorer_paste',
+            ['u'] = 'explorer_update',
+          },
+        },
+      },
+    },
     files = { follow = true },
     notifications = {
       win = { preview = { wo = { wrap = true } } },

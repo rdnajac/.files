@@ -20,7 +20,7 @@ return {
         show_without_selection = false,
       },
       menu = {
-        auto_show = true, -- pull up the completion menu with <c-space>
+        auto_show = false, -- pull up the completion menu with <c-space>
         border = 'rounded',
         draw = { treesitter = { 'lsp' } },
       },
@@ -65,7 +65,7 @@ return {
         end,
         'fallback',
       },
-      },
+    },
 
     cmdline = {
       enabled = false,

@@ -1,5 +1,3 @@
--- lua/user/utils/files.lua
-
 function AddFileNameToFirstLineAsAComment()
   local git_root = Snacks.git.get_root()
   local file_path = vim.fn.expand('%:p')
@@ -12,13 +10,6 @@ function AddFileNameToFirstLineAsAComment()
   end
 end
 
-function RM()
-  local fname = vim.fn.expand('%:p')
-  vim.cmd('Delete!')
-  Snacks.notify.notify('Deleted ' .. fname)
-  vim.cmd('Oil')
-end
-
 -- function GoToRepo()
 --   -- matches the filename against the refistered lazyspec plugin namr
 --   -- if it matches, it opens the plugin directory
@@ -29,7 +20,4 @@ end
 vim.cmd([[
 command! FileName lua AddFileNameToFirstLineAsAComment()
 nnoremap <localleader>fn :FileName<CR>
-
-command! RM lua RM()
-nnoremap <localleader>fD RM<CR>
 ]])

@@ -32,6 +32,6 @@ return {
         markdown = true,
         help = true,
       },
-    }
+    },
   },
 }
