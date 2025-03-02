@@ -2,13 +2,5 @@
 
 Configuration files that live in the home directory
 
-## zsh
-
-pcat ~/.zshenv
-
-```sh
-$ cat ~/.zshenv
-ZDOTDIR=$HOME/.zsh
-. $ZDOTDIR/.zshenv
-```
-
+> [!CAUTION]
+> When possible, store configuration files in $XDG_CONFIG_HOME

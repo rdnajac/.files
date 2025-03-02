@@ -2,7 +2,7 @@
 
 export EDITOR=vim
 export MANPAGER="$(which nvim) +Man!"
-export LS_COLORS="$($DOTDIR/etc/LS_PY)"
+# export LS_COLORS="$($DOTDIR/etc/LS_PY)"
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -17,7 +17,6 @@ export SAVEHIST=10000
 . $ZDOTDIR/aliases.zsh
 . $ZDOTDIR/options.zsh
 . $ZDOTDIR/zle.zsh
-
 # FIXME:
 . $ZDOTDIR/completion.zsh
 
@@ -25,7 +24,6 @@ export SAVEHIST=10000
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 # source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 # chruby ruby-3.1.3 # run chruby to see actual version
-
 
 eval "$(zoxide init zsh)"
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"

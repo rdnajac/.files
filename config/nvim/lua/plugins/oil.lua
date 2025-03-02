@@ -59,9 +59,7 @@ return {
 
       keymaps = {
         ['h'] = { 'actions.parent', mode = 'n' },
-        ['<Left>'] = { 'actions.parent', mode = 'n' },
         ['l'] = { 'actions.select', mode = 'n' },
-        ['<Right>'] = { 'actions.select', mode = 'n' },
         ['q'] = { 'actions.close', mode = 'n' },
         ['<Tab>'] = { 'actions.close', mode = 'n' },
         ['gi'] = {

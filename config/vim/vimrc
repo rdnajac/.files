@@ -1,7 +1,8 @@
 " vimrc
 scriptencoding utf-8
 
-let s:VIMHOME    = expand('$HOME/.vim/')
+" let s:VIMHOME    = expand('$HOME/.vim/')
+let s:VIMHOME    = expand('$XDG_CONFIG_HOME/vim/')
 let g:plug_home  = s:VIMHOME . '/.plugged//'
 let &backupdir   = s:VIMHOME . '.backup//'
 let &directory   = s:VIMHOME . '.swap//'

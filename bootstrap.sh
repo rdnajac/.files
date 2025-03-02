@@ -1,14 +1,11 @@
 #!/usr/bin/env sh
 ## Symlink all dotfiles
+set -eux
 
 THISDIR=$(dirname "$(realpath "$0")")
 
-for dotfile in ./home/.*; do
-	if [ "$(basename "$dotfile")" = "." ] || [ "$(basename "$dotfile")" = ".." ]; then
-		continue
-	fi
-	ln -sfnv "$(realpath "$dotfile")" "${HOME}/$(basename "$dotfile")"
-done
+ln -sfnv "${THISDIR}/home/.Rprofile" "${HOME}/.Rprofile"
+ln -sfnv "${THISDIR}/home/.bash_aliases" "${HOME}/.bash_aliases"
 
 for confdir in ./config/*; do
 	ln -sfnv "$(realpath "$confdir")" "${XDG_CONFIG_HOME:-$HOME/.config}/$(basename "$confdir")"
@@ -16,17 +13,16 @@ done
 
 for binfile in ./bin/*; do
 	ln -sfnv "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
-	# cp -fvr "$(realpath "$binfile")" "${HOME}/.local/bin/$(basename "$binfile")"
 done
 
-# zsh
-# IMPORTANT! use double quotes around EOF
+# IMPORTANT! use double quotes around EOF so that $THISDIR expands
+# IMPORTANT! prepend the `$` with a `\` so it does not 
 cat << EOF > "$HOME/.zshenv"
 export DOTDIR=$THISDIR
-export ZDOTDIR=$THISDIR/zsh
+export ZDOTDIR=\$XDG_CONFIG_HOME/zsh
 
-if [ -f "$ZDOTDIR/.zshenv" ]; then
-    . "${ZDOTDIR}/.zshenv"
+if [ -f "\${ZDOTDIR}/.zshenv" ]; then
+    . "\${ZDOTDIR}/.zshenv"
 fi
 EOF
 
