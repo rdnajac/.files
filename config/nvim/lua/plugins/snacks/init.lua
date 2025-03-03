@@ -14,9 +14,12 @@ return {
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...) Snacks.debug.inspect(...) end
         _G.bt = function()    Snacks.debug.backtrace()  end
-        _G.snack = function(...) Snacks.meta.snack(...) end
         -- Override print to use snacks for `:=` command
         vim.print = _G.dd
+        -- Prepend any cmd with `Snacks` with lua to run it correctly
+        vim.cmd([[
+        cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
+        ]])
         -- Set up toggles
         require('plugins.snacks.toggle')
       end,

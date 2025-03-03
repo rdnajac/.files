@@ -19,6 +19,7 @@ return {
   end,
   opts = function()
     local augend = require('dial.augend')
+    -- TODO: add function signature
     local new_dial = function(elements, isword)
       return augend.constant.new({
         elements = elements,
@@ -127,6 +128,7 @@ return {
           -- XXX: remove once project is complete
           new_dial({ 'PHIP', 'PHF6' }, false),
         },
+        zsh = { new_dial({ '-x', '+x' }, false) },
       },
     }
   end,

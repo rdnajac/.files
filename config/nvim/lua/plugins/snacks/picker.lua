@@ -2,6 +2,7 @@
 ---@class snacks.picker.Config
 return {
   sources = {
+
     explorer = {
       win = {
         list = {
@@ -23,12 +24,25 @@ return {
         },
       },
     },
+
     files = { follow = true },
     notifications = {
       win = { preview = { wo = { wrap = true } } },
       layout = { preset = 'vertical', fullscreen = true },
     },
+
     keymaps = { layout = { preset = 'vertical', fullscreen = true } },
+
+    dotfiles = {
+            finder = "files",
+            format = "file",
+            show_empty = true,
+            hidden = true,
+            ignored = false,
+            follow = true,
+            supports_live = true,
+            cwd = vim.fn.expand('$DOTDIR')
+          }
   },
   win = {
     input = {

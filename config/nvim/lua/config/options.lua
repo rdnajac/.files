@@ -1,11 +1,19 @@
 -- LazyVim options must be set here
 -- for all other options, go to ~/.config/nvim/plugin/init.vim
-vim.g.lazyvim_check_order = false
-vim.g.snacks_animate = true
-vim.g.autoformat = false
-vim.g.ai_cmp = true
-vim.g.lazyvim_picker = 'snacks'
-vim.g.lazyvim_explorer = 'snacks'
+local g = vim.g
+
+g.lazyvim_check_order = false
+g.snacks_animate = true
+g.autoformat = false
+g.ai_cmp = true
+g.lazyvim_picker = 'snacks'
+g.lazyvim_explorer = 'snacks'
+
+-- silence checkhealth errors
+g.loaded_perl_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_ruby_provider = 0
+
 
 local set = vim.opt
 

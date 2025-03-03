@@ -35,6 +35,7 @@ return {
     { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy' },
     { icon = ' ', key = 'x', desc = 'Lazy Extras', action = ':LazyExtras' },
     { icon = ' ', key = 'c', desc = 'Config', action = function() Snacks.picker('files', { cwd = vim.fn.stdpath('config') }) end, },
+    { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end, },
     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     { padding = 1 },
     { section = 'header' },

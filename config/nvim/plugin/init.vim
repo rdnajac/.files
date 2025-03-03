@@ -112,6 +112,7 @@ set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 
 
 nmap <c-c> ciw
+nmap <c-s> viw
 vnoremap <C-s> :sort<CR>
 
 " buffer navigation
@@ -152,7 +153,7 @@ nnoremap ; :
 cnoreabbrev ?? verbose set?<Left>
 " cnoreabbrev !! !./%
 cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
-" fat fingers"
+
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
 
@@ -167,3 +168,4 @@ setglobal define=
 setglobal isfname+=@-@
 " }}}
 " vim: fdm=marker fdl=0
+
