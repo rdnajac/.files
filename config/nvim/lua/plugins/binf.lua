@@ -1,6 +1,12 @@
 return {
   { 'LukeGoodsell/nextflow-vim' },
   {
+    'quarto-dev/quarto-nvim',
+    dependencies = {
+      'jmbuhr/otter.nvim',
+    },
+  },
+  {
     'R-nvim/R.nvim',
     opts = {
       -- R_args = { '--quiet', '--no-save' },

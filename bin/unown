@@ -1,0 +1,30 @@
+#!/bin/sh
+
+pr_unown() {
+	input=$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')
+	unownstring=""
+
+	i=0
+	while [ "$i" -lt ${#input} ]; do
+		char=$(printf '%s' "$input" | cut -c $((i + 1)))
+
+		case "$char" in
+		'a') unownstring="${unownstring} unown " ;;
+		[b-z]) unownstring="${unownstring} unown-$char " ;;
+		'!') unownstring="${unownstring} unown-exclamation " ;;
+		'?') unownstring="${unownstring} unown-question " ;;
+		esac
+
+		i=$((i + 1))
+	done
+
+	# XXX: don't quote this!
+	pokeget $unownstring --hide-name; sleep .1;
+}
+
+if [ $# -eq 0 ]; then
+	echo "Usage: $0 <string>"
+	exit 1
+fi
+
+pr_unown "$1"

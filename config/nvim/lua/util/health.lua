@@ -16,7 +16,7 @@ end
 function M.check()
   start('My health checks')
 
-  for _, cmd in ipairs({ 'tmux', 'nnn' }) do
+  for _, cmd in ipairs({ 'tmux', 'nnn', 'pokeget', 'quatro' }) do
     ensure_installed(cmd)
   end
 
