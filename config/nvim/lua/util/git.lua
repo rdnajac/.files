@@ -1,19 +1,20 @@
 -- Utility functions for Git status
 local M = {}
 
-local parse_output = function(proc)
-  local result = proc:wait()
-  local ret = {}
-  if result.code == 0 then
-    for line in vim.gsplit(result.stdout, '\n', { plain = true, trimempty = true }) do
-      line = line:gsub('/$', '') -- Remove trailing slash
-      ret[line] = true
-    end
-  end
-  return ret
-end
-
 M.new_git_status = function()
+  -- with lua, you can define a function inside another function
+  local parse_output = function(proc)
+    local result = proc:wait()
+    local ret = {}
+    if result.code == 0 then
+      for line in vim.gsplit(result.stdout, '\n', { plain = true, trimempty = true }) do
+        line = line:gsub('/$', '') -- Remove trailing slash
+        ret[line] = true
+      end
+    end
+    return ret
+  end
+
   return setmetatable({}, {
     __index = function(self, key)
       local ignore_proc = vim.system(

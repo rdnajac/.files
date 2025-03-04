@@ -1,10 +1,7 @@
--- lua/user/utils/init.lua
 require('util.files')
-require('util.readme')
-require('util.lazy')
+local goto = require('util.goto')
 
+vim.keymap.set('n', '\\0', goto.README, { desc = 'Goto Nearest README' })
+vim.keymap.set('n', 'gL', goto.lazy, { desc = 'Goto LazyVim config or module' })
 
--- Register vim commands
-vim.api.nvim_create_user_command('PrintPlugins', "=require('lazy').plugins()", {})
-vim.api.nvim_create_user_command('PrintSnacks', "=require('snacks').meta.get()", {})
 vim.api.nvim_create_user_command('NNN', "lua require('util.nnn').start()", {})

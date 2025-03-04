@@ -9,14 +9,6 @@ function AddFileNameToFirstLineAsAComment()
     print('File is not within the git root directory')
   end
 end
-
--- function GoToRepo()
---   -- matches the filename against the refistered lazyspec plugin namr
---   -- if it matches, it opens the plugin directory
---   local file = vim.fn.expand('%:p')
---   local lazypath = vim.fn.stdpath('data') .. '/nvim/lazy'
--- return
-
 vim.cmd([[
 command! FileName lua AddFileNameToFirstLineAsAComment()
 nnoremap <localleader>fn :FileName<CR>
