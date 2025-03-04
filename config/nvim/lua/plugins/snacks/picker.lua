@@ -2,7 +2,12 @@
 ---@class snacks.picker.Config
 return {
   sources = {
-
+    files = { follow = true },
+    keymaps = { layout = { preset = 'vertical', fullscreen = true } },
+    notifications = {
+      win = { preview = { wo = { wrap = true } } },
+      layout = { preset = 'vertical', fullscreen = true },
+    },
     explorer = {
       win = {
         list = {
@@ -25,24 +30,26 @@ return {
       },
     },
 
-    files = { follow = true },
-    notifications = {
-      win = { preview = { wo = { wrap = true } } },
-      layout = { preset = 'vertical', fullscreen = true },
+    dotfiles = {
+      finder = 'files',
+      -- format = 'file',
+      show_empty = true,
+      hidden = true,
+      ignored = false,
+      follow = true,
+      supports_live = true,
+      cwd = vim.fn.expand('$DOTDIR'),
     },
 
-    keymaps = { layout = { preset = 'vertical', fullscreen = true } },
-
-    dotfiles = {
-            finder = "files",
-            format = "file",
-            show_empty = true,
-            hidden = true,
-            ignored = false,
-            follow = true,
-            supports_live = true,
-            cwd = vim.fn.expand('$DOTDIR')
-          }
+    learnvimscriptthehardway = {
+      finder = 'grep',
+      ignored = true,
+      cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'),
+      confirm = function(picker, item)
+        vim.cmd('!open ' .. item._path)
+        picker:close()
+      end,
+    },
   },
   win = {
     input = {

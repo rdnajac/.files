@@ -7,6 +7,8 @@ local map = vim.keymap.set
 -- Check if there is a map set for <C-s> to determine whether LazyVim keymaps are loaded
 -- map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
 
+map('n', 'gp', '<cmd>e <cfile>:p:h<CR>', { desc = 'Goto Parent Directory' })
+
 map('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save File' })
 map('n', '<leader>Q', '<cmd>qa<cr>', { desc = 'Quit All' })
 map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
@@ -69,7 +71,7 @@ map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 -- config
 local nvimconfigfiles = { 'autocmds', 'keymaps', 'lazy', 'options' }
 local quickconfig = function(file)
-  -- if were in a floating window, close in first
+  -- if we're in a floating window, close in first
   if vim.api.nvim_win_get_config(0).relative ~= '' then
     vim.cmd('q')
   end
@@ -86,33 +88,31 @@ wk.add({
   { '!', group = 'Commands', icon = { icon = ' ', color = 'red' } },
   { '!cd', ':!cd $(dirname %)<CR>', desc = 'cd here' },
 
--- for more git keymaps see ~/.config/nvim/lua/plugins/snacks/keys.lua
-  { '<leader>g', group = 'git' },
-  { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
+{ '<leader>d', group = 'debug' },
+{ '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
+{ '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
-  { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
-  { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
-  { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
-  { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
-  { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
-  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
+{ '<leader>g', group = 'git' },
+{ '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
 
-  { '\\v', group = 'Vim' },
-  { '\\vv', function() quickconfig('~/.vim/plugin/init.vim') end, desc = 'Vim Settings',  icon = { icon = ' ', color = 'red' }},
-  { '\\vf', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.vim')}) end, desc = 'Vim Files' },
-  { '\\vr', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
+{ '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
+{ '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
+{ '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
+{ '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
+{ '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
+{ '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+{ '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
+{ '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
 
-  { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>ot', 'oTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO'},
-  { '<leader>ob', 'oBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
-  { '<leader>oh', 'oHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
-  { '<leader>of', 'oFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
+{ '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
+{ '<leader>ot', 'oTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO'},
+{ '<leader>ob', 'oBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+{ '<leader>oh', 'oHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+{ '<leader>of', 'oFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 
-  { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>Ot', 'OTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO' },
-  { '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
-  { '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
-  { '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
+{ '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
+{ '<leader>Ot', 'OTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO' },
+{ '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+{ '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+{ '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 })

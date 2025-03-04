@@ -25,7 +25,7 @@ return {
     })
 
     return {
-      -- default_file_explorer = true,
+      default_file_explorer = true,
       columns = {},
       buf_options = {
         buflisted = false,

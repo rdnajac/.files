@@ -1,12 +1,11 @@
 -- stylua: ignore
 return {
-  -- Top Pickers & Explorer
-  { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
-  -- { '<leader>,', function() Snacks.picker.buffers() end, desc = 'Buffers' },
-  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep' },
+  { '<leader><space>', function() Snacks.picker.smart() end,     desc = 'Smart Find Files' },
+  { '<leader>,', function() Snacks.picker.buffers() end,         desc = 'Buffers' },
+  { '<leader>/', function() Snacks.picker.grep() end,            desc = 'Grep' },
   { '<leader>:', function() Snacks.picker.command_history() end, desc = 'Command History' },
-  { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History' },
-  { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
+  { '<leader>n', function() Snacks.picker.notifications() end,   desc = 'Notification History' },
+  { '<leader>e', function() Snacks.explorer() end,               desc = 'File Explorer' },
 
   -- find
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
@@ -14,16 +13,17 @@ return {
   { '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, desc = 'Neovim Config File' },
   { '<leader>ff', function() Snacks.picker.files() end, desc = 'Find Files' },
   { "<leader>fF", function() Snacks.picker.files({ root = false }) end, desc = "Find Files (cwd)" },
-  { "<leader>fR", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
   { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Git Files' },
   { '<leader>fp', function() Snacks.picker.projects() end, desc = 'Projects' },
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
   { '<leader>fr', function() Snacks.picker.recent() end, desc = 'Recent' },
+  { "<leader>fR", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
   -- mine
   { '<leader>f<Space>', function() Snacks.picker() end, desc = 'Pickers' },
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
-  { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/rdnajac/.vim')}) end, desc = 'Find Vim Config File' },
+  { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
+  { '<leader>fV', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
 
   -- git
@@ -39,7 +39,7 @@ return {
   { '<leader>gs', function() Snacks.picker.git_status() end,   desc = 'Git Status' },
   { '<leader>gS', function() Snacks.picker.git_stash() end,    desc = 'Git Stash' },
 
-  -- Grep
+  -- grep
   { '<leader>sb', function() Snacks.picker.lines() end,        desc = 'Buffer Lines' },
   { '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers' },
   { '<leader>sg', function() Snacks.picker.grep() end,         desc = 'Grep' },
@@ -90,12 +90,12 @@ return {
   { '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' } },
   { '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' }},
 
-  { '<leader>z',  function() Snacks.zen() end, desc = 'Toggle Zen Mode' },
-  { '<leader>Z',  function() Snacks.zen.zoom() end, desc = 'Toggle Zoom' },
-  { '<leader>.',  function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
-  { '<leader>S',  function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
-  { '<leader>cR', function() Snacks.rename.rename_file() end, desc = 'Rename File' },
-  { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
+  { '<leader>z',   function() Snacks.zen() end,                desc = 'Toggle Zen Mode' },
+  { '<leader>Z',   function() Snacks.zen.zoom() end,           desc = 'Toggle Zoom' },
+  { '<leader>.',   function() Snacks.scratch() end,            desc = 'Toggle Scratch Buffer' },
+  { '<leader>S',   function() Snacks.scratch.select() end,     desc = 'Select Scratch Buffer' },
+  { '<leader>cR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
+  { '<leader>dps', function() Snacks.profiler.scratch() end,   desc = 'Profiler Scratch Buffer' },
 
   { '<leader>fT', function() Snacks.terminal() end,  desc = 'Terminal (cwd)'  },
   { '<leader>ft', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, desc = 'Terminal (Root Dir)'  },
@@ -104,4 +104,22 @@ return {
 
   { ']]',         function() Snacks.words.jump(vim.v.count1) end, desc = 'Next Reference', mode = { 'n', 't' } },
   { '[[',         function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev Reference', mode = { 'n', 't' } },
+  {
+    '<leader>N',
+    desc = 'Neovim News',
+    function()
+      Snacks.win({
+        file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
+        width = 0.6,
+        height = 0.6,
+        wo = {
+          spell = false,
+          wrap = false,
+          signcolumn = 'yes',
+          statuscolumn = ' ',
+          conceallevel = 3,
+        },
+      })
+    end,
+  }
 }

@@ -101,7 +101,7 @@ return {
     event = 'BufReadPre',
     opts = {},
     init = function()
-      require('which-key').add({ { '<leader>p', group = 'Persistence' } })
+      require('which-key').add({ { '<leader>p', group = 'Persistence', icon = ' ' } })
     end,
     -- stylua: ignore
     keys = {
