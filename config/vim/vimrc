@@ -16,8 +16,11 @@ let g:mapleader = ' '
 let g:maplocalleader = '/'
 
 call plug#begin()
-Plug 'rdnajac/after'
+" Plug 'rdnajac/after'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'

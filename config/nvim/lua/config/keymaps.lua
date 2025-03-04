@@ -36,11 +36,11 @@ map('n', '<M-Left>',  '<cmd>vertical resize  -2<cr>', { desc = 'Decrease Window 
 map('n', '<M-Right>', '<cmd>vertical resize  +2<cr>', { desc = 'Increase Window Width' })
 
 -- Move Lines
-map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
-map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
-map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
-map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
-map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
+map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==",                   { desc = 'Move Down' })
+map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==",             { desc = 'Move Up' })
+map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi',                                   { desc = 'Move Down' })
+map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi',                                   { desc = 'Move Up' })
+map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv",       { desc = 'Move Down' })
 map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -82,37 +82,62 @@ local quickconfig = function(file)
   end
 end
 
+local changeDir = function(where)
+  local path = ''
+
+  if where == 'gitroot' then
+    local root = Snacks.git.get_root(vim.fn.expand('%:p:h'))
+    if root then
+      path = root
+    end
+  elseif where == 'here' then
+    path = vim.fn.expand('%:p:h')
+  elseif where == 'last' then
+    path = vim.fn.expand('-')
+  else
+    path = where
+  end
+
+  if path ~= '' then
+    vim.cmd('cd ' .. path)
+  end
+
+  vim.cmd('pwd')
+end
+
 local wk = require('which-key')
 -- stylua: ignore
 wk.add({
-  { '!', group = 'Commands', icon = { icon = ' ', color = 'red' } },
-  { '!cd', ':!cd $(dirname %)<CR>', desc = 'cd here' },
+  { '<leader>d', group = 'debug' },
+  { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
+  { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
-{ '<leader>d', group = 'debug' },
-{ '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
-{ '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
+  { '<leader>g', group = 'git' },
+  { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
 
-{ '<leader>g', group = 'git' },
-{ '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
+  { ',', group = 'Utility', icon = { icon = ' ', color = 'blue' } },
+  { ',%', function() changeDir('here') end,    desc = 'change to buffer directory' },
+  { ',$', function() changeDir('gitroot') end, desc = 'change to git root directory' },
+  { ',-', function() changeDir('last') end,    desc = 'change to last directory' },
 
-{ '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
-{ '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
-{ '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
-{ '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-{ '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
-{ '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-{ '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
-{ '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
+  { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
+  { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
+  { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
+  { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
+  { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
+  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
 
-{ '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
-{ '<leader>ot', 'oTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO'},
-{ '<leader>ob', 'oBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
-{ '<leader>oh', 'oHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
-{ '<leader>of', 'oFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
+  { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
+  { '<leader>ot', 'oTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO'},
+  { '<leader>ob', 'oBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+  { '<leader>oh', 'oHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+  { '<leader>of', 'oFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 
-{ '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
-{ '<leader>Ot', 'OTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO' },
-{ '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
-{ '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
-{ '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
+  { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
+  { '<leader>Ot', 'OTODO:<esc><cmd>normal gcc<cr>A<space>',  desc = 'TODO' },
+  { '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
+  { '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
+  { '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
 })

@@ -1,6 +1,13 @@
 return {
   { 'tpope/vim-tbone' },
   {
+    'tpope/vim-eunuch',
+    lazy = false,
+    keys = {
+      { ',D', '<Cmd>Delete!<CR>', desc = 'Delete the file from disk' },
+    },
+  },
+  {
     'folke/tokyonight.nvim',
     lazy = false, -- make sure we load this during startup
     priority = 1000, -- and before all the other start plugins
@@ -14,9 +21,11 @@ return {
         sidebars = 'transparent',
         floats = 'transparent',
       },
-      on_highlights = function(hl, c)
-        hl['String'] = { fg = '#39ff14' }
-        -- hl['NormalFloat'] = { bg = '#1f2335' }
+      -- stylua: ignore
+      -- on_highlights = function(hl, c)
+      on_highlights = function(hl, _)
+        hl['String'] =                { fg = '#39ff14' }
+        hl['SpecialFloatingWindow'] = { bg = '#1f2335' }
       end,
     },
   },

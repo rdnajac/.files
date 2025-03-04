@@ -46,6 +46,10 @@ function M.load(opts)
         ["<localleader>f"] = { function(plugin) Snacks.picker.files({cwd=plugin.dir}) end, desc = 'Find Plugin File' },
       },
     },
+    change_detection = {
+      enabled = true,
+      notify = false,
+    },
   }, opts or {})
   require('lazy').setup(opts)
 end
