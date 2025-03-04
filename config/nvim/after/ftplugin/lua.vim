@@ -3,6 +3,7 @@ inoremap <buffer> {<SPACE> {}<LEFT><SPACE><LEFT><SPACE>
 inoremap <buffer> {<CR> {<CR>}<ESC>O
 
 nnoremap @mf i---@diagnostic disable-next-line: missing-fields<esc>
+nnoremap @ul i---@diagnostic disable-next-line: unused-local<esc>
 
 nmap @si istylua:<SPACE>ignore<esc>gcc
 nmap @ss istylua:<SPACE>ignore<SPACE>start<esc>gcc

@@ -1,5 +1,7 @@
 # .zshrc - my custom zsh configuration
 
+SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT
+
 export EDITOR=vim
 export MANPAGER="$(which nvim) +Man!"
 # export LS_COLORS="$($DOTDIR/etc/LS_PY)"

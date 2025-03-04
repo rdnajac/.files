@@ -52,8 +52,7 @@ return {
           'jsdoc',
           'json',
           'jsonc',
-          --FIXME: this install fails
-          -- 'latex',
+          'latex',
           'lua',
           'luadoc',
           'luap',
