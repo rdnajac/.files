@@ -108,11 +108,11 @@ end
 local wk = require('which-key')
 -- stylua: ignore
 wk.add({
-  { '<leader>d', group = 'debug' },
+  { 'gc', hidden = true },
+  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
-  { '<leader>g', group = 'git' },
   { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
 
   { ',', group = 'Utility', icon = { icon = ' ', color = 'blue' } },
@@ -140,4 +140,7 @@ wk.add({
   { '<leader>Ob', 'OBUG:<esc><cmd>normal gcc<cr>A<space>',   desc = 'BUG' },
   { '<leader>Oh', 'OHACK:<esc><cmd>normal gcc<cr>A<space>',  desc = 'HACK' },
   { '<leader>Of', 'OFIXME:<esc><cmd>normal gcc<cr>A<space>', desc = 'FIXME' },
+
+  -- { '<localleader>f', group = 'Files', icon = { icon = ' ', color = 'blue' } },
+  { '<locealleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
 })

@@ -1,6 +1,7 @@
 # export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/GitHub/palomerolab/cbmf/bin
 
 # check if were on darwin
 if [[ "$OSTYPE" == darwin* ]]; then

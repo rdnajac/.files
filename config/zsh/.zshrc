@@ -12,7 +12,6 @@ export SAVEHIST=10000
 # TODO Make these POSIX-compliant
 . $DOTDIR/etc/nnn.sh
 . $DOTDIR/etc/fzf.sh
-. $DOTDIR/etc/mamba.sh
 
 . $ZDOTDIR/promptstring.zsh
 . $ZDOTDIR/clipboardfunctions.zsh

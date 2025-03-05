@@ -4,13 +4,14 @@ return {
   { '<leader>,', function() Snacks.picker.buffers() end,         desc = 'Buffers' },
   { '<leader>/', function() Snacks.picker.grep() end,            desc = 'Grep' },
   { '<leader>:', function() Snacks.picker.command_history() end, desc = 'Command History' },
-  { '<leader>n', function() Snacks.picker.notifications() end,   desc = 'Notification History' },
+  -- { '<leader>n', function() Snacks.picker.notifications() end,   desc = 'Notification History' },
   { '<leader>e', function() Snacks.explorer() end,               desc = 'File Explorer' },
 
   -- find
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
   { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
   { '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, desc = 'Neovim Config File' },
+  -- { '<leader>fc', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('config') }) end, desc = 'Neovim Config File' },
   { '<leader>ff', function() Snacks.picker.files() end, desc = 'Find Files' },
   { "<leader>fF", function() Snacks.picker.files({ root = false }) end, desc = "Find Files (cwd)" },
   { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Git Files' },
@@ -74,7 +75,6 @@ return {
   { '<leader>sL', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
   { '<leader>sP', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
-  { '<localleader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide' },
 
   -- LSP
   { 'gd', function() Snacks.picker.lsp_definitions() end, desc = 'Goto Definition' },
@@ -90,12 +90,7 @@ return {
   { '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' } },
   { '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' }},
 
-  { '<leader>z',   function() Snacks.zen() end,                desc = 'Toggle Zen Mode' },
-  { '<leader>Z',   function() Snacks.zen.zoom() end,           desc = 'Toggle Zoom' },
-  { '<leader>.',   function() Snacks.scratch() end,            desc = 'Toggle Scratch Buffer' },
-  { '<leader>S',   function() Snacks.scratch.select() end,     desc = 'Select Scratch Buffer' },
   { '<leader>cR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
-  { '<leader>dps', function() Snacks.profiler.scratch() end,   desc = 'Profiler Scratch Buffer' },
 
   { '<leader>fT', function() Snacks.terminal() end,  desc = 'Terminal (cwd)'  },
   { '<leader>ft', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, desc = 'Terminal (Root Dir)'  },

@@ -5,6 +5,9 @@ return {
     dependencies = {
       'jmbuhr/otter.nvim',
     },
+    keys = {
+      -- { '<leader>cp', quarto.quartoPreview, { silent = true, noremap = true } },
+    },
   },
   {
     'R-nvim/R.nvim',

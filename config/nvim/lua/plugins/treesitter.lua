@@ -1,7 +1,10 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    version = false, -- last release is way too old and doesn't work on Windows
+    -- version = false, -- last release is way too old and doesn't work on Windows
+    -- FIXME: The next commit breaks render-markdown
+    commit = 'f0ff9f0',
+
     build = ':TSUpdate',
     event = { 'LazyFile', 'VeryLazy' },
     lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
@@ -44,8 +47,7 @@ return {
         ensure_installed = {
           'bash',
           'c',
-          -- XXX: use custom parser instead
-          -- 'comment',
+          'comment',
           'diff',
           'html',
           'javascript',
@@ -95,64 +97,6 @@ return {
     end,
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    event = 'VeryLazy',
-    config = function()
-      -- If treesitter is already loaded, we need to run config again for textobjects
-      if LazyVim.is_loaded('nvim-treesitter') then
-        local opts = LazyVim.opts('nvim-treesitter')
-        require('nvim-treesitter.configs').setup({ textobjects = opts.textobjects })
-      end
-
-      -- When in diff mode, we want to use the default
-      -- vim text objects c & C instead of the treesitter ones.
-      local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
-      local configs = require('nvim-treesitter.configs')
-      for name, fn in pairs(move) do
-        if name:find('goto') == 1 then
-          move[name] = function(q, ...)
-            if vim.wo.diff then
-              local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
-              for key, query in pairs(config or {}) do
-                if q == query and key:find('[%]%[][cC]') then
-                  vim.cmd('normal! ' .. key)
-                  return
-                end
-              end
-            end
-            return fn(q, ...)
-          end
-        end
-      end
-    end,
-  },
-
-  -- Show context of the current function
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    event = 'LazyFile',
-    opts = function()
-      local tsc = require('treesitter-context')
-      Snacks.toggle({
-        name = 'Treesitter Context',
-        get = tsc.enabled,
-        set = function(state)
-          if state then
-            tsc.enable()
-          else
-            tsc.disable()
-          end
-        end,
-      }):map('<leader>ut')
-      return { mode = 'cursor', max_lines = 3 }
-    end,
-  },
-
-  -- Enhance Neovim's native comments
-  { 'folke/ts-comments.nvim', event = 'VeryLazy', opts = {} },
-  -- Automatically add closing tags for HTML and JSX
-  { 'windwp/nvim-ts-autotag', event = 'LazyFile', opts = {} },
   -- Wisely add 'end' in Ruby, Lua, Vimscript, etc.
   { 'RRethy/nvim-treesitter-endwise', event = 'LazyFile' },
 }

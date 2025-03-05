@@ -3,7 +3,11 @@ return {
   'stevearc/oil.nvim',
   lazy = false,
   cmd = 'Oil',
-  keys = { { '-', '<CMD>Oil --float<CR>', desc = 'Open Oil in floating window' } },
+  -- stylua: ignore
+  keys = {
+    { '-', '<Cmd>Oil --float<CR>', desc = 'Open Oil in floating window' },
+    { '_', '<Cmd>Oil<CR>',         desc = 'Open Oil' },
+},
   opts = function()
     local git_status = require('util.git').new_git_status()
     local refresh = require('oil.actions').refresh

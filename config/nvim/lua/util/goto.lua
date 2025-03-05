@@ -1,5 +1,11 @@
 local M = {}
 
+local LazyVimPath = vim.fn.stdpath('data') .. '/lazy/LazyVim'
+local LazyVimPluginPath = LazyVimPath .. '/lua/lazyvim/plugins'
+local LazyVimConfigPath = LazyVimPath .. '/lua/lazyvim/config'
+local LazyVimExtrasPath = LazyVimPath .. '/lua/lazyvim/plugins/extras'
+-- local PluginPath = vim.fn.stdpath('config') .. 'lua/plugins'
+
 --- Display a warning message using Neovim's notification system.
 --- @param msg string: The warning message to display.
 local function warn(msg)
@@ -12,6 +18,10 @@ end
 --- @return boolean: True if the file was successfully edited, false otherwise.
 local function edit(file, should_warn)
   if vim.fn.filereadable(file) == 1 then
+    -- if we're in a floating window, close it
+    if vim.api.nvim_win_get_config(0).relative ~= '' then
+      vim.cmd('q')
+    end
     vim.cmd('edit ' .. file)
     return true
   else
@@ -47,31 +57,30 @@ function M.README()
   warn('No README file found in the git repository.')
 end
 
---- Determine the corresponding LazyVim configuration file for the current file.
---- @param current_file string: The name of the current file.
---- @return string|nil: The path to the configuration file, or nil if not found.
-local function lazy_config(current_file)
-  local config_file = { 'options.lua', 'keymaps.lua', 'autocmds.lua' }
-  for _, file in ipairs(config_file) do
+function M.lazy()
+  local current_file = vim.fn.expand('%:t')
+
+  -- First check for config files
+  local config_files = { 'options.lua', 'keymaps.lua', 'autocmds.lua' }
+  for _, file in ipairs(config_files) do
     if current_file == file then
-      return 'lazyvim/config/' .. file
+      return edit(LazyVimConfigPath .. '/' .. file, false)
     end
   end
-  return nil
-end
 
---- Generate the module path for the word under the cursor.
---- @return string: The module path with '.lua' extension.
-local function lazy_module()
+  -- Then check for matching plugin file
+  if edit(LazyVimPluginPath .. '/' .. current_file, false) then
+    return true
+  end
+
+  -- Finally try module-based navigation
   local module_path = vim.fn.expand('<cWORD>'):gsub('[,\'"]', ''):gsub('%.', '/')
-  return module_path .. '.lua'
+  if edit(LazyVimPath .. '/lua/' .. module_path .. '.lua', false) then
+    return true
+  else
+    return edit(LazyVimExtrasPath .. '/' .. module_path .. '.lua', true)
+    -- TODO: running this from a 
+  end
 end
 
---- Go to the corresponding LazyVim file.
-function M.lazy()
-  local LazyVimPath = vim.fn.stdpath('data') .. '/lazy/LazyVim'
-  local current_file = vim.fn.expand('%:t')
-  local target_file = lazy_config(current_file) or lazy_module()
-  edit(LazyVimPath .. '/lua/' .. target_file, true)
-end
 return M

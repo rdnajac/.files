@@ -1,6 +1,6 @@
 local str = [["
 The computing scientist's main challenge is not to
-get confused by the complexities of his own making
+get confused by the complexities of his own making.
 "]]
 
 local function unown_command()
@@ -8,7 +8,6 @@ local function unown_command()
     'lazy',
     'nvim',
     'ryan',
-    '!!!!',
     '\\?\\?\\?\\?',
     'wow!',
     'quit',
@@ -37,10 +36,12 @@ return {
       section = 'recent_files',
       indent = 2,
     },
-    { icon = ' ', key = 'c', desc = 'Config', action = function() Snacks.picker('files', { cwd = vim.fn.stdpath('config') }) end, },
-    { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end, },
-    { icon = '󰄻 ', key = 'z', desc = 'Zoxide', action = function() Snacks.picker.zoxide() end, },
-    { icon = '󰒲 ', key = 'l', desc = 'Lazy', action = ':Lazy' },
+    { icon = ' ', key = 'g', desc = 'Lazygit',  action = function() Snacks.lazygit() end },
+    { icon = ' ', key = 'p', desc = 'Projects', action = function() Snacks.picker('files', { cwd = vim.fn.stdpath('config') }) end, },
+    { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker('files', { cwd = vim.fn.stdpath('config') }) end, },
+    { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end },
+    { icon = '󰄻 ', key = 'z', desc = 'Zoxide',   action = function() Snacks.picker.zoxide() end   },
+    { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
     { icon = ' ', key = 'x', desc = 'Lazy Extras', action = ':LazyExtras' },
     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
     { section = 'terminal', cmd = 'cowsay ' .. str, hl = 'header', padding = 1, indent = 8 },
