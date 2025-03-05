@@ -3,10 +3,6 @@ return {
   ---@module 'snacks'
   {
     'folke/snacks.nvim',
-    priority = 1000,
-    lazy = false,
-    version = false,
-    keys = require('plugins.snacks.keys'),
     init = function()
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
@@ -21,45 +17,30 @@ return {
         vim.cmd([[
         cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
         ]])
-        -- Set up toggles
-        require('plugins.snacks.toggle')
+        require('config.snacks.toggle')
       end,
       })
     end,
 
     ---@type snacks.Config
     opts = {
-      bigfile = { enabled = true },
-      indent = { enabled = true },
-      input = { enabled = true },
+      dashboard = require('config.snacks.dashboard'),
       notifier = {
         style = 'fancy',
         date_format = '%T',
       },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-      scroll = { enabled = true },
-      -- statuscolumn = { enabled = true },
-      toggle = { enabled = true },
-      words = { enabled = true },
-
-      dashboard = require('plugins.snacks.dashboard'),
-      picker = require('plugins.snacks.picker'),
-      -- terminal = require('plugins.snacks.terminal'),
-
+      picker = require('config.snacks.picker'),
       styles = {
         notification = { wo = { wrap = true } },
         scratch = { wo = { winhighlight = 'Normal:NormalFloat' } },
         termial = { wo = { winhighlight = 'Normal:NormalFloat' } },
       },
+      terminal = { wo = { winbar = '' } },
     },
   },
 
-  -- session management
   {
     'folke/persistence.nvim',
-    event = 'BufReadPre',
-    opts = {},
     init = function()
       require('which-key').add({ { '<leader>p', group = 'Persistence', icon = ' ' } })
     end,

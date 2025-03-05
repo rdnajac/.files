@@ -4,10 +4,17 @@ return {
 
   ---@class NoiceConfig
   opts = {
-    lsp = { signature = { auto_open = { enabled = false } } },
+    lsp = {
+      signature = {
+        auto_open = {
+          enabled = false,
+        },
+      },
+    },
     presets = {
       lsp_doc_border = true,
     },
+
     cmdline = {
       format = {
         cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
@@ -26,10 +33,12 @@ return {
       {
         filter = {
           event = 'msg_show',
-          find = '^E486: Pattern not found',
-          --  find = 'E85: There is no listed buffer',
-          --  find = 'E490: No fold found',
-          --  find = 'Already at oldest change',
+          any = {
+            { find = '^E486: Pattern not found' },
+            { find = 'E85: There is no listed buffer' },
+            { find = 'E490: No fold found' },
+            { find = 'Already at oldest change' },
+          },
         },
         opts = { skip = true },
       },
