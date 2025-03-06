@@ -17,7 +17,6 @@ return {
         vim.cmd([[
         cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
         ]])
-        require('config.snacks.toggle')
       end,
       })
     end,

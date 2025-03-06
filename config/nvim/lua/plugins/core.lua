@@ -23,5 +23,4 @@ return {
       { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
     },
   },
-  { 'folke/flash.nvim', enabled = false },
 }
