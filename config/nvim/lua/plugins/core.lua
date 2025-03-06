@@ -1,4 +1,5 @@
 return {
+  { 'tpope/vim-abolish' },
   { 'tpope/vim-tbone' },
   { 'christoomey/vim-tmux-navigator' },
   {

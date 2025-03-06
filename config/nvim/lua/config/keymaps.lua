@@ -70,20 +70,24 @@ map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
 -- config
-local nvimconfigfiles = { 'autocmds', 'keymaps', 'lazy', 'options' }
 local quickconfig = function(file)
+  local nvimconfigfiles = { 'autocmds', 'keymaps', 'lazy', 'options' }
   -- if we're in a floating window, close in first
   if vim.api.nvim_win_get_config(0).relative ~= '' then
     vim.cmd('q')
   end
-  if vim.tbl_contains(nvimconfigfiles, file) then
+  if file == 'pickers' then
+    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/picker.lua')
+  elseif file == 'dashboard' then
+    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/dashboard.lua')
+  elseif vim.tbl_contains(nvimconfigfiles, file) then
     vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua')
   else
     vim.cmd('e ' .. vim.fn.expand(file))
   end
 end
 
-local changeDir = function(where)
+local changedir = function(where)
   local path = ''
 
   if where == 'gitroot' then
@@ -117,13 +121,15 @@ wk.add({
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\p', function() quickconfig('picker')   end, desc = 'Snacks dashboard config' },
+  { '\\d', function() quickconfig('dashboard') end, desc = 'Snacks picker config' },
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
 
   { ',', group = 'Utility', icon = { icon = ' ', color = 'blue' } },
-  { ',%', function() changeDir('here') end,    desc = 'change to buffer directory' },
-  { ',$', function() changeDir('gitroot') end, desc = 'change to git root directory' },
-  { ',-', function() changeDir('last') end,    desc = 'change to last directory' },
+  { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
+  { ',$', function() changedir('gitroot') end, desc = 'change to git root directory' },
+  { ',-', function() changedir('last') end,    desc = 'change to last directory' },
 
   { '<leader><space>', function() Snacks.picker.smart() end,     desc = 'Smart Find Files' },
   { '<leader>,', function() Snacks.picker.buffers() end,         desc = 'Buffers' },
@@ -214,6 +220,8 @@ wk.add({
   { '<leader>sR', function() Snacks.picker.resume() end,             desc = 'Resume' },
   { '<leader>su', function() Snacks.picker.undo() end,               desc = 'Undo History' },
   { '<leader>sw', function() Snacks.picker.grep_word() end,    desc = 'Visual selection or word', mode = { 'n', 'x' } },
+  { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
+  { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>co', function() Snacks.picker.colorschemes() end,       desc = 'Colorschemes' },
   -- mine
   { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
@@ -303,3 +311,18 @@ Snacks.toggle({
     vim.opt.colorcolumn = state and '81' or ''
   end,
 }):map('<leader>u\\', { desc = 'Toggle Color Column' })
+
+Snacks.toggle({
+  name = 'Translucency',
+  get = function()
+    return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
+  end,
+  set = function(state)
+    if state then
+      vim.cmd('hi Normal guibg=#000000')
+    else
+      vim.cmd('hi Normal guibg=none')
+    end
+  end,
+}):map('<leader>b', { desc = 'Toggle Highlight Normal Background' })
+

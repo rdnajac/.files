@@ -23,6 +23,18 @@ end
 --------------------------------------------------------------------------------
 
 au('FileType', {
+  group = aug('WORD'),
+  pattern = { 'tmux', 'sshconfig' },
+  callback = function()
+    vim.cmd([[
+    setlocal iskeyword+=-
+    nmap <C-Space> viW
+    ]])
+  end,
+})
+
+--------------------------------------------------------------------------------
+au('FileType', {
   group = aug('special_buffer_winhl'),
   pattern = { 'man', 'help' },
   callback = function()
@@ -66,6 +78,12 @@ au('FileType', {
         " send line to R.nvim terminal
         nmap <bufer> <CR> <nop>
         nmap <bufer> <CR> <localleader>l
+    ]])
+
+      -- set up keymaps
+      -- <leader>R to send 'source(".Rprofile")' to the running R terminal
+      vim.cmd([[
+    nmap <buffer> <leader>R <Cmd>RSend(source(".Rprofile"))<CR>
     ]])
     end
   end,

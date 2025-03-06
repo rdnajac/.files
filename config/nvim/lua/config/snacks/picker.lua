@@ -50,6 +50,10 @@ return {
         picker:close()
       end,
     },
+
+    zoxide = {
+      confirm = 'edit',
+    },
   },
   win = {
     input = {

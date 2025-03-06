@@ -39,7 +39,7 @@ return {
         number = false,
         relativenumber = false,
       },
-      delete_to_trash = false,
+      delete_to_trash = true,
       prompt_save_on_select_new_entry = true,
       skip_confirm_for_simple_edits = true,
       constrain_cursor = 'name',
