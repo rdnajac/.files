@@ -12,26 +12,14 @@ let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
 " let &verbosefile = s:VIMHOME . '.vimlog.txt'
 set undofile swapfile backup
 
+if system('uname') =~? '^darwin'
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
+
 let g:mapleader = ' '
 let g:maplocalleader = '/'
-
-call plug#begin()
-" Plug 'rdnajac/after'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-vinegar'
-" only load plugins on certain filetypes
-Plug 'lervag/vimtex', { 'for': 'tex' }
-call plug#end() " executes `filetype plugin indent on` and `syntax enable`
 
 " better escape
 noremap jk <esc>
@@ -56,6 +44,11 @@ inoremap <silent> ,l <C-x><C-l>
 inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
+
+" add undo break-points (`:help i_ctrl-g_u`)
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ; ;<c-g>u
 
 set tabline=%!ui#tabline()
 set statusline=%!ui#statusline()
@@ -110,5 +103,23 @@ augroup quit_on_q
   autocmd!
   autocmd FileType help,qf,man silent! nnoremap <silent> <buffer> q :<C-U>close<CR>
 augroup END
+
+call plug#begin()
+" Plug 'rdnajac/after'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-vinegar'
+" only load plugins on certain filetypes
+Plug 'lervag/vimtex', { 'for': 'tex' }
+call plug#end() " executes `filetype plugin indent on` and `syntax enable`
 
 " vim: ft=vim fdm=marker sw=2 sts=2

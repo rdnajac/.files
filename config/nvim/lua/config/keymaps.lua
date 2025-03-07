@@ -4,70 +4,33 @@
 -- snacks toggles are at ~/.config/nvim/lua/plugins/snacks/toggle.lua
 -- TODO: add folding to this file
 local map = vim.keymap.set
+local del = vim.keymap.del
 
--- Check if there is a map set for <C-s> to determine whether LazyVim keymaps are loaded
--- map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
+del('n', '<leader>wd')
+del('n', '<leader>wm')
+
+map('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 
 map('n', 'gp', '<cmd>e <cfile>:p:h<CR>', { desc = 'Goto Parent Directory' })
 
-map('n', '<leader>w', '<cmd>w<cr><esc>', { desc = 'Save File' })
 map('n', '<leader>Q', '<cmd>qa<cr>', { desc = 'Quit All' })
 map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
-map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Below' })
-map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Above' })
-map('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
-map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
-map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
 map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
 map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
 
 -- stylua: ignore start
 map('n', '<leader>q', function() Snacks.bufdelete() end, { desc = 'Quit Buffer' })
 
--- better up/down
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'",      { desc = 'Down', expr = true, silent = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'",      { desc = 'Up',   expr = true, silent = true })
-map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
-map({ 'n', 'x' }, '<Up>',   "v:count == 0 ? 'gk' : 'k'", { desc = 'Up',   expr = true, silent = true })
-
--- Resize window using <option> arrow keys
+-- Resize window using <option> arrow keys (don't use LazyVim mappings)
+del('n', '<C-Up>')
 map('n', '<M-Up>',    '<cmd>resize  +2<cr>',          { desc = 'Increase Window Height' })
+del('n', '<C-Down>')
 map('n', '<M-Down>',  '<cmd>resize  -2<cr>',          { desc = 'Decrease Window Height' })
+del('n', '<C-Left>')
 map('n', '<M-Left>',  '<cmd>vertical resize  -2<cr>', { desc = 'Decrease Window Width' })
+del('n', '<C-Right>')
 map('n', '<M-Right>', '<cmd>vertical resize  +2<cr>', { desc = 'Increase Window Width' })
-
--- Move Lines
-map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==",                   { desc = 'Move Down' })
-map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==",             { desc = 'Move Up' })
-map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi',                                   { desc = 'Move Down' })
-map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi',                                   { desc = 'Move Up' })
-map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv",       { desc = 'Move Down' })
-map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
-
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next Search Result' })
-map('x', 'n', "'Nn'[v:searchforward]",      { expr = true, desc = 'Next Search Result' })
-map('o', 'n', "'Nn'[v:searchforward]",      { expr = true, desc = 'Next Search Result' })
-map('n', 'N', "'nN'[v:searchforward].'zv'", { expr = true, desc = 'Prev Search Result' })
-map('x', 'N', "'nN'[v:searchforward]",      { expr = true, desc = 'Prev Search Result' })
-map('o', 'N', "'nN'[v:searchforward]",      { expr = true, desc = 'Prev Search Result' })
 -- stylua: ignore end
-
--- diagnostic
-local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
-end
-map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
-map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
-map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
-map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
-map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
-map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
 -- config
 local quickconfig = function(file)
@@ -113,7 +76,7 @@ end
 local wk = require('which-key')
 -- stylua: ignore
 wk.add({
-  { 'gc', hidden = true },
+  { '<leader>w', '<Cmd>w<CR>', desc = 'Save File' },
 
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
@@ -140,8 +103,8 @@ wk.add({
 
   -- buffer
   { '<leader>bd', function() Snacks.bufdelete() end, desc = 'Delete Buffer' },
-  { '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' } },
-  { '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' }},
+  { '<leader>bD', '<cmd>:bd<cr>', desc = 'Delete Buffer and Window' },
+  { '<leader>bo', function() Snacks.bufdelete.other() end, desc = 'Delete Other Buffers' },
 
   -- code
   { '<leader>cR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
@@ -245,52 +208,11 @@ wk.add({
 
   { ']]',         function() Snacks.words.jump(vim.v.count1) end, desc = 'Next Reference', mode = { 'n', 't' } },
   { '[[',         function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev Reference', mode = { 'n', 't' } },
-  {
-    '<leader>N',
-    desc = 'Neovim News',
-    function()
-      Snacks.win({
-        file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
-        width = 0.6,
-        height = 0.6,
-        wo = {
-          spell = false,
-          wrap = false,
-          signcolumn = 'yes',
-          statuscolumn = ' ',
-          conceallevel = 3,
-        },
-      })
-    end,
-  },
+
   { '<locealleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
 })
 
--- toggles
-Snacks.toggle.animate():map('<leader>ua')
-Snacks.toggle.diagnostics():map('<leader>ud')
-Snacks.toggle.dim():map('<leader>uD')
-Snacks.toggle.line_number():map('<leader>ul')
-Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
-Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
-Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
-Snacks.toggle.zoom():map('<leader>uZ')
-Snacks.toggle.zen():map('<leader>uz')
-Snacks.toggle.treesitter():map('<leader>uT')
-Snacks.toggle.indent():map('<leader>ug')
-Snacks.toggle.scroll():map('<leader>uS')
--- stylua: ignore start
-Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level' }):map('<leader>uc')
-Snacks.toggle.option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' }):map('<leader>uA')
--- stylua: ignore end
-
-Snacks.toggle.profiler():map('<leader>dpp')
-Snacks.toggle.profiler_highlights():map('<leader>dph')
-
-if vim.lsp.inlay_hint then
-  Snacks.toggle.inlay_hints():map('<leader>uh')
-end
 
 Snacks.toggle({
   name = 'Virtual Text',
@@ -312,6 +234,8 @@ Snacks.toggle({
   end,
 }):map('<leader>u\\', { desc = 'Toggle Color Column' })
 
+-- LazyVim has a toggle for dark background, but it doesn't do what you'd expect
+del('n', '<leader>ub')
 Snacks.toggle({
   name = 'Translucency',
   get = function()
@@ -324,5 +248,4 @@ Snacks.toggle({
       vim.cmd('hi Normal guibg=none')
     end
   end,
-}):map('<leader>b', { desc = 'Toggle Highlight Normal Background' })
-
+}):map('<leader>ub', { desc = 'Toggle Translucent Background' })

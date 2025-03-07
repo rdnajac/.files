@@ -31,6 +31,7 @@ return {
       })
     end
 
+    -- Define global dials here
     local logical_alias = new_dial({ '&&', '||' }, false)
     local logical_operator = new_dial({ 'and', 'or' }, true)
     local position1 = new_dial({ 'start', 'end' }, false)
@@ -97,6 +98,8 @@ return {
         json = 'json',
         markdown = 'markdown',
         r = 'r',
+        sh = 'sh',
+        zsh = 'sh',
       },
       groups = {
         default = {
@@ -131,7 +134,7 @@ return {
           -- XXX: remove once project is complete
           new_dial({ 'PHIP', 'PHF6' }, false),
         },
-        zsh = { new_dial({ '-x', '+x' }, false) },
+        sh = { new_dial({ '-x', '+x' }, false) },
       },
     }
   end,

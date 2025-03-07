@@ -9,19 +9,7 @@ return {
       { ',D', '<Cmd>Delete!<CR>', desc = 'Delete the file from disk' },
     },
   },
-
-  {
-    'LazyVim/LazyVim',
-    version = false,
-    opts = {
-      defaults = {
-        autocmds = true,
-        keymaps = false,
-      },
-    },
-    keys = {
-      { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
-      { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
-    },
-  },
+  -- Use latest development versions
+  { "folke/lazy.nvim", version = false },
+  { "LazyVim/LazyVim", version = false },
 }

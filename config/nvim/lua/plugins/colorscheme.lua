@@ -17,8 +17,8 @@ return {
       -- stylua: ignore
       -- on_highlights = function(hl, c)
       on_highlights = function(hl, _)
-        hl['String'] =                { fg = '#39ff14' }
-        hl['SpecialFloatingWindow'] = { bg = '#1f2335' }
+        hl['String']        = { fg = '#39ff14' }
+        hl['SpecialWindow'] = { bg = '#1f2335' }
       end,
     },
   },

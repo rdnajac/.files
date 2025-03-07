@@ -1,6 +1,5 @@
 return {
 
-  ---@module 'snacks'
   {
     'folke/snacks.nvim',
     init = function()
@@ -20,22 +19,6 @@ return {
       end,
       })
     end,
-
-    ---@type snacks.Config
-    opts = {
-      dashboard = require('config.snacks.dashboard'),
-      notifier = {
-        style = 'fancy',
-        date_format = '%T',
-      },
-      picker = require('config.snacks.picker'),
-      styles = {
-        notification = { wo = { wrap = true } },
-        scratch = { wo = { winhighlight = 'Normal:NormalFloat' } },
-        termial = { wo = { winhighlight = 'Normal:NormalFloat' } },
-      },
-      terminal = { wo = { winbar = '' } },
-    },
   },
 
   {
@@ -43,17 +26,15 @@ return {
     init = function()
       require('which-key').add({ { '<leader>p', group = 'Persistence', icon = ' ' } })
     end,
+    keys = function()
     -- stylua: ignore
-    keys = {
-      { "<leader>qs", false },
-      { "<leader>qS", false },
-      { "<leader>ql", false },
-      { "<leader>qd", false },
-      { "<leader>ps", function() require("persistence").load() end, desc = "Restore Session" },
-      { "<leader>pS", function() require("persistence").select() end,desc = "Select Session" },
-      { "<leader>pl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>pd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
-    },
+      return {
+        { "<leader>ps", function() require("persistence").load() end, desc = "Restore Session" },
+        { "<leader>pS", function() require("persistence").select() end,desc = "Select Session" },
+        { "<leader>pl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+        { "<leader>pd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      }
+    end,
   },
 
   {
@@ -65,13 +46,13 @@ return {
       settings = { save_on_toggle = true },
     },
     keys = function()
-    -- stylua: ignore
-    local keys = {
-      { "<leader>H", function() require("harpoon"):list():add() end, desc = "Harpoon File", },
-      { '<leader>\\', function() require('harpoon'):list():add() end, desc = 'Harpoon File', },
-      { "<leader>h", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Quick Menu",},
-      { '<localleader>\\', function() local harpoon = require('harpoon') harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'Harpoon Quick Menu',},
-    }
+      -- stylua: ignore
+      local keys = {
+        { "<leader>H", function() require("harpoon"):list():add() end, desc = "Harpoon File", },
+        { '<leader>\\', function() require('harpoon'):list():add() end, desc = 'Harpoon File', },
+        { "<leader>h", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Quick Menu",},
+        { '<localleader>\\', function() local harpoon = require('harpoon') harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'Harpoon Quick Menu',},
+      }
       for i = 1, 5 do
         table.insert(keys, {
           '\\' .. i,

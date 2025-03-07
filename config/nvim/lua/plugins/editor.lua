@@ -7,24 +7,48 @@ return {
   { 'folke/flash.nvim', enabled = false },
   {
     'folke/which-key.nvim',
-    opts = {
-      spec = {
+    opts = function(_, opts)
+      opts.keys = {
+        scroll_down = '<C-j>',
+        scroll_up = '<C-k>',
+      }
+      opts.spec = {
+        mode = { 'n', 'v' },
+        { '[', group = 'prev' },
+        { ']', group = 'next' },
+        { 'g', group = 'goto' },
+        { 'z', group = 'fold' },
+        { '<leader>c', group = 'code' },
+        { '<leader>d', group = 'debug' },
+        { '<leader>dp', group = 'profiler' },
+        { '<leader>f', group = 'file/find' },
+        { '<leader>g', group = 'git' },
+        -- { '<leader>gh', group = 'hunks' },
+        { '<leader>s', group = 'search' },
+        { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+        { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
         {
-          mode = { 'n', 'v' },
-          { '<leader>w', {} },
+          '<leader>b',
+          group = 'buffer',
+          expand = function()
+            return require('which-key.extras').expand.buf()
+          end,
         },
-      },
-      plugins = {
-        presets = {
-          operators = true, -- adds help for operators like d, y, ...
-          motions = true, -- adds help for motions
-          text_objects = true, -- help for text objects triggered after entering an operator
-          windows = true, -- default bindings on <c-w>
-          nav = false, -- misc bindings to work with windows
-          z = true, -- bindings for folds, spelling and others prefixed with z
-          g = true, -- bindings for prefixed with g
+        {
+          '<c-w>',
+          group = 'windows',
+          expand = function()
+            return require('which-key.extras').expand.win()
+          end,
         },
-      },
-    },
+        { '<leader><tab>', group = 'tabs' },
+
+        -- better descriptions
+        { 'gx', desc = 'Open with system app' },
+
+        -- keep things tidy
+        { 'gc', hidden = true },
+      }
+    end,
   },
 }

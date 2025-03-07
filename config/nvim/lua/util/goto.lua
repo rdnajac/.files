@@ -60,7 +60,6 @@ end
 function M.lazy()
   local current_file = vim.fn.expand('%:t')
 
-  -- First check for config files
   local config_files = { 'options.lua', 'keymaps.lua', 'autocmds.lua' }
   for _, file in ipairs(config_files) do
     if current_file == file then
@@ -68,18 +67,21 @@ function M.lazy()
     end
   end
 
+  if current_file == 'blink.lua' then
+    return edit(LazyVimExtrasPath .. '/coding/blink.lua', false)
+  end
+
   -- Then check for matching plugin file
   if edit(LazyVimPluginPath .. '/' .. current_file, false) then
     return true
   end
 
-  -- Finally try module-based navigation
+  -- Finally try the Lazy module (works from LazyExras menu and the .json file)
   local module_path = vim.fn.expand('<cWORD>'):gsub('[,\'"]', ''):gsub('%.', '/')
   if edit(LazyVimPath .. '/lua/' .. module_path .. '.lua', false) then
     return true
   else
     return edit(LazyVimExtrasPath .. '/' .. module_path .. '.lua', true)
-    -- TODO: running this from a 
   end
 end
 

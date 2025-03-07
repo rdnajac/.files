@@ -23,8 +23,3 @@ require('config.lazy').load({
 })
 require('util')
 
-vim.filetype.add({
-  pattern = {
-    ['.*/git/config'] = 'gitconfig',
-  },
-})

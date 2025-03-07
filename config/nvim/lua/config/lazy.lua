@@ -1,3 +1,4 @@
+-- lua/config/lazy.lua
 local lazyroot = vim.fn.stdpath('data') .. '/lazy'
 local lazypath = lazyroot .. '/lazy.nvim/'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -17,6 +18,10 @@ function M.load(opts)
       {
         'LazyVim/LazyVim',
         import = 'lazyvim.plugins',
+        keys = {
+          { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
+          { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
+        },
       },
       { import = 'plugins' },
     },

@@ -28,40 +28,36 @@ nnoremap gQ <nop>
 " avoid conflicts with tmux
 nnoremap <C-f> <nop>
 
-set shiftwidth=8
-set tabstop=8
 set autoread
 set autowrite
 set completeopt=menu,preview,preinsert
 set cursorline
 set foldopen+=insert,jump
+set formatoptions-=o
 set ignorecase smartcase
+set inccommand=nosplit
 set iskeyword+=_
 set linebreak breakindent
+set list
 set mouse=a
+set mousescroll=hor:0
 set number relativenumber
 set numberwidth=2
 set pumheight=10
 set report=0
+set scrolloff=5
 set shiftround
+set shiftwidth=8
 set showmatch
+set sidescrolloff=0
 set splitbelow splitright
+set splitkeep=screen
+set tabstop=8
 set termguicolors
 set timeoutlen=420
 set updatetime=69
 set whichwrap+=<,>,[,],h,l
-set formatoptions-=o
-set list
-
-set scrolloff=5
-set sidescrolloff=0
-
-set inccommand=nosplit
-set splitkeep=screen
-
-
 set wildmenu
-" XXX: keep this!
 set wildmode=longest:full,full
 
 set fillchars+=diff:╱,
@@ -92,15 +88,7 @@ augroup FileTypeSettings
   autocmd FileType vim,lua,sh     setlocal nonumber norelativenumber numberwidth=2
 augroup END
 " }}}
-" clipboard {{{
-if has('nvim')
-  lua vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
-elseif system('uname') =~? '^darwin'
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
-" }}}
+
 " ignored files and directories {{{
 set wildignore+=*.o,*.out,*.a,*.so,*.lib,*.bin,*/.git/*,*.swp,*.swo,
 set wildignore+=*.pdf,*.aux,*.fdb_latexmk,*.fls " LaTeX files
@@ -110,9 +98,8 @@ set wildignore+=*.mp*p4,*.avi,*.mkv,*.mov,*.flv,*.wmv,*.webm,*.m4v,*.flac,*.wav
 set wildignore+=*.dylib,*.app,*.dmg,*.DS_Store,*.exe,*.dll,*.msi,Thumbs.db
 " }}}
 
-
 nmap <c-c> ciw
-nmap <c-s> viw
+nmap <c-s> viW
 vnoremap <C-s> :sort<CR>
 
 " buffer navigation
@@ -134,24 +121,19 @@ nmap yc yygccp
 " quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
 nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
 
-" from LazyVim
-" add undo break-points (:help i_ctrl-g_u)
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap ; ;<c-g>u
-
 " better indenting
 vnoremap < <gv
 vnoremap > >gv
 
-" swap marks and casetoggle
+" swap keys to avoid shift + key for common operations
 nnoremap ` ~
 nnoremap ~ `
 
-" cmdline abbreviations
 nnoremap ; :
-cnoreabbrev ?? verbose set?<Left>
+nnoremap : ;
+
 " cnoreabbrev !! !./%
+cnoreabbrev ?? verbose set?<Left>
 cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
 " creating a command is less problematic than a cmdline abbreviation
@@ -161,9 +143,6 @@ command! Wq wqa!
 if &g:path =~# '\v^\.,/%(usr|emx)/include,,$'
   setglobal path=.,,
 endif
-setglobal include=
-setglobal includeexpr=
-setglobal define=
 
 setglobal isfname+=@-@
 " }}}

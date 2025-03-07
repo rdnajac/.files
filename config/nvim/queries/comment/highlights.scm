@@ -6,4 +6,4 @@
 ; highlight `source_code` nodes within comments as strings
 ; for more information, see `:h treesitter-query` and `h: treesitter-language-injections`
 ((source_code) @string
- (#set! "priority" 101))
+ (#set! "priority" 151))

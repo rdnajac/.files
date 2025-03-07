@@ -32,13 +32,20 @@ return {
 
     dotfiles = {
       finder = 'files',
-      -- format = 'file',
       show_empty = true,
       hidden = true,
       ignored = false,
       follow = true,
-      supports_live = true,
       cwd = vim.fn.expand('$DOTDIR'),
+    },
+
+    nvimconfig = {
+      finder = 'files',
+      show_empty = true,
+      hidden = true,
+      ignored = false,
+      follow = true,
+      cwd = vim.fn.stdpath('config'),
     },
 
     learnvimscriptthehardway = {

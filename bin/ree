@@ -1,2 +1,0 @@
-#!/bin/sh
-clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL";

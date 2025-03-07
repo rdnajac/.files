@@ -1,6 +1,5 @@
--- https://cmp.saghen.dev/
--- ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/coding/blink.lua
 return {
+  -- https://cmp.saghen.dev/
   'Saghen/blink.cmp',
   dependencies = {
     { 'rafamadriz/friendly-snippets', enabled = false },
@@ -22,7 +21,13 @@ return {
       menu = {
         auto_show = false, -- pull up the completion menu with <c-space>
         border = 'rounded',
-        draw = { treesitter = { 'lsp' } },
+        draw = {
+          treesitter = { 'lsp' },
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description', 'source_name' },
+          },
+        },
       },
       -- Controls when to request completion items from the sources and show the completion menu.
       trigger = {
@@ -101,7 +106,6 @@ return {
           name = 'Snippets',
           module = 'blink.cmp.sources.snippets',
           -- score_offset = 111,
-
           opts = {
             friendly_snippets = false,
             search_paths = { vim.fn.stdpath('config') .. '/snippets' },
@@ -115,20 +119,6 @@ return {
             clipboard_register = nil,
           },
         },
-
-        lazydev = {
-          name = 'LazyDev',
-          module = 'lazydev.integrations.blink',
-          score_offset = 100, -- show at a higher priority than lsp
-        },
-
-        -- copilot = {
-        --   name = 'copilot',
-        --   module = 'blink-cmp-copilot',
-        --   kind = 'Copilot',
-        --   score_offset = 99,
-        --   async = true,
-        -- },
       },
     },
   },

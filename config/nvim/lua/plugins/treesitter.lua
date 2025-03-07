@@ -4,7 +4,6 @@ return {
     -- FIXME: The next commit breaks render-markdown
     commit = 'f0ff9f0',
     config = function(_, opts)
-      -- configure installation of custom parser
       require('nvim-treesitter.parsers').get_parser_configs().comment = {
         install_info = {
           -- BUG: not working... might need to require("nvim-treesitter.install").prefer_git = true
