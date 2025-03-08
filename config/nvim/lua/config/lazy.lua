@@ -1,6 +1,7 @@
 -- lua/config/lazy.lua
 local lazyroot = vim.fn.stdpath('data') .. '/lazy'
 local lazypath = lazyroot .. '/lazy.nvim/'
+
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   load(vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua'))()
 else
@@ -28,8 +29,6 @@ function M.load(opts)
     lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
     pkg = { enabled = false },
     rocks = { enabled = false },
-    ---@diagnostic disable-next-line: assign-type-mismatch
-    dev = { path = '~/GitHub', patterns = { 'rdnajac' }, fallback = true },
     install = { colorscheme = { 'tokyonight' } },
     ui = {
       border = 'rounded',

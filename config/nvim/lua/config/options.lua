@@ -4,7 +4,7 @@
 local g = vim.g
 local set = vim.opt
 
-g.lazyvim_check_order = false
+-- g.lazyvim_check_order = false
 g.snacks_animate = true
 g.autoformat = false
 g.ai_cmp = true
@@ -25,6 +25,7 @@ set.pumblend = 0
 
 -- default: `ltToOCF`
 set.shortmess:append({ W = true, I = true, c = true, C = true, a = true })
+-- current: shortmess=oCcTaFltIWO
 
 -- Correctly identify gitconfig files in the alternate directory
 vim.filetype.add({

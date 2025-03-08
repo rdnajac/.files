@@ -1,5 +1,9 @@
 -- init.lua
 require('config.lazy').load({
+  dev = {
+    path = '~/GitHub/rdnajac',
+    fallback = true,
+  },
   performance = {
     reset_packpath = true,
     rtp = {
@@ -21,5 +25,5 @@ require('config.lazy').load({
     require = false,
   },
 })
-require('util')
 
+require('util')

@@ -1,4 +1,4 @@
-require('util.files')
+local file = require('util.file')
 local goto = require('util.goto')
 
 vim.keymap.set('n', '\\0', goto.README, { desc = 'Goto Nearest README' })
