@@ -69,6 +69,12 @@ function M.lazy()
 
   if current_file == 'blink.lua' then
     return edit(LazyVimExtrasPath .. '/coding/blink.lua', false)
+  elseif current_file == 'lsp.lua' then
+    vim.cmd('edit ' .. LazyVimPluginPath .. '/lsp/')
+    return true
+  elseif current_file == 'core.lua' then
+    vim.cmd('edit ' .. LazyVimPluginPath .. '/init.lua')
+    return true
   end
 
   -- Then check for matching plugin file
