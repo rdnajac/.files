@@ -1,3 +1,4 @@
+-- config/nvim/lua/util/nnn.lua
 -- https://github.com/bobrown101/minimal-nnn.nvim/blob/main/lua/minimal-nnn.lua
 local M = {}
 

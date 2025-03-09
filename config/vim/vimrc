@@ -12,6 +12,32 @@ let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
 " let &verbosefile = s:VIMHOME . '.vimlog.txt'
 set undofile swapfile backup
 
+set autowrite
+set cursorline
+set formatoptions-=o
+set ignorecase smartcase
+set inccommand=nosplit
+set list
+set mouse=a
+set number relativenumber
+set pumheight=10
+set scrolloff=4
+set shiftround
+set splitbelow splitright
+set splitkeep=screen
+set termguicolors
+set linebreak breakindent
+set showmatch
+set report=0
+set fillchars+=diff:╱,
+set fillchars+=eob:\ ,
+set fillchars+=fold:\ ,
+set fillchars+=foldclose:▸,
+set fillchars+=foldopen:▾,
+set fillchars+=foldsep:\ ,
+set fillchars+=foldsep:│
+set fillchars+=stl:\ ,
+
 if system('uname') =~? '^darwin'
   set clipboard=unnamed
 else
@@ -103,6 +129,9 @@ augroup quit_on_q
   autocmd!
   autocmd FileType help,qf,man silent! nnoremap <silent> <buffer> q :<C-U>close<CR>
 augroup END
+
+" Quit immediately if we accidentally open a command window
+augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
 
 call plug#begin()
 " Plug 'rdnajac/after'

@@ -1,4 +1,4 @@
--- Utility functions for Git status
+-- config/nvim/lua/util/git.lua
 local M = {}
 
 M.new_git_status = function()

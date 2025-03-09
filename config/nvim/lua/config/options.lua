@@ -20,6 +20,9 @@ set.backup = true
 set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
 set.undofile = true
 set.undolevels = 10000
+set.breakindent = true
+set.report = 0
+set.showmatch = true
 
 set.pumblend = 0
 

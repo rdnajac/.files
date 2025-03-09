@@ -1,4 +1,7 @@
-function AddFileNameToFirstLineAsAComment()
+-- config/nvim/lua/util/file.lua
+local M = {}
+
+M.file_title = function()
   local git_root = Snacks.git.get_root()
   local file_path = vim.fn.expand('%:p')
   if file_path:sub(1, #git_root) == git_root then
@@ -9,7 +12,5 @@ function AddFileNameToFirstLineAsAComment()
     print('File is not within the git root directory')
   end
 end
-vim.cmd([[
-command! FileName lua AddFileNameToFirstLineAsAComment()
-nnoremap <localleader>fn :FileName<CR>
-]])
+
+return M

@@ -9,3 +9,4 @@ local function show_r_table()
   local cmd = [[call slime#send("DT::datatable(]] .. text .. [[)" . "\r")]]
   vim.cmd(cmd)
 end
+-- { "<leader>rt", show_r_table, desc = "show [t]able" },

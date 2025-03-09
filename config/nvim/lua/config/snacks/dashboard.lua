@@ -32,11 +32,11 @@ return {
 
     { section = 'terminal', cmd = unown_command(), padding = 1, width = 69},
     { padding = 1 },
-    { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent()
-      end,
+    { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
       section = 'recent_files',
       indent = 2,
     },
+    { icon = " ", key = "s", desc = "Session", section = "session" },
     { icon = ' ', key = 'g', desc = 'Lazygit',  action = function() Snacks.lazygit() end },
     { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.nvimconfig() end },
     { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end },

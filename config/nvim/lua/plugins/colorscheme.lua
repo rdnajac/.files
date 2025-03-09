@@ -14,10 +14,10 @@ return {
         sidebars = 'transparent',
         floats = 'transparent',
       },
-      -- stylua: ignore
       -- on_highlights = function(hl, c)
       on_highlights = function(hl, _)
-        hl['String']        = { fg = '#39ff14' }
+        hl['Folded'] = { fg = '#39FF14', bg = 'none' }
+        hl['String'] = { fg = '#39ff14' }
         hl['SpecialWindow'] = { bg = '#1f2335' }
       end,
     },

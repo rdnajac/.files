@@ -42,6 +42,16 @@ au('FileType', {
 })
 
 --------------------------------------------------------------------------------
+-- Quit immediately if we accidentally open a command window
+
+au('CmdwinEnter', {
+  group = aug('no_cmdwin'),
+  pattern = '*',
+  command = 'quit',
+  desc = 'Quit command window immediately',
+})
+
+--------------------------------------------------------------------------------
 -- Treesitter's node selection (`<C-Space>`) doesn't work well in some filetypes
 
 au('FileType', {
@@ -97,5 +107,16 @@ au('FileType', {
         nmap <buffer> <leader>R <Cmd>RSend(source(".Rprofile"))<CR>
     ]])
     end
+  end,
+})
+
+au('FileType', {
+  group = aug('quatro'),
+  pattern = { 'quatro' },
+  callback = function()
+    vim.cmd([[
+    " inoremap <buffer> <C--> <-<Space>
+    " inoremap <buffer> <C-\> <bar>><Space>
+  ]])
   end,
 })

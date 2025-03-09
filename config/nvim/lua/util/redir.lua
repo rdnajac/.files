@@ -1,3 +1,4 @@
+-- config/nvim/lua/util/redir.lua
 -- by: https://gist.github.com/Leenuus/7a2ea47b88bfe16430b42e4e48122718
 
 vim.g.DEBUG = false

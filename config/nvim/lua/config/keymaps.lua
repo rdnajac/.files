@@ -39,9 +39,7 @@ local quickconfig = function(file)
   if vim.api.nvim_win_get_config(0).relative ~= '' then
     vim.cmd('q')
   end
-  if file == 'pickers' then
-    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/picker.lua')
-  elseif file == 'dashboard' then
+  if file == 'dashboard' then
     vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/dashboard.lua')
   elseif vim.tbl_contains(nvimconfigfiles, file) then
     vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua')
@@ -73,22 +71,21 @@ local changedir = function(where)
   vim.cmd('pwd')
 end
 
-local insert_comment = function(thing, above)
-  local cmd = above and 'O' or 'o'
-  cmd = cmd .. thing .. ':<esc><Cmd>normal gcc<CR>A<space>'
-  vim.cmd('normal ' .. cmd)
-end
-
 local wk = require('which-key')
 -- stylua: ignore
 wk.add({
+  {
+    { mode = 'v' },
+    { "<leader>d", '"_d',  desc = "delete without overwriting reg",  mode = "v" },
+    { "<leader>p", '"_dP', desc = "replace without overwriting reg", mode = "v" },
+  },
+
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
   { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\p', function() quickconfig('picker')   end, desc = 'Snacks dashboard config' },
   { '\\d', function() quickconfig('dashboard') end, desc = 'Snacks picker config' },
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
@@ -97,25 +94,17 @@ wk.add({
   { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
   { ',$', function() changedir('gitroot') end, desc = 'change to git root directory' },
   { ',-', function() changedir('last') end,    desc = 'change to last directory' },
-
-  { '<leader><space>', function() Snacks.picker.smart() end,     desc = 'Smart Find Files' },
+  { ',R',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
+  { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
   { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
-  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
   { '<leader>q', function() Snacks.bufdelete() end,  desc = 'Quit Buffer' },
+  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
 
-  -- buffer
-  { '<leader>bd', function() Snacks.bufdelete() end, desc = 'Delete Buffer' },
-  { '<leader>bD', '<Cmd>:bd<CR>', desc = 'Delete Buffer and Window' },
-  { '<leader>bo', function() Snacks.bufdelete.other() end, desc = 'Delete Other Buffers' },
+  { '<leader>co', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes' },
 
-  -- code
-  { '<leader>cR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
-
-  -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
-  -- find
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
@@ -124,80 +113,51 @@ wk.add({
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
   { '<leader>f<Space>', function() Snacks.picker() end, desc = 'Pickers' },
 
-  -- git
   { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
-  { '<leader>gb', function() Snacks.git.blame_line() end,      desc = 'Git Blame Line' },
-  { '<leader>gB', function() Snacks.gitbrowse() end,           desc = 'Git Browse', mode = { 'n', 'v' } },
-  { '<leader>gC', function() Snacks.picker.git_log() end,      desc = 'Git Log' },
-  -- { '<leader>gd', function() Snacks.picker.git_diff() end,     desc = 'Git Diff (Hunks)' },
-  { '<leader>gf', function() Snacks.lazygit.log_file() end,    desc = 'Lazygit Current File History' },
-  { '<leader>gg', function() Snacks.lazygit() end,             desc = 'Lazygit' },
-  { '<leader>gl', function() Snacks.picker.git_log() end,      desc = 'Git Log' },
-  { '<leader>gL', function() Snacks.picker.git_log_line() end, desc = 'Git Log Line' },
-  -- { '<leader>gs', function() Snacks.picker.git_status() end,   desc = 'Git Status' },
-  -- { '<leader>gS', function() Snacks.picker.git_stash() end,    desc = 'Git Stash' },
-
-  -- oOoooOOOooO
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>ot', function() insert_comment('TODO',  false) end, desc = 'TODO' },
-  { '<leader>ob', function() insert_comment('BUG',   false) end, desc = 'BUG' },
-  { '<leader>oh', function() insert_comment('HACK',  false) end, desc = 'HACK' },
-  { '<leader>of', function() insert_comment('FIXME', false) end, desc = 'FIXME' },
+  { '<leader>ot', 'oTODO:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'TODO'},
+  { '<leader>ob', 'oBUG:<esc><Cmd>normal gcc<CR>A<space>',   desc = 'BUG' },
+  { '<leader>oh', 'oHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
+  { '<leader>of', 'oFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
 
   { '<leader>O', group = 'Insert above', icon = { icon = ' ', color = 'cyan' } },
-  { '<leader>Ot', function() insert_comment('TODO',  true) end, desc = 'TODO' },
-  { '<leader>Ob', function() insert_comment('BUG',   true) end, desc = 'BUG' },
-  { '<leader>Oh', function() insert_comment('HACK',  true) end, desc = 'HACK' },
+  { '<leader>Ot', 'OTODO:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'TODO' },
+  { '<leader>Ob', 'OBUG:<esc><Cmd>normal gcc<CR>A<space>',   desc = 'BUG' },
+  { '<leader>Oh', 'OHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
+  { '<leader>Of', 'OFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
   { '<leader>Of', function() insert_comment('FIXME', true) end, desc = 'FIXME' },
 
-  -- search/grep
-  { '<leader>s"', function() Snacks.picker.registers() end,          desc = 'Registers' },
-  { '<leader>s/', function() Snacks.picker.search_history() end,     desc = 'Search History' },
-  { '<leader>sa', function() Snacks.picker.autocmds() end,           desc = 'Autocmds' },
-  { '<leader>sb', function() Snacks.picker.lines() end,              desc = 'Buffer Lines' },
-  { '<leader>sB', function() Snacks.picker.grep_buffers() end,       desc = 'Grep Open Buffers' },
-  { '<leader>sc', function() Snacks.picker.command_history() end,    desc = 'Command History' },
-  { '<leader>sC', function() Snacks.picker.commands() end,           desc = 'Commands' },
-  { '<leader>sd', function() Snacks.picker.diagnostics() end,        desc = 'Diagnostics' },
-  { '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, desc = 'Buffer Diagnostics' },
-  { '<leader>sh', function() Snacks.picker.help() end,               desc = 'Help Pages' },
-  { '<leader>sg', function() Snacks.picker.grep() end,               desc = 'Grep' },
-  { '<leader>sH', function() Snacks.picker.highlights() end,         desc = 'Highlights' },
-  { '<leader>si', function() Snacks.picker.icons() end,              desc = 'Icons' },
-  { '<leader>sj', function() Snacks.picker.jumps() end,              desc = 'Jumps' },
-  { '<leader>sk', function() Snacks.picker.keymaps() end,            desc = 'Keymaps' },
-  { '<leader>sl', function() Snacks.picker.loclist() end,            desc = 'Location List' },
-  { '<leader>sm', function() Snacks.picker.marks() end,              desc = 'Marks' },
-  { '<leader>sM', function() Snacks.picker.man() end,                desc = 'Man Pages' },
-  { '<leader>sp', function() Snacks.picker.lazy() end,               desc = 'Search for Plugin Spec' },
-  { '<leader>sq', function() Snacks.picker.qflist() end,             desc = 'Quickfix List' },
-  { '<leader>sR', function() Snacks.picker.resume() end,             desc = 'Resume' },
-  { '<leader>su', function() Snacks.picker.undo() end,               desc = 'Undo History' },
-  { '<leader>sw', function() Snacks.picker.grep_word() end,          desc = 'Visual selection or word', mode = { 'n', 'x' } },
-  { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
-  { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
-  { '<leader>co', function() Snacks.picker.colorschemes() end,       desc = 'Colorschemes' },
-  -- mine
   { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>sL', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
   { '<leader>sP', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File' },
+  { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
+  { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
 
-  { '<leader>fT', function() Snacks.terminal() end,  desc = 'Terminal (cwd)'  },
-  { '<leader>ft', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, desc = 'Terminal (Root Dir)'  },
-  { '<c-/>',      function() Snacks.terminal() end, desc = 'Togle Terminal' }, -- BUG: this isn't working
-  { '<c-_>',      function() Snacks.terminal() end, desc = 'which_key_ignore' },
+  -- https://github.com/jmbuhr/quarto-nvim-kickstarter
+  { ",o", group = "[o]tter & c[o]de" },
+  { ",oa", require'otter'.activate, desc = "otter [a]ctivate" },
+  -- { ",ob", insert_bash_chunk, desc = "[b]ash code chunk" },
+  { ",oc", "O# %%<cr>", desc = "magic [c]omment code chunk # %%" },
+  { ",od", require'otter'.activate, desc = "otter [d]eactivate" },
 
-  { ']]',         function() Snacks.words.jump(vim.v.count1) end, desc = 'Next Reference', mode = { 'n', 't' } },
-  { '[[',         function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev Reference', mode = { 'n', 't' } },
+  { ",q", group = "[q]uarto" },
+  { ",qE", function() require('otter').export(true) end, desc = "[E]xport with overwrite" },
+  { ",qa", ":QuartoActivate<cr>", desc = "[a]ctivate" },
+  { ",qe", require('otter').export, desc = "[e]xport" },
+  { ",qh", ":QuartoHelp ", desc = "[h]elp" },
+  { ",qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "[p]review" },
+  { ",qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "[q]uiet preview" },
+
+  { ",qr", group = "[r]un" },
+  { ",qra", ":QuartoSendAll<cr>", desc = "run [a]ll" },
+  { ",qrb", ":QuartoSendBelow<cr>", desc = "run [b]elow" },
+  { ",qrr", ":QuartoSendAbove<cr>", desc = "to cu[r]sor" },
+
+  { ",x", group = "e[x]ecute" },
+  { ",xx", ":w<cr>:source %<cr>", desc = "[x] source %" },
 
   { '<locealleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
-
-  {
-    { mode = 'v' },
-    { "<leader>d", '"_d',  desc = "delete without overwriting reg",  mode = "v" },
-    { "<leader>p", '"_dP', desc = "replace without overwriting reg", mode = "v" },
-  },
 })
 
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
@@ -227,6 +187,7 @@ del('n', '<leader>ub')
 Snacks.toggle({
   name = 'Translucency',
   get = function()
+    -- FIXME: This is backwards
     return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
   end,
   set = function(state)

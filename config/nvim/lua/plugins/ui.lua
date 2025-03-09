@@ -9,7 +9,6 @@ return {
         style = 'fancy',
         date_format = '%T',
       },
-      picker = require('config.snacks.picker'),
       styles = {
         notification = { wo = { wrap = true } },
         scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
@@ -18,7 +17,6 @@ return {
       terminal = { wo = { winbar = '' } },
     },
   },
-
   {
     'folke/noice.nvim',
     enabled = true,
