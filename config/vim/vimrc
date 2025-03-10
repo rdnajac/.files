@@ -76,6 +76,20 @@ inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap ; ;<c-g>u
 
+" using <Cmd> here would ignore the `'<,'>` range
+vmap <C-s> :sort<CR>
+
+" paste without overwriting the clipboard
+vnoremap <silent> p "_dP
+
+" better indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
+" nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
+
+
 set tabline=%!ui#tabline()
 set statusline=%!ui#statusline()
 set showtabline=2

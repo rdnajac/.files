@@ -47,6 +47,7 @@ return {
       vim.g.slime_suggest_default = true
       vim.g.slime_menu_config = false
       vim.g.slime_neovim_ignore_unlisted = true
+      -- TODO: this is not the place to set this
       vim.b['quarto_is_python_chunk'] = false
     end,
 
@@ -61,8 +62,8 @@ return {
       end
 
       return {
-        { 'n', ',m', mark_terminal, desc = '[m]ark terminal' },
-        { 'n', ',s', set_terminal, desc = '[s]et terminal' },
+        { ',m', mark_terminal, desc = '[m]ark terminal' },
+        { ',s', set_terminal, desc = '[s]et terminal' },
       }
     end,
   },

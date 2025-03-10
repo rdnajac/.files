@@ -6,6 +6,9 @@
 local del = vim.keymap.del
 local map = vim.keymap.set
 local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
+local vmap = function(lhs, rhs, desc) map('v', lhs, rhs, { desc = desc }) end
+
+vmap('<C-s>', ':sort<CR>', 'Sort selection')
 
 
 del('n', '<leader>wd')

@@ -35,11 +35,9 @@ set wildmode=longest:full,full
 " no Ex mode, instead Q formats and saves
 nnoremap Q <nop>
 nnoremap gQ <nop>
-nmap <c-c> ciw
-nmap <c-s> viW
 
-" using <Cmd> here would ignore the `'<,'>` range
-vmap <M-s> ;sort<CR>
+nmap <C-c> ciw
+nmap <C-s> viW
 
 " buffer navigation
 nnoremap <tab> :bnext<CR>
@@ -50,19 +48,8 @@ nnoremap <localleader><Tab> :b#<CR>
 nnoremap > V`]>
 nnoremap < V`]<
 
-" paste without overwriting the clipboard
-xnoremap <silent> p "_dP
-vnoremap <silent> p "_dP
-
 " duplicate and comment out line
 nmap yc yygccp
-
-" quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
-nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
-
-" better indenting
-vnoremap < <gv
-vnoremap > >gv
 
 " swap keys to avoid shift + key for common operations
 nnoremap ` ~
