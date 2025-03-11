@@ -45,6 +45,13 @@ return {
           textDocument = { completion = { completionItem = { snippetSupport = false } } },
         }),
       },
+      r_language_server = {
+              root_dir = function(fname)
+                return require("lspconfig.util").root_pattern("DESCRIPTION", "NAMESPACE", ".Rbuildignore")(fname)
+                  or require("lspconfig.util").find_git_ancestor(fname)
+                  or vim.loop.os_homedir()
+              end,
+            },
     }
   end,
 }

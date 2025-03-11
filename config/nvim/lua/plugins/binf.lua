@@ -2,43 +2,57 @@ return {
   { 'LukeGoodsell/nextflow-vim' },
   {
     'R-nvim/R.nvim',
-    opts = {
-      R_args = { '--quiet' },
-      -- R_args = { '--quiet', '--no-save' },
-      -- R_app = '/Users/rdn/.local/bin/sshR',
-      -- R_cmd = '/Users/rdn/.local/bin/sshR',
-      -- compldir = '/Users/rdn/.remoteR',
-      -- remote_compldir = '/home/ubuntu/.cache/R.nvim',
-      -- local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
+    dev = false,
+    opts = function()
+      require('r.pdf.generic').open = vim.ui.open
+      vim.g.rout_follow_colorscheme = true
+
+      ---@type RConfigUserOpts
+      return {
+        user_maps_only = true,
+      }
+    end,
+    -- stylua: ignore
+    keys = {
+      -- TODO: move these to opts.hook.on_filetype?
+      { ',,',     '<Plug>RStart',            desc = 'Start R' },
+      -- { '<CR>',   '<Plug>RDSendLine',        desc = 'Send Line' },
+      { '<M-CR>', '<Plug>RInsertLineOutput', desc = 'Insert Line Output' },
+      { ',r?',    '<Cmd>RSend getwd()<CR>',  desc = 'Get working directory' },
+      { ',rR',    '<Cmd>RSend(source(".Rprofile"))<CR>', desc = 'Source .Rprofile' },
+      -- ,rd to set directory
+      -- ,rp to install plucin/packages
+      -- ,r? to getwd
+      -- ,rl clear woth <c-L>
+      -- ,rq quit
+      -- set nvim directoruy to <cword>?
     },
   },
+
+  -- TODO: Conditionally set additional opts for remote R
+  -- {
+  --   'R-nvim/R.nvim',
+  --   condition = false,
+  --   opts = {
+  --     R_app = '/Users/rdn/.local/bin/sshR',
+  --     R_cmd = '/Users/rdn/.local/bin/sshR',
+  --     compldir = '/Users/rdn/.remoteR',
+  --     remote_compldir = '/home/ubuntu/.cache/R.nvim',
+  --     local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
+  --   },
+  -- },
 
   {
     'quarto-dev/quarto-nvim',
     ft = { 'quarto' },
-    dependencies = {
-      'jmbuhr/otter.nvim',
-    },
-    keys = function()
-      local quarto = require('quarto')
-      return {
-        { '<leader>cp', quarto.quartoPreview, { silent = true, noremap = true } },
-      }
-    end,
-    opts = function()
-      vim.cmd([[
-      inoremap <buffer> <C-_> <-<Space>
-      inoremap <buffer> <C-\> <bar>><Space>
-      inoremap <buffer> ,,b <Cmd>lua require('util.chunk').insert('bash')<CR>
-      inoremap <buffer> ,,p <Cmd>lua require('util.chunk').insert('python')<CR>
-      inoremap <buffer> ,,r <Cmd>lua require('util.chunk').insert('r')<CR>
-    ]])
-    end,
+    dependencies = { 'jmbuhr/otter.nvim' },
+    keys = { { '<leader>cp', '<Cmd>QuartoPreview<CR>' } },
+    opts = { buffer = { write_to_disk = true } },
   },
 
   {
     'jpalardy/vim-slime',
-    enabled = true,
+    enabled = false,
     init = function()
       vim.g.slime_target = 'neovim'
       vim.g.slime_no_mappings = true
@@ -115,16 +129,14 @@ return {
     },
     config = function(_, opts)
       require('img-clip').setup(opts)
-      vim.keymap.set('n', '<leader>ii', ':PasteImage<cr>', { desc = 'insert [i]mage from clipboard' })
+      vim.keymap.set('n', '<leader>ii', ':PasteImage<cr>', { desc = 'insert image from clipboard' })
     end,
   },
 
   { -- preview equations
     'jbyuki/nabla.nvim',
     enabled = false,
-    keys = {
-      { '<leader>qm', ':lua require"nabla".toggle_virt()<cr>', desc = 'toggle [m]ath equations' },
-    },
+    keys = { { '<leader>qm', ':lua require"nabla".toggle_virt()<cr>', desc = 'toggle math equations' } },
   },
 
   {

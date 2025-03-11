@@ -18,6 +18,7 @@ local audebug = function(ev)
   print(string.format('event fired: %s', vim.inspect(ev)))
 end
 
+
 --------------------------------------------------------------------------------
 -- `User` autocmds are not executed automatically. Use `:doautocmd` to trigger
 
@@ -87,36 +88,3 @@ au('FileType', {
   desc = 'Do not highlight vimscript wrapped in `vim.cmd([[...]])`',
 })
 
---------------------------------------------------------------------------------
-
-au('FileType', {
-  group = aug('r'),
-  pattern = { 'r' },
-  callback = function()
-    if vim.fn.exists(':RDebugInfo') then
-      vim.cmd([[
-        autocmd TermOpen * exe 'setlocal nonu nornu winhighlight=Normal:SpecialWindow'
-        " open R.nvim terminal
-        nmap <buffer> ,, <nop>
-        nmap <buffer> ,, <localleader>rf
-        " send line to R.nvim terminal
-        nmap <bufer> <CR> <nop>
-        nmap <bufer> <CR> <localleader>l
-
-        " Reloading!
-        nmap <buffer> <leader>R <Cmd>RSend(source(".Rprofile"))<CR>
-    ]])
-    end
-  end,
-})
-
-au('FileType', {
-  group = aug('quatro'),
-  pattern = { 'quatro' },
-  callback = function()
-    vim.cmd([[
-    " inoremap <buffer> <C--> <-<Space>
-    " inoremap <buffer> <C-\> <bar>><Space>
-  ]])
-  end,
-})
