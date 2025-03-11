@@ -1,78 +1,47 @@
--- keymaps.lua
--- some keymaps are defined in /opt/nvim-macos-arm64/share/nvim/runtime/lua/vim/_defaults.lua
--- snacks keymaps are at ~/.config/nvim/lua/plugins/snacks/keys.lua
--- snacks toggles are at ~/.config/nvim/lua/plugins/snacks/toggle.lua
--- TODO: add folding to this file
-local del = vim.keymap.del
+-- config/nvim/lua/config/keymaps.lua
+-- some keymaps are defined in $VIMRUNTIME/lua/vim/_defaults.lua
 local map = vim.keymap.set
-local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
-local vmap = function(lhs, rhs, desc) map('v', lhs, rhs, { desc = desc }) end
-
-vmap('<C-s>', ':sort<CR>', 'Sort selection')
-
+local del = vim.keymap.del
 
 del('n', '<leader>wd')
 del('n', '<leader>wm')
 del('n', '<leader>fn')
+del('n', '<leader>cm')
+del('n', '<leader>qq')
 
-nmap('<leader>w', '<Cmd>w<CR>',             'Save File' )
-nmap('zS',        vim.show_pos,             'Inspect Pos' )
-nmap('gp',        '<Cmd>e <cfile>:p:h<CR>', 'Goto Parent Directory' )
-nmap('<leader>K', '<Cmd>norm! K<CR>',       'Keywordprg' )
+map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
 
+-- stylua: ignore start
+local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
+
+nmap('<leader>w',     '<Cmd>w<CR>',             'Save File' )
+nmap('zS',            vim.show_pos,             'Inspect Pos' )
+nmap('gp',            '<Cmd>e <cfile>:p:h<CR>', 'Goto Parent Directory' )
+nmap('>',             'V`]>',                   'Normal mode indent')
+nmap('<',             'V`]<',                   'Normal mode dedent')
+nmap('yc',            'yygccp',                 'Duplicate and comment out line')
+nmap('<Tab>',         ':bnext<CR>',             'Next Buffer')
+nmap('<S-Tab>',       ':bprev<CR>',             'Previous Buffer')
+nmap('<leader><Tab>', ':b#<CR>',                'Last Buffer')
+nmap('<C-c>',         'ciw',                    'Change Inner Word')
+nmap('<C-s>',         'viW',                    'Select Inner WORD')
+-- stylua: ignore end
 map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
 map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
 
--- stylua: ignore start
 -- Resize window using <option> arrow keys (don't use LazyVim mappings)
 del('n', '<C-Up>')
 del('n', '<C-Down>')
 del('n', '<C-Left>')
 del('n', '<C-Right>')
-nmap('<M-Up>',    '<Cmd>resize  +2<CR>',          'Increase Window  Height' )
-nmap('<M-Down>',  '<Cmd>resize  -2<CR>',          'Decrease Window  Height' )
-nmap('<M-Left>',  '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width' )
-nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width' )
--- stylua: ignore end
+nmap('<M-Up>', '<Cmd>resize  +2<CR>', 'Increase Window  Height')
+nmap('<M-Down>', '<Cmd>resize  -2<CR>', 'Decrease Window  Height')
+nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
+nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
--- config
-local quickconfig = function(file)
-  local nvimconfigfiles = { 'autocmds', 'keymaps', 'lazy', 'options' }
-  -- if we're in a floating window, close in first
-  if vim.api.nvim_win_get_config(0).relative ~= '' then
-    vim.cmd('q')
-  end
-  if file == 'dashboard' then
-    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/dashboard.lua')
-  elseif vim.tbl_contains(nvimconfigfiles, file) then
-    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua')
-  else
-    vim.cmd('e ' .. vim.fn.expand(file))
-  end
-end
-
-local changedir = function(where)
-  local path = ''
-
-  if where == 'gitroot' then
-    local root = Snacks.git.get_root(vim.fn.expand('%:p:h'))
-    if root then
-      path = root
-    end
-  elseif where == 'here' then
-    path = vim.fn.expand('%:p:h')
-  elseif where == 'last' then
-    path = vim.fn.expand('-')
-  else
-    path = where
-  end
-
-  if path ~= '' then
-    vim.cmd('cd ' .. path)
-  end
-
-  vim.cmd('pwd')
-end
+-- import utils
+local changedir = require('util.changedir').changedir
+local quickconfig = require('util.quickconfig').quickconfig
 
 local wk = require('which-key')
 -- stylua: ignore
@@ -89,11 +58,11 @@ wk.add({
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\d', function() quickconfig('dashboard') end, desc = 'Snacks picker config' },
+  { '\\d', function() quickconfig('dashboard') end, desc = 'dashboard' },
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
 
-  { ',', group = 'Utility', icon = { icon = ' ', color = 'blue' } },
+  { ',', group = 'Utility', icon = { icon = ' ', color = 'green' } },
   { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
   { ',$', function() changedir('gitroot') end, desc = 'change to git root directory' },
   { ',-', function() changedir('last') end,    desc = 'change to last directory' },
@@ -103,11 +72,18 @@ wk.add({
   { '<leader>q', function() Snacks.bufdelete() end,  desc = 'Quit Buffer' },
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
 
+  { '<localleader>f', group = 'File'},
+  { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
+  { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
+
+  -- code
   { '<leader>co', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes' },
 
+  -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
+  -- file/find
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
@@ -116,7 +92,9 @@ wk.add({
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
   { '<leader>f<Space>', function() Snacks.picker() end, desc = 'Pickers' },
 
+  -- git
   { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
+
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
   { '<leader>ot', 'oTODO:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'TODO'},
   { '<leader>ob', 'oBUG:<esc><Cmd>normal gcc<CR>A<space>',   desc = 'BUG' },
@@ -128,8 +106,8 @@ wk.add({
   { '<leader>Ob', 'OBUG:<esc><Cmd>normal gcc<CR>A<space>',   desc = 'BUG' },
   { '<leader>Oh', 'OHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
   { '<leader>Of', 'OFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
-  { '<leader>Of', function() insert_comment('FIXME', true) end, desc = 'FIXME' },
 
+  -- search
   { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>sL', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
   { '<leader>sP', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File' },
@@ -137,32 +115,9 @@ wk.add({
   { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
 
-  -- https://github.com/jmbuhr/quarto-nvim-kickstarter
-  { ",o", group = "[o]tter & c[o]de" },
-  { ",oa", require'otter'.activate, desc = "otter [a]ctivate" },
-  -- { ",ob", insert_bash_chunk, desc = "[b]ash code chunk" },
-  { ",oc", "O# %%<cr>", desc = "magic [c]omment code chunk # %%" },
-  { ",od", require'otter'.activate, desc = "otter [d]eactivate" },
-
-  { ",q", group = "[q]uarto" },
-  { ",qE", function() require('otter').export(true) end, desc = "[E]xport with overwrite" },
-  { ",qa", ":QuartoActivate<cr>", desc = "[a]ctivate" },
-  { ",qe", require('otter').export, desc = "[e]xport" },
-  { ",qh", ":QuartoHelp ", desc = "[h]elp" },
-  { ",qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "[p]review" },
-  { ",qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "[q]uiet preview" },
-
-  { ",qr", group = "[r]un" },
-  { ",qra", ":QuartoSendAll<cr>", desc = "run [a]ll" },
-  { ",qrb", ":QuartoSendBelow<cr>", desc = "run [b]elow" },
-  { ",qrr", ":QuartoSendAbove<cr>", desc = "to cu[r]sor" },
-
-  { ",x", group = "e[x]ecute" },
-  { ",xx", ":w<cr>:source %<cr>", desc = "[x] source %" },
-
-  { '<locealleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
 })
 
+Snacks.toggle.option('autochdir'):map('<localleader>tc')
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
 
 Snacks.toggle({

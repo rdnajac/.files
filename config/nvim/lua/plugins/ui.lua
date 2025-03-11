@@ -14,13 +14,11 @@ return {
         scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
         termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
       },
-      terminal = { wo = { winbar = '' } },
+      terminal = { win = { wo = { winbar = '' } } },
     },
   },
   {
     'folke/noice.nvim',
-    enabled = true,
-
     opts = function(_, opts)
       Snacks.toggle({
         name = 'Noice',
@@ -78,6 +76,16 @@ return {
         end,
         mode = 'c',
         desc = 'Redirect Cmdline',
+      },
+    },
+  },
+
+  {
+    'folke/edgy.nvim',
+    enabled = false,
+    opts = {
+      wo = {
+        winbar = false,
       },
     },
   },

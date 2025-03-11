@@ -1,11 +1,4 @@
 {
-    "copyright": {
-        "prefix": "c)",
-        "body": [
-            "Copyright (c) ${CURRENT_YEAR} ${0:Author}. All Rights Reserved."
-        ],
-        "description": "Snippet to put copyright"
-    },
     "diso": {
         "prefix": "diso",
         "body": [

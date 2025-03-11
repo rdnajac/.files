@@ -3,7 +3,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     -- version = false, -- last release is way too old and doesn't work on Windows
     -- FIXME: The next commit breaks render-markdown
-    commit = 'f0ff9f0',
+    -- commit = 'f0ff9f0',
 
     build = ':TSUpdate',
     event = { 'LazyFile', 'VeryLazy' },

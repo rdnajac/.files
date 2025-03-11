@@ -1,16 +1,24 @@
 " config/nvim/plugin/cmd.vim
-lua <<EOF
-function GetSnacksTerm()
-  MyTerm = Snacks.terminal.toggle()
-  vim.g.MyTermChannel = vim.bo[MyTerm.buf].channel
-  vim.cmd([[
-  call chansend(g:MyTermChannel, "tmux new-session -A -s snacks-sesh \n")
-  nunmap ,,
-  nnoremap ,, :lua Snacks.terminal.toggle()<CR>
-  tnoremap ,, :lua Snacks.terminal.toggle()<CR>
-  ]])
-end
-EOF
+if !exists('g:CurrentTerminalChannel')
+  let g:CurrentTerminalChannel = -1
+endif
+
+" lua <<EOF
+" function GetSnacksTerm()
+"   MyTerm = Snacks.terminal.toggle()
+"   vim.g.MyTermChannel = vim.bo[MyTerm.buf].channel
+"   vim.cmd([[
+"   call chansend(g:MyTermChannel, "tmux new-session -A -s snacks-sesh \n")
+"   nunmap ,,
+"   nnoremap ,, :lua Snacks.terminal.toggle()<CR>
+"   tnoremap ,, :lua Snacks.terminal.toggle()<CR>
+"   ]])
+" end
+" EOF
+" augroup TerminalChannelCapture
+"   autocmd!
+"   autocmd TermOpen * let g:CurrentTermChannel = b:terminal_job_id
+" augroup END
 
 let s:newline = "\n"
 
@@ -24,7 +32,7 @@ if !exists('g:cmd_auto_scroll')
 endif
 
 function s:mychansend(text) abort
-  if !exists("g:MyTermChannel")
+  if g:CurrentTerminalChannel == -1
     echoerr "No terminal channel found"
     return
   endif
@@ -76,10 +84,9 @@ command! -range SendSelection <line1>,<line2>call SendSelection()
 command! RunFile call RunFile()
 
 " keymaps
-" nnoremap <silent> ,, <cmd>GetSnacksTerm<CR>
-" nnoremap <silent> ,. <cmd>SendLine<CR>
-" vnoremap <silent> <cr> <cmd>SendSelection<CR>
-" nnoremap <silent> ,<cr> <cmd>RunFile<CR>
+nnoremap <silent> ,. <cmd>SendLine<CR>
+vnoremap <silent> <cr> <cmd>SendSelection<CR>
+nnoremap <silent> ,<cr> <cmd>RunFile<CR>
 
 " TODO: create a toggle
 " create a variable to toggle if we should send on enter

@@ -11,10 +11,17 @@
     "prefix": "bc",
     "body": ["BiocManager::install(\"${1:package}\")"]
   },
+
   "library": {
     "prefix": "lib",
     "body": ["library(${1:package})"]
   },
+
+  "install": {
+    "prefix": "install",
+    "body": ["install.packages(${1:package})"]
+  },
+
   "require": {
     "prefix": "req",
     "body": ["require(${1:package})"]

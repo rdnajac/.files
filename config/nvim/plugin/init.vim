@@ -16,45 +16,18 @@ if !exists('*ReloadVimConfig')
   nnoremap <leader>r :call ReloadVimConfig()<CR>
 endif
 " }}}
-" options {{{
-set completeopt=menu,preview,preinsert
-set foldopen+=insert,jump
-set iskeyword+=_
-set listchars=trail:¿,tab:→\    " show trailing whitespace and tabs
-set mousescroll=hor:0
-set numberwidth=2
-set shiftwidth=8
-set sidescrolloff=0
-set tabstop=8
-set timeoutlen=420
-set updatetime=69
-set whichwrap+=<,>,[,],h,l
+set completeopt=menu,preview,preinsert  " insert completion menu
+set foldopen+=insert,jump               " when to open folds
+set iskeyword+=_                        " vim word separation
 set wildmode=longest:full,full
-" }}}
-" keymaps {{{
+
 " no Ex mode, instead Q formats and saves
 nnoremap Q <nop>
 nnoremap gQ <nop>
 
-nmap <C-c> ciw
-nmap <C-s> viW
-
-" buffer navigation
-nnoremap <tab> :bnext<CR>
-nnoremap <s-tab> :bprev<CR>
-nnoremap <localleader><Tab> :b#<CR>
-
-" indent/dedent in normal mode with < and >
-nnoremap > V`]>
-nnoremap < V`]<
-
-" duplicate and comment out line
-nmap yc yygccp
-
 " swap keys to avoid shift + key for common operations
 nnoremap ` ~
 nnoremap ~ `
-
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -66,8 +39,7 @@ cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' 
 
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
-" }}}
-" autocmds {{{
+
 augroup FileTypeSettings
   autocmd!
   " set default for all files, then override for specific filetypes
@@ -78,9 +50,8 @@ augroup FileTypeSettings
   autocmd FileType python         setlocal sw=4 sts=4
   " autocmd FileType tex            setlocal            fdm=syntax
   autocmd FileType vim,lua        setlocal sw=2 sts=2 kp=:help
-  autocmd FileType vim,lua,sh     setlocal nonumber norelativenumber numberwidth=2
+  autocmd FileType vim,lua,sh     setlocal nonumber norelativenumber
 augroup END
-" }}}
 " ignored files and directories {{{
 set wildignore+=*.o,*.out,*.a,*.so,*.lib,*.bin,*/.git/*,*.swp,*.swo,
 set wildignore+=*.pdf,*.aux,*.fdb_latexmk,*.fls " LaTeX files

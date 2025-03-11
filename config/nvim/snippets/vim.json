@@ -1,0 +1,7 @@
+{
+  "if_exists": {
+    "prefix": "exists",
+    "body": ["if !exists('g:${1}')", "let g:${1} = ${2:1}", "endif"],
+    "description": "Global variable declaration"
+  }
+}

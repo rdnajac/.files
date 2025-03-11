@@ -11,8 +11,7 @@ return {
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...) Snacks.debug.inspect(...) end
         _G.bt = function()    Snacks.debug.backtrace()  end
-        -- Override print to use snacks for `:=` command
-        vim.print = _G.dd
+        vim.print = _G.dd -- Override print to use snacks for `:=` command
         -- Prepend any cmd with `Snacks` with lua to run it correctly
         vim.cmd([[
         cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
@@ -57,7 +56,6 @@ return {
             finder = 'files',
             show_empty = true,
             hidden = true,
-            ignored = false,
             follow = true,
             cwd = vim.fn.expand('$DOTDIR'),
           },
@@ -66,8 +64,7 @@ return {
             finder = 'files',
             show_empty = true,
             hidden = true,
-            ignored = false,
-            follow = true,
+            follow = false,
             cwd = vim.fn.stdpath('config'),
           },
 
@@ -108,27 +105,20 @@ return {
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
-    enabled = false,
     opts = {
       menu = { width = vim.api.nvim_win_get_width(0) - 4 },
       settings = { save_on_toggle = true },
     },
+    -- stylua: ignore
     keys = function()
-      -- stylua: ignore
       local keys = {
         { "<leader>H", function() require("harpoon"):list():add() end, desc = "Harpoon File", },
         { '<leader>\\', function() require('harpoon'):list():add() end, desc = 'Harpoon File', },
         { "<leader>h", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Quick Menu",},
-        { '<localleader>\\', function() local harpoon = require('harpoon') harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'Harpoon Quick Menu',},
+        { '\\\\', function() local harpoon = require('harpoon') harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'Harpoon Quick Menu',},
       }
       for i = 1, 5 do
-        table.insert(keys, {
-          '\\' .. i,
-          function()
-            require('harpoon'):list():select(i)
-          end,
-          desc = 'Harpoon to File ' .. i,
-        })
+        table.insert(keys, { '\\' .. i, function() require('harpoon'):list():select(i) end, desc = 'Harpoon to File ' .. i, })
       end
       return keys
     end,

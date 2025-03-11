@@ -37,6 +37,15 @@ set fillchars+=foldopen:▾,
 set fillchars+=foldsep:\ ,
 set fillchars+=foldsep:│
 set fillchars+=stl:\ ,
+set listchars=trail:¿,tab:→\            " show trailing whitespace and tabs
+set mousescroll=hor:0                   " disable horizontal mouse scroll
+set numberwidth=2
+set shiftwidth=8
+set sidescrolloff=0
+set tabstop=8
+set timeoutlen=420
+set updatetime=69
+set whichwrap+=<,>,[,],h,l
 
 if system('uname') =~? '^darwin'
   set clipboard=unnamed
@@ -53,6 +62,11 @@ noremap kj <esc>
 
 nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
+
+" buffer navigation
+nnoremap <tab> :bnext<CR>
+nnoremap <s-tab> :bprev<CR>
+nnoremap <localleader><Tab> :b#<CR>
 
 " center searches
 nnoremap n nzzzv
@@ -86,8 +100,19 @@ vnoremap <silent> p "_dP
 vnoremap < <gv
 vnoremap > >gv
 
+" indent/dedent in normal mode with < and >
+nnoremap > V`]>
+nnoremap < V`]<
+
+" duplicate and comment out line
+nmap yc yygccp
+
 " quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
 " nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
+
+nmap <C-c> ciw
+nmap <C-s> viW
+nmap <C-s> :sort<CR>
 
 
 set tabline=%!ui#tabline()

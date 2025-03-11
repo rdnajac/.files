@@ -5,7 +5,7 @@ return {
     'tpope/vim-eunuch',
     lazy = false,
     keys = {
-      { ',D', '<Cmd>Delete!<CR>', desc = 'Delete the file from disk' },
+      { ',D', '<Cmd>Delete!<CR>', desc = 'Delete File' },
     },
     init = function()
       vim.cmd([[
@@ -21,8 +21,6 @@ return {
       ]])
     end,
   },
-  { 'christoomey/vim-tmux-navigator' },
-
   -- Use latest development versions
   { 'folke/lazy.nvim', version = false },
   { 'LazyVim/LazyVim', version = false },
