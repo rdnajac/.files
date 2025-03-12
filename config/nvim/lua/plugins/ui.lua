@@ -61,6 +61,7 @@ return {
               { find = 'E85: There is no listed buffer' },
               { find = 'E490: No fold found' },
               { find = 'Already at oldest change' },
+              { find = 'There is no next R code chunk to go.' }
             },
           },
           opts = { skip = true },

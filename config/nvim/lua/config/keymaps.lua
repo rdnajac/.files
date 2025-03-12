@@ -10,6 +10,7 @@ del('n', '<leader>cm')
 del('n', '<leader>qq')
 
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
+map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
 
 -- stylua: ignore start
 local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
@@ -19,7 +20,6 @@ nmap('zS',            vim.show_pos,             'Inspect Pos' )
 nmap('gp',            '<Cmd>e <cfile>:p:h<CR>', 'Goto Parent Directory' )
 nmap('>',             'V`]>',                   'Normal mode indent')
 nmap('<',             'V`]<',                   'Normal mode dedent')
-nmap('yc',            'yygccp',                 'Duplicate and comment out line')
 nmap('<Tab>',         ':bnext<CR>',             'Next Buffer')
 nmap('<S-Tab>',       ':bprev<CR>',             'Previous Buffer')
 nmap('<leader><Tab>', ':b#<CR>',                'Last Buffer')
@@ -73,7 +73,6 @@ wk.add({
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
 
   { '<localleader>f', group = 'File'},
-  { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
   { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
 
   -- code

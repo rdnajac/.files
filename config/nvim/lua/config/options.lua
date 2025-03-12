@@ -1,6 +1,4 @@
 -- lua/config/options.lua
--- LazyVim options must be set here
--- for all other options, go to `~/.config/nvim/plugin/init.vim`
 local g = vim.g
 local set = vim.opt
 
@@ -42,7 +40,7 @@ vim.filetype.add({
   pattern = {
     -- Correctly identify gitconfig files in the alternate directory
     ['.*/git/config'] = 'gitconfig',
-    -- This is needed to run the after/ftplugin
+    -- This is needed to run the after/ftplugin, but it breaks syntax highlighting
     -- ['.*qmd'] = 'quatro',
   },
 })

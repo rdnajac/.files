@@ -2,45 +2,78 @@ return {
   { 'LukeGoodsell/nextflow-vim' },
   {
     'R-nvim/R.nvim',
-    dev = false,
-    opts = function()
-      require('r.pdf.generic').open = vim.ui.open
+    init = function()
       vim.g.rout_follow_colorscheme = true
-
+    end,
+    opts = function()
       ---@type RConfigUserOpts
-      return {
+      local opts = {
+        R_args = { '--quiet', '--no-save' },
+        pdfviewer = '',
         user_maps_only = true,
       }
-    end,
-    -- stylua: ignore
-    keys = {
-      -- TODO: move these to opts.hook.on_filetype?
-      { ',,',     '<Plug>RStart',            desc = 'Start R' },
-      -- { '<CR>',   '<Plug>RDSendLine',        desc = 'Send Line' },
-      { '<M-CR>', '<Plug>RInsertLineOutput', desc = 'Insert Line Output' },
-      { ',r?',    '<Cmd>RSend getwd()<CR>',  desc = 'Get working directory' },
-      { ',rR',    '<Cmd>RSend(source(".Rprofile"))<CR>', desc = 'Source .Rprofile' },
-      -- ,rd to set directory
-      -- ,rp to install plucin/packages
-      -- ,r? to getwd
-      -- ,rl clear woth <c-L>
-      -- ,rq quit
-      -- set nvim directoruy to <cword>?
-    },
-  },
 
-  -- TODO: Conditionally set additional opts for remote R
-  -- {
-  --   'R-nvim/R.nvim',
-  --   condition = false,
-  --   opts = {
-  --     R_app = '/Users/rdn/.local/bin/sshR',
-  --     R_cmd = '/Users/rdn/.local/bin/sshR',
-  --     compldir = '/Users/rdn/.remoteR',
-  --     remote_compldir = '/home/ubuntu/.cache/R.nvim',
-  --     local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
-  --   },
-  -- },
+      -- Create buffer-local keymaps with a description
+      local map = function(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { buffer = 0, desc = desc })
+      end
+
+      -- Create normal mode keymaps to `<Plug>` mappings
+      local mapplug = function(keys, plugmap)
+        map('n', keys, '<Plug>' .. plugmap, plugmap)
+      end
+
+      -- Wrapper for creating normal mode keymaps with `RSend`
+      local mapcmd = function(keys, func)
+        map('n', keys, '<Cmd>RSend ' .. func .. '<CR>', func)
+      end
+
+      opts.hook = {
+        -- configure keymaps that don't require an R session
+        on_filetype = function()
+          mapplug(',,', 'RStart')
+          mapplug(']r', 'NextRChunk')
+          mapplug('[r', 'PreviousRChunk')
+          vim.cmd([[setlocal keywordprg=:RHelp]]) -- Get help with <leader>K
+        end,
+
+        -- configure keymaps for use within an R session
+        after_R_start = function()
+          require('which-key').add({
+            { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
+            { '<localleader>re', group = 'renv' },
+          })
+
+          map('v', '<CR>', '<Plug>RSendSelection', 'Send Selection')
+
+          mapplug('<CR>', 'RDSendLine')
+          mapplug('<M-CR>', 'RInsertLineOutput')
+          mapplug('<localleader>r<CR>', 'RSendFile')
+          mapplug('<localleader>rq', 'RClose')
+          mapplug('<localleader>rD', 'RSetwd')
+
+          mapcmd('<localleader>r?', 'getwd()')
+          mapcmd('<localleader>rR', 'source(".Rprofile")')
+          mapcmd('<localleader>rd', 'setwd(vim.fn.expand("<cword>"))')
+
+          -- renv
+          mapcmd('<localleader>re?', 'renv::status()')
+          mapcmd('<localleader>res', 'renv::snapshot()')
+          mapcmd('<localleader>rer', 'renv::restore()')
+        end,
+      }
+
+      -- to configure a remote R session, run `nvim --cmd "let g:R_is_remote = 1"`
+      if vim.g.R_is_remote then
+        opts.R_app = '/Users/rdn/.local/bin/sshR'
+        opts.R_cmd = '/Users/rdn/.local/bin/sshR'
+        opts.compldir = '/Users/rdn/.remoteR'
+        opts.remote_compldir = '/home/ubuntu/.cache/R.nvim'
+        opts.local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim'
+      end
+      return opts
+    end,
+  },
 
   {
     'quarto-dev/quarto-nvim',
@@ -80,25 +113,6 @@ return {
         { ',s', set_terminal, desc = '[s]et terminal' },
       }
     end,
-  },
-
-  { -- directly open ipynb files as quarto docuements and convert back behind the scenes
-    'GCBallesteros/jupytext.nvim',
-    enabled = false,
-    opts = {
-      custom_language_formatting = {
-        python = {
-          extension = 'qmd',
-          style = 'quarto',
-          force_ft = 'quarto',
-        },
-        r = {
-          extension = 'qmd',
-          style = 'quarto',
-          force_ft = 'quarto',
-        },
-      },
-    },
   },
 
   { -- paste an image from the clipboard or drag-and-drop
