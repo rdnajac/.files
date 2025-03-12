@@ -6,9 +6,7 @@ M.quickconfig = function(file)
   if vim.api.nvim_win_get_config(0).relative ~= '' then
     vim.cmd('q')
   end
-  if file == 'dashboard' then
-    vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/snacks/dashboard.lua')
-  elseif vim.tbl_contains(nvimconfigfiles, file) then
+  if vim.tbl_contains(nvimconfigfiles, file) then
     vim.cmd('e ' .. vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua')
   else
     vim.cmd('e ' .. vim.fn.expand(file))

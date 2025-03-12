@@ -53,14 +53,13 @@ wk.add({
   },
 
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
-  { '\\<Space>', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
+  { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
+  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
   { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\d', function() quickconfig('dashboard') end, desc = 'dashboard' },
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
-  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
 
   { ',', group = 'Utility', icon = { icon = ' ', color = 'green' } },
   { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
@@ -119,26 +118,19 @@ wk.add({
 Snacks.toggle.option('autochdir'):map('<localleader>tc')
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
 
+-- stylua: ignore start
 Snacks.toggle({
   name = 'Virtual Text',
-  get = function()
-    return vim.diagnostic.config().virtual_text
-  end,
-  set = function(state)
-    vim.diagnostic.config({ virtual_text = state })
-  end,
+  get = function() return vim.diagnostic.config().virtual_text end,
+  set = function(state) vim.diagnostic.config({ virtual_text = state }) end,
 }):map('<leader>uv', { desc = 'Toggle Virtual Text' })
 
 Snacks.toggle({
   name = 'Color Column',
-  get = function()
-    return vim.opt.colorcolumn:get()[1] == '81'
-  end,
-  set = function(state)
-    vim.opt.colorcolumn = state and '81' or ''
-  end,
+  get = function() return vim.opt.colorcolumn:get()[1] == '81' end,
+  set = function(state) vim.opt.colorcolumn = state and '81' or '' end,
 }):map('<leader>u\\', { desc = 'Toggle Color Column' })
-
+-- stylua: ignore end
 -- LazyVim has a toggle for dark background, but it doesn't do what you'd expect
 del('n', '<leader>ub')
 Snacks.toggle({
@@ -147,8 +139,7 @@ Snacks.toggle({
     -- FIXME: This is backwards
     return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
   end,
-  set = function(state)
-    if state then
+  set = function(state) if state then
       vim.cmd('hi Normal guibg=#000000')
     else
       vim.cmd('hi Normal guibg=none')
