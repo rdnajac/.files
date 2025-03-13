@@ -43,9 +43,8 @@ nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 local changedir = require('util.changedir').changedir
 local quickconfig = require('util.quickconfig').quickconfig
 
-local wk = require('which-key')
 -- stylua: ignore
-wk.add({
+require('which-key').add({
   {
     { mode = 'v' },
     { "<leader>d", '"_d',  desc = "delete without overwriting reg",  mode = "v" },
@@ -54,8 +53,8 @@ wk.add({
 
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
-  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
   { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
+  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
@@ -65,13 +64,11 @@ wk.add({
   { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
   { ',$', function() changedir('gitroot') end, desc = 'change to git root directory' },
   { ',-', function() changedir('last') end,    desc = 'change to last directory' },
-  { ',R',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
-  { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
-  { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
-  { '<leader>q', function() Snacks.bufdelete() end,  desc = 'Quit Buffer' },
-  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
 
   { '<localleader>f', group = 'File'},
+  { ',fD',  'Delete!', desc = 'Delete File' },
+  { ',fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
+
   { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
 
   -- code
@@ -80,6 +77,8 @@ wk.add({
   -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
+
+  { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
 
   -- file/find
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
@@ -105,6 +104,8 @@ wk.add({
   { '<leader>Oh', 'OHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
   { '<leader>Of', 'OFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
 
+  { '<leader>q', function() Snacks.bufdelete() end,  desc = 'Quit Buffer' },
+
   -- search
   { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>sL', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
@@ -112,6 +113,9 @@ wk.add({
   { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
+
+  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
+  { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
 
 })
 

@@ -3,7 +3,6 @@ local g = vim.g
 local set = vim.opt
 
 g.maplocalleader = ','
--- g.lazyvim_check_order = false
 g.snacks_animate = true
 g.autoformat = false
 g.ai_cmp = true
@@ -18,8 +17,8 @@ g.loaded_ruby_provider = 0
 set.backup = true
 set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
 set.breakindent = true
-set.listchars = { trail = '¿', tab = '→ ' }  -- show trailing whitespace and tabs
-set.mousescroll = "hor:0"
+set.listchars = { trail = '¿', tab = '→ ' }
+set.mousescroll = 'hor:0'
 set.numberwidth = 2
 set.pumblend = 0
 set.shiftwidth = 8
@@ -30,11 +29,11 @@ set.timeoutlen = 420
 set.undofile = true
 set.undolevels = 10000
 set.updatetime = 69
-set.whichwrap:append("<,>,[,],h,l")
+set.whichwrap:append('<,>,[,],h,l')
 
 -- default: `ltToOCF`
+-- current: `shortmess=oCcTaFltIWO`
 set.shortmess:append({ W = true, I = true, c = true, C = true, a = true })
--- current: shortmess=oCcTaFltIWO
 
 vim.filetype.add({
   pattern = {

@@ -3,10 +3,6 @@ return {
   { 'tpope/vim-tbone' },
   {
     'tpope/vim-eunuch',
-    lazy = false,
-    keys = {
-      { ',D', '<Cmd>Delete!<CR>', desc = 'Delete File' },
-    },
     init = function()
       vim.cmd([[
       let g:eunuch_interpreters = {

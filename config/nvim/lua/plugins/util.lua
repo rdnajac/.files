@@ -1,5 +1,4 @@
 return {
-
   {
     ---@module 'snacks'
     'folke/snacks.nvim',
@@ -36,13 +35,13 @@ return {
                 keys = {
                   ['-'] = 'explorer_up',
                   ['l'] = 'confirm',
-                  ['h'] = 'explorer_close', -- close directory
+                  ['h'] = 'explorer_close',
                   ['<Right>'] = 'confirm',
-                  ['<Left>'] = 'explorer_close', -- close directory
+                  ['<Left>'] = 'explorer_close',
                   ['r'] = 'explorer_rename',
                   ['c'] = 'explorer_copy',
                   ['m'] = 'explorer_move',
-                  ['o'] = 'explorer_open', -- open with system application
+                  ['o'] = 'explorer_open',
                   ['P'] = 'toggle_preview',
                   ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
                   ['p'] = 'explorer_paste',

@@ -46,7 +46,7 @@ au('FileType', {
 -- Quit immediately if we accidentally open a command window
 
 au('CmdwinEnter', {
-  group = aug('no_cmdwin'),
+  group = aug('cmdwin'),
   pattern = '*',
   command = 'quit',
   desc = 'Quit command window immediately',
@@ -60,8 +60,8 @@ au('FileType', {
   pattern = { 'tmux', 'sshconfig' },
   callback = function()
     vim.cmd([[
-    setlocal iskeyword+=-
-    nmap <C-Space> viW
+      setlocal iskeyword+=-
+      nmap <C-Space> viW
     ]])
   end,
   desc = 'Add `-` to iskeyword and map <C-Space> to select WORD',
@@ -71,7 +71,7 @@ au('FileType', {
 -- Even with a transparent background, some buffers are more readable with a bg
 
 au('FileType', {
-  group = aug('special_buffer_winhl'),
+  group = aug('winhl'),
   pattern = { 'man', 'help' },
   command = 'setlocal winhighlight=Normal:SpecialWindow',
   desc = 'Set a bg color for certain filetypes',
@@ -83,7 +83,7 @@ au('FileType', {
   group = aug('lua'),
   pattern = { 'lua' },
   callback = function()
-    vim.api.nvim_set_hl(0, 'LspReferenceText', { bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'LspReferenceText', {})
   end,
   desc = 'Do not highlight vimscript wrapped in `vim.cmd([[...]])`',
 })

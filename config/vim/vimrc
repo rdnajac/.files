@@ -141,7 +141,7 @@ augroup quickfix
   autocmd QuickFixCmdPost   l*  lwindow | silent! call ui#qf_signs()
 augroup END
 
-silent! colorscheme tokyonight-night
+silent! color scheme
 
 " syntax
 " https://stackoverflow.com/a/28399202/26469286
