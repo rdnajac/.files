@@ -1,6 +1,5 @@
 return {
   {
-    ---@module 'snacks'
     'folke/snacks.nvim',
     init = function()
       vim.api.nvim_create_autocmd('User', {

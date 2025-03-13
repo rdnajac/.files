@@ -1,3 +1,4 @@
+#!/usr/bin/env bat
 # nvim config
 
 ## Installation

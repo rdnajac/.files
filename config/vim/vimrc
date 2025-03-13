@@ -174,17 +174,18 @@ augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
 
 call plug#begin()
 " Plug 'rdnajac/after'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 " only load plugins on certain filetypes
 Plug 'lervag/vimtex', { 'for': 'tex' }

@@ -30,7 +30,6 @@ return {
     end,
   },
 
-  ---@module 'blink.cmp'
   {
     'Saghen/blink.cmp',
     dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
