@@ -42,7 +42,6 @@ return {
           end,
         },
         { '<leader><tab>', group = 'tabs' },
-        { '<localleader>l', group = 'vimtex', icon = { icon = ' ', color = 'yellow' } },
 
         -- better descriptions
         { 'gx', desc = 'Open with system app' },
