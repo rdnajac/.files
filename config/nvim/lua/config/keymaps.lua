@@ -10,6 +10,7 @@ del('n', '<leader>cm')
 del('n', '<leader>qq')
 
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
+map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
 
 -- stylua: ignore start
@@ -40,8 +41,8 @@ nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
 nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
 -- import utils
-local changedir = require('util.changedir').changedir
-local quickconfig = require('util.quickconfig').quickconfig
+local cd = require('util.file').cd
+local quickconfig = require('util.file').quickconfig
 
 -- stylua: ignore
 require('which-key').add({
@@ -58,16 +59,18 @@ require('which-key').add({
   { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
   { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\u', function() quickconfig('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
   { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
 
   { ',', group = 'Utility', icon = { icon = ' ', color = 'green' } },
-  { ',%', function() changedir('here') end,    desc = 'change to buffer directory' },
-  { ',$', function() changedir('gitroot') end, desc = 'change to git root directory' },
-  { ',-', function() changedir('last') end,    desc = 'change to last directory' },
+  { ',%', function() cd('here') end,    desc = 'change to buffer directory' },
+  { ',$', function() cd('gitroot') end, desc = 'change to git root directory' },
+  { ',-', function() cd('last') end,    desc = 'change to last directory' },
 
   { '<localleader>f', group = 'File'},
-  { ',fD',  'Delete!', desc = 'Delete File' },
-  { ',fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
+  { ',fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
+  { ',fR',  '<Cmd>Rename<CR>', desc = 'Rename File' },
+  -- { ',fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
 
   { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
 
