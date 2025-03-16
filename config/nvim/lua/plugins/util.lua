@@ -20,6 +20,8 @@ return {
 
     ---@class snacks.picker.Config
     opts = {
+      bigfile = { enabled = true },
+      quickfile = { enabled = true },
       picker = {
         sources = {
           files = { follow = true },

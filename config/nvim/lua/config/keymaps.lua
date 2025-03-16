@@ -41,8 +41,9 @@ nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
 nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
 -- import utils
-local cd = require('util.file').cd
-local quickconfig = require('util.file').quickconfig
+local file = require('util.file')
+local goto = require('util.goto')
+local cd = goto.directory
 
 -- stylua: ignore
 require('which-key').add({
@@ -52,25 +53,24 @@ require('which-key').add({
     { "<leader>p", '"_dP', desc = "replace without overwriting reg", mode = "v" },
   },
 
+  { 'g%', function() cd('here') end,    desc = 'change to buffer directory' },
+  { 'g$', function() cd('gitroot') end, desc = 'change to git root directory' },
+  { 'g-', function() cd('last') end,    desc = 'change to last directory' },
+
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
-  { '\\a', function() quickconfig('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
+  { '\\a', function() goto.conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
-  { '\\k', function() quickconfig('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\l', function() quickconfig('lazy')     end, desc = 'lazy'},
-  { '\\o', function() quickconfig('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\u', function() quickconfig('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
-  { '\\s', function() quickconfig('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
-
-  { ',', group = 'Utility', icon = { icon = ' ', color = 'green' } },
-  { ',%', function() cd('here') end,    desc = 'change to buffer directory' },
-  { ',$', function() cd('gitroot') end, desc = 'change to git root directory' },
-  { ',-', function() cd('last') end,    desc = 'change to last directory' },
+  { '\\k', function() goto.conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\l', function() goto.conf('lazy')     end, desc = 'lazy'},
+  { '\\o', function() goto.conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\u', function() goto.conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
+  { '\\s', function() goto.conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
 
   { '<localleader>f', group = 'File'},
-  { ',fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
-  { ',fR',  '<Cmd>Rename<CR>', desc = 'Rename File' },
-  -- { ',fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
+  { '<localleader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
+  { '<localleader>fR',  '<Cmd>Rename<CR>', desc = 'Rename File' },
+  { '<localleader>fn',  file.title, desc = 'Add filename to first line' },
 
   { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
 
@@ -138,12 +138,13 @@ Snacks.toggle({
   set = function(state) vim.opt.colorcolumn = state and '81' or '' end,
 }):map('<leader>u\\', { desc = 'Toggle Color Column' })
 -- stylua: ignore end
+
 -- LazyVim has a toggle for dark background, but it doesn't do what you'd expect
 del('n', '<leader>ub')
 Snacks.toggle({
   name = 'Translucency',
   get = function()
-    -- FIXME: This is backwards
+    -- deprecated, use nvim_get_hl(0, { name = 'Normal' })
     return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
   end,
   set = function(state) if state then

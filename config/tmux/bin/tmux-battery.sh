@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Get the battery percentage as a number (remove the % sign)
 battery_percent=$(pmset -g batt | grep -o "[0-9]\{1,3\}%" | tr -d '%')

@@ -19,15 +19,11 @@ return {
 
   {
     'echasnovski/mini.align',
-    event = 'VeryLazy',
-    opts = function()
-      local wk = require('which-key')
-      wk.add({
-        mode = { 'v' },
-        { 'ga', desc = 'Align' },
-        { 'gA', desc = 'Align Visual' },
-      })
-    end,
+    opts = {},
+    keys = {
+      { 'ga', mode = 'x', desc = 'Align' },
+      { 'gA', mode = 'x', desc = 'Align Visual' },
+    },
   },
 
   {

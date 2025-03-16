@@ -10,6 +10,13 @@ git clone https://github.com/neovim/neovim.git
 cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 ```
 
+
+## FIX THIS!
+
+Opening snacks dashbboard on nvim start with no args has the statusline
+highlighted
+
+
 ## Resources
 
 - [Neovim](https://neovim.io/)
