@@ -6,7 +6,7 @@ local M = {}
 --   mapping: key mapping string (e.g. '<localleader>ta')
 --   desc: description for the mapping (optional)
 -- @return the Snacks toggle object
-M.toggle = function(opts)
+M.flag = function(opts)
   local name = opts.name
   local default = opts.default or 1
   local mapping = opts.mapping
@@ -34,7 +34,7 @@ M.toggle = function(opts)
     toggle:map(mapping, { desc = desc })
   end
 
-  -- return toggle
+  return toggle
 end
 
 return M

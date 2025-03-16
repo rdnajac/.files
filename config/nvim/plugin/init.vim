@@ -48,12 +48,6 @@ cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' 
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
 
-
-augroup munchies
-  autocmd!
-  autocmd TermOpen * echom &b:channel
-augroup END
-
 augroup FileTypeSettings
   autocmd!
   " set default for all files, then override for specific filetypes

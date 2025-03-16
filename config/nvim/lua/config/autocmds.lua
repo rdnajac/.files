@@ -18,7 +18,6 @@ local audebug = function(ev)
   print(string.format('event fired: %s', vim.inspect(ev)))
 end
 
-
 --------------------------------------------------------------------------------
 -- `User` autocmds are not executed automatically. Use `:doautocmd` to trigger
 
@@ -88,3 +87,15 @@ au('FileType', {
   desc = 'Do not highlight vimscript wrapped in `vim.cmd([[...]])`',
 })
 
+--------------------------------------------------------------------------------
+
+au('TermOpen', {
+  group = aug('munchies'),
+  callback = function(args)
+    -- args.buf contains the buffer that triggered the autocmd
+    if vim.bo[args.buf].filetype == 'snacks_terminal' then
+      vim.g.MyTermChannel = vim.bo[args.buf].channel
+    end
+  end,
+  desc = 'Capture most recently opened terminal channel',
+})
