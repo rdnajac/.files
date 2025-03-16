@@ -21,6 +21,14 @@ set foldopen+=insert,jump               " when to open folds
 set iskeyword+=_                        " vim word separation
 set wildmode=longest:full,full
 
+
+" double-tap comma to escape to normal mode from terminal
+tnoremap <silent> ,, <C-\><C-n>
+
+" ctrl + c to quit terminal mode
+tnoremap <silent> <C-c> <Cmd>q!<CR>
+
+
 " no Ex mode, instead Q formats and saves
 nnoremap Q <nop>
 nnoremap gQ <nop>
@@ -39,6 +47,12 @@ cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' 
 
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
+
+
+augroup munchies
+  autocmd!
+  autocmd TermOpen * echom &b:channel
+augroup END
 
 augroup FileTypeSettings
   autocmd!

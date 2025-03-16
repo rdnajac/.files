@@ -109,7 +109,6 @@ return {
           scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
           termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
         },
-        terminal = { win = { wo = { winbar = '' } } },
           ---@class snacks.dashboard.Config
           -- stylua: ignore
           dashboard = {

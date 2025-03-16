@@ -47,6 +47,7 @@ return {
         { 'gx', desc = 'Open with system app' },
 
         -- keep things tidy
+        { 'g~', hidden = true },
         { 'gc', hidden = true },
         { 'gQ', hidden = true },
       }

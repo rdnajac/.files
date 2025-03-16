@@ -9,6 +9,7 @@ del('n', '<leader>fn')
 del('n', '<leader>cm')
 del('n', '<leader>qq')
 
+map({'n', 't'}, '<C-\\>', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
@@ -56,6 +57,10 @@ require('which-key').add({
   { 'g%', function() cd('here') end,    desc = 'change to buffer directory' },
   { 'g$', function() cd('gitroot') end, desc = 'change to git root directory' },
   { 'g-', function() cd('last') end,    desc = 'change to last directory' },
+  { 'g0', function() goto.README() end, desc = 'Goto Nearest README' },
+  { '\\0', function() goto.README() end, desc = 'Goto Nearest README' },
+  { 'gL', function() goto.lazy() end,  desc = 'Goto LazyVim config or module' },
+  { 'gP', ':!open $(dirname %)<CR>',  desc = 'Goto Parent Directory (in finder)' },
 
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
@@ -84,6 +89,7 @@ require('which-key').add({
   { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
 
   -- file/find
+  { '<leader>fG', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'GitHub Repos' },
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
