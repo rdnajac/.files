@@ -37,7 +37,6 @@ alias chx='chmod u+x'   # make a file executable
 alias sync='rsync -avz --progress --exclude=".*"'
 
 alias pip=pip3
-alias nv=nvim
 
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
 alias zz=fg
