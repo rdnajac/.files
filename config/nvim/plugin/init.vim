@@ -1,6 +1,6 @@
 " init.vim
 let s:vimrc = expand('<sfile>')
-" Open this file with <leader>v {{{
+" Edit this file with `<leader>v` {{{
 if !exists('*VimConfig')
   function! VimConfig() abort
     execute 'edit ' . s:vimrc
@@ -8,7 +8,7 @@ if !exists('*VimConfig')
   nnoremap <leader>v :call VimConfig()<CR>
 endif
 " }}}
-" Source this file with <leader>r to reload configuration {{{
+" Source this file with `<leader>r` to reload configuration {{{
 if !exists('*ReloadVimConfig')
   function! ReloadVimConfig() abort
     execute 'source ' . s:vimrc | echo 'Sourced ' . s:vimrc . '!'
@@ -16,39 +16,42 @@ if !exists('*ReloadVimConfig')
   nnoremap <leader>r :call ReloadVimConfig()<CR>
 endif
 " }}}
-set completeopt=menu,preview,preinsert  " insert completion menu
-set foldopen+=insert,jump               " when to open folds
-set iskeyword+=_                        " vim word separation
+" ----------------------------------------------------------------------------- 
+" general options {{{
+set completeopt=menu,preview,preinsert,longest
+set foldopen+=insert,jump
+set iskeyword+=_
 set wildmode=longest:full,full
-
-
+" }}}
+" terminal key mappings {{{
 " double-tap comma to escape to normal mode from terminal
 tnoremap <silent> ,, <C-\><C-n>
 
 " ctrl + c to quit terminal mode
 tnoremap <silent> <C-c> <Cmd>q!<CR>
-
-
-" no Ex mode, instead Q formats and saves
+" }}}
+" no Ex mode, instead Q formats and saves " {{{
 nnoremap Q <nop>
 nnoremap gQ <nop>
-
-" swap keys to avoid shift + key for common operations
+" }}}
+" Swap <Shift> modifier for some keys {{{
 nnoremap ` ~
 nnoremap ~ `
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
-
+" }}}
+" command line mappings {{{
 " cnoreabbrev !! !./%
 cnoreabbrev ?? verbose set?<Left>
 cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
 
 " creating a command is less problematic than a cmdline abbreviation
 command! Wq wqa!
+" }}}
 
-augroup FileTypeSettings
+augroup FileTypeSettings " {{{
   autocmd!
   " set default for all files, then override for specific filetypes
   autocmd FileType *              setlocal sw=2 sts=2   expandtab
@@ -60,6 +63,7 @@ augroup FileTypeSettings
   autocmd FileType vim,lua        setlocal sw=2 sts=2 kp=:help
   autocmd FileType vim,lua,sh     setlocal nonumber norelativenumber
 augroup END
+" }}}
 " ignored files and directories {{{
 set wildignore+=*.o,*.out,*.a,*.so,*.lib,*.bin,*/.git/*,*.swp,*.swo,
 set wildignore+=*.pdf,*.aux,*.fdb_latexmk,*.fls " LaTeX files

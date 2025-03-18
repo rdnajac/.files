@@ -54,8 +54,12 @@ local function get_config_path(file)
 
   if file_matches_any(file, nvimconfigfiles) then
     return vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua'
+  elseif file == 'init' then
+    return vim.fn.stdpath('config') .. '/init.lua'
   elseif file == 'util' then
     return vim.fn.stdpath('config') .. '/lua/util/init.lua'
+  elseif file == 'munchies' then
+    return vim.fn.stdpath('config') .. '/lua/util/munchies/init.lua'
   else
     return vim.fn.expand(file)
   end

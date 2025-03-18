@@ -16,7 +16,6 @@ set autowrite
 set cursorline
 set formatoptions-=o
 set ignorecase smartcase
-set inccommand=nosplit
 set list
 set mouse=a
 set number relativenumber
@@ -37,9 +36,9 @@ set fillchars+=foldopen:▾,
 set fillchars+=foldsep:\ ,
 set fillchars+=foldsep:│
 set fillchars+=stl:\ ,
-set listchars=trail:¿,tab:→\            " show trailing whitespace and tabs
-set mousescroll=hor:0                   " disable horizontal mouse scroll
+set listchars=trail:¿,tab:→\
 set numberwidth=2
+set inccommand=nosplit
 set shiftwidth=8
 set sidescrolloff=0
 set tabstop=8

@@ -17,8 +17,10 @@ g.loaded_ruby_provider = 0
 set.backup = true
 set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
 set.breakindent = true
+set.inccommand = 'nosplit'
 set.listchars = { trail = '¿', tab = '→ ' }
 set.mousescroll = 'hor:0'
+set.numberwidth = 2
 set.numberwidth = 2
 set.pumblend = 0
 set.shiftwidth = 8

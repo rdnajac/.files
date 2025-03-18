@@ -66,10 +66,12 @@ require('which-key').add({
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
   { '\\a', function() goto.conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
+  { '\\i', function() goto.conf('init')     end, desc = 'init.lua', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() goto.conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() goto.conf('lazy')     end, desc = 'lazy'},
   { '\\o', function() goto.conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
   { '\\u', function() goto.conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
+  { '\\m', function() goto.conf('munchies')     end, desc = 'munchies',  icon = { icon = '🍬' } },
   { '\\s', function() goto.conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
 
   { '<localleader>f', group = 'File'},

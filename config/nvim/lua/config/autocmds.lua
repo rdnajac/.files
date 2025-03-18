@@ -89,13 +89,3 @@ au('FileType', {
 
 --------------------------------------------------------------------------------
 
-au('TermOpen', {
-  group = aug('munchies'),
-  callback = function(args)
-    -- args.buf contains the buffer that triggered the autocmd
-    if vim.bo[args.buf].filetype == 'snacks_terminal' then
-      vim.g.MyTermChannel = vim.bo[args.buf].channel
-    end
-  end,
-  desc = 'Capture most recently opened terminal channel',
-})
