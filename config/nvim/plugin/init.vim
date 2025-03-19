@@ -16,7 +16,7 @@ if !exists('*ReloadVimConfig')
   nnoremap <leader>r :call ReloadVimConfig()<CR>
 endif
 " }}}
-" ----------------------------------------------------------------------------- 
+" -------------------------------------------------------------
 " general options {{{
 set completeopt=menu,preview,preinsert,longest
 set foldopen+=insert,jump
