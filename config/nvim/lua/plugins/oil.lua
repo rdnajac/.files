@@ -56,7 +56,8 @@ return {
           if is_dotfile then
             return not git_status[dir].tracked[name]
           else
-            return git_status[dir].ignored[name]
+            -- return git_status[dir].ignored[name]
+            return false
           end
         end,
       },

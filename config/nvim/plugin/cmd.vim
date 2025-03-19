@@ -2,7 +2,7 @@
 
 let s:newline = "\n"
 
-function s:linefeed() " {{{
+function! s:linefeed() abort " {{{
   let i = line(".") + 1
   call cursor(i, 1)
   let curline = substitute(getline("."), '^\s*', "", "")
@@ -15,47 +15,35 @@ function s:linefeed() " {{{
   endwhile
 endfunction
 " }}}
-
-function! s:scroll() " {{{
-  let isnormal = mode() ==# 'n'
-  let curwin = winnr()
-
-  " Find the window containing the buffer with our terminal channel
-  for i in range(1, winnr('$'))
-    let bufnr = winbufnr(i)
+function! s:scroll() abort " {{{
+  for bufnr in range(1, bufnr('$'))
     if getbufvar(bufnr, '&buftype') == 'terminal' && getbufvar(bufnr, '&channel') == g:MyTermChannel
-      execute i . 'wincmd w'
-      call cursor('$', 1)
+      for win_id in nvim_list_wins()
+        if nvim_win_get_buf(win_id) == bufnr
+          let line_count = nvim_buf_line_count(bufnr)
+          call nvim_win_set_cursor(win_id, [line_count, 0])
+        endif
+      endfor
       break
     endif
   endfor
-
-  " Return to original window
-  execute curwin . 'wincmd w'
-  if isnormal
-    stopinsert
-  endif
 endfunction
 " }}}
-
-function s:mychansend(text) abort
+function s:mychansend(text) abort " {{{
   if !exists('g:MyTermChannel')
     echoerr "No terminal channel found"
     return
   endif
-  if g:cmd_auto_scroll
-    call s:scroll()
-  endif
   call chansend(g:MyTermChannel, a:text)
-  if g:cmd_auto_advance
-    call s:linefeed()
-  endif
+  if g:cmd_auto_advance | call s:linefeed() | endif
 endfunction
+" }}}
 
 function SendLine()
   let line = getline(".")
   if strlen(line) > 0
     call s:mychansend(line . s:newline)
+    if g:cmd_auto_scroll | call s:scroll() | endif
   endif
 endfunction
 
@@ -72,7 +60,6 @@ endfunction
 function SendSelection() range
   let lines = split(s:tostring(), "\n")
   for line in lines
-    " TODO: check if we have the var
     call chansend(g:MyTermChannel, line . s:newline)
     " call s:mychansend(line . s:newline)
   endfor
@@ -109,4 +96,4 @@ endfunction
 
 nnoremap <expr> <CR> MapCR()
 
-" vim: set fdm=marker
+" vim: fdm=marker fdl=0

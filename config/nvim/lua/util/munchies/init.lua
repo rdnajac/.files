@@ -11,7 +11,7 @@ flag({
 
 flag({
   name = 'cmd_auto_scroll',
-  default = 0,
+  default = 1,
   mapping = '<localleader>ts',
   desc = 'Toggle Auto Scroll',
   label = 'Auto Scroll',
@@ -19,19 +19,16 @@ flag({
 
 flag({
   name = 'cmd_send_on_enter',
-  default = 0,
+  default = 1,
   mapping = '<localleader>t<CR>',
   desc = 'Toggle Send on Enter',
   label = 'Send Line',
 })
 
-local function aug(name)
-  return vim.api.nvim_create_augroup('munchies_' .. name, { clear = true })
-end
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
-  group = aug('dashboard'),
+  group = vim.api.nvim_create_augroup('munchies_dashboard', { clear = true }),
   callback = function()
     if vim.bo.filetype == 'snacks_dashboard' then
       local original_laststatus = vim.o.laststatus
@@ -49,7 +46,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 vim.api.nvim_create_autocmd('TermOpen', {
-  group = aug('terminal'),
+  group = vim.api.nvim_create_augroup('munchies_terminal', { clear = true }),
   callback = function(args)
     -- args.buf contains the buffer that triggered the autocmd
     if vim.bo[args.buf].filetype == 'snacks_terminal' then

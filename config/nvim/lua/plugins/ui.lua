@@ -77,6 +77,7 @@ return {
     opts = function()
       ---@type snacks.Config
       return {
+        image = { enabled = vim.env.TERM == 'xterm-kitty' },
         indent = { enabled = true },
         input = { enabled = true },
         scope = { enabled = true },
@@ -98,13 +99,8 @@ return {
           ---@class snacks.dashboard.Config
           -- stylua: ignore
         dashboard = {
-          formats = {
-            key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
-          },
-        -- TODO: override keys section
-          sections = {
-            { section = 'terminal', cmd = require('util.munchies.terminal').unown(), padding = 1, width = 69},
-            { padding = 1 },
+          preset = {
+            keys = {
             { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
               section = 'recent_files', indent = 2,
             },
@@ -116,8 +112,18 @@ return {
             { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
             { icon = ' ', key = 'x', desc = 'Extras',   action = ':LazyExtras' },
             { icon = ' ', key = 'q', desc = 'Quit',     action = ':qa' },
+            }
+          },
+          formats = {
+            key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
+          },
+          sections = {
+            { section = 'terminal', cmd = require('util.munchies.terminal').unown(), padding = 1, width = 69},
+            { padding = 1 },
+            { section = 'keys'},
             { section = 'terminal', cmd = require('util.munchies.terminal').cowsay(), hl = 'header', padding = 1, indent = 8 },
-            { section = 'startup', padding = 1, },
+            { padding = 1 },
+            { section = 'startup',},
           },
         },
       }

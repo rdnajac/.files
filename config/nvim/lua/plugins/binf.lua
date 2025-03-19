@@ -6,7 +6,6 @@ return {
       vim.g.rout_follow_colorscheme = true
     end,
     opts = function()
-      ---@type RConfigUserOpts
       local opts = {
         R_args = { '--quiet', '--no-save' },
         pdfviewer = '',
@@ -31,23 +30,20 @@ return {
       opts.hook = {
         -- configure keymaps that don't require an R session
         on_filetype = function()
+          vim.cmd([[setlocal keywordprg=:RHelp]]) -- Get help with <leader>K
+
           mapplug(',,', 'RStart')
           mapplug(']r', 'NextRChunk')
           mapplug('[r', 'PreviousRChunk')
-          vim.cmd([[setlocal keywordprg=:RHelp]]) -- Get help with <leader>K
-        end,
+          map('v', '<CR>', '<Plug>RSendSelection', 'Send Selection')
+          mapplug('<CR>', 'RDSendLine')
+          mapplug('<M-CR>', 'RInsertLineOutput')
 
-        -- configure keymaps for use within an R session
-        after_R_start = function()
           require('which-key').add({
             { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
             { '<localleader>re', group = 'renv' },
           })
 
-          map('v', '<CR>', '<Plug>RSendSelection', 'Send Selection')
-
-          mapplug('<CR>', 'RDSendLine')
-          mapplug('<M-CR>', 'RInsertLineOutput')
           mapplug('<localleader>r<CR>', 'RSendFile')
           mapplug('<localleader>rq', 'RClose')
           mapplug('<localleader>rD', 'RSetwd')
@@ -63,14 +59,18 @@ return {
         end,
       }
 
-      -- to configure a remote R session, run `nvim --cmd "let g:R_is_remote = 1"`
+      -- If R is remote, extend the options table with remote-specific settings
+      -- To configure a remote R session, run `nvim --cmd "let g:R_is_remote = 1"`
       if vim.g.R_is_remote then
-        opts.R_app = '/Users/rdn/.local/bin/sshR'
-        opts.R_cmd = '/Users/rdn/.local/bin/sshR'
-        opts.compldir = '/Users/rdn/.remoteR'
-        opts.remote_compldir = '/home/ubuntu/.cache/R.nvim'
-        opts.local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim'
+        opts = vim.tbl_extend('force', opts, {
+          R_app = '/Users/rdn/.local/bin/sshR',
+          R_cmd = '/Users/rdn/.local/bin/sshR',
+          compldir = '/Users/rdn/.remoteR',
+          remote_compldir = '/home/ubuntu/.cache/R.nvim',
+          local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
+        })
       end
+
       return opts
     end,
   },
