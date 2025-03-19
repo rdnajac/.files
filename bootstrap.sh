@@ -1,11 +1,16 @@
 #!/usr/bin/env sh
 ## Symlink all dotfiles
-set -eu
+set -eux
 
 THISDIR=$(dirname "$(realpath "$0")")
 
 # ln -sfnv "${THISDIR}/home/.Rprofile" "${HOME}/.Rprofile"
 ln -sfnv "${THISDIR}/home/.bash_aliases" "${HOME}/.bash_aliases"
+
+
+if [ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}" ]; then
+	mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/"
+fi
 
 for confdir in ./config/*; do
 	ln -sfnv "$(realpath "$confdir")" "${XDG_CONFIG_HOME:-$HOME/.config}/$(basename "$confdir")"
@@ -26,4 +31,4 @@ if [ -f "\${ZDOTDIR}/.zshenv" ]; then
 fi
 EOF
 
-exec "$SHELL"
+exec zsh --login

@@ -8,6 +8,7 @@ Build from source:
 ```sh
 git clone https://github.com/neovim/neovim.git
 cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
+cd  .. && ls
 ```
 
 
@@ -26,6 +27,15 @@ highlighted
 - <https://boltless.me/posts/neovim-config-without-plugins-2025/>
 
 ---
+
+## Snacks Image
+
+Equation to do null hypothesis testing:
+
+$$
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}
+$$
+
 
 > The computing scientist's main challenge is not to get confused
 > by the complexities of his own making.
