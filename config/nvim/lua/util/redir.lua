@@ -6,34 +6,25 @@ local log = require("plenary.log").new({
   plugin = "redir",
 })
 
-local function redir_open_win(buf, vertical, stderr_p)
-  local wn = stderr_p and "redir_sterr_win" or "redir_win"
-  if vim.g[wn] == nil then
-    local win = vim.api.nvim_open_win(buf, true, {
-      vertical = vertical,
-    })
-    vim.api.nvim_create_autocmd("WinClosed", {
-      pattern = { string.format("%d", win) },
-      callback = function()
-        vim.g[wn] = nil
-      end,
-    })
-    vim.g[wn] = win
-  else
-    vim.api.nvim_win_set_buf(vim.g[wn], buf)
-  end
-end
 
-local function redir_vim_command(cmd, vertical)
-  vim.cmd("redir => output")
-  vim.cmd("silent " .. cmd)
-  vim.cmd("redir END")
-  local output = vim.fn.split(vim.g.output, "\n")
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
+-- local function redir_open_win(buf, vertical, stderr_p)
+--   local wn = stderr_p and "redir_sterr_win" or "redir_win"
+--   if vim.g[wn] == nil then
+--     local win = vim.api.nvim_open_win(buf, true, {
+--       vertical = vertical,
+--     })
+--     vim.api.nvim_create_autocmd("WinClosed", {
+--       pattern = { string.format("%d", win) },
+--       callback = function()
+--         vim.g[wn] = nil
+--       end,
+--     })
+--     vim.g[wn] = win
+--   else
+--     vim.api.nvim_win_set_buf(vim.g[wn], buf)
+--   end
+-- end
 
-  redir_open_win(buf, vertical)
-end
 
 local function redir_shell_command(cmd, lines, vertical, stderr_p)
   local shell_cmd = {

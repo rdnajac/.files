@@ -38,7 +38,6 @@ set fillchars+=foldsep:│
 set fillchars+=stl:\ ,
 set listchars=trail:¿,tab:→\
 set numberwidth=2
-set inccommand=nosplit
 set shiftwidth=8
 set sidescrolloff=0
 set tabstop=8

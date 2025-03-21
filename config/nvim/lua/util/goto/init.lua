@@ -33,36 +33,23 @@ local function edit(file, should_warn)
   end
 end
 
---- Check if a file matches any in a list
---- @param file string: The filename to check
---- @param file_list table: List of filenames to match against
---- @return boolean: True if the file matches any in the list
-local function file_matches_any(file, file_list)
-  for _, filename in ipairs(file_list) do
-    if file == filename then
-      return true
-    end
-  end
-  return false
-end
-
 --- Get the path for a config file based on its type
 --- @param file string: The name of the config file without extension
 --- @return string: The full path to the config file
 local function get_config_path(file)
-  local nvimconfigfiles = { 'autocmds', 'keymaps', 'lazy', 'options' }
+  -- stylua: ignore
+  local config_paths = {
+    autocmds = vim.fn.stdpath('config') .. '/lua/config/autocmds.lua',
+    keymaps  = vim.fn.stdpath('config') .. '/lua/config/keymaps.lua',
+    lazy     = vim.fn.stdpath('config') .. '/lua/config/lazy.lua',
+    options  = vim.fn.stdpath('config') .. '/lua/config/options.lua',
 
-  if file_matches_any(file, nvimconfigfiles) then
-    return vim.fn.stdpath('config') .. '/lua/config/' .. file .. '.lua'
-  elseif file == 'init' then
-    return vim.fn.stdpath('config') .. '/init.lua'
-  elseif file == 'util' then
-    return vim.fn.stdpath('config') .. '/lua/util/init.lua'
-  elseif file == 'munchies' then
-    return vim.fn.stdpath('config') .. '/lua/util/munchies/init.lua'
-  else
-    return vim.fn.expand(file)
-  end
+    init     = vim.fn.stdpath('config') .. '/init.lua',
+    util     = vim.fn.stdpath('config') .. '/lua/util/init.lua',
+    munchies = vim.fn.stdpath('config') .. '/lua/util/munchies/init.lua',
+  }
+
+  return config_paths[file] or vim.fn.expand(file)
 end
 
 --- Edit a configuration file
@@ -81,7 +68,7 @@ function M.lazy()
 
   -- Check if it's a LazyVim config file
   local config_files = { 'options.lua', 'keymaps.lua', 'autocmds.lua', 'lazy.lua' }
-  if file_matches_any(current_file, config_files) then
+  if vim.tbl_contains(config_files, current_file) then
     file_to_edit = LazyVimConfigPath .. '/' .. current_file
   else
     -- Special cases for specific files
