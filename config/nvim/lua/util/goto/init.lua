@@ -141,4 +141,27 @@ function M.README()
   warn('No README file found.')
 end
 
+--- Navigate to filetype-specific files
+--- @param target string Type of file to edit ("plugin" or "snippets")
+--- @return boolean True if the file was successfully edited
+function M.ft(target)
+  local ft = vim.bo.ft
+  if ft == '' then
+    warn('No filetype detected for current buffer')
+    return false
+  end
+
+  local path
+  if target == 'plugin' then
+    path = vim.fn.stdpath('config') .. '/after/ftplugin/' .. ft .. '.vim'
+  elseif target == 'snippets' then
+    path = vim.fn.stdpath('config') .. '/snippets/' .. ft .. '.json'
+  else
+    warn('Invalid target: ' .. target)
+    return false
+  end
+
+  return edit(path, true)
+end
+
 return M

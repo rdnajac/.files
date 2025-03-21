@@ -7,8 +7,9 @@ del('n', '<leader>wd')
 del('n', '<leader>wm')
 del('n', '<leader>fn')
 del('n', '<leader>cm')
-del('n', '<leader>qq')
+-- del('n', '<leader>qq')
 
+map('n', ',,', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
 map({'n', 't'}, '<C-\\>', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
@@ -77,7 +78,9 @@ require('which-key').add({
   { '<localleader>f', group = 'File'},
   { '<localleader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
   { '<localleader>fR',  '<Cmd>Rename<CR>', desc = 'Rename File' },
-  { '<localleader>fn',  file.title, desc = 'Add filename to first line' },
+  { '<localleader>fn', file.title, desc = 'Add file title' } ,
+  { '<localleader>ft', function() goto.ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
+  { '<localleader>fs', function() goto.ft('snippets') end, desc = 'Edit snippets for current filetype' },
 
   { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
 
