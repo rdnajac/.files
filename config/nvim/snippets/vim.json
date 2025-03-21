@@ -1,7 +1,13 @@
 {
-  "if_exists": {
-    "prefix": "exists",
+  "if_exists_equals": {
+    "prefix": "ifee",
     "body": ["if !exists('g:${1}')", "let g:${1} = ${2:1}", "endif"],
+    "description": "Global variable declaration"
+  },
+
+  "ifef": {
+    "prefix": "ifef",
+    "body": ["if !exists('g:${1}')", "  finish", "endif"],
     "description": "Global variable declaration"
   }
 }

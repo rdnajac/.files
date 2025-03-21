@@ -2,17 +2,17 @@
   "name": "my-snippets",
   "contributes": {
     "snippets": [
-      { "language": "vim",       "path": "./snippets/vim.json" },
-      { "language": "c",            "path": "./snippets/c/c.json" },
-      { "language": "cdoc",         "path": "./snippets/c/cdoc.json" },
-      { "language": "cpp",          "path": "./snippets/cpp/cpp.json" },
-      { "language": "cppdoc",       "path": "./snippets/cpp/cppdoc.json" },
+      { "language": "vim",          "path": "./vim.json" },
+      { "language": "c",            "path": "./c/c.json" },
+      { "language": "cdoc",         "path": "./c/cdoc.json" },
+      { "language": "cpp",          "path": "./cpp/cpp.json" },
+      { "language": "cppdoc",       "path": "./cpp/cppdoc.json" },
       { "language": "json",         "path": "./json.json" },
       { "language": "cmake",        "path": "./cmake.json" },
-      { "language": "lua",          "path": "./snippets/lua/lua.json" },
-      { "language": "luadoc",       "path": "./snippets/lua/luadoc.json" },
-      { "language": "dockerfile",   "path": "./snippets/docker/docker_file.json" },
-      { "language": "yaml",         "path": "./snippets/docker/docker-compose.json" },
+      { "language": "lua",          "path": "./lua/lua.json" },
+      { "language": "luadoc",       "path": "./lua/luadoc.json" },
+      { "language": "dockerfile",   "path": "./docker/docker_file.json" },
+      { "language": "yaml",         "path": "./docker/docker-compose.json" },
       { "language": "editorconfig", "path": "./editorconfig.json" },
       { "language": "gitcommit",    "path": "./gitcommit.json" },
       { "language": "global",       "path": "./global.json" },
@@ -20,12 +20,13 @@
       { "language": "loremipsum",   "path": "./loremipsum.json" },
       { "language": "make",         "path": "./make.json" },
       { "language": "markdown",     "path": "./markdown.json" },
+      { "language": "quarto",       "path": "./quarto.json" },
       { "language": "rmarkdown",    "path": "./rmarkdown.json" },
-      { "language": "pydoc",        "path": "./snippets/python/pydoc.json" },
-      { "language": "python",       "path": "./snippets/python/python.json" },
-      { "language": "python",       "path": "./snippets/python/comprehension.json" },
-      { "language": "python",       "path": "./snippets/python/unittest.json" },
-      { "language": "python", "path": "./snippets/python/debug.json" },
+      { "language": "pydoc",        "path": "./python/pydoc.json" },
+      { "language": "python",       "path": "./python/python.json" },
+      { "language": "python",       "path": "./python/comprehension.json" },
+      { "language": "python",       "path": "./python/unittest.json" },
+      { "language": "python", "path": "./python/debug.json" },
       { "language": ["r", "rmd", "quatro"],            "path": "./r.json" },
       {
         "language": [
@@ -46,11 +47,11 @@
           "ocaml",
           "ocamlinterface"
         ],
-        "path": "./snippets/ocaml/ocaml.json"
+        "path": "./ocaml/ocaml.json"
       },
-      { "language": "ocaml.ocamllex", "path": "./snippets/ocaml/ocamllex.json" },
-      { "language": "dune-project", "path": "./snippets/ocaml/dune-project.json" },
-      { "language": "dune", "path": "./snippets/ocaml/dune.json" }
+      { "language": "ocaml.ocamllex", "path": "./ocaml/ocamllex.json" },
+      { "language": "dune-project", "path": "./ocaml/dune-project.json" },
+      { "language": "dune", "path": "./ocaml/dune.json" }
     ]
   }
 }

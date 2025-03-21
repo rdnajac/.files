@@ -23,6 +23,10 @@ cd  .. && ls
 Opening snacks dashbboard on nvim start with no args has the statusline
 highlighted
 
+## TODO
+
+delete swp file on recover
+
 ## Resources
 
 - [Neovim](https://neovim.io/)

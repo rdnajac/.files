@@ -34,6 +34,10 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            completion = {
+              callSnippet = 'Disable',
+              keywordSnippet = 'Disable',
+            },
             diagnostics = {
               disable = { 'missing-fields' },
             },
@@ -46,12 +50,12 @@ return {
         }),
       },
       r_language_server = {
-              root_dir = function(fname)
-                return require("lspconfig.util").root_pattern("DESCRIPTION", "NAMESPACE", ".Rbuildignore")(fname)
-                  or require("lspconfig.util").find_git_ancestor(fname)
-                  or vim.loop.os_homedir()
-              end,
-            },
+        root_dir = function(fname)
+          return require('lspconfig.util').root_pattern('DESCRIPTION', 'NAMESPACE', '.Rbuildignore')(fname)
+            or require('lspconfig.util').find_git_ancestor(fname)
+            or vim.loop.os_homedir()
+        end,
+      },
     }
   end,
 }

@@ -27,7 +27,7 @@ return {
   },
 
   {
-    'Saghen/blink.cmp',
+    'Saghen/blink.cmp', -- https://cmp.saghen.dev/
     dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
     ---@type blink.cmp.Config
     opts = {
@@ -35,6 +35,13 @@ return {
         accept = { auto_brackets = { enabled = false } },
         documentation = { window = { border = 'single' } },
         menu = {
+          draw = {
+            columns = {
+              { 'label', 'label_description', gap = 1 },
+              { 'kind_icon', 'kind' , 'source_name', },
+
+            },
+          },
           auto_show = false,
           border = 'rounded',
         },
@@ -46,22 +53,45 @@ return {
 
       keymap = {
         preset = 'super-tab',
-        ['J'] = {
-          function(cmp)
-            if cmp.is_menu_visible() then
-              return cmp.select_next()
-            end
-          end,
-          'fallback',
-        },
-        ['K'] = {
-          function(cmp)
-            if cmp.is_menu_visible() then
-              return cmp.select_prev()
-            end
-          end,
-          'fallback',
-        },
+      --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      --   ['<C-e>'] = { 'hide' },
+      --   ['<C-y>'] = { 'select_and_accept' },
+      --
+      --   ['<Up>'] = { 'select_prev', 'fallback' },
+      --   ['<Down>'] = { 'select_next', 'fallback' },
+      --   ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+      --   ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+      --
+      --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+      --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+      --
+      --   ['<Tab>'] = { 'snippet_forward', 'fallback' },
+      --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      --
+      --   ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+      --   -- ctrl_j to pull up snippets
+      --   ['<C-j>'] = {
+      --     function(cmp)
+      --       cmp.show({ providers = { 'snippets' } })
+      --     end,
+      --   },
+      --
+      --   ['J'] = {
+      --     function(cmp)
+      --       if cmp.is_menu_visible() then
+      --         return cmp.select_next()
+      --       end
+      --     end,
+      --     'fallback',
+      --   },
+      --   ['K'] = {
+      --     function(cmp)
+      --       if cmp.is_menu_visible() then
+      --         return cmp.select_prev()
+      --       end
+      --     end,
+      --     'fallback',
+      --   },
       },
 
       cmdline = {
@@ -71,7 +101,8 @@ return {
 
       sources = {
         compat = {},
-        default = { 'lazydev', 'path', 'lsp', 'snippets' },
+        -- default = { 'lazydev', 'path', 'lsp', 'snippets' },
+        default = {  'snippets' },
 
         providers = {
           path = {
@@ -94,14 +125,6 @@ return {
             opts = {
               friendly_snippets = false,
               search_paths = { vim.fn.stdpath('config') .. '/snippets' },
-              global_snippets = { 'all' },
-              extended_filetypes = {},
-              ignored_filetypes = {},
-              get_filetype = function(_)
-                return vim.bo.filetype
-              end,
-              -- Set to '+' to use the system clipboard, or '"' to use the unnamed register
-              clipboard_register = nil,
             },
           },
         },
