@@ -30,6 +30,24 @@ return {
     opts = {
       bigfile = { enabled = true },
       quickfile = { enabled = true },
+      scratch = {
+        ---@type table<string, snacks.win.Config>
+        win_by_ft = {
+          vim = {
+            keys = {
+              ['source'] = {
+                '<cr>',
+                function(self)
+                  local bufname = vim.api.nvim_buf_get_name(self.buf)
+                  vim.cmd('source ' .. vim.fn.fnameescape(bufname))
+                end,
+                desc = 'Source buffer',
+                mode = { 'n', 'x' },
+              },
+            },
+          },
+        },
+      },
 
       ---@class snacks.terminal.Config
       terminal = {
