@@ -1,5 +1,3 @@
-# !/usr/bin/env bat
-
 # nvim config
 
 ## Installation
@@ -18,15 +16,6 @@ cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 cd  .. && ls
 ```
 
-## FIX THIS
-
-Opening snacks dashbboard on nvim start with no args has the statusline
-highlighted
-
-## TODO
-
-delete swp file on recover
-
 ## Resources
 
 - [Neovim](https://neovim.io/)
@@ -37,7 +26,15 @@ delete swp file on recover
 
 ---
 
-## Snacks Image
+## Snacks
+
+### text
+
+```sh
+l
+```
+
+### Image
 
 Equation to do null hypothesis testing:
 

@@ -77,7 +77,7 @@ require('which-key').add({
 
   { '<localleader>f', group = 'File'},
   { '<localleader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
-  { '<localleader>fR',  '<Cmd>Rename<CR>', desc = 'Rename File' },
+  { '<localleader>fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
   { '<localleader>fn', file.title, desc = 'Add file title' } ,
   { '<localleader>ft', function() goto.ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
   { '<localleader>fs', function() goto.ft('snippets') end, desc = 'Edit snippets for current filetype' },
@@ -118,7 +118,8 @@ require('which-key').add({
   { '<leader>Oh', 'OHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
   { '<leader>Of', 'OFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
 
-  { '<leader>q', function() Snacks.bufdelete() end,  desc = 'Quit Buffer' },
+  { '<leader>q', '<Cmd>q<CR>',  desc = 'Quit Buffer' },
+  { '<leader>Q', function() Snacks.bufdelete() end,  desc = 'Delete Buffer' },
 
   -- search
   { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
@@ -157,6 +158,7 @@ Snacks.toggle({
   get = function()
     -- deprecated, use nvim_get_hl(0, { name = 'Normal' })
     return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
+    -- return Snacks.util.is_transparent()
   end,
   set = function(state) if state then
       vim.cmd('hi Normal guibg=#000000')

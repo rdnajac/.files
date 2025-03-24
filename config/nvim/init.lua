@@ -26,4 +26,4 @@ require('config.lazy').load({
   },
 })
 
-require('util')
+require('util').setup()

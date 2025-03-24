@@ -6,7 +6,12 @@ local log = require("plenary.log").new({
   plugin = "redir",
 })
 
-
+function ToScratch(text, opts)
+  opts = opts or {}
+  -- opts.name = opts.name or cmd
+  opts.template = table.concat(text, '\n')
+  return Snacks.scratch(opts)
+end
 -- local function redir_open_win(buf, vertical, stderr_p)
 --   local wn = stderr_p and "redir_sterr_win" or "redir_win"
 --   if vim.g[wn] == nil then
@@ -26,6 +31,13 @@ local log = require("plenary.log").new({
 -- end
 
 
+local function redir_vim_command(cmd)
+  vim.cmd("redir => output")
+  vim.cmd("silent " .. cmd)
+  vim.cmd("redir END")
+  local output = vim.fn.split(vim.g.output, "\n")
+  ToScratch(output, {})
+end
 local function redir_shell_command(cmd, lines, vertical, stderr_p)
   local shell_cmd = {
     "sh",

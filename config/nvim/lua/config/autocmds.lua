@@ -72,7 +72,11 @@ au('FileType', {
 au('FileType', {
   group = aug('winhl'),
   pattern = { 'man', 'help' },
-  command = 'setlocal winhighlight=Normal:SpecialWindow',
+  callback = function()
+    if Snacks.util.is_transparent() then
+      vim.cmd([[setlocal winhighlight=Normal:SpecialWindow]])
+    end
+  end,
   desc = 'Set a bg color for certain filetypes',
 })
 
@@ -88,4 +92,3 @@ au('FileType', {
 })
 
 --------------------------------------------------------------------------------
-

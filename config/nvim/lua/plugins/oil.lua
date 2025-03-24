@@ -28,6 +28,20 @@ return {
       end,
     })
 
+    -- Delete file and buffer
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'OilActionsPre',
+      callback = function(event)
+        -- TODO: is this loop necessary?
+        for _, action in ipairs(event.data.actions) do
+          if action.type == 'delete' then
+            local _, path = require('oil.util').parse_url(action.url)
+            Snacks.bufdelete({ file = path, force = true })
+          end
+        end
+      end,
+    })
+
     return {
       default_file_explorer = true,
       columns = {},
@@ -39,7 +53,7 @@ return {
         number = false,
         relativenumber = false,
       },
-      delete_to_trash = true,
+      -- delete_to_trash = true,
       prompt_save_on_select_new_entry = true,
       skip_confirm_for_simple_edits = true,
       constrain_cursor = 'name',
