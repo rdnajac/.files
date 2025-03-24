@@ -82,36 +82,4 @@ return {
     keys = { { '<leader>cp', '<Cmd>QuartoPreview<CR>' } },
     opts = { buffer = { write_to_disk = true } },
   },
-
-  {
-    'jpalardy/vim-slime',
-    enabled = false,
-    init = function()
-      vim.g.slime_target = 'neovim'
-      vim.g.slime_no_mappings = true
-      vim.g.slime_python_ipython = 1
-      vim.g.slime_input_pid = false
-      vim.g.slime_suggest_default = true
-      vim.g.slime_menu_config = false
-      vim.g.slime_neovim_ignore_unlisted = true
-      -- TODO: this is not the place to set this
-      vim.b['quarto_is_python_chunk'] = false
-    end,
-
-    keys = function()
-      local function mark_terminal()
-        local job_id = vim.b.terminal_job_id
-        vim.print('job_id: ' .. job_id)
-      end
-
-      local function set_terminal()
-        vim.fn.call('slime#config', {})
-      end
-
-      return {
-        { ',m', mark_terminal, desc = '[m]ark terminal' },
-        { ',s', set_terminal, desc = '[s]et terminal' },
-      }
-    end,
-  },
 }
