@@ -118,10 +118,10 @@ return {
             key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
           },
           sections = {
-            { section = 'terminal', cmd = require('util.munchies.terminal').unown(), padding = 1, width = 69},
+            { section = 'terminal', cmd = require('util.munchies.dashboard').unown(), padding = 1, width = 69},
             { padding = 1 },
             { section = 'keys'},
-            { section = 'terminal', cmd = require('util.munchies.terminal').cowsay(), hl = 'header', padding = 1, indent = 8 },
+            { section = 'terminal', cmd = require('util.munchies.dashboard').cowsay(), hl = 'header', padding = 1, indent = 9 },
             { padding = 1 },
             { section = 'startup',},
           },

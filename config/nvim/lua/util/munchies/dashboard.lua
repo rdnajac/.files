@@ -29,7 +29,7 @@ M.cowsay = function()
     cmd = 'cowsay ' .. str
   else
     -- Add a timestamp to make each command unique
-    cmd = 'sh -c "fortune -s | cowsay # ' .. os.time() .. '"'
+    cmd = 'fortune -s | cowsay # ' .. os.time()
   end
   return cmd
 end

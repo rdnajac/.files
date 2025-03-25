@@ -53,4 +53,13 @@ return {
       }
     end,
   },
+
+  {
+    'folke/todo-comments.nvim',
+    opts = {
+      highlight = {
+        multiline_pattern = '^[^`]*$', -- match multiline lines that don't contain backticks
+      },
+    },
+  },
 }

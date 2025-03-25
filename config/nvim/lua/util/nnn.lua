@@ -1,4 +1,3 @@
--- config/nvim/lua/util/nnn.lua
 -- https://github.com/bobrown101/minimal-nnn.nvim/blob/main/lua/minimal-nnn.lua
 local M = {}
 
@@ -29,8 +28,9 @@ function M.start()
   })
 end
 
-M.init = function()
+M.setup = function()
   vim.api.nvim_create_user_command('NNN', "lua require('util.nnn').start()", {})
+  vim.keymap.set('n', '<leader>fN', '<Cmd>NNN<CR>')
 end
 
 return M

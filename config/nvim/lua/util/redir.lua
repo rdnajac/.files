@@ -1,35 +1,4 @@
--- config/nvim/lua/util/redir.lua
 -- by: https://gist.github.com/Leenuus/7a2ea47b88bfe16430b42e4e48122718
-
-vim.g.DEBUG = false
-local log = require("plenary.log").new({
-  plugin = "redir",
-})
-
-function ToScratch(text, opts)
-  opts = opts or {}
-  -- opts.name = opts.name or cmd
-  opts.template = table.concat(text, '\n')
-  return Snacks.scratch(opts)
-end
--- local function redir_open_win(buf, vertical, stderr_p)
---   local wn = stderr_p and "redir_sterr_win" or "redir_win"
---   if vim.g[wn] == nil then
---     local win = vim.api.nvim_open_win(buf, true, {
---       vertical = vertical,
---     })
---     vim.api.nvim_create_autocmd("WinClosed", {
---       pattern = { string.format("%d", win) },
---       callback = function()
---         vim.g[wn] = nil
---       end,
---     })
---     vim.g[wn] = win
---   else
---     vim.api.nvim_win_set_buf(vim.g[wn], buf)
---   end
--- end
-
 
 local function redir_vim_command(cmd)
   vim.cmd("redir => output")
@@ -38,6 +7,14 @@ local function redir_vim_command(cmd)
   local output = vim.fn.split(vim.g.output, "\n")
   ToScratch(output, {})
 end
+
+function ToScratch(text, opts)
+  opts = opts or {}
+  -- opts.name = opts.name or cmd
+  opts.template = table.concat(text, '\n')
+  return Snacks.scratch(opts)
+end
+
 local function redir_shell_command(cmd, lines, vertical, stderr_p)
   local shell_cmd = {
     "sh",

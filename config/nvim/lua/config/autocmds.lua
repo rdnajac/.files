@@ -92,3 +92,41 @@ au('FileType', {
 })
 
 --------------------------------------------------------------------------------
+-- HACK: snacks dashboard weird interaction with lualine causes statusline
+-- to be set set upon loading nvim with no args
+-- see `global_statusline`
+
+au('User', {
+  pattern = 'VeryLazy',
+  group = aug('dashboard'),
+  callback = function()
+    if vim.bo.filetype == 'snacks_dashboard' then
+      local original_laststatus = vim.o.laststatus
+
+      vim.cmd('setlocal laststatus=0')
+      vim.api.nvim_create_autocmd('BufLeave', {
+        buffer = 0,
+        once = true,
+        callback = function()
+          vim.o.laststatus = original_laststatus
+        end,
+      })
+    end
+  end,
+})
+
+--------------------------------------------------------------------------------
+-- Capture the chanel of a newly opened terminal
+
+au('TermOpen', {
+  group = aug('terminal'),
+  callback = function(args)
+    -- args.buf contains the buffer that triggered the autocmd
+    if vim.bo[args.buf].filetype == 'snacks_terminal' then
+      -- local channel = vim.bo[args.buf].channel
+      vim.g.ooze_channel = vim.api.nvim_buf_get_var(args.buf, 'terminal_job_id')
+      dd('Terminal job ID:', vim.g.ooze_channel)
+    end
+  end,
+  desc = 'Capture the job ID (`channel`) of a newly opened terminal',
+})

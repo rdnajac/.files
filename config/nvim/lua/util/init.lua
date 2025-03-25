@@ -4,7 +4,7 @@ local M = {}
 M.setup = function()
   require('util.munchies')
   require('util.ooze')
-  require('util.nnn').init()
+  require('util.nnn').setup()
 end
 
 return M
