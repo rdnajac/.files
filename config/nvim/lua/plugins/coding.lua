@@ -26,20 +26,20 @@ return {
     },
   },
 
+  ---@module 'blink.cmp'
   {
     'Saghen/blink.cmp', -- https://cmp.saghen.dev/
     dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
     ---@type blink.cmp.Config
     opts = {
       completion = {
-        accept = { auto_brackets = { enabled = false } },
+        accept = { auto_brackets = { enabled = true } },
         documentation = { window = { border = 'single' } },
         menu = {
           draw = {
             columns = {
               { 'label', 'label_description', gap = 1 },
-              { 'kind_icon', 'kind' , 'source_name', },
-
+              { 'kind_icon', 'kind', 'source_name' },
             },
           },
           auto_show = false,
@@ -53,45 +53,6 @@ return {
 
       keymap = {
         preset = 'super-tab',
-      --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      --   ['<C-e>'] = { 'hide' },
-      --   ['<C-y>'] = { 'select_and_accept' },
-      --
-      --   ['<Up>'] = { 'select_prev', 'fallback' },
-      --   ['<Down>'] = { 'select_next', 'fallback' },
-      --   ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-      --   ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
-      --
-      --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-      --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-      --
-      --   ['<Tab>'] = { 'snippet_forward', 'fallback' },
-      --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-      --
-      --   ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-      --   -- ctrl_j to pull up snippets
-      --   ['<C-j>'] = {
-      --     function(cmp)
-      --       cmp.show({ providers = { 'snippets' } })
-      --     end,
-      --   },
-      --
-      --   ['J'] = {
-      --     function(cmp)
-      --       if cmp.is_menu_visible() then
-      --         return cmp.select_next()
-      --       end
-      --     end,
-      --     'fallback',
-      --   },
-      --   ['K'] = {
-      --     function(cmp)
-      --       if cmp.is_menu_visible() then
-      --         return cmp.select_prev()
-      --       end
-      --     end,
-      --     'fallback',
-      --   },
       },
 
       cmdline = {
@@ -102,7 +63,7 @@ return {
       sources = {
         compat = {},
         -- default = { 'lazydev', 'path', 'lsp', 'snippets' },
-        default = {  'snippets' },
+        default = { 'snippets' },
 
         providers = {
           path = {
