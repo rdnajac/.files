@@ -4,14 +4,16 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
+del('n', '<leader>cm') -- mason
+del('n', '<leader>fn') -- enew
+del('n', '<leader>ft') -- terminal
+del('n', '<leader>fT') -- terminal
 del('n', '<leader>wd')
 del('n', '<leader>wm')
-del('n', '<leader>fn')
-del('n', '<leader>cm')
 -- del('n', '<leader>qq')
 
-map('n', ',,', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
-map('t', ',,', '<Cmd>stopinsert<CR>', { desc = 'Stop Inserting in Terminal' })
+map({'n', 't'}, ',,', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
+
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
@@ -52,8 +54,8 @@ local cd = goto.directory
 require('which-key').add({
   {
     { mode = 'v' },
-    { "<leader>d", '"_d',  desc = "delete without overwriting reg",  mode = "v" },
-    { "<leader>p", '"_dP', desc = "replace without overwriting reg", mode = "v" },
+    { '<leader>d', '"_d',  desc = 'delete without overwriting reg',  mode = 'v' },
+    { '<leader>p', '"_dP', desc = 'replace without overwriting reg', mode = 'v' },
   },
 
   { 'g%', function() cd('here') end,    desc = 'change to buffer directory' },
@@ -75,36 +77,38 @@ require('which-key').add({
   { '\\m', function() goto.conf('munchies')     end, desc = 'munchies',  icon = { icon = '🍬' } },
   { '\\s', function() goto.conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
 
-  { '<localleader>f', group = 'File'},
-  { '<localleader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
-  { '<localleader>fR',  function() Snacks.rename.rename_file() end, desc = 'Rename File' },
-  { '<localleader>fn', file.title, desc = 'Add file title' } ,
-  { '<localleader>ft', function() goto.ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
-  { '<localleader>fs', function() goto.ft('snippets') end, desc = 'Edit snippets for current filetype' },
-
-  { '<localleader>t', group = 'Toggle', icon = { icon = ' ', color = 'red' } },
-
-  -- code
-  { '<leader>co', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes' },
-
   -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
 
-  { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
-
-  -- file/find
+  { '<leader>f', group = 'file/find' },
+  { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
+  { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)' },
+  { '<leader>fc', LazyVim.pick.config_files(), desc = 'Find Config File' },
+  { '<leader>fC',  function() Snacks.rename.rename_file() end, desc = 'Change (rename) File' },
+  { '<leader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
+  { '<leader>ff', LazyVim.pick('files'), desc = 'Find Files (Root Dir)' },
+  { '<leader>fF', LazyVim.pick('files', { root = false }), desc = 'Find Files (cwd)' },
+  { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Find Files (git-files)' },
   { '<leader>fG', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'GitHub Repos' },
-  { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
-  { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
+  { '<leader>fn', file.title, desc = 'Add file title' } ,
+  { '<leader>fp', function() Snacks.picker.projects() end, desc = 'Projects' },
+  { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
+  { '<leader>fr', LazyVim.pick('oldfiles'), desc = 'Recent' },
+  { '<leader>fR', function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = 'Recent (cwd)' },
+  { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
+  { '<leader>ft', function() goto.ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
   { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>fV', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
   { '<leader>f<Space>', function() Snacks.picker() end, desc = 'Pickers' },
 
   -- git
-  { '<leader>ga', ':!git add %<CR>', desc = 'Git Add File' },
+  { '<leader>ga', ':!git add %<CR>', desc = 'Git Add (file)' },
+  { '<leader>gd', function() Snacks.picker.git_diff() end, desc = 'Git Diff (hunks)' },
+  { '<leader>gs', function() Snacks.picker.git_status() end, desc = 'Git Status' },
+  { '<leader>gS', function() Snacks.picker.git_stash() end, desc = 'Git Stash' },
 
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'cyan' } },
   { '<leader>ot', 'oTODO:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'TODO'},
@@ -118,22 +122,44 @@ require('which-key').add({
   { '<leader>Oh', 'OHACK:<esc><Cmd>normal gcc<CR>A<space>',  desc = 'HACK' },
   { '<leader>Of', 'OFIXME:<esc><Cmd>normal gcc<CR>A<space>', desc = 'FIXME' },
 
-  { '<leader>q', '<Cmd>q<CR>',  desc = 'Quit Buffer' },
-  { '<leader>Q', function() Snacks.bufdelete() end,  desc = 'Delete Buffer' },
-
-  -- search
-  { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
+  { '<leader>s', group = 'search/grep' },
+  { '<leader>sa', function() Snacks.picker.autocmds() end, desc = 'Autocmds' },
+  { '<leader>sb', function() Snacks.picker.lines() end, desc = 'Buffer Lines' },
+  { '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers' },
+  { '<leader>sc', function() Snacks.picker.command_history() end, desc = 'Command History' },
+  { '<leader>sC', function() Snacks.picker.commands() end, desc = 'Commands' },
+  { '<leader>sd', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics' },
+  { '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, desc = 'Buffer Diagnostics' },
+  { '<leader>sg', LazyVim.pick('live_grep'), desc = 'Grep (Root Dir)' },
+  { '<leader>sG', LazyVim.pick('live_grep', { root = false }), desc = 'Grep (cwd)' },
+  { '<leader>sh', function() Snacks.picker.help() end, desc = 'Help Pages' },
+  { '<leader>sH', function() Snacks.picker.highlights() end, desc = 'Highlights' },
+  { '<leader>si', function() Snacks.picker.icons() end, desc = 'Icons' },
+  { '<leader>sj', function() Snacks.picker.jumps() end, desc = 'Jumps' },
+  { '<leader>sk', function() Snacks.picker.keymaps() end, desc = 'Keymaps' },
+  { '<leader>sl', function() Snacks.picker.loclist() end, desc = 'Location List' },
   { '<leader>sL', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
+  { '<leader>sM', function() Snacks.picker.man() end, desc = 'Man Pages' },
+  { '<leader>sm', function() Snacks.picker.marks() end, desc = 'Marks' },
+  -- <leader>sn is reserved for noice
+  { '<leader>sN', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
+  { '<leader>sp', function() Snacks.picker.lazy() end, desc = 'Search for Plugin Spec' },
   { '<leader>sP', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File' },
+  { '<leader>sq', function() Snacks.picker.qflist() end, desc = 'Quickfix List' },
+  { '<leader>sR', function() Snacks.picker.resume() end, desc = 'Resume' },
+  { '<leader>su', function() Snacks.picker.undo() end, desc = 'Undotree' },
   { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
+  { '<leader>sw', LazyVim.pick('grep_word'), desc = 'Visual selection or word (Root Dir)', mode = { 'n', 'x' } },
+  { '<leader>sW', LazyVim.pick('grep_word', { root = false }), desc = 'Visual selection or word (cwd)', mode = { 'n', 'x' } },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
+  { '<leader>s:', function() Snacks.picker.command_history() end, desc = 'Command History' },
+  { '<leader>s"', function() Snacks.picker.registers() end, desc = 'Registers' },
+  { '<leader>s/', function() Snacks.picker.search_history() end, desc = 'Search History' },
   { '<leader>s?', function() Snacks.picker.hardway() end, desc = 'Learn Vim Script the Hard Way' },
   -- { '<leader>s?', function() Snacks.picker('grep', {cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'), ignored = true}) end, desc = 'Learn Vim Script the Hard Way' },
 
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
-  { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
-
 })
 
 Snacks.toggle.option('autochdir'):map('<leader>ta')

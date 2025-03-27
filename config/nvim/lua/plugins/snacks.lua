@@ -1,62 +1,21 @@
 return {
   'folke/snacks.nvim',
+  keys = function()
+    return {
+      { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer' },
+      { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
+      { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
+      { "<leader>/", LazyVim.pick("grep"), desc = "Grep (Root Dir)" },
+      { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
+      { '<leader>C', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes' },
+      { '<leader>Q', function() Snacks.bufdelete() end,  desc = 'Delete Buffer' },
+    }
+  end,
   opts = function()
     ---@type snacks.Config
     return {
       bigfile = { enabled = true },
-      explorer = { enabled = true },
-      -- toggle = { map = LazyVim.safe_keymap_set },
-      image = { enabled = vim.env.TERM == 'xterm-kitty' },
-      indent = { enabled = true },
-      input = { enabled = true },
-      notifier = {
-        style = 'fancy',
-        date_format = '%T',
-        timeout = 1000,
-      },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-      scratch = {
-        ---@type table<string, snacks.win.Config>
-        win_by_ft = {
-          vim = {
-            keys = {
-              ['source'] = {
-                '<cr>',
-                function(self)
-                  vim.cmd('source ' .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(self.buf)))
-                end,
-                desc = 'Source buffer',
-                mode = { 'n', 'x' },
-              },
-            },
-          },
-        },
-      },
-      scroll = { enabled = true },
-      statuscolumn = {
-        left = { 'sign' },
-        right = { 'git' },
-      },
-      styles = {
-        notification = { wo = { wrap = true } },
-        scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-        termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-      },
-
-      ---@class snacks.terminal.Config
-      terminal = {
-        start_insert = false,
-        auto_insert = true,
-        auto_close = true,
-        win = {
-          wo = {
-            winbar = '',
-          },
-        },
-      },
-
-      words = { enabled = true },
 
       ---@class snacks.dashboard.Config
       -- stylua: ignore
@@ -87,6 +46,26 @@ return {
           { padding = 1 },
           { section = 'startup',},
         },
+      },
+
+      explorer = { enabled = true },
+      image = { enabled = vim.env.TERM == 'xterm-kitty' },
+
+      ---@class snacks.indent.Config
+      indent = {
+        indent = {
+          only_current = true,
+          only_scope = true,
+        },
+      },
+
+      input = { enabled = true },
+
+      ---@class snacks.notifier.Config
+      notifier = {
+        style = 'fancy',
+        date_format = '%T',
+        timeout = 1000,
       },
 
       ---@class snacks.picker.Config
@@ -156,6 +135,54 @@ return {
           },
         },
       },
+
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+
+      ---@class snacks.scratch.Config
+      scratch = {
+        ---@type table<string, snacks.win.Config>
+        win_by_ft = {
+          vim = {
+            keys = {
+              ['source'] = {
+                '<cr>',
+                function(self)
+                  vim.cmd('source ' .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(self.buf)))
+                end,
+                desc = 'Source buffer',
+                mode = { 'n', 'x' },
+              },
+            },
+          },
+        },
+      },
+
+      scroll = { enabled = true },
+      statuscolumn = {
+        left = { 'sign' },
+        right = { 'git' },
+      },
+      styles = {
+        notification = { wo = { wrap = true } },
+        scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
+        termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
+      },
+
+      ---@class snacks.terminal.Config
+      terminal = {
+        start_insert = true,
+        auto_insert = false,
+        auto_close = true,
+        win = {
+          wo = {
+            winbar = '',
+          },
+        },
+      },
+
+      -- toggle = { map = LazyVim.safe_keymap_set },
+      words = { enabled = true },
     }
   end,
 }

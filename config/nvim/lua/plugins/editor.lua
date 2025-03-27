@@ -2,11 +2,14 @@ return {
   { 'folke/flash.nvim', enabled = false },
   {
     'folke/which-key.nvim',
+
+    ---@class wk.Opts
     opts = function(_, opts)
       opts.keys = {
         scroll_down = '<C-j>',
         scroll_up = '<C-k>',
       }
+      opts.sort = { 'local', 'order', 'alphanum', 'mod' }
       opts.spec = {
         {
           mode = { 'n' },
@@ -20,10 +23,7 @@ return {
         { 'g', group = 'goto' },
         { 'z', group = 'fold' },
         { '<leader>c', group = 'code' },
-        { '<leader>f', group = 'file/find' },
         { '<leader>g', group = 'git' },
-        -- { '<leader>gh', group = 'hunks' },
-        { '<leader>s', group = 'search' },
         { '<leader>t', group = 'toggle' },
         { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
         { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
@@ -34,19 +34,20 @@ return {
             return require('which-key.extras').expand.buf()
           end,
         },
-        -- {
-        --   '<c-w>',
-        --   group = 'windows',
-        --   expand = function()
-        --     return require('which-key.extras').expand.win()
-        --   end,
-        -- },
+        {
+          '<c-w>',
+          group = 'windows',
+          expand = function()
+            return require('which-key.extras').expand.win()
+          end,
+        },
         { '<leader><tab>', group = 'tabs' },
 
         -- better descriptions
         { 'gx', desc = 'Open with system app' },
 
         -- keep things tidy
+        { '<leader>q', hidden = true },
         { 'g~', hidden = true },
         { 'gc', hidden = true },
       }
