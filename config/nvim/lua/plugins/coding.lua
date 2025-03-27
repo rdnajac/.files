@@ -16,7 +16,6 @@ return {
       map('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
     end,
   },
-
   {
     'echasnovski/mini.align',
     opts = {},
@@ -33,7 +32,7 @@ return {
     ---@type blink.cmp.Config
     opts = {
       completion = {
-        accept = { auto_brackets = { enabled = true } },
+        accept = { auto_brackets = { enabled = false } },
         documentation = { window = { border = 'single' } },
         menu = {
           draw = {

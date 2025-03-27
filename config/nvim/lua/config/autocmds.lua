@@ -122,9 +122,7 @@ au('TermOpen', {
   callback = function(args)
     -- args.buf contains the buffer that triggered the autocmd
     if vim.bo[args.buf].filetype == 'snacks_terminal' then
-      -- local channel = vim.bo[args.buf].channel
-      vim.g.ooze_channel = vim.api.nvim_buf_get_var(args.buf, 'terminal_job_id')
-      dd('Terminal job ID:', vim.g.ooze_channel)
+      vim.g.ooze_channel = vim.bo[args.buf].channel
     end
   end,
   desc = 'Capture the job ID (`channel`) of a newly opened terminal',
@@ -142,17 +140,4 @@ au('CmdlineEnter', {
         cnoreabbrev <expr> snacks getcmdtype() == ':' && getcmdline() =~ '^snacks' ? 'lua Snacks' : 'snacks'
     ]])
   end,
-})
-
---------------------------------------------------------------------------------
-au('User', {
-  group = aug('debug'),
-  pattern = 'VeryLazy',
-    -- stylua: ignore
-    callback = function()
-      _G.dd = function(...) Snacks.debug.inspect(...) end
-      _G.bt = function()    Snacks.debug.backtrace()  end
-      vim.print = _G.dd -- Override print to use snacks for `:=` command
-    end,
-  desc = 'Setup some globals for debugging (lazy-loaded)',
 })

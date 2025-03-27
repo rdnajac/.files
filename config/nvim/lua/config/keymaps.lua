@@ -1,5 +1,6 @@
 -- config/nvim/lua/config/keymaps.lua
 -- some keymaps are defined in $VIMRUNTIME/lua/vim/_defaults.lua
+-- TODO: Why won't this file format
 local map = vim.keymap.set
 local del = vim.keymap.del
 
@@ -10,7 +11,7 @@ del('n', '<leader>cm')
 -- del('n', '<leader>qq')
 
 map('n', ',,', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
-map({'n', 't'}, '<C-\\>', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
+map('t', ',,', '<Cmd>stopinsert<CR>', { desc = 'Stop Inserting in Terminal' })
 map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
@@ -66,7 +67,6 @@ require('which-key').add({
   { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
   { '\\a', function() goto.conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
-  { '\\i', ':e ' .. vim.fn.stdpath('config') .. '/init.lua<CR>', desc = 'init.lua',  icon = { icon = ' ', color = 'red' }},
   { '\\i', function() goto.conf('init')     end, desc = 'init.lua', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() goto.conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
   { '\\l', function() goto.conf('lazy')     end, desc = 'lazy'},
@@ -128,14 +128,15 @@ require('which-key').add({
   { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
-  { '<leader>s?', function() Snacks.picker.learnvimscriptthehardway() end, desc = 'Learn Vim Script the Hard Way' },
+  { '<leader>s?', function() Snacks.picker.hardway() end, desc = 'Learn Vim Script the Hard Way' },
+  -- { '<leader>s?', function() Snacks.picker('grep', {cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'), ignored = true}) end, desc = 'Learn Vim Script the Hard Way' },
 
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
   { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
 
 })
 
-Snacks.toggle.option('autochdir'):map('<localleader>tc')
+Snacks.toggle.option('autochdir'):map('<leader>ta')
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
 
 -- stylua: ignore start
@@ -153,7 +154,6 @@ Snacks.toggle({
 -- stylua: ignore end
 
 -- LazyVim has a toggle for dark background, but it doesn't do what you'd expect
-del('n', '<leader>ub')
 Snacks.toggle({
   name = 'Translucency',
   get = function()
@@ -167,4 +167,4 @@ Snacks.toggle({
       vim.cmd('hi Normal guibg=none')
     end
   end,
-}):map('<leader>ub', { desc = 'Toggle Translucent Background' })
+}):map('<leader>uB', { desc = 'Toggle Translucent Background' })

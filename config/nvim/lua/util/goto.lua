@@ -150,7 +150,7 @@ function M.ft(target)
   return edit(path, true)
 end
 
-M.cd = function(where)
+M.directory = function(where)
   local path = ''
 
   if where == 'gitroot' then
@@ -171,4 +171,5 @@ M.cd = function(where)
   end
   vim.cmd('pwd')
 end
+
 return M

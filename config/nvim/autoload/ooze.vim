@@ -5,7 +5,7 @@ let g:autoloaded_ooze = 1
 
 let s:newline = "\n"
 
-function! s:scroll() abort " {{{
+function! s:scroll() abort
   for bufnr in range(1, bufnr('$'))
     if getbufvar(bufnr, '&buftype') == 'terminal' && getbufvar(bufnr, '&channel') == g:MyTermChannel
       for win_id in nvim_list_wins()
@@ -19,17 +19,15 @@ function! s:scroll() abort " {{{
   endfor
 endfunction
 
-function! ooze#send(text) abort " {{{
+function! ooze#send(text) abort
   if g:ooze_auto_exec
     let text = a:text . s:newline
   endif
   call chansend(g:MyTermChannel, text)
-  if g:ooze_auto_scroll
-    call s:scroll()
-  endif
+  if g:ooze_auto_scroll | call s:scroll() | endif
 endfunction
 
-function! ooze#linefeed() abort " {{{
+function! ooze#linefeed() abort
   " TODO: skip comments
   let i = line(".")
   while i < line("$")
@@ -42,14 +40,14 @@ function! ooze#linefeed() abort " {{{
   endwhile
 endfunction
 
-function! ooze#sendline() abort " {{{
+function! ooze#sendline() abort
   let line = getline(".")
   if strlen(line) > 0
     call s:ooze(line)
   endif
 endfunction
 
-function! s:tostring() " {{{
+function! s:tostring()
   try
     let a_orig = @a
     silent! normal! gv"ay
@@ -59,14 +57,14 @@ function! s:tostring() " {{{
   endtry
 endfunction
 
-function! ooze#sendvisual() range " {{{
+function! ooze#sendvisual() range
   let lines = split(s:tostring(), s:newline)
   for line in lines
     call s:ooze(line)
   endfor
 endfunction
 
-function! ooze#runfile() abort " {{{
+function! ooze#runfile() abort
   let l:file = expand('%:p')
   call s:ooze(l:file)
 endfunction

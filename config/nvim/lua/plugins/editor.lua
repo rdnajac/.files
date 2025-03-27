@@ -1,9 +1,4 @@
 return {
-  {
-    'max397574/better-escape.nvim',
-    opts = {},
-    event = 'InsertEnter',
-  },
   { 'folke/flash.nvim', enabled = false },
   {
     'folke/which-key.nvim',
@@ -13,18 +8,23 @@ return {
         scroll_up = '<C-k>',
       }
       opts.spec = {
+        {
+          mode = { 'n' },
+          { '<leader>d', group = 'debug' },
+          { '<leader>dp', group = 'profiler' },
+        },
+
         mode = { 'n', 'v' },
         { '[', group = 'prev' },
         { ']', group = 'next' },
         { 'g', group = 'goto' },
         { 'z', group = 'fold' },
         { '<leader>c', group = 'code' },
-        { '<leader>d', group = 'debug' },
-        { '<leader>dp', group = 'profiler' },
         { '<leader>f', group = 'file/find' },
         { '<leader>g', group = 'git' },
         -- { '<leader>gh', group = 'hunks' },
         { '<leader>s', group = 'search' },
+        { '<leader>t', group = 'toggle' },
         { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
         { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
         {
@@ -34,13 +34,13 @@ return {
             return require('which-key.extras').expand.buf()
           end,
         },
-        {
-          '<c-w>',
-          group = 'windows',
-          expand = function()
-            return require('which-key.extras').expand.win()
-          end,
-        },
+        -- {
+        --   '<c-w>',
+        --   group = 'windows',
+        --   expand = function()
+        --     return require('which-key.extras').expand.win()
+        --   end,
+        -- },
         { '<leader><tab>', group = 'tabs' },
 
         -- better descriptions
@@ -49,7 +49,6 @@ return {
         -- keep things tidy
         { 'g~', hidden = true },
         { 'gc', hidden = true },
-        { 'gQ', hidden = true },
       }
     end,
   },

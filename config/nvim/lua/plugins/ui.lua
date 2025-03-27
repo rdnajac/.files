@@ -1,8 +1,26 @@
 return {
   { 'akinsho/bufferline.nvim', enabled = true },
   { 'nvim-lualine/lualine.nvim', enabled = true },
+
+  {
+    'folke/edgy.nvim',
+    enabled = false,
+    cond = vim.g.snacks_animate,
+    opts = { wo = { winbar = false } },
+  },
+
   {
     'folke/noice.nvim',
+    keys = {
+      {
+        '<M-Enter>',
+        function()
+          require('noice').redirect(vim.fn.getcmdline())
+        end,
+        mode = 'c',
+        desc = 'Redirect Cmdline',
+      },
+    },
     opts = function(_, opts)
       Snacks.toggle({
         name = 'Noice',
@@ -59,84 +77,5 @@ return {
       }
       return opts
     end,
-
-    keys = {
-      {
-        '<M-Enter>',
-        function()
-          require('noice').redirect(vim.fn.getcmdline())
-        end,
-        mode = 'c',
-        desc = 'Redirect Cmdline',
-      },
-    },
-  },
-
-  {
-    'folke/snacks.nvim',
-    opts = function()
-      ---@type snacks.Config
-      return {
-        image = { enabled = vim.env.TERM == 'xterm-kitty' },
-        indent = { enabled = true },
-        input = { enabled = true },
-        scope = { enabled = true },
-        scroll = { enabled = true },
-        statuscolumn = {
-          left = { 'sign' },
-          right = { 'git' },
-        },
-        words = { enabled = true },
-        notifier = {
-          style = 'fancy',
-          date_format = '%T',
-        },
-        styles = {
-          notification = { wo = { wrap = true } },
-          scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-          termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-        },
-          ---@class snacks.dashboard.Config
-          -- stylua: ignore
-        dashboard = {
-          preset = {
-            keys = {
-            { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
-              section = 'recent_files', indent = 2,
-            },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = ' ', key = 'g', desc = 'Lazygit',  action = function() Snacks.lazygit() end },
-            { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.nvimconfig() end },
-            { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end },
-            { icon = '󰄻 ', key = 'z', desc = 'Zoxide',   action = function() Snacks.picker.zoxide() end  },
-            { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
-            { icon = ' ', key = 'x', desc = 'Extras',   action = ':LazyExtras' },
-            { icon = ' ', key = 'q', desc = 'Quit',     action = ':qa' },
-            }
-          },
-          formats = {
-            key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
-          },
-          sections = {
-            { section = 'terminal', cmd = require('util.munchies.dashboard').unown(), padding = 1, width = 69},
-            { padding = 1 },
-            { section = 'keys'},
-            { section = 'terminal', cmd = require('util.munchies.dashboard').cowsay(), hl = 'header', padding = 1, indent = 9 },
-            { padding = 1 },
-            { section = 'startup',},
-          },
-        },
-      }
-    end,
-  },
-
-  {
-    'folke/edgy.nvim',
-    enabled = false,
-    opts = {
-      wo = {
-        winbar = false,
-      },
-    },
   },
 }

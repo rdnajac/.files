@@ -45,6 +45,12 @@ set timeoutlen=420
 set updatetime=69
 set whichwrap+=<,>,[,],h,l
 
+" TODO: make sure these are final
+set completeopt=menu,preview,preinsert,longest
+set foldopen+=insert,jump
+set iskeyword+=_
+set wildmode=longest:full,full
+
 if system('uname') =~? '^darwin'
   set clipboard=unnamed
 else

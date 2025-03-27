@@ -33,6 +33,11 @@ set.undolevels = 10000
 set.updatetime = 69
 set.whichwrap:append('<,>,[,],h,l')
 
+set.completeopt = { 'menu', 'preview', 'preinsert', 'longest' }
+set.foldopen:append({ 'insert', 'jump' })
+set.iskeyword:append('_')
+set.wildmode = { 'longest:full', 'full' }
+
 -- default: `ltToOCF`
 -- current: `shortmess=oCcTaFltIWO`
 set.shortmess:append({ W = true, I = true, c = true, C = true, a = true })

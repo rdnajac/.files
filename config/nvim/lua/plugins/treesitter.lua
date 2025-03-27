@@ -17,6 +17,7 @@ return {
         'jsdoc',
         'json',
         'jsonc',
+        'latex',
         'llvm',
         'lua',
         'luadoc',
