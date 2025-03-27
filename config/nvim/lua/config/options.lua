@@ -20,8 +20,7 @@ set.breakindent = true
 set.inccommand = 'nosplit'
 set.listchars = { trail = '¿', tab = '→ ' }
 set.mousescroll = 'hor:0'
-set.numberwidth = 2
-set.numberwidth = 2
+set.numberwidth = 3
 set.pumblend = 0
 set.shiftwidth = 8
 set.showmatch = true
