@@ -10,23 +10,6 @@ end
 return {
   {
     'folke/snacks.nvim',
-    init = function()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'VeryLazy',
-      -- stylua: ignore
-      callback = function()
-        -- Setup some globals for debugging (lazy-loaded)
-        _G.dd = function(...) Snacks.debug.inspect(...) end
-        _G.bt = function()    Snacks.debug.backtrace()  end
-        vim.print = _G.dd -- Override print to use snacks for `:=` command
-        -- Prepend any cmd with `Snacks` with lua to run it correctly
-        vim.cmd([[
-        cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
-        ]])
-      end,
-      })
-    end,
-
     opts = {
       bigfile = { enabled = true },
       quickfile = { enabled = true },
@@ -115,7 +98,8 @@ return {
           learnvimscriptthehardway = {
             finder = 'grep',
             ignored = true,
-            cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'),
+            -- cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'),
+            cwd = vim.fn.expand('~/.config/vim/docs/learnvimscriptthehardway/'),
             confirm = function(picker, item)
               vim.cmd('!open ' .. item._path)
               picker:close()

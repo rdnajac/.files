@@ -2,9 +2,8 @@
 local M = {}
 
 M.setup = function()
-  require('util.munchies')
-  require('util.ooze')
   require('util.nnn').setup()
+  require('util.ooze').setup()
 end
 
 return M

@@ -1,6 +1,9 @@
-local flag = require('util.munchies.toggle').flag
+local M = {}
 
 -- Define custom global flags with built-in toggles using Snacks Toggle
+local _create_flags = function()
+  local flag = require('util.munchies.toggle').flag
+
 flag({
   name = 'ooze_auto_advance',
   default = 1,
@@ -32,12 +35,12 @@ flag({
   desc = 'Toggle Auto Execute',
   label = 'Auto Execute',
 })
+end
 
--- Function that maps CR
 -- Use `var` to get the value of the (buffer > global > default) variable
-function MapCR()
+local CR = function()
   if Snacks.util.var(0, 'ooze_send_on_enter', 0) == 1 then
-    vim.cmd('call ooze#sendline()')
+    vim.cmd([[call slime#send(getline(".") .. "\n")]])
     vim.cmd('call ooze#linefeed()')
     return ''
   else
@@ -45,9 +48,12 @@ function MapCR()
   end
 end
 
-vim.api.nvim_create_user_command('CR', MapCR, {})
-vim.cmd([[
-nnoremap <CR> <Cmd>CR<CR>
-vnoremap <silent> <CR> <cmd>SendVisual<CR>
-]])
+M.setup = function()
+  _create_flags()
 
+  vim.api.nvim_create_user_command('CR', CR, {})
+  vim.keymap.set('n', '<CR>', '<Cmd>CR<CR>', { noremap = true, silent = true })
+  -- vim.keymap.set('v', '<CR>', '<Cmd>SendVisual<CR>', { noremap = true, silent = true })
+end
+
+return M

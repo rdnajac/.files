@@ -128,6 +128,7 @@ require('which-key').add({
   { '<leader>sv', function() Snacks.picker('grep', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>sV', function() Snacks.picker('grep', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
+  { '<leader>s?', function() Snacks.picker.learnvimscriptthehardway() end, desc = 'Learn Vim Script the Hard Way' },
 
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
   { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },

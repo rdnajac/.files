@@ -96,6 +96,7 @@ au('FileType', {
 -- to be set set upon loading nvim with no args
 -- see `global_statusline`
 
+-- FIXME:
 au('User', {
   pattern = 'VeryLazy',
   group = aug('dashboard'),
@@ -116,8 +117,6 @@ au('User', {
 })
 
 --------------------------------------------------------------------------------
--- Capture the chanel of a newly opened terminal
-
 au('TermOpen', {
   group = aug('terminal'),
   callback = function(args)
@@ -129,4 +128,31 @@ au('TermOpen', {
     end
   end,
   desc = 'Capture the job ID (`channel`) of a newly opened terminal',
+})
+
+--------------------------------------------------------------------------------
+-- Set up command line abbreviations only when entering cmdline mode
+-- TODO: write a function to call the cmd with a formatted string
+
+au('CmdlineEnter', {
+  group = aug('cmdline'),
+  callback = function()
+    vim.cmd([[
+        cnoreabbrev <expr> Snacks getcmdtype() == ':' && getcmdline() =~ '^Snacks' ? 'lua Snacks' : 'Snacks'
+        cnoreabbrev <expr> snacks getcmdtype() == ':' && getcmdline() =~ '^snacks' ? 'lua Snacks' : 'snacks'
+    ]])
+  end,
+})
+
+--------------------------------------------------------------------------------
+au('User', {
+  group = aug('debug'),
+  pattern = 'VeryLazy',
+    -- stylua: ignore
+    callback = function()
+      _G.dd = function(...) Snacks.debug.inspect(...) end
+      _G.bt = function()    Snacks.debug.backtrace()  end
+      vim.print = _G.dd -- Override print to use snacks for `:=` command
+    end,
+  desc = 'Setup some globals for debugging (lazy-loaded)',
 })
