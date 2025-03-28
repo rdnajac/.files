@@ -1,17 +1,22 @@
 return {
   'folke/snacks.nvim',
   keys = function()
+    -- stylua: ignore
     return {
-      { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer' },
-      { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
-      { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
-      { "<leader>/", LazyVim.pick("grep"), desc = "Grep (Root Dir)" },
-      { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-      { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
-      { '<leader>C', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes' },
-      { '<leader>Q', function() Snacks.bufdelete() end,  desc = 'Delete Buffer' },
+      { "<leader>/",       LazyVim.pick("grep"),                         desc = "Grep (Root Dir)" },
+      { "<leader>,",       function() Snacks.picker.buffers() end,       desc = "Buffers" },
+      { '<leader>.',       function() Snacks.scratch() end,              desc = 'Toggle Scratch Buffer' },
+      { '<leader><space>', function() Snacks.picker.smart() end,         desc = 'Smart Find Files' },
+      { '<leader>C',       function() Snacks.picker.colorschemes() end,  desc = 'Colorschemes' },
+      { '<leader>Q',       function() Snacks.bufdelete() end,            desc = 'Delete Buffer' },
+      { '<leader>S',       function() Snacks.scratch.select() end,       desc = 'Select Scratch Buffer' },
+      { '<leader>e',       function() Snacks.explorer() end,             desc = 'Explorer' },
+      { '<leader>n',       function() Snacks.picker.notifications() end, desc = 'Notification History',          },
+      { '<leader>un',      function() Snacks.notifier.hide() end,        desc = 'Dismiss All Notifications',     },
+      { ',,',              function() Snacks.terminal.toggle() end, mode = {'n', 't'}, desc = 'Toggle Terminal' },
     }
   end,
+
   opts = function()
     ---@type snacks.Config
     return {
@@ -51,6 +56,30 @@ return {
       explorer = { enabled = true },
       image = { enabled = vim.env.TERM == 'xterm-kitty' },
 
+      ---@class snacks.layout.Config
+      layout = {
+        layout = {
+          fullscreen = true,
+          box = 'horizontal',
+          width = 0.8,
+          -- min_width = 120,
+          -- height = 0.8,
+          height = 0.9,
+          {
+            box = 'vertical',
+            -- border = "rounded",
+            border = 'none',
+
+            title = 'Title {title} {live} {flags}',
+            -- { win = "input", height = 1, border = "bottom" },
+            { win = 'list', height = 8 },
+            { win = 'list', border = 'none' },
+            { win = 'input', border = 'single', height = 1, title_pos = 'center' },
+            { win = 'preview' },
+          },
+        },
+      },
+
       ---@class snacks.indent.Config
       indent = {
         indent = {
@@ -65,18 +94,21 @@ return {
       notifier = {
         style = 'fancy',
         date_format = '%T',
-        timeout = 1000,
+        timeout = 2000,
       },
 
+      -- TODO: no numbers in preview window
+      -- TODO: open explorer on file picker selextion
       ---@class snacks.picker.Config
       picker = {
+        layout = 'sidebar',
         sources = {
           files = { follow = true },
-          keymaps = { layout = { preset = 'vertical', fullscreen = true } },
-          notifications = {
-            win = { preview = { wo = { wrap = true } } },
-            layout = { preset = 'vertical', fullscreen = true },
-          },
+          -- keymaps = { layout = { preset = 'vertical', fullscreen = true } },
+          -- notifications = {
+          --   win = { preview = { wo = { wrap = true } } },
+          --   layout = { preset = 'vertical', fullscreen = true },
+          -- },
           explorer = {
             win = {
               list = {

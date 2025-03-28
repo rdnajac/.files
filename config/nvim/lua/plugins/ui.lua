@@ -40,6 +40,7 @@ return {
       local config = opts
 
       config.cmdline = {
+        view = "cmdline",
         format = {
           cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
           filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },

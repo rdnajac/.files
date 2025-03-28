@@ -2,6 +2,17 @@ return {
   { 'tpope/vim-abolish' },
   { 'tpope/vim-tbone' },
   {
+    'github/copilot.vim',
+    event = 'InsertEnter',
+    init = function()
+      vim.cmd([[
+        imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+        let g:copilot_no_tab_map = v:true
+      ]])
+    end,
+  },
+
+  {
     'christoomey/vim-tmux-navigator',
     keys = {
       { '<C-h>', '<Cmd>TmuxNavigateLeft<Cr>' },
@@ -35,12 +46,12 @@ return {
           k = { j = '<C-\\><C-n>' },
         },
         v = {
-          j = { k = '<Esc>', },
-          k = { j = '<Esc>', },
+          j = { k = '<Esc>' },
+          k = { j = '<Esc>' },
         },
         s = {
-          j = { k = '<Esc>', },
-          k = { j = '<Esc>', },
+          j = { k = '<Esc>' },
+          k = { j = '<Esc>' },
         },
       },
     },

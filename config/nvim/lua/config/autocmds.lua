@@ -96,7 +96,6 @@ au('FileType', {
 -- to be set set upon loading nvim with no args
 -- see `global_statusline`
 
--- FIXME:
 au('User', {
   pattern = 'VeryLazy',
   group = aug('dashboard'),

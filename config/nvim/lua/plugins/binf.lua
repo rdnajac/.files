@@ -12,6 +12,11 @@ return {
         user_maps_only = true,
       }
 
+      require('which-key').add({
+        { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
+        { '<localleader>re', group = 'renv' },
+      })
+
       -- Create buffer-local keymaps with a description
       local map = function(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, { buffer = 0, desc = desc })
@@ -28,7 +33,6 @@ return {
       end
 
       opts.hook = {
-        -- configure keymaps that don't require an R session
         on_filetype = function()
           vim.cmd([[setlocal keywordprg=:RHelp]]) -- Get help with <leader>K
 
@@ -38,11 +42,6 @@ return {
           map('v', '<CR>', '<Plug>RSendSelection', 'Send Selection')
           mapplug('<CR>', 'RDSendLine')
           mapplug('<M-CR>', 'RInsertLineOutput')
-
-          require('which-key').add({
-            { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
-            { '<localleader>re', group = 'renv' },
-          })
 
           mapplug('<localleader>r<CR>', 'RSendFile')
           mapplug('<localleader>rq', 'RClose')

@@ -1,10 +1,9 @@
--- config/nvim/lua/config/keymaps.lua
 -- some keymaps are defined in $VIMRUNTIME/lua/vim/_defaults.lua
 -- TODO: Why won't this file format
 local map = vim.keymap.set
 local del = vim.keymap.del
 
-del('n', '<leader>cm') -- mason
+-- del('n', '<leader>cm') -- mason (Doesn't delete keymap)
 del('n', '<leader>fn') -- enew
 del('n', '<leader>ft') -- terminal
 del('n', '<leader>fT') -- terminal
@@ -12,11 +11,11 @@ del('n', '<leader>wd')
 del('n', '<leader>wm')
 -- del('n', '<leader>qq')
 
-map({'n', 't'}, ',,', Snacks.terminal.toggle, {desc = 'Toggle Terminal'})
-
-map('v', '<C-s>', ':sort<CR>', { desc = 'Sort selection' })
+map('v', '<A-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
-map('n', 'yc','yygccp', { desc = 'Duplicate and comment out line', remap = true})
+map('n', 'yc','yygccp', { remap = true, desc = 'Duplicate and comment out line'})
+map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
+map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
 
 -- stylua: ignore start
 local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
@@ -30,7 +29,7 @@ nmap('<Tab>',         ':bnext<CR>',             'Next Buffer')
 nmap('<S-Tab>',       ':bprev<CR>',             'Previous Buffer')
 nmap('<leader><Tab>', ':b#<CR>',                'Last Buffer')
 nmap('<C-c>',         'ciw',                    'Change Inner Word')
-nmap('<C-s>',         'viW',                    'Select Inner WORD')
+-- nmap('<C-s>',         'viW',                    'Select Inner WORD')
 -- stylua: ignore end
 map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
 map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
@@ -45,12 +44,9 @@ nmap('<M-Down>', '<Cmd>resize  -2<CR>', 'Decrease Window  Height')
 nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
 nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
-  --     map('n', 'S', 'viWys', { remap = true, desc = 'Surround word' })
-  --     map('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
--- import utils
-local file = require('util.file')
-local goto = require('util.goto')
-local cd = goto.directory
+if LazyVim.has('mini.surround') then
+  map({'n', 'v'}, '<C-s>', 'gsa', { remap = true, desc = 'Surround word' })
+end
 
 -- stylua: ignore
 require('which-key').add({
@@ -60,47 +56,30 @@ require('which-key').add({
     { '<leader>p', '"_dP', desc = 'replace without overwriting reg', mode = 'v' },
   },
 
-  { 'g%', function() cd('here') end,    desc = 'change to buffer directory' },
-  { 'g$', function() cd('gitroot') end, desc = 'change to git root directory' },
-  { 'g-', function() cd('last') end,    desc = 'change to last directory' },
-  { 'g0', function() goto.README() end, desc = 'Goto Nearest README' },
-  { '\\0', function() goto.README() end, desc = 'Goto Nearest README' },
-  { 'gL', function() goto.lazy() end,  desc = 'Goto LazyVim config or module' },
-  { 'gP', ':!open $(dirname %)<CR>',  desc = 'Goto Parent Directory (in finder)' },
-
-  { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
-  { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
-  { '\\a', function() goto.conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
-  { '\\i', function() goto.conf('init')     end, desc = 'init.lua', icon = { icon = ' ', color = 'yellow' }},
-  { '\\k', function() goto.conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\l', function() goto.conf('lazy')     end, desc = 'lazy'},
-  { '\\o', function() goto.conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\u', function() goto.conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
-  { '\\m', function() goto.conf('munchies')     end, desc = 'munchies',  icon = { icon = '🍬' } },
-  { '\\s', function() goto.conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
-
   -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
+  { '<leader>dps',     function() Snacks.profiler.scratch() end,     desc = 'Profiler Scratch Buffer' },
 
   { '<leader>f', group = 'file/find' },
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
   { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)' },
   { '<leader>fc', LazyVim.pick.config_files(), desc = 'Find Config File' },
-  { '<leader>fC',  function() Snacks.rename.rename_file() end, desc = 'Change (rename) File' },
-  { '<leader>fD',  '<Cmd>Delete!<CR>', desc = 'Delete File' },
+  { '<leader>fC', require('util.file').rename, desc = 'Change (rename) File on disk' },
+  -- { '<leader>fD', require('util.file').delete, desc = 'Delete File (and buffer) from disk' },
+  { '<leader>fD', '<Cmd>Delete!<CR>', desc = 'Delete File (and buffer) from disk' },
   { '<leader>ff', LazyVim.pick('files'), desc = 'Find Files (Root Dir)' },
   { '<leader>fF', LazyVim.pick('files', { root = false }), desc = 'Find Files (cwd)' },
   { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Find Files (git-files)' },
   { '<leader>fG', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'GitHub Repos' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
-  { '<leader>fn', file.title, desc = 'Add file title' } ,
+  { '<leader>fn', require('util.file').title, desc = 'Add file title' } ,
   { '<leader>fp', function() Snacks.picker.projects() end, desc = 'Projects' },
   { '<leader>fP', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Plugins' },
   { '<leader>fr', LazyVim.pick('oldfiles'), desc = 'Recent' },
   { '<leader>fR', function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = 'Recent (cwd)' },
   { '<leader>fs', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File' },
-  { '<leader>ft', function() goto.ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
+  { '<leader>ft', function() require('util.goto').ft('plugin') end, desc = 'Edit after/ftplugin for current filetype' },
   { '<leader>fv', function() Snacks.picker('files', {cwd = vim.fn.expand('~/.config/vim')}) end, desc = 'Find Vim Config File' },
   { '<leader>fV', function() Snacks.picker('files', {cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
@@ -160,7 +139,6 @@ require('which-key').add({
   { '<leader>s/', function() Snacks.picker.search_history() end, desc = 'Search History' },
   { '<leader>s?', function() Snacks.picker.hardway() end, desc = 'Learn Vim Script the Hard Way' },
   -- { '<leader>s?', function() Snacks.picker('grep', {cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway/'), ignored = true}) end, desc = 'Learn Vim Script the Hard Way' },
-
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' } },
 })
 

@@ -172,4 +172,34 @@ M.directory = function(where)
   vim.cmd('pwd')
 end
 
+-- register keymaps
+M.setup = function()
+  local conf = require('util.goto').conf
+  local cd = require('util.goto').directory
+  local wk = require('which-key')
+  local README = require('util.goto').README
+
+-- stylua: ignore
+wk.add({
+  { 'g%', function() cd('here') end,    desc = 'change to buffer directory' },
+  { 'g$', function() cd('gitroot') end, desc = 'change to git root directory' },
+  { 'g-', function() cd('last') end,    desc = 'change to last directory' },
+  { 'g0', function() README() end, desc = 'Goto Nearest README' },
+  { '\\0', function() README() end, desc = 'Goto Nearest README' },
+  { 'gL', function() require('util.goto').lazy() end,  desc = 'Goto LazyVim config or module' },
+  { 'gP', ':!open $(dirname %)<CR>',  desc = 'Goto Parent Directory (in finder)' },
+
+  { '\\', group = 'Shortcuts', icon = { icon = ' ', color = 'cyan' } },
+  { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard'},
+  { '\\a', function() conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
+  { '\\i', function() conf('init')     end, desc = 'init.lua', icon = { icon = ' ', color = 'yellow' }},
+  { '\\k', function() conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\l', function() conf('lazy')     end, desc = 'lazy'},
+  { '\\o', function() conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
+  { '\\u', function() conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
+  { '\\m', function() conf('munchies') end, desc = 'munchies',  icon = { icon = '🍬' } },
+  { '\\s', function() conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
+  })
+end
+
 return M
