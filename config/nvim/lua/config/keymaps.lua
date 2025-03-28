@@ -45,6 +45,8 @@ nmap('<M-Down>', '<Cmd>resize  -2<CR>', 'Decrease Window  Height')
 nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
 nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
+  --     map('n', 'S', 'viWys', { remap = true, desc = 'Surround word' })
+  --     map('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
 -- import utils
 local file = require('util.file')
 local goto = require('util.goto')

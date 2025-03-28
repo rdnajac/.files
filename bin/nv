@@ -1,25 +1,40 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 main() {
+	local test_mode=false
 
-	# check if the variable $NVIM is set
+	while getopts ":T" opt; do
+		case ${opt} in
+		T)
+			test_mode=true
+			;;
+		\?)
+			echo "Invalid option: $OPTARG" 1>&2
+			exit 1
+			;;
+		esac
+	done
+	shift $((OPTIND - 1))
+
 	if [ "$NVIM" != "" ]; then
 		echo "nvim is set. exiting..."
 		exit 1
 	fi
 
-	# check if  ~/.cache/nvim/server.pipe exist
 	if [ -e ~/.cache/nvim/server.pipe ]; then
 		if [ "$nnn" != "" ]; then
 			nvim --server ~/.cache/nvim/server.pipe --remote "$@"
 		else
-
 			nvim --server ~/.cache/nvim/server.pipe --remote "$(realpath "$1")"
 		fi
 		exit 0
 	fi
-	nvim "$@"
+
+	if [ "$test_mode" = true ]; then
+		nvim -u ~/.config/nvim/repro/repro.lua "$@"
+	else
+		nvim "$@"
+	fi
 }
 
-# call main
 main "$@"
