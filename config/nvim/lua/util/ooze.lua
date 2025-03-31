@@ -4,43 +4,46 @@ local M = {}
 local _create_flags = function()
   local flag = require('util.toggle').flag
 
-flag({
-  name = 'ooze_auto_advance',
-  default = 1,
-  mapping = '<localleader>ta',
-  desc = 'Toggle Auto Advance',
-  label = 'Auto Advance (Line Feed)',
-})
+  flag({
+    name = 'ooze_auto_advance',
+    mapping = '<leader>ta',
+    desc = 'Toggle Auto Advance',
+    label = 'Auto Advance (Line Feed)',
+  })
 
-flag({
-  name = 'ooze_auto_scroll',
-  default = 1,
-  mapping = '<localleader>ts',
-  desc = 'Toggle Auto Scroll',
-  label = 'Auto Scroll',
-})
+  flag({
+    name = 'ooze_auto_scroll',
+    mapping = '<leader>ts',
+    desc = 'Toggle Auto Scroll',
+    label = 'Auto Scroll',
+  })
 
-flag({
-  name = 'ooze_send_on_enter',
-  default = 1,
-  mapping = '<localleader>t<CR>',
-  desc = 'Toggle Send on Enter',
-  label = 'Send Line',
-})
+  flag({
+    name = 'ooze_send_on_enter',
+    mapping = '<leader>t<CR>',
+    desc = 'Toggle Send on Enter',
+    label = 'Send Line',
+  })
 
-flag({
-  name = 'ooze_auto_exec',
-  default = 1,
-  mapping = '<localleader>tx',
-  desc = 'Toggle Auto Execute',
-  label = 'Auto Execute',
-})
+  flag({
+    name = 'ooze_auto_exec',
+    mapping = '<leader>tx',
+    desc = 'Toggle Auto Execute',
+    label = 'Auto Execute',
+  })
+
+  flag({
+    name = 'ooze_skip_comments',
+    mapping = '<leader>tk',
+    desc = 'Toggle Auto Skip Comments',
+    label = 'Skip Comments',
+  })
 end
 
 -- Use `var` to get the value of the (buffer > global > default) variable
 local CR = function()
   if Snacks.util.var(0, 'ooze_send_on_enter', 0) == 1 then
-    vim.cmd([[call slime#send(getline(".") .. "\n")]])
+    vim.cmd('call ooze#sendline()')
     vim.cmd('call ooze#linefeed()')
     return ''
   else

@@ -5,9 +5,10 @@ let g:autoloaded_ooze = 1
 
 let s:newline = "\n"
 
+" TODO: capture the bufnr when creating the terminal
 function! s:scroll() abort
   for bufnr in range(1, bufnr('$'))
-    if getbufvar(bufnr, '&buftype') == 'terminal' && getbufvar(bufnr, '&channel') == g:MyTermChannel
+    if getbufvar(bufnr, '&buftype') == 'terminal' && getbufvar(bufnr, '&channel') == g:ooze_channel
       for win_id in nvim_list_wins()
         if nvim_win_get_buf(win_id) == bufnr
           let line_count = nvim_buf_line_count(bufnr)
@@ -19,29 +20,31 @@ function! s:scroll() abort
   endfor
 endfunction
 
-function! ooze#send(text) abort
+function! s:ooze(text) abort
   if g:ooze_auto_exec
     let text = a:text . s:newline
   endif
-  call chansend(g:MyTermChannel, text)
+  call chansend(g:ooze_channel, text)
   if g:ooze_auto_scroll | call s:scroll() | endif
 endfunction
 
 function! ooze#linefeed() abort
-  " TODO: skip comments
   let i = line(".")
   while i < line("$")
-    let curline = substitute(getline(i + 1), '^\s*', "", "")
+    let curline = substitute(getline(i + 1), '^\s*', '', '')
     if strlen(curline) > 0
-      call cursor(i + 1, 1)
-      return
+      if !(exists('g:ooze_skip_comments') && g:ooze_skip_comments && curline =~ '^#')
+        call cursor(i + 1, 1)
+        return
+      endif
     endif
-    let i = i + 1
+    let i += 1
   endwhile
 endfunction
 
 function! ooze#sendline() abort
   let line = getline(".")
+  " don't send empty lines
   if strlen(line) > 0
     call s:ooze(line)
   endif
