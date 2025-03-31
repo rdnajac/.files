@@ -1,16 +1,6 @@
 return {
   { 'tpope/vim-abolish' },
   { 'tpope/vim-tbone' },
-  {
-    'github/copilot.vim',
-    event = 'InsertEnter',
-    init = function()
-      vim.cmd([[
-        imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-        let g:copilot_no_tab_map = v:true
-      ]])
-    end,
-  },
 
   {
     'christoomey/vim-tmux-navigator',

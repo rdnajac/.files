@@ -21,10 +21,8 @@ return {
     ---@type snacks.Config
     return {
       bigfile = { enabled = true },
-
-      ---@class snacks.dashboard.Config
       -- stylua: ignore
-      dashboard = {
+      dashboard = { ---@class snacks.dashboard.Config
         preset = {
           keys = {
           { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
@@ -52,12 +50,9 @@ return {
           { section = 'startup',},
         },
       },
-
       explorer = { enabled = true },
       image = { enabled = vim.env.TERM == 'xterm-kitty' },
-
-      ---@class snacks.layout.Config
-      layout = {
+      layout = { ---@class snacks.layout.Config
         layout = {
           fullscreen = true,
           box = 'horizontal',
@@ -67,7 +62,6 @@ return {
           height = 0.9,
           {
             box = 'vertical',
-            -- border = "rounded",
             border = 'none',
 
             title = 'Title {title} {live} {flags}',
@@ -79,19 +73,14 @@ return {
           },
         },
       },
-
-      ---@class snacks.indent.Config
-      indent = {
+      indent = { ---@class snacks.indent.Config
         indent = {
           only_current = true,
           only_scope = true,
         },
       },
-
       input = { enabled = true },
-
-      ---@class snacks.notifier.Config
-      notifier = {
+      notifier = { ---@class snacks.notifier.Config
         style = 'fancy',
         date_format = '%T',
         timeout = 2000,
@@ -99,11 +88,48 @@ return {
 
       -- TODO: no numbers in preview window
       -- TODO: open explorer on file picker selextion
-      ---@class snacks.picker.Config
-      picker = {
-        layout = 'sidebar',
+      picker = { ---@class snacks.picker.Config
+        win = {
+          preview = {
+            wo = {
+              number = false,
+              spell = false,
+              statuscolumn = '',
+            },
+          },
+        },
+
+        -- TODO: make this a custom layout
+        layout = {
+          preview = 'main',
+          layout = {
+            backdrop = false,
+            width = 40,
+            min_width = 40,
+            height = 0,
+            position = 'left',
+            border = 'none',
+            box = 'vertical',
+            {
+              win = 'input',
+              height = 1,
+              border = 'rounded',
+              title = '{title} {live} {flags}',
+              title_pos = 'center',
+            },
+            { win = 'list', border = 'none' },
+            { win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
+          },
+          hidden = { 'preview' },
+          -- auto_hide = { 'input' },
+        },
+
         sources = {
-          files = { follow = true },
+
+          files = {
+            follow = true,
+          },
+
           -- keymaps = { layout = { preset = 'vertical', fullscreen = true } },
           -- notifications = {
           --   win = { preview = { wo = { wrap = true } } },

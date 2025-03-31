@@ -2,6 +2,7 @@
 local M = {}
 
 M.setup = function()
+  -- BUG: Why are these showing up as duplicate fields?
   _G.dd = function(...) Snacks.debug.inspect(...) end
   _G.bt = function()    Snacks.debug.backtrace()  end
   vim.print = _G.dd -- Override print to use snacks for `:=` command
@@ -10,6 +11,9 @@ M.setup = function()
     vim.notify(msg, vim.log.levels.WARN)
   end
 
+  vim.filetype.add({ pattern = { ['.*/git/config'] = 'gitconfig' } })
+
+  require('util.snippet')
   require('util.goto').setup()
   require('util.nnn').setup()
   require('util.ooze').setup()

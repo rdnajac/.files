@@ -10,13 +10,4 @@ M.title = function()
   end
 end
 
--- FIXME: This is not working
-M.delete = function()
-  vim.cmd([[ Delete! ]])
-end
-
-M.rename = function()
-  Snacks.rename.rename_file()
-end
-
 return M

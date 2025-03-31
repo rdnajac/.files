@@ -18,6 +18,14 @@ return {
     },
     signature = { enabled = false },
     sources = {
+      transform_items = function(_, items)
+        return vim.tbl_filter(function(item)
+          return item.kind ~= require('blink.cmp.types').CompletionItemKind.Snippet
+        end, items)
+      end,
+      per_filetype = {
+        lua = { 'lazydev', 'lsp', 'path' },
+      },
       compat = {},
       providers = {
         path = {
@@ -34,7 +42,6 @@ return {
             show_hidden_files_by_default = true,
           },
         },
-        -- TODO: turn off LSP snippets
       },
     },
   },

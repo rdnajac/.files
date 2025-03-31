@@ -7,13 +7,13 @@ local del = vim.keymap.del
 del('n', '<leader>fn') -- enew
 del('n', '<leader>ft') -- terminal
 del('n', '<leader>fT') -- terminal
-del('n', '<leader>wd')
-del('n', '<leader>wm')
+del('n', '<leader>wd') -- window
+del('n', '<leader>wm') -- window
 -- del('n', '<leader>qq')
 
 map('v', '<A-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
-map('n', 'yc','yygccp', { remap = true, desc = 'Duplicate and comment out line'})
+map('n', 'yc', 'yygccp', { remap = true, desc = 'Duplicate and comment out line' })
 map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
 map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
 
@@ -44,10 +44,6 @@ nmap('<M-Down>', '<Cmd>resize  -2<CR>', 'Decrease Window  Height')
 nmap('<M-Left>', '<Cmd>vertical resize  -2<CR>', 'Decrease Window  Width')
 nmap('<M-Right>', '<Cmd>vertical resize  +2<CR>', 'Increase Window  Width')
 
-if LazyVim.has('mini.surround') then
-  map({'n', 'v'}, '<C-s>', 'gsa', { remap = true, desc = 'Surround word' })
-end
-
 -- stylua: ignore
 require('which-key').add({
   {
@@ -59,17 +55,17 @@ require('which-key').add({
   -- debug
   { '<leader>dl', ':=require("lazy").plugins()<CR>', desc = 'Lazy Plugins' },
   { '<leader>ds', ':=require("snacks").meta.get()<CR>', desc = 'Snacks' },
-  { '<leader>dps',     function() Snacks.profiler.scratch() end,     desc = 'Profiler Scratch Buffer' },
-
+  { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
   { '<leader>f', group = 'file/find' },
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
   { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)' },
   { '<leader>fc', LazyVim.pick.config_files(), desc = 'Find Config File' },
-  { '<leader>fC', require('util.file').rename, desc = 'Change (rename) File on disk' },
-  -- { '<leader>fD', require('util.file').delete, desc = 'Delete File (and buffer) from disk' },
+  { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk' },
   { '<leader>fD', '<Cmd>Delete!<CR>', desc = 'Delete File (and buffer) from disk' },
-  { '<leader>ff', LazyVim.pick('files'), desc = 'Find Files (Root Dir)' },
-  { '<leader>fF', LazyVim.pick('files', { root = false }), desc = 'Find Files (cwd)' },
+  { '<leader>fe', function() Snacks.explorer({cwd = Snacks.git.get_root()}) end, desc = 'Explorer (git root)' },
+  { '<leader>fE', function() Snacks.explorer({cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'Explorer (all repos)' },
+  { '<leader>ff', function() Snacks.picker.files({cwd = Snacks.git.get_root()}) end, desc = 'Explorer (git root)' },
+  { '<leader>fF', function() Snacks.picker.files({cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'Explorer (all repos)' },
   { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Find Files (git-files)' },
   { '<leader>fG', function() Snacks.picker('files', {cwd = vim.fn.expand('~/GitHub/')}) end, desc = 'GitHub Repos' },
   { '<leader>fL', function() Snacks.picker('files', {cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File' },
@@ -85,7 +81,6 @@ require('which-key').add({
   { '<leader>f.', function() Snacks.picker.dotfiles() end, desc = 'Dotfiles' },
   { '<leader>f<Space>', function() Snacks.picker() end, desc = 'Pickers' },
 
-  -- git
   { '<leader>ga', ':!git add %<CR>', desc = 'Git Add (file)' },
   { '<leader>gd', function() Snacks.picker.git_diff() end, desc = 'Git Diff (hunks)' },
   { '<leader>gs', function() Snacks.picker.git_status() end, desc = 'Git Status' },
@@ -107,7 +102,8 @@ require('which-key').add({
   { '<leader>sa', function() Snacks.picker.autocmds() end, desc = 'Autocmds' },
   { '<leader>sb', function() Snacks.picker.lines() end, desc = 'Buffer Lines' },
   { '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers' },
-  { '<leader>sc', function() Snacks.picker.command_history() end, desc = 'Command History' },
+  { '<leader>sc', function() Snacks.picker('grep', {cwd = vim.fn.stdpath('data')}) end, desc = 'Grep Config Files' },
+  { '<leader>s:', function() Snacks.picker.command_history() end, desc = 'Command History' },
   { '<leader>sC', function() Snacks.picker.commands() end, desc = 'Commands' },
   { '<leader>sd', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics' },
   { '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, desc = 'Buffer Diagnostics' },
@@ -167,7 +163,8 @@ Snacks.toggle({
     return vim.api.nvim_get_hl_by_name('Normal', true).background == 0
     -- return Snacks.util.is_transparent()
   end,
-  set = function(state) if state then
+  set = function(state)
+    if state then
       vim.cmd('hi Normal guibg=#000000')
     else
       vim.cmd('hi Normal guibg=none')
