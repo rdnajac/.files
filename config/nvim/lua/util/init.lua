@@ -11,7 +11,13 @@ M.setup = function()
     vim.notify(msg, vim.log.levels.WARN)
   end
 
-  vim.filetype.add({ pattern = { ['.*/git/config'] = 'gitconfig' } })
+  vim.filetype.add({ pattern = { ['.*/git/config']  = 'gitconfig' } })
+vim.filetype.add({
+  pattern = {
+    ['.*/tmux/.*%.conf'] = { 'tmux', { priority = 1 } },
+    ['^%.?tmux.*%.conf'] = { 'tmux', { priority = -1 } },
+  }
+})
 
   require('util.snippet')
   require('util.goto').setup()

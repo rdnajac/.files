@@ -1,23 +1,13 @@
-if exists('g:autoloaded_ooze') || !has('nvim')
-  finish
-endif
-let g:autoloaded_ooze = 1
-
 let s:newline = "\n"
 
-" TODO: capture the bufnr when creating the terminal
 function! s:scroll() abort
-  for bufnr in range(1, bufnr('$'))
-    if getbufvar(bufnr, '&buftype') == 'terminal' && getbufvar(bufnr, '&channel') == g:ooze_channel
-      for win_id in nvim_list_wins()
-        if nvim_win_get_buf(win_id) == bufnr
-          let line_count = nvim_buf_line_count(bufnr)
-          call nvim_win_set_cursor(win_id, [line_count, 0])
-        endif
-      endfor
-      break
+  if exists('g:ooze_buffer') && bufexists(g:ooze_buffer)
+    let winid = bufwinid(g:ooze_buffer)
+    if winid > 0
+      let line_count = nvim_buf_line_count(g:ooze_buffer)
+      call nvim_win_set_cursor(winid, [line_count, 0])
     endif
-  endfor
+  endif
 endfunction
 
 function! s:ooze(text) abort
@@ -47,6 +37,8 @@ function! ooze#sendline() abort
   " don't send empty lines
   if strlen(line) > 0
     call s:ooze(line)
+  else
+    call ooze#linefeed()
   endif
 endfunction
 
@@ -60,14 +52,15 @@ function! s:tostring()
   endtry
 endfunction
 
-function! ooze#sendvisual() range
-  let lines = split(s:tostring(), s:newline)
-  for line in lines
-    call s:ooze(line)
-  endfor
+" FIXME: see clam.vim
+function! ooze#visual() range abort
+  let l:lines = getline(a:firstline, a:lastline)
+  call chansend(g:ooze_channel, join(l:lines, "\n") . "\n")
 endfunction
 
 function! ooze#runfile() abort
   let l:file = expand('%:p')
   call s:ooze(l:file)
 endfunction
+
+command! -range=% OozeVisual call ooze#visual()

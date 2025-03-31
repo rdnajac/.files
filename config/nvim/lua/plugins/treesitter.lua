@@ -31,7 +31,7 @@ return {
       'rnoweb',
       'regex',
       'toml',
-      'tmux',
+      -- 'tmux',
       -- 'tsx',
       -- 'typescript',
       'vim',

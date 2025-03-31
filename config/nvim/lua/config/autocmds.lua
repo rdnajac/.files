@@ -117,11 +117,13 @@ au('User', {
 
 --------------------------------------------------------------------------------
 au('TermOpen', {
-  group = aug('terminal'),
+  group = aug('ooze'),
   callback = function(args)
     -- args.buf contains the buffer that triggered the autocmd
     if vim.bo[args.buf].filetype == 'snacks_terminal' then
       vim.g.ooze_channel = vim.bo[args.buf].channel
+      vim.g.ooze_buffer = vim.api.nvim_get_current_buf()
+      vim.g.ooze_send_on_enter = 1
     end
   end,
   desc = 'Capture the job ID (`channel`) of a newly opened terminal',

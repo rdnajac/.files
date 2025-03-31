@@ -139,6 +139,7 @@ require('which-key').add({
 })
 
 Snacks.toggle.option('autochdir'):map('<leader>ta')
+Snacks.toggle.option('list'):map('<leader>tl')
 Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
 
 -- stylua: ignore start

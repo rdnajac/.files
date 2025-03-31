@@ -26,8 +26,7 @@ return {
         preset = {
           keys = {
           { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
-            section = 'recent_files', indent = 2,
-          },
+            section = 'recent_files', indent = 2, },
           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
           { icon = ' ', key = 'g', desc = 'Lazygit',  action = function() Snacks.lazygit() end },
           { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.nvimconfig() end },
@@ -42,12 +41,29 @@ return {
           key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
         },
         sections = {
-          { section = 'terminal', cmd = require('util.dashboard').unown(), padding = 1, width = 69},
-          { padding = 1 },
-          { section = 'keys'},
-          { section = 'terminal', cmd = require('util.dashboard').cowsay(), hl = 'header', padding = 1, indent = 9 },
-          { padding = 1 },
-          { section = 'startup',},
+            function() return vim.o.lines < 32 and {} or { section = 'terminal', cmd = require('util.dashboard').unown(), padding = 1, width = 69, align = "center", } end,
+            { padding = 1 },
+            { section = 'keys' },
+            function() return vim.o.lines < 48 and {} or { section = 'terminal', cmd = require('util.dashboard').cowsay(), hl = 'header', padding = 1, indent = 9 } end,
+            { padding = 1 },
+            { section = 'startup' },
+          function()
+            return vim.o.columns < 160 and {} or
+              {
+                  pane = 2,
+                  icon = "      ",
+                  title = "Git Status",
+                  section = "terminal",
+                  enabled = function()
+                    return Snacks.git.get_root() ~= nil
+                  end,
+                  cmd = "git status --short --branch --renames",
+                  height = 5,
+                  padding = 1,
+                  ttl = 5 * 60,
+                  indent = 9,
+                }
+          end,
         },
       },
       explorer = { enabled = true },

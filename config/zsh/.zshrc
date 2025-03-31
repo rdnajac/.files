@@ -9,17 +9,16 @@ export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
-# TODO Make these POSIX-compliant
 . $DOTDIR/etc/nnn.sh
 . $DOTDIR/etc/fzf.sh
+. $DOTDIR/etc/neovim.sh
 
 . $ZDOTDIR/promptstring.zsh
 . $ZDOTDIR/clipboardfunctions.zsh
 . $ZDOTDIR/aliases.zsh
 . $ZDOTDIR/options.zsh
 . $ZDOTDIR/zle.zsh
-# FIXME:
-. $ZDOTDIR/completion.zsh
+. $ZDOTDIR/completion.zsh # FIXME:
 
 # set up Ruby environment
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh

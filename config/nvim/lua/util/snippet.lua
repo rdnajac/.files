@@ -14,3 +14,7 @@ function vim.snippet.add(trigger, body, opts)
     vim.snippet.expand(body)
   end, opts)
 end
+
+vim.keymap.set('i', '(', function()
+  vim.snippet.expand('(${1})$0')
+end, {})

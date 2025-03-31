@@ -21,11 +21,12 @@ main() {
 		exit 1
 	fi
 
-	if [ -e ~/.cache/nvim/server.pipe ]; then
+	if [ -e "$NVIM_SOCK" ]; then
 		if [ "$nnn" != "" ]; then
-			nvim --server ~/.cache/nvim/server.pipe --remote "$@"
+			nvim --server "$NVIM_SOCK" --remote "$@"
 		else
-			nvim --server ~/.cache/nvim/server.pipe --remote "$(realpath "$1")"
+			printf "nvim is already running. opening file in existing nvim instance...\n"
+			nvim --server "$NVIM_SOCK" --remote "$(realpath "$1")"
 		fi
 		exit 0
 	fi

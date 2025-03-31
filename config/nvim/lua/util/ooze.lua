@@ -20,6 +20,7 @@ local _create_flags = function()
 
   flag({
     name = 'ooze_send_on_enter',
+    default = 0,
     mapping = '<leader>t<CR>',
     desc = 'Toggle Send on Enter',
     label = 'Send Line',
@@ -55,8 +56,8 @@ M.setup = function()
   _create_flags()
 
   vim.api.nvim_create_user_command('CR', CR, {})
-  vim.keymap.set('n', '<CR>', '<Cmd>CR<CR>', { noremap = true, silent = true })
-  -- vim.keymap.set('v', '<CR>', '<Cmd>SendVisual<CR>', { noremap = true, silent = true })
+  vim.keymap.set('n', '<CR>', '<Cmd>CR<CR>', { silent = true })
+  vim.keymap.set('v', '<CR>', '<Cmd>OozeVisual<CR>', { silent = true })
 end
 
 return M
