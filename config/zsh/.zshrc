@@ -1,18 +1,26 @@
 # .zshrc - my custom zsh configuration
 
+setopt interactivecomments
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+
 SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT
+# LS_COLORS="$($DOTDIR/etc/LS_PY)" && export LS_COLORS
 
 export EDITOR=vim
 export MANPAGER="$(which nvim) +Man!"
-# export LS_COLORS="$($DOTDIR/etc/LS_PY)"
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
+# Source shell configs for specific programs
 . $DOTDIR/etc/nnn.sh
 . $DOTDIR/etc/fzf.sh
 . $DOTDIR/etc/neovim.sh
 
+# Source custom zsh configs
 . $ZDOTDIR/promptstring.zsh
 . $ZDOTDIR/clipboardfunctions.zsh
 . $ZDOTDIR/aliases.zsh

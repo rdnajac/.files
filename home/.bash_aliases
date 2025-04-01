@@ -73,5 +73,9 @@ alias rscript='Rscript'
 # alias tmux='tmux -2'
 alias kms='tmux kill-server'
 
+# fat fingers!
+alias mg=mv
+alias cim=vim
+
 # clear scren and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
