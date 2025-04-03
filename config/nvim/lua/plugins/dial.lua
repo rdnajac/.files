@@ -23,7 +23,7 @@ return {
     local capitalized_boolean = new_dial({ 'True', 'False' }, true)
     local dim1 = new_dial({ 'height', 'width' }, true)
 
-    local ordinal_numbers = augend.constant.new({
+    local ordinals = augend.constant.new({
       elements = {
         'first',
         'second',
@@ -37,20 +37,6 @@ return {
         'tenth',
       },
       word = false,
-      cyclic = true,
-    })
-
-    local weekdays = augend.constant.new({
-      elements = {
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday',
-      },
-      word = true,
       cyclic = true,
     })
 
@@ -90,9 +76,9 @@ return {
           augend.integer.alias.decimal_int, -- nonnegative and negative decimal number
           augend.integer.alias.hex, -- nonnegative hex number  (0x01, 0x1a1f, etc.)
           augend.date.alias['%Y/%m/%d'], -- date (2022/02/19, etc.)
-          weekdays,
+          augend.constant.alias.en_weekday_full,
           months,
-          ordinal_numbers,
+          ordinals,
           augend.constant.alias.bool,
           capitalized_boolean,
           logical_operator,

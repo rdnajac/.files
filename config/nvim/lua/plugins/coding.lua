@@ -57,18 +57,4 @@ return {
       ]])
     end,
   },
-
-  {
-    'Saghen/blink.cmp',
-    dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
-    opts = {
-      completion = {
-        accept = { auto_brackets = { enabled = false } },
-        documentation = { window = { border = 'single' } },
-      },
-      signature = { window = { border = 'rounded' } },
-      -- keymap = { preset = 'super-tab' },
-      cmdline = { enabled = false, sources = {} },
-    },
-  },
 }

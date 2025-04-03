@@ -22,6 +22,7 @@ end
 -- `User` autocmds are not executed automatically. Use `:doautocmd` to trigger
 
 au('User', {
+
   group = aug('lol'),
   pattern = { 'lol' },
   callback = function(ev)
@@ -33,11 +34,18 @@ au('User', {
 
 --------------------------------------------------------------------------------
 -- Some ft plugins set formatoptions, so we have to run this after they load
+-- TODO: skip this in markdown
 
 au('FileType', {
   group = aug('formatoptions'),
   pattern = '*',
-  command = 'set formatoptions-=o',
+  -- command = 'setlocal formatoptions-=o',
+  callback = function()
+    if vim.bo.filetype == 'markdown' then
+      return
+    end
+    vim.opt_local.formatoptions:remove('o')
+  end,
   desc = 'Remove `o` from formatoptions',
 })
 
@@ -86,9 +94,12 @@ au('FileType', {
   group = aug('lua'),
   pattern = { 'lua' },
   callback = function()
+    -- Do not highlight vimscript wrapped in `vim.cmd([[...]])`
     vim.api.nvim_set_hl(0, 'LspReferenceText', {})
+
+
   end,
-  desc = 'Do not highlight vimscript wrapped in `vim.cmd([[...]])`',
+  desc = 'lua filetype settings (in lua)',
 })
 
 --------------------------------------------------------------------------------
@@ -142,3 +153,6 @@ au('CmdlineEnter', {
     ]])
   end,
 })
+
+--------------------------------------------------------------------------------
+

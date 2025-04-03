@@ -14,7 +14,6 @@ return {
         sidebars = 'transparent',
         floats = 'transparent',
       },
-      -- on_highlights = function(hl, c)
       -- stylua: ignore
       on_highlights = function(hl, _)
         hl['Folded']            = { fg = '#39FF14', bg = 'none' }

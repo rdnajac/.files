@@ -33,6 +33,8 @@ set.undofile = true
 set.undolevels = 10000
 set.updatetime = 69
 set.whichwrap:append('<,>,[,],h,l')
+-- BUG: unintended side effects
+-- set.winborder = 'rounded'
 
 set.completeopt = { 'menu', 'preview', 'preinsert', 'longest' }
 set.foldopen:append({ 'insert', 'jump' })

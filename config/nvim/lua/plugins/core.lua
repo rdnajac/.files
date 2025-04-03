@@ -1,7 +1,10 @@
 return {
-  { 'tpope/vim-abolish' },
-  { 'tpope/vim-tbone' },
-
+  -- { 'tpope/vim-abolish' },
+  -- { 'tpope/vim-tbone' },
+  {
+    'williamboman/mason.nvim',
+    opts = { ui = { border = 'rounded' } },
+  },
   {
     'christoomey/vim-tmux-navigator',
     keys = {

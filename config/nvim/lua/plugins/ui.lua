@@ -11,50 +11,29 @@ return {
 
   {
     'folke/noice.nvim',
+    enabled = true,
     keys = {
-      {
-        '<M-Enter>',
-        function()
-          require('noice').redirect(vim.fn.getcmdline())
-        end,
-        mode = 'c',
-        desc = 'Redirect Cmdline',
-      },
+      -- stylua: ignore
+      { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' },
     },
+
+  ---@param opts NoiceConfig
     opts = function(_, opts)
-      Snacks.toggle({
-        name = 'Noice',
-        get = function()
-          return require('noice.config').is_running()
-        end,
-        set = function(state)
-          if state then
-            require('noice').enable()
-          else
-            require('noice').disable()
-          end
-        end,
-      }):map('<leader>uN', { desc = 'Toggle Noice' })
 
-      ---@class NoiceConfig
-      local config = opts
-
-      config.cmdline = {
-        view = "cmdline",
+      opts.cmdline = {
+        -- view = 'cmdline',
         format = {
           cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
           filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },
         },
       }
-      config.lsp = {
-        signature = { auto_open = { enabled = false } },
-        override = {
-          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-          ['vim.lsp.util.stylize_markdown'] = true,
-        },
+      opts.messages = {
+        enabled = true,
+        view = 'mini',
       }
-      config.presets = { lsp_doc_border = true }
-      config.routes = {
+      opts.lsp = { signature = { auto_open = { enabled = false } }, }
+      opts.presets = { lsp_doc_border = true }
+      opts.routes = {
         {
           filter = {
             cmdline = '^:%s*!',
@@ -76,7 +55,20 @@ return {
           opts = { skip = true },
         },
       }
-      return opts
+
+      Snacks.toggle({
+        name = 'Noice',
+        get = function()
+          return require('noice.config').is_running()
+        end,
+        set = function(state)
+          if state then
+            require('noice').enable()
+          else
+            require('noice').disable()
+          end
+        end,
+      }):map('<leader>uN', { desc = 'Toggle Noice' })
     end,
   },
 }

@@ -6,7 +6,7 @@ local _create_flags = function()
 
   flag({
     name = 'ooze_auto_advance',
-    mapping = '<leader>ta',
+    mapping = '<leader>tA',
     desc = 'Toggle Auto Advance',
     label = 'Auto Advance (Line Feed)',
   })

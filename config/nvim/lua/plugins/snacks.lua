@@ -1,262 +1,44 @@
 return {
   'folke/snacks.nvim',
   keys = function()
-    -- stylua: ignore
-    return {
-      { "<leader>/",       LazyVim.pick("grep"),                         desc = "Grep (Root Dir)" },
-      { "<leader>,",       function() Snacks.picker.buffers() end,       desc = "Buffers" },
-      { '<leader>.',       function() Snacks.scratch() end,              desc = 'Toggle Scratch Buffer' },
-      { '<leader><space>', function() Snacks.picker.smart() end,         desc = 'Smart Find Files' },
-      { '<leader>C',       function() Snacks.picker.colorschemes() end,  desc = 'Colorschemes' },
-      { '<leader>Q',       function() Snacks.bufdelete() end,            desc = 'Delete Buffer' },
-      { '<leader>S',       function() Snacks.scratch.select() end,       desc = 'Select Scratch Buffer' },
-      { '<leader>e',       function() Snacks.explorer() end,             desc = 'Explorer' },
-      { '<leader>n',       function() Snacks.picker.notifications() end, desc = 'Notification History',          },
-      { '<leader>un',      function() Snacks.notifier.hide() end,        desc = 'Dismiss All Notifications',     },
-      { ',,',              function() Snacks.terminal.toggle() end, mode = {'n', 't'}, desc = 'Toggle Terminal' },
-    }
+      -- stylua: ignore
+    return {{',,', function() Snacks.terminal.toggle() end, mode = {'n','t'}}}
   end,
 
-  opts = function()
-    ---@type snacks.Config
-    return {
-      bigfile = { enabled = true },
-      -- stylua: ignore
-      dashboard = { ---@class snacks.dashboard.Config
-        preset = {
+  ---@param opts snacks.Config
+  opts = function(_, opts)
+    opts.dashboard = require('config.snacks.dashboard')
+    opts.image = { enabled = vim.env.TERM == 'xterm-kitty' }
+    opts.indent = { indent = { only_current = true, only_scope = true } }
+    opts.notifier = { style = 'fancy', date_format = '%T', timeout = 2000 }
+    opts.picker = require('config.snacks.picker')
+    opts.scratch = {
+      win_by_ft = {
+        vim = {
           keys = {
-          { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end,
-            section = 'recent_files', indent = 2, },
-          { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-          { icon = ' ', key = 'g', desc = 'Lazygit',  action = function() Snacks.lazygit() end },
-          { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.nvimconfig() end },
-          { icon = ' ', key = '.', desc = 'Dotfiles', action = function() Snacks.picker.dotfiles() end },
-          { icon = '󰄻 ', key = 'z', desc = 'Zoxide',   action = function() Snacks.picker.zoxide() end  },
-          { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
-          { icon = ' ', key = 'x', desc = 'Extras',   action = ':LazyExtras' },
-          { icon = ' ', key = 'q', desc = 'Quit',     action = ':qa' },
-          }
-        },
-        formats = {
-          key = function(item) return { { '[ ', hl = 'special' }, { item.key, hl = 'key' }, { ' ]', hl = 'special' } } end,
-        },
-        sections = {
-            function() return vim.o.lines < 32 and {} or { section = 'terminal', cmd = require('util.dashboard').unown(), padding = 1, width = 69, align = "center", } end,
-            { padding = 1 },
-            { section = 'keys' },
-            function() return vim.o.lines < 48 and {} or { section = 'terminal', cmd = require('util.dashboard').cowsay(), hl = 'header', padding = 1, indent = 9 } end,
-            { padding = 1 },
-            { section = 'startup' },
-          function()
-            return vim.o.columns < 160 and {} or
-              {
-                  pane = 2,
-                  icon = "      ",
-                  title = "Git Status",
-                  section = "terminal",
-                  enabled = function()
-                    return Snacks.git.get_root() ~= nil
-                  end,
-                  cmd = "git status --short --branch --renames",
-                  height = 5,
-                  padding = 1,
-                  ttl = 5 * 60,
-                  indent = 9,
-                }
-          end,
-        },
-      },
-      explorer = { enabled = true },
-      image = { enabled = vim.env.TERM == 'xterm-kitty' },
-      layout = { ---@class snacks.layout.Config
-        layout = {
-          fullscreen = true,
-          box = 'horizontal',
-          width = 0.8,
-          -- min_width = 120,
-          -- height = 0.8,
-          height = 0.9,
-          {
-            box = 'vertical',
-            border = 'none',
-
-            title = 'Title {title} {live} {flags}',
-            -- { win = "input", height = 1, border = "bottom" },
-            { win = 'list', height = 8 },
-            { win = 'list', border = 'none' },
-            { win = 'input', border = 'single', height = 1, title_pos = 'center' },
-            { win = 'preview' },
-          },
-        },
-      },
-      indent = { ---@class snacks.indent.Config
-        indent = {
-          only_current = true,
-          only_scope = true,
-        },
-      },
-      input = { enabled = true },
-      notifier = { ---@class snacks.notifier.Config
-        style = 'fancy',
-        date_format = '%T',
-        timeout = 2000,
-      },
-
-      -- TODO: no numbers in preview window
-      -- TODO: open explorer on file picker selextion
-      picker = { ---@class snacks.picker.Config
-        win = {
-          preview = {
-            wo = {
-              number = false,
-              spell = false,
-              statuscolumn = '',
-            },
-          },
-        },
-
-        -- TODO: make this a custom layout
-        layout = {
-          preview = 'main',
-          layout = {
-            backdrop = false,
-            width = 40,
-            min_width = 40,
-            height = 0,
-            position = 'left',
-            border = 'none',
-            box = 'vertical',
-            {
-              win = 'input',
-              height = 1,
-              border = 'rounded',
-              title = '{title} {live} {flags}',
-              title_pos = 'center',
-            },
-            { win = 'list', border = 'none' },
-            { win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
-          },
-          hidden = { 'preview' },
-          -- auto_hide = { 'input' },
-        },
-
-        sources = {
-
-          files = {
-            follow = true,
-          },
-
-          -- keymaps = { layout = { preset = 'vertical', fullscreen = true } },
-          -- notifications = {
-          --   win = { preview = { wo = { wrap = true } } },
-          --   layout = { preset = 'vertical', fullscreen = true },
-          -- },
-          explorer = {
-            win = {
-              list = {
-                keys = {
-                  ['-'] = 'explorer_up',
-                  ['l'] = 'confirm',
-                  ['h'] = 'explorer_close',
-                  ['<Right>'] = 'confirm',
-                  ['<Left>'] = 'explorer_close',
-                  ['r'] = 'explorer_rename',
-                  ['c'] = 'explorer_copy',
-                  ['m'] = 'explorer_move',
-                  ['o'] = 'explorer_open',
-                  ['P'] = 'toggle_preview',
-                  ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
-                  ['p'] = 'explorer_paste',
-                  ['u'] = 'explorer_update',
-                },
-              },
-            },
-          },
-
-          dotfiles = {
-            finder = 'files',
-            show_empty = true,
-            hidden = true,
-            follow = true,
-            cwd = vim.fn.expand('$DOTDIR'),
-          },
-
-          nvimconfig = {
-            finder = 'files',
-            show_empty = true,
-            hidden = true,
-            follow = false,
-            cwd = vim.fn.stdpath('config'),
-          },
-
-          -- FIXME:
-          hardway = {
-            finder = 'grep',
-            hidden = true,
-            ignored = true,
-            follow = false,
-            supports_live = true,
-
-            cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway'),
-            confirm = function(picker, item)
-              picker:close()
-              vim.cmd('!open ' .. Snacks.picker.util.path(item))
-            end,
-          },
-
-          zoxide = {
-            confirm = 'edit',
-          },
-        },
-      },
-
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-
-      ---@class snacks.scratch.Config
-      scratch = {
-        ---@type table<string, snacks.win.Config>
-        win_by_ft = {
-          vim = {
-            keys = {
-              ['source'] = {
-                '<cr>',
-                function(self)
-                  vim.cmd('source ' .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(self.buf)))
-                end,
-                desc = 'Source buffer',
-                mode = { 'n', 'x' },
-              },
+            ['source'] = {
+              '<cr>',
+              function(self)
+                vim.cmd('source ' .. vim.fn.fnameescape(vim.api.nvim_buf_get_name(self.buf)))
+              end,
+              desc = 'Source buffer',
+              mode = { 'n', 'x' },
             },
           },
         },
       },
-
-      scroll = { enabled = true },
-      statuscolumn = {
-        left = { 'sign' },
-        right = { 'git' },
-      },
-      styles = {
-        notification = { wo = { wrap = true } },
-        scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-        termial = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-      },
-
-      ---@class snacks.terminal.Config
-      terminal = {
-        start_insert = true,
-        auto_insert = false,
-        auto_close = true,
-        win = {
-          wo = {
-            winbar = '',
-          },
-        },
-      },
-
-      -- toggle = { map = LazyVim.safe_keymap_set },
-      words = { enabled = true },
+      wo = { winhighlight = 'Normal:SpecialWindow' },
+    }
+    opts.statuscolumn = { left = { 'sign' }, right = { 'git' } }
+    opts.styles = {
+      -- notification = { wo = { wrap = true } },
+      scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
+    }
+    opts.terminal = {
+      start_insert = true,
+      auto_insert = false,
+      auto_close = true,
+      win = { wo = { winbar = '', winhighlight = 'Normal:SpecialWindow' } },
     }
   end,
 }
