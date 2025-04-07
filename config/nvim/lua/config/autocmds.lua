@@ -104,6 +104,7 @@ au('FileType', {
 -- HACK: snacks dashboard weird interaction with lualine causes statusline
 -- to be set set upon loading nvim with no args
 -- see `global_statusline`
+-- FIXME: This doesn't always work for some reason
 
 au('User', {
   pattern = 'VeryLazy',

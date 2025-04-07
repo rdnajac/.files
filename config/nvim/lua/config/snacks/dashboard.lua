@@ -105,15 +105,15 @@ end
 local M = {
   preset = {
     keys = {
-      { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.recent() end, enabled = function() return not wide() end, },
+      { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.smart() end, enabled = function() return not wide() end, },
       { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return not wide() end },
       { icon = " ", key = "s", desc = 'Session',  action = function() require("persistence").load({ last = true }) end },
       { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.files({cwd = vim.fn.expand('$DOTDIR')}) end },
       { icon = '󰄻 ', key = 'z', desc = 'Zoxide',   action = function() Snacks.picker.zoxide() end },
       { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
       { icon = ' ', key = 'x', desc = 'Extras',   action = ':LazyExtras' },
+      { icon = ' ', key = 'h', desc = 'Health',   action = ':LazyHealth' },
       { icon = '󱌣 ', key = 'm', desc = 'Mason',    action = ':Mason' },
-      { icon = ' ', key = 'h', desc = 'Health',   action = ':checkhealth' },
       { icon = ' ', key = 'q', desc = 'Quit',     action = ':qa' },
     }
   },
@@ -128,7 +128,7 @@ local M = {
     },
     {
       pane = 1, enabled = function() return wide() end,
-      { icon = ' ', title = 'Recent Files', key = 'f', action = function() Snacks.picker.recent() end },
+      { icon = ' ', title = 'Files', key = 'f', action = function() Snacks.picker.smart() end },
       { my_files(), indent = 2, enabled = function() return wide() end },
       { icon = ' ', title = 'Lazygit', key = 'g', action = function() Snacks.lazygit() end },
       {
@@ -150,7 +150,7 @@ local M = {
       pane = wide() and 2 or 1,
       cmd = cowsay(),
       enabled = function() return not narrow() end,
-      padding = 1,
+      padding = 2,
     },
     {
       section = 'keys', pane = 2,
@@ -158,7 +158,8 @@ local M = {
       enabled = function() return wide() end,
     },
     { padding = 1 },
-    { section = 'startup', align = 'center', indent = wide() and math.floor(vim.o.columns / 2 - 20) or 0 },
+    { section = 'startup', enabled = function() return wide() end, indent = wide() and math.floor(vim.o.columns / 2 - 20) or 0 },
+    { section = 'startup', enabled = function() return not wide() end },
   },
 }
 

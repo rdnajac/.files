@@ -1,7 +1,6 @@
 local M = {}
 
-M.new_git_status = function()
-  -- with lua, you can define a function inside another function
+M.status = function()
   local parse_output = function(proc)
     local result = proc:wait()
     local ret = {}

@@ -23,5 +23,4 @@ return {
       vim.keymap.set('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
     end,
   },
-
 }

@@ -14,33 +14,35 @@ return {
     opts.picker = {
       layouts = {
         vscode = {
-          preview = false,
+          -- preview = false,
           layout = {
             backdrop = false,
             row = 1,
             width = 0.4,
             min_width = 80,
             height = 0.4,
-            border = 'none',
+            border = 'rounded',
             box = 'vertical',
             { win = 'input', height = 1, border = 'rounded', title = '{title} {live} {flags}', title_pos = 'center' },
-            { win = 'list', border = 'rounded' },
-            { win = 'preview', title = '{preview}', border = 'rounded' },
+            { win = 'list', border = 'none' },
+            -- { win = 'preview', title = '{preview}', border = 'rounded' },
           },
         },
       },
       win = { preview = { minimal = true } },
+      -- stylua: ignore
       sources = {
         autocmds = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
-        buffers = { layout = { preset = 'vscode' } },
+        buffers  = { layout = { preset = 'vscode' } },
         commands = { layout = { preset = 'ivy' } },
+        -- command_history = { layout = { preset = 'vscode' }, confirm = 'cmd' },
         explorer = require('config.snacks.explorer'),
-        files = { layout = { preset = 'sidebar' } },
-        grep = { layout = { preset = 'dropdown' } },
-        help = { layout = { preset = 'vscode' } },
-        keymaps = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
-        pickers = { layout = { preset = 'vscode' } },
-        zoxide = { layout = { preset = 'vscode' }, confirm = 'edit' },
+        files    = { layout = { preset = 'sidebar' } },
+        grep     = { layout = { preset = 'dropdown' } },
+        help     = { layout = { preset = 'vscode' } },
+        keymaps  = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        pickers  = { layout = { preset = 'vscode' } },
+        zoxide   = { layout = { preset = 'vscode' }, confirm = 'edit' },
       },
     }
     opts.scratch = {

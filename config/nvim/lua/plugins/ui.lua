@@ -71,4 +71,18 @@ return {
       }):map('<leader>uN', { desc = 'Toggle Noice' })
     end,
   },
+
+  {
+    'williamboman/mason.nvim',
+    opts = {
+      ui = {
+        border = 'rounded',
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
+      },
+    },
+  },
 }

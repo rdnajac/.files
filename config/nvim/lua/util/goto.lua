@@ -72,9 +72,11 @@ function M.lazy()
   else
     -- Special cases for specific files
     local special_files = {
+      ['ai.lua'] = LazyVimExtrasPath .. '/ai/copilot.lua',
       ['blink.lua'] = LazyVimExtrasPath .. '/coding/blink.lua',
-      ['lsp.lua'] = LazyVimPluginPath .. '/lsp/',
       ['core.lua'] = LazyVimPluginPath .. '/init.lua',
+      ['dial.lua'] = LazyVimExtrasPath .. '/editor/dial.lua',
+      ['lsp.lua'] = LazyVimPluginPath .. '/lsp/init.lua',
     }
 
     if special_files[current_file] then

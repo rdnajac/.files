@@ -4,11 +4,11 @@ return {
   lazy = false,
   cmd = 'Oil',
   keys = {
-    { '-', '<Cmd>Oil --float<CR>', desc = 'Open Oil in floating window' },
+    { '-', '<Cmd>Oil --float --preview<CR>', desc = 'Open Oil in floating window' },
     { '_', '<Cmd>Oil<CR>', desc = 'Open Oil' },
   },
   opts = function()
-    local git_status = require('util.git').new_git_status()
+    local git_status = require('util.git').status()
     local refresh = require('oil.actions').refresh
     local orig_refresh = refresh.callback
 
@@ -17,49 +17,19 @@ return {
       orig_refresh(...)
     end
 
-    -- Snacks Rename
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'OilActionsPost',
-      callback = function(event)
-        if event.data.actions.type == 'move' then
-          Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
-        end
-      end,
-    })
-
-    -- Delete file and buffer
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'OilActionsPre',
-      callback = function(event)
-        -- TODO: is this loop necessary?
-        for _, action in ipairs(event.data.actions) do
-          if action.type == 'delete' then
-            local _, path = require('oil.util').parse_url(action.url)
-            Snacks.bufdelete({ file = path, force = true })
-          end
-        end
-      end,
-    })
-
+    ---@type oil.setupOpts
     return {
       default_file_explorer = false,
       columns = {},
-      buf_options = {
-        buflisted = false,
-        bufhidden = 'hide',
-      },
-      win_options = {
-        number = false,
-        relativenumber = false,
-      },
+      win_options = {},
       -- delete_to_trash = true,
-      prompt_save_on_select_new_entry = true,
+      -- prompt_save_on_select_new_entry = false,
       skip_confirm_for_simple_edits = true,
       constrain_cursor = 'name',
       watch_for_changes = true,
       view_options = {
         winbar = '%!v:lua.get_oil_winbar()',
-        show_hidden = false,
+
         is_hidden_file = function(name, bufnr)
           local dir = require('oil').get_current_dir(bufnr)
           local is_dotfile = vim.startswith(name, '.') and name ~= '..'
@@ -74,6 +44,10 @@ return {
           end
         end,
       },
+
+      is_always_hidden = function(name, _)
+        return name == '..'
+      end,
 
       keymaps = {
         ['h'] = { 'actions.parent', mode = 'n' },
@@ -92,27 +66,10 @@ return {
           end,
         },
       },
-
-      -- Extra arguments to pass to SCP when moving/copying files over SSH
-      extra_scp_args = {},
-      -- EXPERIMENTAL support for performing file operations with git
-      git = {
-        -- Return true to automatically git add/mv/rm files
-        add = function(path)
-          return false
-        end,
-        mv = function(src_path, dest_path)
-          return false
-        end,
-        rm = function(path)
-          return false
-        end,
-      },
     }
   end,
 
   init = function()
-    -- Declare a global function to retrieve the current directory
     function _G.get_oil_winbar()
       local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
       local dir = require('oil').get_current_dir(bufnr)
@@ -123,5 +80,29 @@ return {
         return vim.api.nvim_buf_get_name(0)
       end
     end
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'OilActionsPost',
+      callback = function(event)
+        if event.data.actions.type == 'move' then
+          Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+        end
+      end,
+      desc = 'Snacks rename on move',
+    })
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'OilActionsPre',
+      callback = function(event)
+        -- TODO: is this loop necessary?
+        for _, action in ipairs(event.data.actions) do
+          if action.type == 'delete' then
+            local _, path = require('oil.util').parse_url(action.url)
+            Snacks.bufdelete({ file = path, force = true })
+          end
+        end
+      end,
+      desc = 'Delete buffer on delete',
+    })
   end,
 }

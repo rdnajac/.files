@@ -1,10 +1,7 @@
 return {
   -- { 'tpope/vim-abolish' },
+  { 'tpope/vim-apathy' },
   -- { 'tpope/vim-tbone' },
-  {
-    'williamboman/mason.nvim',
-    opts = { ui = { border = 'rounded' } },
-  },
   {
     'christoomey/vim-tmux-navigator',
     keys = {
@@ -14,7 +11,6 @@ return {
       { '<C-l>', '<Cmd>TmuxNavigateRight<Cr>' },
     },
   },
-
   {
     'max397574/better-escape.nvim',
     event = 'VeryLazy',
