@@ -2,6 +2,14 @@
 return {
   'Saghen/blink.cmp',
   dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
+  init = function()
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'BlinkCmpMenuOpen',
+      command = 'call copilot#Dismiss()',
+      desc = 'Dismiss Copilot when BlinkCmp menu opens',
+    })
+  end,
+
   ---@param opts blink.cmp.Config
   opts = function(_, opts)
     opts.completion.menu = { border = 'rounded' }
