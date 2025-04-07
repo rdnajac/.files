@@ -11,7 +11,15 @@ return {
     opts.image = { enabled = vim.env.TERM == 'xterm-kitty' }
     opts.indent = { indent = { only_current = true, only_scope = true } }
     opts.notifier = { style = 'fancy', date_format = '%T', timeout = 2000 }
-    opts.picker = require('config.snacks.picker')
+    opts.picker = {
+      win = { preview = { wo = { number = false, statuscolumn = '' } } },
+      sources = {
+        autocmds = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        buffers = { layout = { preset = 'vscode' } },
+        command_history = { layout = { win = 'list', border = 'single' } },
+        zoxide = { confirm = 'edit' },
+      },
+    }
     opts.scratch = {
       win_by_ft = {
         vim = {
@@ -27,12 +35,12 @@ return {
           },
         },
       },
-      wo = { winhighlight = 'Normal:SpecialWindow' },
+      -- wo = { winhighlight = 'Normal:SpecialWindow' },
     }
     opts.statuscolumn = { left = { 'sign' }, right = { 'git' } }
     opts.styles = {
-      -- notification = { wo = { wrap = true } },
       scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
+      --   -- notification = { wo = { wrap = true } },
     }
     opts.terminal = {
       start_insert = true,
