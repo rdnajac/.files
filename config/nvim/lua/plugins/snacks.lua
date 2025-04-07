@@ -12,12 +12,35 @@ return {
     opts.indent = { indent = { only_current = true, only_scope = true } }
     opts.notifier = { style = 'fancy', date_format = '%T', timeout = 2000 }
     opts.picker = {
-      win = { preview = { wo = { number = false, statuscolumn = '' } } },
+      layouts = {
+        vscode = {
+          preview = false,
+          layout = {
+            backdrop = false,
+            row = 1,
+            width = 0.4,
+            min_width = 80,
+            height = 0.4,
+            border = 'none',
+            box = 'vertical',
+            { win = 'input', height = 1, border = 'rounded', title = '{title} {live} {flags}', title_pos = 'center' },
+            { win = 'list', border = 'rounded' },
+            { win = 'preview', title = '{preview}', border = 'rounded' },
+          },
+        },
+      },
+      win = { preview = { minimal = true } },
       sources = {
         autocmds = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
         buffers = { layout = { preset = 'vscode' } },
-        command_history = { layout = { win = 'list', border = 'single' } },
-        zoxide = { confirm = 'edit' },
+        commands = { layout = { preset = 'ivy' } },
+        explorer = require('config.snacks.explorer'),
+        files = { layout = { preset = 'sidebar' } },
+        grep = { layout = { preset = 'dropdown' } },
+        help = { layout = { preset = 'vscode' } },
+        keymaps = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        pickers = { layout = { preset = 'vscode' } },
+        zoxide = { layout = { preset = 'vscode' }, confirm = 'edit' },
       },
     }
     opts.scratch = {
@@ -35,12 +58,11 @@ return {
           },
         },
       },
-      -- wo = { winhighlight = 'Normal:SpecialWindow' },
     }
     opts.statuscolumn = { left = { 'sign' }, right = { 'git' } }
     opts.styles = {
       scratch = { wo = { winhighlight = 'Normal:SpecialWindow' } },
-      --   -- notification = { wo = { wrap = true } },
+      -- notification = { wo = { wrap = true } },
     }
     opts.terminal = {
       start_insert = true,
