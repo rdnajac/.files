@@ -48,6 +48,7 @@ return {
 
   {
     'github/copilot.vim',
+    endabled = true,
     event = 'VeryLazy',
     init = function()
       vim.cmd([[

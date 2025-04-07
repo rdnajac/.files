@@ -42,7 +42,7 @@ return {
     })
 
     return {
-      default_file_explorer = true,
+      default_file_explorer = false,
       columns = {},
       buf_options = {
         buflisted = false,

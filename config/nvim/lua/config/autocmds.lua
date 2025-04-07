@@ -96,8 +96,6 @@ au('FileType', {
   callback = function()
     -- Do not highlight vimscript wrapped in `vim.cmd([[...]])`
     vim.api.nvim_set_hl(0, 'LspReferenceText', {})
-
-
   end,
   desc = 'lua filetype settings (in lua)',
 })

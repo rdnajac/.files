@@ -11,7 +11,7 @@ return {
 
   {
     'folke/noice.nvim',
-    enabled = true,
+    enabled = false,
     keys = {
       -- stylua: ignore
       { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' },
