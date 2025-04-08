@@ -5,7 +5,7 @@ return {
     -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
     local keys = require('lazyvim.plugins.lsp.keymaps').get()
     -- stylua: ignore start
-    keys[#keys + 1] = { 'K', function() return vim.lsp.buf.hover({ border = 'rounded' }) end, desc = 'Hover', }
+    keys[#keys + 1] = { 'K', function() return vim.lsp.buf.hover({border = 'rounded'}) end, desc = 'Hover' }
     keys[#keys + 1] = { 'gd', function() Snacks.picker.lsp_definitions() end, desc = 'Goto Definition' }
     keys[#keys + 1] = { 'gD', function() Snacks.picker.lsp_declarations() end, desc = 'Goto Declaration' }
     keys[#keys + 1] = { 'gr', function() Snacks.picker.lsp_references() end, nowait = true, desc = 'References' }
@@ -34,13 +34,8 @@ return {
       lua_ls = {
         settings = {
           Lua = {
-            completion = {
-              callSnippet = 'Disable',
-              keywordSnippet = 'Disable',
-            },
-            diagnostics = {
-              disable = { 'missing-fields' },
-            },
+            completion = { callSnippet = 'Disable', keywordSnippet = 'Disable' },
+            diagnostics = { disable = { 'missing-fields' } },
           },
         },
       },

@@ -1,20 +1,9 @@
 return {
   {
     'folke/flash.nvim',
-    ---@type Flash.Config
+    keys = { 'S', mode = { 'n', 'o', 'x' }, enabled = false },
     opts = { modes = { char = { jump_labels = true } } },
-    keys = function()
-      -- stylua: ignore
-      return {
-        -- { 'f', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
-        { 'F', mode = { 'n', 'o', 'x' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
-        { 'r', mode = 'o',               function() require('flash').remote() end, desc = 'Remote Flash' },
-        { 'R', mode = { 'o', 'x' },      function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
-        { '<c-s>', mode = { 'c' },       function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
-      }
-    end,
   },
-
   {
     'folke/which-key.nvim',
     ---@class wk.Opts
@@ -61,19 +50,10 @@ return {
         { 'gx', desc = 'Open with system app' },
 
         -- keep things tidy
-        { '<leader>q', hidden = true },
+        -- { '<leader>q', hidden = true },
         { 'g~', hidden = true },
         { 'gc', hidden = true },
       }
     end,
-  },
-
-  {
-    'folke/todo-comments.nvim',
-    opts = {
-      highlight = {
-        multiline_pattern = '^[^`]*$', -- match multiline lines that don't contain backticks
-      },
-    },
   },
 }

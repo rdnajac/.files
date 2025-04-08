@@ -54,10 +54,14 @@ end
 
 M.setup = function()
   _create_flags()
-
   vim.api.nvim_create_user_command('CR', CR, {})
   vim.keymap.set('n', '<CR>', '<Cmd>CR<CR>', { silent = true })
   vim.keymap.set('v', '<CR>', '<Cmd>OozeVisual<CR>', { silent = true })
+
+  vim.cmd([[
+    command! RunFile call ooze#runfile()
+    nnoremap <silent> ,<CR> <cmd>RunFile<CR>
+  ]])
 end
 
 return M

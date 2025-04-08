@@ -6,7 +6,7 @@ TERM = "xterm-256color"
 [window]
 padding = { x = 2, y = 2 }
 dynamic_padding = true
-opacity = 0.8
+# opacity = 0.8
 decorations = "Buttonless"
 startup_mode = "SimpleFullscreen"
 option_as_alt = 'Both'
@@ -44,7 +44,8 @@ save_to_clipboard = true
 
 # Tokyonight colors
 [colors.primary]
-background = '#000000'
+# background = '#000000'
+background = '#1F2335'
 foreground = '#c0caf5'
 
 [cursor]

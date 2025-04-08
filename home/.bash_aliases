@@ -41,9 +41,10 @@ alias pip=pip3
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
 alias zz=fg
 
-# exit config files
+# edit config files
 alias ssx='${VISUAL} ${HOME}/.ssh/config'
 alias ba='${VISUAL} ${HOME}/.bash_aliases'
+alias alac='${VISUAL} ${HOME}/.config/alacritty/alacritty.toml'
 
 alias ga='git add'
 alias gaa='git add --all'

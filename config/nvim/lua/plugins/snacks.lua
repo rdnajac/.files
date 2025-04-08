@@ -14,7 +14,6 @@ return {
     opts.picker = {
       layouts = {
         vscode = {
-          -- preview = false,
           layout = {
             backdrop = false,
             row = 1,
@@ -23,9 +22,14 @@ return {
             height = 0.4,
             border = 'rounded',
             box = 'vertical',
-            { win = 'input', height = 1, border = 'rounded', title = '{title} {live} {flags}', title_pos = 'center' },
+            {
+              win = 'input',
+              height = 1,
+              border = 'rounded',
+              title = '{title} {live} {flags}',
+              title_pos = 'center',
+            },
             { win = 'list', border = 'none' },
-            -- { win = 'preview', title = '{preview}', border = 'rounded' },
           },
         },
       },

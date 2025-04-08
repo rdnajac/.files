@@ -20,7 +20,7 @@ M.flag = function(opts)
   ]], name, name, default))
 
   local toggle = Snacks.toggle({
-    name = opts.label or name:gsub("_", " "):gsub("^%l", string.upper),
+    name = opts.label or name:gsub('_', ' '):gsub('^%l', string.upper),
     get = function()
       -- Convert Vim's '0'/'1' string to boolean
       return vim.g[name] == '1' or vim.g[name] == 1

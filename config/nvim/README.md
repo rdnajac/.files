@@ -36,6 +36,7 @@ $$
 - [ ] set formatoptions and formatlistpart for md to includ eboxes and '>'
 - [ ] prepend the directoy to backup files so epynomous files aren't overwritten
 - [ ] fix table rendering in readme
+- [ ] close dashboard whenn picker open
 
 
 

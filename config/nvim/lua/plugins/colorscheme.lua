@@ -11,8 +11,8 @@ return {
       styles = {
         comments = { italic = true },
         keywords = { italic = false, bold = true },
-        sidebars = 'transparent',
-        floats = 'transparent',
+        -- sidebars = 'transparent',
+        -- floats = 'transparent',
       },
       -- stylua: ignore
       on_highlights = function(hl, _)

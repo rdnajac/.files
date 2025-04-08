@@ -1,7 +1,4 @@
 return {
-  { 'akinsho/bufferline.nvim', enabled = true },
-  { 'nvim-lualine/lualine.nvim', enabled = true },
-
   {
     'folke/edgy.nvim',
     enabled = false,
@@ -11,27 +8,14 @@ return {
 
   {
     'folke/noice.nvim',
-    enabled = false,
-    keys = {
       -- stylua: ignore
-      { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' },
-    },
+    keys = { { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' } },
 
-  ---@param opts NoiceConfig
+    ---@param opts NoiceConfig
     opts = function(_, opts)
-
-      opts.cmdline = {
-        -- view = 'cmdline',
-        format = {
-          cmdline = { pattern = '^:', icon = ':', lang = 'vim' },
-          filter = { pattern = '^:%s*!', icon = '!', lang = 'bash' },
-        },
-      }
-      opts.messages = {
-        enabled = true,
-        view = 'mini',
-      }
-      opts.lsp = { signature = { auto_open = { enabled = false } }, }
+      opts.cmdline = { view = 'cmdline' }
+      opts.lsp = { signature = { auto_open = { enabled = false } } }
+      opts.messages = { enabled = true, view = 'mini' }
       opts.presets = { lsp_doc_border = true }
       opts.routes = {
         {

@@ -7,3 +7,6 @@
 ; for more information, see `:h treesitter-query` and `h: treesitter-language-injections`
 ((source_code) @string
  (#set! "priority" 151))
+
+; TODO: make this work for comments that span multiple lines
+; TODO: make this work with folke's `todo-comments`

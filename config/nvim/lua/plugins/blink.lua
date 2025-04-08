@@ -12,12 +12,10 @@ return {
 
   ---@param opts blink.cmp.Config
   opts = function(_, opts)
-    opts.completion.menu = { border = 'rounded' }
+    opts.completion.menu = { border = 'rounded', auto_show = false }
     opts.completion.documentation = { window = { border = 'rounded' } }
     opts.signature = { enabled = true, window = { border = 'rounded' } }
-    opts.keymap = {
-      preset = 'super-tab',
-    }
+    opts.keymap = { preset = 'super-tab' }
     opts.sources = {
       providers = {
         lsp = {

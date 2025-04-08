@@ -4,6 +4,7 @@ local str = [["The computing scientist's main challenge is not to get confused b
 local short = function() return vim.o.lines < 48 end
 local narrow = function() return vim.o.columns < 48 end
 local wide = function() return vim.o.columns >= 128 end
+local in_git_repo = function() return Snacks.git.get_root() ~= nil end
 local setseed = function() math.randomseed(os.time()) end
 -- stylua: ignore end
 
@@ -106,7 +107,7 @@ local M = {
   preset = {
     keys = {
       { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.smart() end, enabled = function() return not wide() end, },
-      { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return not wide() end },
+      { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return not wide() and in_git_repo() end },
       { icon = " ", key = "s", desc = 'Session',  action = function() require("persistence").load({ last = true }) end },
       { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.files({cwd = vim.fn.expand('$DOTDIR')}) end },
       { icon = '󰄻 ', key = 'z', desc = 'Zoxide',   action = function() Snacks.picker.zoxide() end },
@@ -130,10 +131,12 @@ local M = {
       pane = 1, enabled = function() return wide() end,
       { icon = ' ', title = 'Files', key = 'f', action = function() Snacks.picker.smart() end },
       { my_files(), indent = 2, enabled = function() return wide() end },
+    },
+    {
+      pane = 1, enabled = function() return wide() and in_git_repo() end,
       { icon = ' ', title = 'Lazygit', key = 'g', action = function() Snacks.lazygit() end },
       {
         section = 'terminal',
-        enabled = function() return Snacks.git.get_root() ~= nil end,
         cmd = 'git status --short --branch --renames',
         padding = 1,
         indent = 1,
@@ -159,7 +162,7 @@ local M = {
     },
     { padding = 1 },
     { section = 'startup', enabled = function() return wide() end, indent = wide() and math.floor(vim.o.columns / 2 - 20) or 0 },
-    { section = 'startup', enabled = function() return not wide() end },
+    { section = 'startup', enabled = function() return not wide() end, },
   },
 }
 
