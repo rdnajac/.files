@@ -6,7 +6,7 @@ return {
     init = function()
       vim.cmd([[
         imap <M-w> <Plug>(copilot-accept-word)
-        imap <M-4> <Plug>(copilot-accept-line)
+        imap <M-L> <Plug>(copilot-accept-line)
         imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
         let g:copilot_no_tab_map = v:true
         let g:copilot_workspace_folders = ["~/GitHub"]

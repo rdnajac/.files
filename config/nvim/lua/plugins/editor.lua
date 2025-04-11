@@ -12,7 +12,7 @@ return {
         scroll_down = '<C-j>',
         scroll_up = '<C-k>',
       }
-      opts.sort = { 'local', 'order', 'alphanum', 'mod' }
+      -- opts.sort = { 'local', 'order', 'alphanum', 'mod' }
       opts.spec = {
         {
           mode = { 'n' },
@@ -53,6 +53,12 @@ return {
         -- { '<leader>q', hidden = true },
         { 'g~', hidden = true },
         { 'gc', hidden = true },
+
+        -- add icons
+        { '<leader>A', icon = { icon = ' ', color = 'azure' } },
+        { '<leader>K', icon = { icon = ' ', color = 'azure' } },
+        { '<leader>r', icon = { icon = ' ', color = 'azure' } },
+        { '<leader>v', icon = { icon = ' ', color = 'azure' } },
       }
     end,
   },
