@@ -80,3 +80,15 @@ alias cim=vim
 
 # clear scren and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
+
+# from bash examples
+alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
+alias clean='echo -n "Really clean this directory?";
+	read yorn;
+	if test "$yorn" = "y"; then
+	   rm -f \#* *~ .*~ *.bak .*.bak  *.tmp .*.tmp core a.out;
+	   echo "Cleaned.";
+	else
+	   echo "Not cleaned.";
+	fi'
+
