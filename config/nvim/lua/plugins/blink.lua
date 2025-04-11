@@ -1,3 +1,4 @@
+-- https://cmp.saghen.dev/
 ---@module 'blink.cmp'
 return {
   'Saghen/blink.cmp',
@@ -12,8 +13,9 @@ return {
 
   ---@param opts blink.cmp.Config
   opts = function(_, opts)
-    opts.completion.menu = { border = 'rounded', auto_show = false }
     opts.completion.documentation = { window = { border = 'rounded' } }
+    opts.completion.menu = { border = 'rounded', auto_show = false }
+    opts.completion.menu.draw = { columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } } }
     opts.signature = { enabled = true, window = { border = 'rounded' } }
     opts.keymap = { preset = 'super-tab' }
     opts.sources = {
@@ -24,6 +26,7 @@ return {
           transform_items = function(_, items)
             return vim.tbl_filter(function(item)
               return item.kind ~= require('blink.cmp.types').CompletionItemKind.Keyword
+                and item.kind ~= vim.lsp.protocol.CompletionItemKind.Snippet
             end, items)
           end,
         },

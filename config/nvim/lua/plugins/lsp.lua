@@ -34,15 +34,10 @@ return {
       lua_ls = {
         settings = {
           Lua = {
-            completion = { callSnippet = 'Disable', keywordSnippet = 'Disable' },
+            -- completion = { callSnippet = 'Disable', keywordSnippet = 'Disable' },
             diagnostics = { disable = { 'missing-fields' } },
           },
         },
-      },
-      bashls = {
-        capabilities = require('blink.cmp').get_lsp_capabilities({
-          textDocument = { completion = { completionItem = { snippetSupport = false } } },
-        }),
       },
       r_language_server = {
         root_dir = function(fname)
