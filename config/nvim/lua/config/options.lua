@@ -5,7 +5,7 @@ local set = vim.opt
 g.maplocalleader = ','
 g.snacks_animate = true
 g.autoformat = false
-g.ai_cmp = true
+g.ai_cmp = false
 g.lazyvim_picker = 'snacks'
 g.lazyvim_explorer = 'snacks'
 
@@ -44,12 +44,3 @@ set.wildmode = { 'longest:full', 'full' }
 -- default: `ltToOCF`
 -- current: `shortmess=oCcTaFltIWO`
 set.shortmess:append({ W = true, I = true, c = true, C = true, a = true })
-
-vim.filetype.add({
-  pattern = {
-    -- Correctly identify gitconfig files in the alternate directory
-    ['.*/git/config'] = 'gitconfig',
-    -- This is needed to run the after/ftplugin, but it breaks syntax highlighting
-    -- ['.*qmd'] = 'quatro',
-  },
-})

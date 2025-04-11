@@ -40,13 +40,41 @@ return {
         buffers  = { layout = { preset = 'vscode' } },
         commands = { layout = { preset = 'ivy' } },
         -- command_history = { layout = { preset = 'vscode' }, confirm = 'cmd' },
-        explorer = require('config.snacks.explorer'),
         files    = { layout = { preset = 'sidebar' } },
         grep     = { layout = { preset = 'dropdown' } },
         help     = { layout = { preset = 'vscode' } },
         keymaps  = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
         pickers  = { layout = { preset = 'vscode' } },
         zoxide   = { layout = { preset = 'vscode' }, confirm = 'edit' },
+        explorer = {
+          win = {
+            list = {
+              keys = {
+                ['-'] = 'explorer_up',
+                ['l'] = 'confirm',
+                ['h'] = 'explorer_close',
+                ['<Right>'] = 'confirm',
+                ['<Left>'] = 'explorer_close',
+                ['r'] = 'explorer_rename',
+                ['c'] = 'explorer_copy',
+                ['m'] = 'explorer_move',
+                ['o'] = 'explorer_open',
+                ['P'] = 'toggle_preview',
+                ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
+                ['p'] = 'explorer_paste',
+                ['u'] = 'explorer_update',
+              },
+            },
+          },
+        },
+        hardway = {
+          finder = 'grep',
+          hidden = true,
+          ignored = true,
+          follow = false,
+          cwd = vim.fn.expand('$XDG_CONFIG_HOME/vim/docs/learnvimscriptthehardway'),
+          confirm = function(picker, item) picker:close() vim.cmd('!open ' .. Snacks.picker.util.path(item)) end,
+        },
       },
     }
     opts.scratch = {

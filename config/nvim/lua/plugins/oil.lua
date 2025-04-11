@@ -4,7 +4,9 @@ return {
   lazy = false,
   cmd = 'Oil',
   keys = {
-    { '-', '<Cmd>Oil --float --preview<CR>', desc = 'Open Oil in floating window' },
+    -- BUG: preview causes unwanted behavior when moving files in oil buffer
+    -- { '-', '<Cmd>Oil --float --preview<CR>', desc = 'Open Oil in floating window' },
+    { '-', '<Cmd>Oil --float<CR>', desc = 'Open Oil in floating window' },
     { '_', '<Cmd>Oil<CR>', desc = 'Open Oil' },
   },
   opts = function()
@@ -32,7 +34,8 @@ return {
 
         is_hidden_file = function(name, bufnr)
           local dir = require('oil').get_current_dir(bufnr)
-          local is_dotfile = vim.startswith(name, '.') and name ~= '..'
+          local is_dotfile = vim.startswith(name, '.')
+
           if not dir then
             return is_dotfile
           end
@@ -46,7 +49,9 @@ return {
       },
 
       is_always_hidden = function(name, _)
-        return name == '..'
+        if name == '../' then
+          return false
+        end
       end,
 
       keymaps = {

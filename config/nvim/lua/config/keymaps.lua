@@ -9,18 +9,17 @@ del('n', '<leader>ft') -- terminal
 del('n', '<leader>fT') -- terminal
 del('n', '<leader>wd') -- window
 del('n', '<leader>wm') -- window
+del('n', '<leader>-')
+-- del('n', '<leader>|')
 -- del('n', '<leader>qq')
 
 map('v', '<A-s>', ':sort<CR>', { desc = 'Sort selection' })
 map('i', '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('n', 'yc', 'yygccp', { remap = true, desc = 'Duplicate and comment out line' })
-map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
-map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
 
 -- stylua: ignore start
 local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
 
-nmap('<leader>w',     '<Cmd>w<CR>',             'Save File')
 nmap('zS',            vim.show_pos,             'Inspect Pos')
 nmap('gp',            '<Cmd>e <cfile>:p:h<CR>', 'Goto Parent Directory')
 nmap('>',             'V`]>',                   'Normal mode indent')
@@ -31,8 +30,6 @@ nmap('<leader><Tab>', ':b#<CR>',                'Last Buffer')
 nmap('<C-c>',         'ciw',                    'Change Inner Word')
 -- nmap('<C-s>',         'viW',                    'Select Inner WORD')
 -- stylua: ignore end
-map('n', '<leader>-', '<C-W>s', { remap = true, desc = 'Split Window Below' })
-map('n', '<leader>|', '<C-W>v', { remap = true, desc = 'Split Window Right' })
 
 -- Resize window using <option> arrow keys (don't use LazyVim mappings)
 del('n', '<C-Up>')

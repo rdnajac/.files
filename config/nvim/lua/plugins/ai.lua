@@ -1,6 +1,7 @@
 return {
   {
     'github/copilot.vim',
+    enabled = true,
     event = 'VeryLazy',
     init = function()
       vim.cmd([[
