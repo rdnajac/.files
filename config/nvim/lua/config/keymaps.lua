@@ -53,9 +53,13 @@ require('which-key').add({
   { '<leader><space>', function() Snacks.picker() end,               desc = 'Pickers', icon = { icons = ' ' } },
 
   -- debug
-  { '<leader>dl', ':=require("lazy").plugins()<CR>',                 desc = 'Lazy Plugins' },
-  { '<leader>ds', ':=require("snacks").meta.get()<CR>',              desc = 'Snacks' },
-  { '<leader>dps', function() Snacks.profiler.scratch() end,         desc = 'Profiler Scratch Buffer' },
+  { '<leader>db',  '<Cmd>BlinkCmp status<CR>',               desc = 'Blink' },
+  { '<leader>dk',  '<Cmd>checkhealth which-key<CR>',             desc = 'Keymap Health' },
+  { '<leader>dl',  '<Cmd>LazyDev lsp<CR>',                   desc = 'LSP' },
+  { '<leader>ds',  '<Cmd>checkhealth snacks<CR>',                desc = 'Snacks Health' },
+  { '<leader>dL',  ':=require("lazy").plugins()<CR>',        desc = 'Lazy Plugins' },
+  { '<leader>dS',  ':=require("snacks").meta.get()<CR>',     desc = 'Snacks' },
+  { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
 
   { '<leader>f', group = 'file/find' },
   -- { '<leader>fb', function() Snacks.picker.buffers() end,           desc = 'Buffers' },
@@ -122,7 +126,7 @@ require('which-key').add({
   -- <leader>sn is reserved for noice
   { '<leader>sN', function() Snacks.picker.grep({cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim'}) end, desc = 'Snacks File' },
   { '<leader>sp', function() Snacks.picker.lazy() end,                                 desc = 'Search for Plugin Spec' },
-  { '<leader>sP', function() Snacks.picker.grep({cwd = vim.fn.stdpath('data') .. '/lazy'}) end, desc = 'Lazy Plugin File' },
+  { '<leader>sP', function() Snacks.picker.grep({cwd = vim.fn.stdpath('data') .. '/lazy'}) end,             desc = 'Lazy Plugin File' },
   { '<leader>sq', function() Snacks.picker.qflist() end,                               desc = 'Quickfix List' },
   { '<leader>sR', function() Snacks.picker.resume() end,                               desc = 'Resume' },
   { '<leader>su', function() Snacks.picker.undo() end,                                 desc = 'Undotree' },
@@ -130,7 +134,7 @@ require('which-key').add({
   { '<leader>sV', function() Snacks.picker.grep({cwd = vim.fn.expand('$VIMRUNTIME')}) end, desc = '$VIMRUNTIME' },
   { '<leader>sw', LazyVim.pick('grep_word'),                                           desc = 'Visual selection or word (Root Dir)', mode = { 'n',                            'x' } },
   { '<leader>sW', LazyVim.pick('grep_word', { root = false }),                         desc = 'Visual selection or word (cwd)', mode = { 'n', 'x' } },
-  { '<leader>s.', function() Snacks.picker('grep', {cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
+  { '<leader>s.', function() Snacks.picker('grep',{cwd = vim.fn.expand('$DOTDIR'), hidden = true}) end, desc = 'Dotfiles' },
   { '<leader>s:', function() Snacks.picker.command_history() end,                      desc = 'Command History' },
   { '<leader>s"', function() Snacks.picker.registers() end,                            desc = 'Registers' },
   { '<leader>s/', function() Snacks.picker.search_history() end,                       desc = 'Search History' },

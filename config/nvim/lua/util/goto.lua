@@ -44,8 +44,8 @@ local function get_config_path(file)
     options  = vim.fn.stdpath('config') .. '/lua/config/options.lua',
 
     init     = vim.fn.stdpath('config') .. '/init.lua',
+    snacks   = vim.fn.stdpath('config') .. '/lua/plugins/snacks.lua',
     util     = vim.fn.stdpath('config') .. '/lua/util/init.lua',
-    munchies = vim.fn.stdpath('config') .. '/lua/util/munchies/init.lua',
   }
 
   return config_paths[file] or vim.fn.expand(file)
@@ -199,8 +199,8 @@ wk.add({
   { '\\l', function() conf('lazy')     end, desc = 'lazy'},
   { '\\o', function() conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
   { '\\u', function() conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
-  { '\\m', function() conf('munchies') end, desc = 'munchies',  icon = { icon = '🍬' } },
   { '\\s', function() conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},
+  { '\\S', function() conf('snacks') end, desc = 'snacks',  icon = { icon = '🍬' } },
   })
 end
 

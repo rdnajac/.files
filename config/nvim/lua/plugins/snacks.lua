@@ -36,16 +36,18 @@ return {
       win = { preview = { minimal = true } },
       -- stylua: ignore
       sources = {
-        autocmds = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
-        buffers  = { layout = { preset = 'vscode' } },
-        commands = { layout = { preset = 'ivy' } },
         -- command_history = { layout = { preset = 'vscode' }, confirm = 'cmd' },
-        files    = { layout = { preset = 'sidebar' } },
-        grep     = { layout = { preset = 'dropdown' } },
-        help     = { layout = { preset = 'vscode' } },
-        keymaps  = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
-        pickers  = { layout = { preset = 'vscode' } },
-        zoxide   = { layout = { preset = 'vscode' }, confirm = 'edit' },
+        autocmds      = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        buffers       = { layout = { preset = 'vscode' } },
+        commands      = { layout = { preset = 'ivy' } },
+        files         = { layout = { preset = 'sidebar' } },
+        grep          = { layout = { preset = 'ivy' } },
+        help          = { layout = { preset = 'vscode' } },
+        keymaps       = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        notifications = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
+        pickers       = { layout = { preset = 'vscode' } },
+        zoxide        = { layout = { preset = 'vscode' }, confirm = 'edit' },
+
         explorer = {
           win = {
             list = {
@@ -67,6 +69,14 @@ return {
             },
           },
         },
+
+        -- TODO:
+        -- scriptnames = {
+        --   layout = { preset = 'ivy' },
+        --   finder = 'files',
+        -- },
+
+        -- https://learnvimscriptthehardway.stevelosh.com
         hardway = {
           finder = 'grep',
           hidden = true,
