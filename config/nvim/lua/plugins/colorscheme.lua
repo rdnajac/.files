@@ -7,7 +7,7 @@ return {
     opts = {
       style = 'storm',
       dim_inactive = true,
-      transparent = true,
+      -- transparent = true,
       styles = {
         comments = { italic = true },
         keywords = { italic = false, bold = true },

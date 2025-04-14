@@ -1,4 +1,3 @@
--- init.lua
 require('config.lazy').load({
   dev = {
     path = '~/GitHub/rdnajac',
@@ -12,7 +11,7 @@ require('config.lazy').load({
         'gzip',
         -- 'matchit',
         -- 'matchparen',
-        'netrwPlugin',
+        -- 'netrwPlugin',
         'tarPlugin',
         'tohtml',
         'tutor',

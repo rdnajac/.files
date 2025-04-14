@@ -1,24 +1,17 @@
--- lua/config/options.lua
-local g = vim.g
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
+vim.g.autoformat = false
+vim.g.ai_cmp = false
+vim.g.lazyvim_picker = 'snacks'
+vim.g.lazyvim_explorer = 'snacks'
+
 local set = vim.opt
-
-g.maplocalleader = ','
-g.snacks_animate = true
-g.autoformat = false
-g.ai_cmp = false
-g.lazyvim_picker = 'snacks'
-g.lazyvim_explorer = 'snacks'
-
--- silence checkhealth errors
-g.loaded_perl_provider = 0
-g.loaded_python3_provider = 0
-g.loaded_ruby_provider = 0
 
 set.backup = true
 set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
 set.breakindent = true
 set.cmdheight = 0
-set.inccommand = 'nosplit'
+-- set.inccommand = 'nosplit'
 set.listchars = { trail = '¿', tab = '→ ' }
 set.mousescroll = 'hor:0'
 set.pumblend = 0
@@ -29,8 +22,8 @@ set.showmatch = true
 set.sidescrolloff = 0
 set.tabstop = 8
 set.timeoutlen = 420
-set.undofile = true
-set.undolevels = 10000
+-- set.undofile = true
+-- set.undolevels = 10000
 set.updatetime = 69
 set.whichwrap:append('<,>,[,],h,l')
 -- BUG: unintended side effects

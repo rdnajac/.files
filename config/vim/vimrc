@@ -89,11 +89,6 @@ inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
 
-" add undo break-points (`:help i_ctrl-g_u`)
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap ; ;<c-g>u
-
 " using <Cmd> here would ignore the `'<,'>` range
 vmap <C-s> :sort<CR>
 
@@ -116,8 +111,6 @@ nmap yc yygccp
 
 nmap <C-c> ciw
 nmap <C-s> viW
-nmap <C-s> :sort<CR>
-
 
 set tabline=%!ui#tabline()
 set statusline=%!ui#statusline()

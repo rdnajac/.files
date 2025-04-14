@@ -3,7 +3,6 @@ return {
   opts = function()
     local augend = require('dial.augend')
 
-    --- Create a new dial with a list of elements
     --- @param elements string[]: the list of elements
     --- @param isword boolean: whether to respect word boundaries
     local new_dial = function(elements, isword)

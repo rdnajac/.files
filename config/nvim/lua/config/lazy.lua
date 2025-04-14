@@ -1,4 +1,3 @@
--- lua/config/lazy.lua
 local lazyroot = vim.fn.stdpath('data') .. '/lazy'
 local lazypath = lazyroot .. '/lazy.nvim/'
 

@@ -1,4 +1,15 @@
 return {
+  { 'folke/lazy.nvim', version = false },
+  {
+    'LazyVim/LazyVim',
+    version = false,
+    opts = {
+      defaults = {
+        autocmds = true,
+        keymaps = false,
+      },
+    },
+  },
   -- { 'tpope/vim-abolish' },
   { 'tpope/vim-apathy' },
   -- { 'tpope/vim-tbone' },
@@ -45,8 +56,4 @@ return {
       },
     },
   },
-
-  -- Use latest development versions
-  { 'folke/lazy.nvim', version = false },
-  { 'LazyVim/LazyVim', version = false },
 }

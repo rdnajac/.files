@@ -7,7 +7,7 @@ return {
 
   ---@param opts snacks.Config
   opts = function(_, opts)
-    opts.dashboard = require('config.snacks.dashboard')
+    opts.dashboard = require('util.munchies.dashboard')
     opts.image = { enabled = vim.env.TERM == 'xterm-kitty' }
     opts.indent = { indent = { only_current = true, only_scope = true } }
     opts.notifier = { style = 'fancy', date_format = '%T', timeout = 2000 }
@@ -71,10 +71,10 @@ return {
         },
 
         -- TODO:
-        -- scriptnames = {
-        --   layout = { preset = 'ivy' },
-        --   finder = 'files',
-        -- },
+        scriptnames = {
+          layout = { preset = 'ivy' },
+          finder = 'files',
+        },
 
         -- https://learnvimscriptthehardway.stevelosh.com
         hardway = {

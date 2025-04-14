@@ -1,7 +1,7 @@
 local str = [["The computing scientist's main challenge is not to get confused by the complexities of his own making."]]
 
 -- stylua: ignore start
-local short = function() return vim.o.lines < 48 end
+local short = function() return vim.o.lines < 40 end
 local narrow = function() return vim.o.columns < 48 end
 local wide = function() return vim.o.columns >= 128 end
 local in_git_repo = function() return Snacks.git.get_root() ~= nil end
@@ -157,7 +157,7 @@ local M = {
     },
     {
       section = 'keys', pane = 2,
-      gap = 1,
+      gap = in_git_repo() and 1 or 0,
       enabled = function() return wide() end,
     },
     { padding = 1 },

@@ -1,4 +1,4 @@
--- lua/config/autocmds.lua
+-- Delete unwanted autocmds loaded by default
 vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 -- Create shorthand for nvim_create_autocmd API
@@ -22,7 +22,6 @@ end
 -- `User` autocmds are not executed automatically. Use `:doautocmd` to trigger
 
 au('User', {
-
   group = aug('lol'),
   pattern = { 'lol' },
   callback = function(ev)
