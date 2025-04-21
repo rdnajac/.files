@@ -10,11 +10,12 @@ return {
     'folke/noice.nvim',
       -- stylua: ignore
     keys = { { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' } },
+    enabled = false,
 
     ---@param opts NoiceConfig
     opts = function(_, opts)
       opts.cmdline = { view = 'cmdline' }
-      -- opts.lsp.signature = { auto_open = { enabled = false } }
+      opts.lsp.signature = { auto_open = { enabled = false } }
       -- opts.messages = { enabled = true, view = 'mini' }
       opts.presets = { lsp_doc_border = true }
       opts.routes = {

@@ -1,3 +1,4 @@
+export MANPAGER="nvim +Man!"
 export NVIM_SOCK="${XDG_RUNTIME_DIR:-$HOME/.cache}/nvim/server.pipe"
 
 alias L='LAZY=1 nvim'

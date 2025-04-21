@@ -1,8 +1,10 @@
-local function get_scriptnames()
-  -- vim.cmd('redir => g:__scriptnames_out | silent! scriptnames | redir END')
-  -- local out = vim.g.__scriptnames_out or ''
-  -- vim.g.__scriptnames_out = nil
-  local out = vim.api.nvim_exec2("silent! scriptnames", { output = true }).output
+local M = {}
+
+M.scriptnames = function()
+  vim.cmd('redir => g:__scriptnames_out | silent! scriptnames | redir END')
+  local out = vim.g.__scriptnames_out or ''
+  vim.g.__scriptnames_out = nil
+  -- local out = vim.api.nvim_exec2("silent! scriptnames", { output = true }).output
 
   local items = {}
   for _, line in ipairs(vim.split(out, '\n', { plain = true, trimempty = true })) do
@@ -22,12 +24,4 @@ local function get_scriptnames()
   return items
 end
 
-Snacks.picker({
-  title = 'Scriptnames',
-  items = get_scriptnames(),
-  format = function(item)
-    return { { item.text } }
-  end,
-  -- format = 'file',
-  preview = 'file',
-})
+return M

@@ -21,7 +21,7 @@ return {
 
     ---@type oil.setupOpts
     return {
-      default_file_explorer = false,
+      default_file_explorer = true,
       columns = {},
       win_options = {},
       -- delete_to_trash = true,
@@ -57,6 +57,8 @@ return {
       keymaps = {
         ['h'] = { 'actions.parent', mode = 'n' },
         ['l'] = { 'actions.select', mode = 'n' },
+        ['<Left>'] = { 'actions.parent', mode = 'n' },
+        ['<Right>'] = { 'actions.select', mode = 'n' },
         ['q'] = { 'actions.close', mode = 'n' },
         ['<Tab>'] = { 'actions.close', mode = 'n' },
         ['gi'] = {

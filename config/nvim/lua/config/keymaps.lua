@@ -4,6 +4,9 @@ local nmap = function(lhs, rhs, desc) map('n', lhs, rhs, { desc = desc }) end
 local del = vim.keymap.del
 -- stylua: ignore
 
+-- quit
+map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -83,6 +86,10 @@ map("n", "<leader>xl", function()
   end
 end, { desc = "Location List" })
 
+-- highlights under cursor
+map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>uI", function() vim.treesitter.inspect_tree() vim.api.nvim_input("I") end, { desc = "Inspect Tree" })
+
 -- quickfix list
 map("n", "<leader>xq", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
@@ -115,7 +122,14 @@ map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
-
+-- lazygit
+if vim.fn.executable("lazygit") == 1 then
+  map("n", "<leader>gg", function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (Root Dir)" })
+  map("n", "<leader>gG", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
+  map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Current File History" })
+  map("n", "<leader>gl", function() Snacks.picker.git_log({ cwd = LazyVim.root.git() }) end, { desc = "Git Log" })
+  map("n", "<leader>gL", function() Snacks.picker.git_log() end, { desc = "Git Log (cwd)" })
+end
 
 map({ 'n', 'i' }, '<C-c>', 'ciw', { desc = 'Change inner word' })
 map('v', '<M-s>', ':sort<CR>', { desc = 'Sort selection' })
@@ -143,7 +157,6 @@ require('which-key').add({
   { '<leader>un',      function() Snacks.notifier.hide() end,        desc = 'Dismiss All Notifications' },
   { '<leader>,',       function() Snacks.picker.buffers() end,       desc = 'Buffers' },
   { '<leader>F',       function() Snacks.picker.smart() end,         desc = 'Smart Find Files' },
-  { '<leader>C',       function() Snacks.picker.colorschemes() end,  desc = 'Colorschemes', icon = { icon = ' ', color = 'yellow' } },
   { '<leader>z',       function() Snacks.picker.zoxide() end,        desc = 'Zoxide', icon = { icon = '󰄻 ' } },
   { '<leader><space>', function() Snacks.picker() end,               desc = 'Pickers', icon = { icons = ' ' } },
 
@@ -181,9 +194,11 @@ require('which-key').add({
   { '<leader>f.', function() Snacks.picker.files({cwd = vim.fn.expand('$DOTDIR')}) end, desc = '$DOTDIR' },
 
   { '<leader>ga', ':!git add %<CR>', desc = 'Git Add (file)' },
-  { '<leader>gd', function() Snacks.picker.git_diff() end, desc = 'Git Diff (hunks)' },
-  { '<leader>gs', function() Snacks.picker.git_status() end, desc = 'Git Status' },
-  { '<leader>gS', function() Snacks.picker.git_stash() end, desc = 'Git Stash' },
+  { '<leader>gb', function() Snacks.picker.git_log_line() end, desc = 'Git Blame Line' },
+  { '<leader>gB', function() Snacks.gitbrowse() end,           desc = 'Git Browse (open)' },
+  { '<leader>gd', function() Snacks.picker.git_diff() end,     desc = 'Git Diff (hunks)' },
+  { '<leader>gs', function() Snacks.picker.git_status() end,   desc = 'Git Status' },
+  { '<leader>gS', function() Snacks.picker.git_stash() end,    desc = 'Git Stash' },
 
   { '<leader>o', group = 'Insert below', icon = { icon = ' ', color = 'azure' } },
   { '<leader>ob', 'oBUG:<esc><Cmd>normal   gcc<CR>A<space>', desc = 'BUG',   icon = { icon = ' ', color = 'azure' } },
@@ -233,7 +248,10 @@ require('which-key').add({
   { '<leader>s:', function() Snacks.picker.command_history() end,                      desc = 'Command History' },
   { '<leader>s"', function() Snacks.picker.registers() end,                            desc = 'Registers' },
   { '<leader>s/', function() Snacks.picker.search_history() end,                       desc = 'Search History' },
-  { '<leader>s?', function() Snacks.picker.hardway() end, desc = 'Learn Vim Script the Hard Way' },
+  -- { '<leader>s?', function() Snacks.picker.hardway() end, desc = 'Learn Vim Script the Hard Way' },
+
+  { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+  { '<leader>uC', function() Snacks.picker.colorschemes() end,  desc = 'Colorschemes', icon = { icon = ' ', color = 'yellow' } },
 
   {
     { mode = 'v' },
@@ -249,50 +267,32 @@ LazyVim.format.snacks_toggle(true):map("<leader>uF")
 Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
 Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-Snacks.toggle.diagnostics():map("<leader>ud")
-Snacks.toggle.line_number():map("<leader>ul")
 Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }):map("<leader>uc")
 Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
-Snacks.toggle.treesitter():map("<leader>uT")
-Snacks.toggle.option("background", { off = "light", on = "dark" , name = "Dark Background" }):map("<leader>ub")
-Snacks.toggle.dim():map("<leader>uD")
+-- Snacks.toggle.option("background", { off = "light", on = "dark" , name = "Dark Background" }):map("<leader>ub")
+
+Snacks.toggle.option('autochdir'):map('<leader>ta')
+Snacks.toggle.option('list'):map('<leader>u?')
+Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
+
 Snacks.toggle.animate():map("<leader>ua")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.dim():map("<leader>uD")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle.treesitter():map("<leader>uT")
 Snacks.toggle.indent():map("<leader>ug")
 Snacks.toggle.scroll():map("<leader>uS")
 Snacks.toggle.profiler():map("<leader>dpp")
 Snacks.toggle.profiler_highlights():map("<leader>dph")
-Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
-Snacks.toggle.zen():map("<leader>uz")
+Snacks.toggle.words():map("<leader>uW")
+Snacks.toggle.zoom():map("<leader>uZ")
 -- stylua: ignore end
 
+-- TODO: do I need the guard?
 if vim.lsp.inlay_hint then
   Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
--- lazygit
-if vim.fn.executable("lazygit") == 1 then
-  map("n", "<leader>gg", function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (Root Dir)" })
-  map("n", "<leader>gG", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
-  map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Current File History" })
-  map("n", "<leader>gl", function() Snacks.picker.git_log({ cwd = LazyVim.root.git() }) end, { desc = "Git Log" })
-  map("n", "<leader>gL", function() Snacks.picker.git_log() end, { desc = "Git Log (cwd)" })
-end
-
-map("n", "<leader>gb", function() Snacks.picker.git_log_line() end, { desc = "Git Blame Line" })
-map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
-map({"n", "x" }, "<leader>gY", function()
-  Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
-end, { desc = "Git Browse (copy)" })
-
--- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
-
--- highlights under cursor
-map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-map("n", "<leader>uI", function() vim.treesitter.inspect_tree() vim.api.nvim_input("I") end, { desc = "Inspect Tree" })
-Snacks.toggle.option('autochdir'):map('<leader>ta')
-Snacks.toggle.option('list'):map('<leader>u?')
-Snacks.toggle.option('laststatus', { off = 0, on = 3 }):map('<leader>uu')
 
 -- stylua: ignore start
 Snacks.toggle({

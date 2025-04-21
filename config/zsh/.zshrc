@@ -7,18 +7,42 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
 SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT
-# LS_COLORS="$($DOTDIR/etc/LS_PY)" && export LS_COLORS
+
+if [ -f ~/.bash_aliases ]; then
+	. ~/.bash_aliases
+fi
+
+have() { (( $+commands[$1] )) }
+
+have brew && {
+	alias brewup='brew update; brew upgrade; brew cleanup -s;'
+	alias ctags='$(brew --prefix)/bin/ctags'
+}
+
+have micromamba && {
+	alias conda='micromamba'
+	alias mm='micromamba'
+	alias mminstall='micromamba install -c conda-forge -c bioconda'
+}
+
+# better versions of things in rust
+have bat && alias cat=bat
+have eza && {
+	alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
+	alias ls='eza --group-directories-first --colour=always --icons=auto'
+	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
+}
+
 
 export EDITOR=vim
-export MANPAGER="$(which nvim) +Man!"
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
 # Source shell configs for specific programs
-. $DOTDIR/etc/nnn.sh
-. $DOTDIR/etc/fzf.sh
-. $DOTDIR/etc/neovim.sh
+have nnn && . $DOTDIR/etc/nnn.sh
+have fzf && . $DOTDIR/etc/fzf.sh
+havev nvim && . $DOTDIR/etc/neovim.sh
 
 # Source custom zsh configs
 . $ZDOTDIR/promptstring.zsh
@@ -44,8 +68,11 @@ else
 fi
 unset __mamba_setup
 
-eval "$(zoxide init zsh)"
-eval "${$(zoxide init zsh):s#_files -/#_cd#}"
-alias cd=z
+have zoxide && {
+	eval "$(zoxide init zsh)"
+	eval "${$(zoxide init zsh):s#_files -/#_cd#}"
+	alias cd=z
+}
 
+unfunction have 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."

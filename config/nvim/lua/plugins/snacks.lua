@@ -41,7 +41,7 @@ return {
         buffers       = { layout = { preset = 'vscode' } },
         commands      = { layout = { preset = 'ivy' } },
         files         = { layout = { preset = 'sidebar' } },
-        grep          = { layout = { preset = 'ivy' } },
+        grep          = { layout = { preset = 'ivy' }, follow = true, ignored = true },
         help          = { layout = { preset = 'vscode' } },
         keymaps       = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
         notifications = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
@@ -49,18 +49,19 @@ return {
         zoxide        = { layout = { preset = 'vscode' }, confirm = 'edit' },
 
         explorer = {
+        git_untracked = false,
           win = {
             list = {
               keys = {
                 ['-'] = 'explorer_up',
-                ['l'] = 'confirm',
-                ['h'] = 'explorer_close',
+                -- ['l'] = 'confirm',
+                -- ['h'] = 'explorer_close',
                 ['<Right>'] = 'confirm',
                 ['<Left>'] = 'explorer_close',
-                ['r'] = 'explorer_rename',
                 ['c'] = 'explorer_copy',
                 ['m'] = 'explorer_move',
-                ['o'] = 'explorer_open',
+                ['r'] = 'explorer_rename',
+                -- ['o'] = 'explorer_open',
                 ['P'] = 'toggle_preview',
                 ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
                 ['p'] = 'explorer_paste',
@@ -70,10 +71,14 @@ return {
           },
         },
 
-        -- TODO:
         scriptnames = {
-          layout = { preset = 'ivy' },
-          finder = 'files',
+          title = 'Scriptnames',
+          items = require('util.munchies.picker').scriptnames(),
+          format = function(item)
+            return { { item.text } }
+          end,
+          -- format = 'file',
+          preview = 'file',
         },
 
         -- https://learnvimscriptthehardway.stevelosh.com

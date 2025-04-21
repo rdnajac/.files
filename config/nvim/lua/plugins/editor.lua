@@ -28,7 +28,6 @@ return {
         { '<leader>c', group = 'code' },
         { '<leader>g', group = 'git' },
         { '<leader>t', group = 'toggle' },
-        { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
         { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
         {
           '<leader>b',
@@ -61,5 +60,15 @@ return {
         { '<leader>v', icon = { icon = ' ', color = 'azure' } },
       }
     end,
+  },
+
+  -- Section: todo-comments
+  {
+    'folke/todo-comments.nvim',
+    opts = {
+      keywords = { Section = { icon = '󰚟', color = 'title' }, },
+      -- highlight = { keyword = 'bg', },
+      colors = { title = { '#7DCFFF' }, },
+    },
   },
 }

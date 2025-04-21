@@ -33,17 +33,15 @@ au('User', {
 
 --------------------------------------------------------------------------------
 -- Some ft plugins set formatoptions, so we have to run this after they load
--- TODO: skip this in markdown
 
 au('FileType', {
   group = aug('formatoptions'),
   pattern = '*',
   -- command = 'setlocal formatoptions-=o',
   callback = function()
-    if vim.bo.filetype == 'markdown' then
-      return
+    if vim.bo.filetype ~= 'markdown' and vim.bo.filetype ~= 'python' then
+      vim.opt_local.formatoptions:remove('o')
     end
-    vim.opt_local.formatoptions:remove('o')
   end,
   desc = 'Remove `o` from formatoptions',
 })

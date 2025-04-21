@@ -8,19 +8,25 @@ local in_git_repo = function() return Snacks.git.get_root() ~= nil end
 local setseed = function() math.randomseed(os.time()) end
 -- stylua: ignore end
 
-local unown = function()
-  local strings = {
-    'lazy',
-    'nvim',
-    'ryan',
-    '\\?\\?\\?\\?\\?',
-    'wow!',
-    'quit',
-    'cbmf',
-    'cmd',
-  }
+local headers = {
+  'lazy',
+  'nvim',
+  'ryan',
+  '\\?\\?\\?\\?\\?',
+  'wow!',
+  'quit',
+  'cbmf',
+  'cmd',
+}
+
+local random_unown = function()
   setseed()
-  return 'unown ' .. strings[math.random(#strings)]
+  return 'unown ' .. headers[math.random(#strings)]
+end
+
+local unown = function()
+  local head = wide() and 'neovim' or 'vim'
+  return 'unown ' .. head
 end
 
 local cowsay = function()
@@ -124,8 +130,16 @@ local M = {
       section = 'terminal',
       padding = 2,
       width = 69,
-      cmd = unown(),
-      enabled = function() return not short() and not narrow() end,
+      cmd = 'unown nvim',
+      enabled = function() return not short() and not narrow() and not wide() end,
+    },
+    {
+      section = 'terminal',
+      padding = 2,
+      indent = math.floor((vim.o.columns - 102) / 2 - 18),
+      width = 120,
+      cmd = 'unown neovim',
+      enabled = function() return not short() and not narrow() and wide() end,
     },
     {
       pane = 1, enabled = function() return wide() end,
@@ -150,19 +164,27 @@ local M = {
       section = 'terminal',
       indent = 11,
       height = 10,
-      pane = wide() and 2 or 1,
-      cmd = cowsay(),
-      enabled = function() return not narrow() end,
+      -- pane = wide() and 2 or 1,
+      cmd = 'echo ',
+      -- cmd = cowsay(),
+      -- enabled = function() return not narrow() end,
+      enabled = false,
       padding = 2,
+    },
+    { 
+      padding = 11,
+      pane = 2,
+      enabled = wide(),
     },
     {
       section = 'keys', pane = 2,
       gap = in_git_repo() and 1 or 0,
       enabled = function() return wide() end,
+      -- padding = {0, 20},
     },
     { padding = 1 },
-    { section = 'startup', enabled = function() return wide() end, indent = wide() and math.floor(vim.o.columns / 2 - 20) or 0 },
-    { section = 'startup', enabled = function() return not wide() end, },
+    { section = 'startup', enabled = function() return wide() end, indent = math.floor((vim.o.columns - 50) / 2) },
+    { section = 'startup', enabled = function() return not wide() end },
   },
 }
 

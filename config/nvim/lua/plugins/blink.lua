@@ -2,7 +2,13 @@
 ---@module 'blink.cmp'
 return {
   'Saghen/blink.cmp',
-  dependencies = { { 'rafamadriz/friendly-snippets', enabled = false } },
+  dependencies = {
+    { 'bydlw98/blink-cmp-env' },
+    { 'mgalliou/blink-cmp-tmux' },
+    { 'fang2hou/blink-copilot' },
+    { 'rafamadriz/friendly-snippets', enabled = false },
+  },
+
   init = function()
     vim.api.nvim_create_autocmd('User', {
       pattern = 'BlinkCmpMenuOpen',
@@ -22,7 +28,6 @@ return {
       end,
       desc = 'Keep completing path on <Tab>',
     })
-
   end,
 
   --- @param opts blink.cmp.Config
@@ -48,6 +53,9 @@ return {
         'fallback',
       },
     }
+
+    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }
+
     opts.sources.providers.lsp = {
       transform_items = function(_, items)
         return vim.tbl_filter(function(item)
@@ -56,7 +64,14 @@ return {
         end, items)
       end,
     }
-    opts.sources.providers.path = { opts = { show_hidden_files_by_default = true } }
+    opts.sources.providers.path = {
+      opts = {
+        get_cwd = function(_)
+          return vim.fn.getcwd()
+        end,
+        show_hidden_files_by_default = true,
+      },
+    }
     opts.sources.providers.snippets = { opts = { friendly_snippets = false } }
   end,
 }
