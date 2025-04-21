@@ -42,13 +42,11 @@ export SAVEHIST=10000
 # Source shell configs for specific programs
 have nnn && . $DOTDIR/etc/nnn.sh
 have fzf && . $DOTDIR/etc/fzf.sh
-havev nvim && . $DOTDIR/etc/neovim.sh
+have nvim && . $DOTDIR/etc/neovim.sh
 
 # Source custom zsh configs
 . $ZDOTDIR/promptstring.zsh
 . $ZDOTDIR/clipboardfunctions.zsh
-. $ZDOTDIR/aliases.zsh
-. $ZDOTDIR/options.zsh
 . $ZDOTDIR/zle.zsh
 . $ZDOTDIR/completion.zsh # FIXME:
 
