@@ -19,36 +19,19 @@
       { "language": "html",         "path": "./html.json" },
       { "language": "loremipsum",   "path": "./loremipsum.json" },
       { "language": "make",         "path": "./make.json" },
-      { "language": "markdown",     "path": "./markdown.json" },
       { "language": "quarto",       "path": "./quarto.json" },
       { "language": "rmarkdown",    "path": "./rmarkdown.json" },
       { "language": "pydoc",        "path": "./python/pydoc.json" },
       { "language": "python",       "path": "./python/python.json" },
       { "language": "python",       "path": "./python/comprehension.json" },
       { "language": "python",       "path": "./python/unittest.json" },
-      { "language": "python", "path": "./python/debug.json" },
-      { "language": ["r", "rmd", "quatro"],            "path": "./r.json" },
-      {
-        "language": [
-          "plaintex",
-          "tex"
-        ],
-        "path": "./latex.json"
-      },
-      {
-        "language": [
-          "sh",
-          "zsh"
-        ],
-        "path": "./sh.json"
-      },
-      {
-        "language": [
-          "ocaml",
-          "ocamlinterface"
-        ],
-        "path": "./ocaml/ocaml.json"
-      },
+      { "language": "python",       "path": "./python/debug.json" },
+      { "language": ["markdown", "rmd", "quatro"], "path": "./markdown.json" },
+      { "language": ["r", "rmd", "quatro"],        "path": "./r.json" },
+      { "language": ["r", "rmd", "quatro"],        "path": "./r.json" },
+      { "language": [ "plaintex", "tex" ],         "path": "./latex.json" },
+      { "language": [ "sh", "zsh" ],               "path": "./sh.json" },
+      { "language": [ "ocaml", "ocamlinterface" ], "path": "./ocaml/ocaml.json" },
       { "language": "ocaml.ocamllex", "path": "./ocaml/ocamllex.json" },
       { "language": "dune-project", "path": "./ocaml/dune-project.json" },
       { "language": "dune", "path": "./ocaml/dune.json" }

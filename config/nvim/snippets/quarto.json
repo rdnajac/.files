@@ -24,77 +24,10 @@
         "body": "{{< $0 >}}",
         "description": "Insert shortcode"
     },
-    "Insert fenced code block": {
-        "prefix": "fenced codeblock",
-        "body": [
-            "```${1|python,c,c++,c#,ruby,go,java,php,htm,css,javascript,json,markdown,console,r|}",
-            "${TM_SELECTED_TEXT}$0",
-            "```"
-        ],
-        "description": "Insert fenced code block"
-    },
-    "Insert executable code block": {
-        "prefix": "executable codeblock",
-        "body": [
-            "```{${1|python,r,julia,ojs,sql,bash|}}",
-            "${TM_SELECTED_TEXT}$0",
-            "```"
-        ],
-        "description": "Insert executable code block"
-    },
-    "Insert raw code block": {
-        "prefix": "raw codeblock",
-        "body": [
-            "```{${1|html,latex,openxml,opendocument,asciidoc,docbook,markdown,dokuwiki,fb2,gfm,haddock,icml,ipynb,jats,jira,json,man,mediawiki,ms,muse,opml,org,plain,rst,rtf,tei,texinfo,textile,xwiki,zimwiki,native,r|}}",
-            "${TM_SELECTED_TEXT}$0",
-            "```"
-        ],
-        "description": "Insert raw code block"
-    },
-    "Insert heading level 1": {
-        "prefix": "heading1",
-        "body": "# ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 1"
-    },
-    "Insert heading level 2": {
-        "prefix": "heading2",
-        "body": "## ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 2"
-    },
-    "Insert heading level 3": {
-        "prefix": "heading3",
-        "body": "### ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 3"
-    },
-    "Insert heading level 4": {
-        "prefix": "heading4",
-        "body": "#### ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 4"
-    },
-    "Insert heading level 5": {
-        "prefix": "heading5",
-        "body": "##### ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 5"
-    },
-    "Insert heading level 6": {
-        "prefix": "heading6",
-        "body": "###### ${1:${TM_SELECTED_TEXT}}",
-        "description": "Insert heading level 6"
-    },
     "Insert unordered list": {
         "prefix": "unordered list",
         "body": ["- ${1:first}", "- ${2:second}", "- ${3:third}", "$0"],
         "description": "Insert unordered list"
-    },
-    "Insert ordered list": {
-        "prefix": "ordered list",
-        "body": ["1. ${1:first}", "2. ${2:second}", "3. ${3:third}", "$0"],
-        "description": "Insert ordered list"
-    },
-    "Insert horizontal rule": {
-        "prefix": "horizontal rule",
-        "body": "----------\n",
-        "description": "Insert horizontal rule"
     },
     "Insert link": {
         "prefix": "link",
