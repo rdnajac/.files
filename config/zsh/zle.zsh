@@ -16,10 +16,16 @@ bindkey '^[OA'  up-line-or-beginning-search
 bindkey '^[[B'  down-line-or-beginning-search  # Arrow down
 bindkey '^[OB'  down-line-or-beginning-search
 
-bindkey "^[[1;2D" backward-word     # Shift + Left
-bindkey "^[[1;2C" forward-word      # Shift + Right
-bindkey "^[[1;6D" beginning-of-line # Shift + Ctrl + Left
-bindkey "^[[1;6C" end-of-line       # Shift + Ctrl + Right
+# bindkey "^[[1;2D" backward-word     # Shift + Left
+# bindkey "^[[1;2C" forward-word      # Shift + Right
+bindkey "^[[1;3D" backward-word       # Alt + Left (most terminals)
+bindkey "^[[1;3C" forward-word        # Alt + Right (most terminals)
+
+bindkey "^[[1;4D" beginning-of-line # Shift + Alt + Left
+bindkey "^[[1;4C" end-of-line       # Shift + Alt + Right
 
 # https://zsh.sourceforge.io/Guide/zshguide04.html#l87
 export WORDCHARS=${WORDCHARS//[&.;\/]}
+
+# don't disable bracketed paste, do this instead
+zle_highlight=('paste:none')

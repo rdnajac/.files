@@ -1,10 +1,15 @@
-FZF_ALT_C_COMMAND= source <(fzf --zsh)
+# if on mac
+if [ $(uname) = "Darwin" ]; then
+  FZF_ALT_C_COMMAND= source <(fzf --zsh)
+else
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+fi
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
-  --highlight-line \
   --info=inline-right \
   --ansi \
   --layout=reverse \
+  --height=40% \
   --border=none \
   --color=bg+:#283457 \
   --color=bg:#16161e \
@@ -23,6 +28,12 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --color=separator:#ff9e64 \
   --color=spinner:#ff007c \
 "
+
+FZF_VERSION=$(fzf --version | awk '{print $1}')
+
+if [ "$(printf '%s\n' "0.52" "$FZF_VERSION" | sort -V | head -n1)" = "0.52" ] && [ "$FZF_VERSION" != "0.52" ]; then
+	export FZF_DEFAULT_OPTS="--highlight-line $FZF_DEFAULT_OPTS"
+fi
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.

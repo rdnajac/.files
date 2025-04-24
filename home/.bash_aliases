@@ -92,3 +92,6 @@ alias clean='echo -n "Really clean this directory?";
 	   echo "Not cleaned.";
 	fi'
 
+# alias for the last last arg
+
+alias '#1'='$!'

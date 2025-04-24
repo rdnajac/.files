@@ -38,18 +38,14 @@ set fillchars+=foldsep:│
 set fillchars+=stl:\ ,
 set listchars=trail:¿,tab:→\
 set numberwidth=2
-set shiftwidth=8
-set sidescrolloff=0
-set tabstop=8
 set timeoutlen=420
 set updatetime=69
 set whichwrap+=<,>,[,],h,l
 
-" TODO: make sure these are final
-" set completeopt=menu,preview,preinsert,longest
+set completeopt=menu,preview,preinsert,longest
 set completeopt=menu,preview,longest
 set foldopen+=insert,jump
-set iskeyword+=_
+" set iskeyword+=_
 set wildmode=longest:full,full
 
 if system('uname') =~? '^darwin'
@@ -96,10 +92,6 @@ vmap <C-s> :sort<CR>
 " paste without overwriting the clipboard
 vnoremap <silent> p "_dP
 
-" better indenting
-vnoremap < <gv
-vnoremap > >gv
-
 " indent/dedent in normal mode with < and >
 nnoremap > V`]>
 nnoremap < V`]<
@@ -116,7 +108,6 @@ nmap <C-s> viW
 set tabline=%!ui#tabline()
 set statusline=%!ui#statusline()
 set showtabline=2
-set laststatus=2
 
 augroup autoRestoreCursor
   autocmd!
@@ -167,7 +158,7 @@ augroup quit_on_q
   autocmd FileType help,qf,man silent! nnoremap <silent> <buffer> q :<C-U>close<CR>
 augroup END
 
-" Quit immediately if we accidentally open a command window
+" Quit command window immediately if opened accidentally
 augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
 
 call plug#begin()

@@ -33,11 +33,14 @@ have eza && {
 	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
 }
 
-
 export EDITOR=vim
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
+
+# Don't pollute $HOME with history files
+alias wget='wget --no-hsts'
+alias less='LESSHISTFILE=- less'
 
 # Source shell configs for specific programs
 have nnn && . $DOTDIR/etc/nnn.sh
@@ -74,3 +77,7 @@ have zoxide && {
 
 unfunction have 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+
+for f in $ZDOTDIR/*.zsh; do
+	echo "source $f"
+done
