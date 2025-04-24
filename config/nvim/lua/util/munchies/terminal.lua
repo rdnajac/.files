@@ -13,7 +13,7 @@ end
 vim.keymap.set('n', '<leader>T', snacks_terminal_open, { desc = 'Snacks Terminal with options' })
 
 -- Toggles
-local flag = require('util.toggle').flag
+local flag = require('util.munchies.toggle').flag
 
 flag({
   name = 'snacks_terminal_auto_insert',

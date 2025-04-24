@@ -113,6 +113,7 @@ local M = {
   preset = {
     keys = {
       { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.smart() end, enabled = function() return not wide() end, },
+      { icon = ' ', key = 'r', title = 'Files',   action = function() Snacks.picker.recent() end, hidden = true },
       { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return not wide() and in_git_repo() end },
       { icon = " ", key = "s", desc = 'Session',  action = function() require("persistence").load({ last = true }) end },
       { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.files({cwd = vim.fn.expand('$DOTDIR')}) end },

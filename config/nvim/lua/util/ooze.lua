@@ -2,7 +2,7 @@ local M = {}
 
 -- Define custom global flags with built-in toggles using Snacks Toggle
 local _create_flags = function()
-  local flag = require('util.toggle').flag
+  local flag = require("util.munchies.toggle").flag
 
   flag({
     name = 'ooze_auto_advance',
