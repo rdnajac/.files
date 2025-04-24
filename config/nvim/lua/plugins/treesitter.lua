@@ -16,7 +16,7 @@ return {
       'jsdoc',
       'json',
       'jsonc',
-      'latex',
+      -- 'latex',
       'llvm',
       'lua',
       'luadoc',
@@ -40,6 +40,7 @@ return {
       'yaml',
     }
 
+    -- FIXME: the parse doesn't automatically install from GitHub
     require('nvim-treesitter.parsers').get_parser_configs().comment = {
       install_info = {
         url = '~/GitHub/rdnajac/tree-sitter-comment',

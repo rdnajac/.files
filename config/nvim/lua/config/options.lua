@@ -8,10 +8,11 @@ vim.g.lazyvim_explorer = 'snacks'
 local set = vim.opt
 
 set.backup = true
-set.backupdir = vim.fn.stdpath('state') .. '/backup' .. '/'
+set.backupdir = vim.fn.stdpath('state') .. '/backup//'
 set.breakindent = true
 set.cmdheight = 0
 -- set.inccommand = 'nosplit'
+set.foldlevel = 0
 set.listchars = { trail = '¿', tab = '→ ' }
 set.mousescroll = 'hor:0'
 set.pumblend = 0

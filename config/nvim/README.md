@@ -16,6 +16,11 @@ cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 cd  .. && ls
 ```
 
+## Plugins
+
+Use [`lazy.nvim`](https://lazy.folke.io/) to manage plugins and spend hours
+optimizing for milliseconds load times.
+
 ## Snacks
 
 ### Image

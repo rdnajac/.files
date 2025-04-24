@@ -10,11 +10,11 @@ return {
   },
 
   init = function()
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'BlinkCmpMenuOpen',
-      command = 'call copilot#Dismiss()',
-      desc = 'Dismiss Copilot when BlinkCmp menu opens',
-    })
+    -- vim.api.nvim_create_autocmd('User', {
+    --   pattern = 'BlinkCmpMenuOpen',
+    --   command = 'call copilot#Dismiss()',
+    --   desc = 'Dismiss Copilot when BlinkCmp menu opens',
+    -- })
 
     vim.api.nvim_create_autocmd('User', {
       pattern = 'BlinkCmpAccept',
@@ -37,9 +37,12 @@ return {
     opts.completion.menu = { border = 'rounded', auto_show = true }
     opts.completion.menu.draw =
       { columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } } }
+    -- TODO: fixme signature = {  window = { border = 'single' } },
     opts.signature = { enabled = true, window = { border = 'rounded' } }
     opts.keymap = {
-      preset = 'super-tab',
+      -- preset = 'super-tab',
+      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<C-e>'] = { 'hide', 'fallback' },
       ['<Tab>'] = {
         function(cmp)
           if cmp.snippet_active() then
@@ -52,9 +55,41 @@ return {
         'snippet_forward',
         'fallback',
       },
+      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+      ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+      ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+      ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+      ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+      ['<C-k>'] = {
+        function(cmp)
+          if cmp.is_menu_visible() then
+            return cmp.select_prev()
+          end
+        end,
+        'show_signature',
+        'hide_signature',
+        'fallback',
+      },
+      ['<C-j>'] = {
+        function(cmp)
+          if cmp.is_menu_visible() then
+            return cmp.select_next()
+          end
+        end,
+        'fallback',
+      },
     }
 
-    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }
+    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' }
+
+    opts.sources.providers.copilot = {
+      name = 'copilot',
+      module = 'blink-copilot',
+      score_offset = 100,
+      async = true,
+    }
 
     opts.sources.providers.lsp = {
       transform_items = function(_, items)

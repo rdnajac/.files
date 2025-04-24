@@ -11,12 +11,23 @@ return {
   {
     'echasnovski/mini.surround',
     event = 'InsertEnter',
+    opts = {
+      mappings = {
+        add = 'ys',
+        delete = 'ds',
+        replace = 'cs',
+      },
+      search_method = 'cover_or_next',
+    },
     init = function()
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()
-          vim.keymap.set('n', 'S', 'viWgsa', { remap = true, desc = 'Surround word' })
-          vim.keymap.set('v', 'S', 'gsa', { remap = true, desc = 'Surround selection' })
+          local map = vim.keymap.set
+          map('v', '`', 'ys`', { remap = true, desc = 'Surround selection with backticks' })
+          map('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
+          map('n', 'S', 'viWys', { remap = true, desc = 'Surround WORD' })
+          map('n', 'yss', 'ys_', { remap = true, desc = 'Surround line' })
         end,
       })
     end,
