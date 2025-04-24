@@ -93,6 +93,6 @@ Testing other eza commands
 eza -T --group-directories-first --colour=always -L 3 --icons=auto
 ```
 
-```
+## TODO
 
-```
+- [ ] Add bootstrap script for custom comment treesitter
