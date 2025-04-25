@@ -15,3 +15,5 @@ fi
 
 # Add the nnn level to the prompt if it exists
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
+
+SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT

@@ -1,16 +1,10 @@
-# .zshrc - my custom zsh configuration
-
-setopt interactivecomments
-setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY SHARE_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_REDUCE_BLANKS
-
-SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT
+# .zshrc - my zsh configuration
 
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
+
+setopt interactivecomments
 
 have() { (( $+commands[$1] )) }
 
@@ -25,22 +19,13 @@ have micromamba && {
 	alias mminstall='micromamba install -c conda-forge -c bioconda'
 }
 
-# better versions of things in rust
-have bat && alias cat=bat
+# have bat && alias cat=bat
 have eza && {
 	alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
 	alias ls='eza --group-directories-first --colour=always --icons=auto'
 	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
 }
 
-export EDITOR=vim
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTSIZE=10000
-export SAVEHIST=10000
-
-# Don't pollute $HOME with history files
-alias wget='wget --no-hsts'
-export LESSHISTFILE=-
 
 # Source shell configs for specific programs
 have nnn && . $DOTDIR/etc/nnn.sh
@@ -48,17 +33,15 @@ have fzf && . $DOTDIR/etc/fzf.sh
 have nvim && . $DOTDIR/etc/neovim.sh
 
 # Source custom zsh configs
-. $ZDOTDIR/promptstring.zsh
-. $ZDOTDIR/clipboardfunctions.zsh
-. $ZDOTDIR/zle.zsh
-. $ZDOTDIR/completion.zsh # FIXME:
+for f in $ZDOTDIR/*.zsh; do
+	. "$f"
+done
 
 # set up Ruby environment
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 # source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 # chruby ruby-3.1.3 # run chruby to see actual version
 
-# TODO: can this go in zshenv or profile?
 export MAMBA_EXE="$HOME/.local/bin/micromamba";
 export MAMBA_ROOT_PREFIX="$HOME/.cache/micromamba";
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
@@ -76,8 +59,5 @@ have zoxide && {
 }
 
 unfunction have 
-echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 
-# for f in $ZDOTDIR/*.zsh; do
-# 	echo "source $f"
-# done
+echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."

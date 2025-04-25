@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 TMUX_PANE_NAME="nnn_visual"
 NNN_SPLITSIZE=${NNN_SPLITSIZE:-80}

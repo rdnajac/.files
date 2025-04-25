@@ -37,7 +37,7 @@ command! -bar -bang -nargs=+ Chmod
 " Adapted from autoload/dist/script.vim.
 let s:interpreters = {
       \ '.':      '/bin/sh',
-      \ 'sh':     '/bin/sh',
+      \ 'sh':     '/bin/bash',
       \ 'bash':   'bash',
       \ 'zsh':    'zsh',
       \ 'lua':    'lua',
