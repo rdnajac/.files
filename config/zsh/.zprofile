@@ -1,6 +1,5 @@
 export EDITOR=vim
 
-# export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin

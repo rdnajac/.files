@@ -7,12 +7,20 @@
 ## │ we can configure this with nvim                                │
 ## ╰────────────────────────────────────────────────────────────────╯
 
-options(repos = c(CRAN = "https://cran.mirrors.hoobly.com/"))
+options(
+  repos = c(CRAN = "https://cran.r-project.org"),
+  BiocManager.install = "binary"
+)
 
-if (!require("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
+if (interactive()) {
+  if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+  }
 }
 
+if (requireNamespace("BiocManager", quietly = TRUE)) {
+  options(renv.config.bioconductor.version = as.character(BiocManager::version()))
+}
 # Install packages with the following sytax:
 # `BiocManager::install("package")`
 # Youc can also install Packages from Bioconductor 
