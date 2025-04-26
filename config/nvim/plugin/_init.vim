@@ -25,6 +25,7 @@ augroup FileTypeSettings
   autocmd FileType sh,zsh   setlocal sw=8 sts=8 noexpandtab wrap
   autocmd FileType c        setlocal sw=8 sts=8 noexpandtab
   autocmd FileType cpp,cuda setlocal sw=4 sts=4
+  autocmd FileType json     setlocal sw=2 sts=2
   autocmd FileType python   setlocal sw=4 sts=4
   autocmd FileType r        setlocal sw=2 sts=2
   " autocmd FileType tex    setlocal            fdm=syntax

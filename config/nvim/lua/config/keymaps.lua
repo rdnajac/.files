@@ -77,7 +77,6 @@ if vim.fn.executable('lazygit') == 1 then
   nmap('<leader>gL', function() Snacks.picker.git_log() end,                      'Git Log (cwd)')
 end
 
-
 -- Visual mode
 local vmap = function(lhs, rhs, desc)
   vim.keymap.set('v', lhs, rhs, { desc = desc })
@@ -94,7 +93,10 @@ require('which-key').add({
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
   { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer', icon = { icon = ' ', color = 'azure' }, },
   { '<leader>K', '<Cmd>norm! K<CR>', desc = 'Keywordprg', icon = { icon = ' ', color = 'azure' }, },
-  { '<leader>q', function() Snacks.bufdelete() end, desc = 'Delete Buffer', },
+  -- { '<leader>q', function() Snacks.bufdelete() end, desc = 'Delete Buffer', },
+  { '<leader>q', function() local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+                            if #bufs <= 1 then vim.cmd('q')
+                            else Snacks.bufdelete() end end, desc = 'Delete Buffer', },
   { '<leader>Q', '<Cmd>qa<CR>', desc = 'Quit All' },
   { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
   { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },

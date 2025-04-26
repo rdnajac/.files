@@ -1,8 +1,27 @@
 {
   "cd0": {
-    "prefix": "cdhere",
-    "body": "cd \"\\$(dirname \"\\$0\")\" || exit 1",
-    "description": "Change to the script's directory."
+    "prefix": "cd",
+    "body": "cd -P -- \"\\$(dirname \"${1:\\$0}\")\"",
+    "description": "cd safely"
+  },
+
+  "bash dir": {
+    "prefix": "DIR",
+    "body": "DIR=\"\\$(cd -P -- \"\\$(dirname -- \"\\${BASH_SOURCE[0]}\")\" && pwd -P)\"",
+    "description": "Change to the bash script's directory."
+  },
+
+  "cd or die (bash)": {
+    "prefix": "cdordie",
+    "body": "cd -P -- \"\\$(dirname -- \"\\${BASH_SOURCE[0]}\")\" || {\n\t\n\techo \"\\$0: cd failed\"\n\texit 1\n}\n",
+    "description": "cd safely or die"
+  },
+
+
+  "THREADS": {
+    "prefix": "THREADS",
+    "body": "THREADS=\"\\$(nproc)\"",
+    "description": "THREADS"
   },
 
   "safe": {

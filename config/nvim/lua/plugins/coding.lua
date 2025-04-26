@@ -25,6 +25,7 @@ return {
         callback = function()
           local map = vim.keymap.set
           map('v', '`', 'ys`', { remap = true, desc = 'Surround selection with backticks' })
+          map('v', 'b', 'ys`', { remap = true, desc = 'Surround selection (bold)' })
           map('v', 'S', 'ys', { remap = true, desc = 'Surround selection' })
           map('n', 'S', 'viWys', { remap = true, desc = 'Surround WORD' })
           map('n', 'yss', 'ys_', { remap = true, desc = 'Surround line' })

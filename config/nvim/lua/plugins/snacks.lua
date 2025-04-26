@@ -71,16 +71,6 @@ return {
           },
         },
 
-        scriptnames = {
-          title = 'Scriptnames',
-          items = require('util.munchies.picker').scriptnames(),
-          format = function(item)
-            return { { item.text } }
-          end,
-          -- format = 'file',
-          preview = 'file',
-        },
-
         -- https://learnvimscriptthehardway.stevelosh.com
         hardway = {
           finder = 'grep',

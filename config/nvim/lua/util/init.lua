@@ -32,11 +32,11 @@ vim.filetype.add({
 require('util.goto').setup()
 require('util.file').setup()
 require('util.ooze').setup()
-require("util.link").setup()
+require('util.link').setup()
 
 local function escape_pattern(text)
   -- Escape magic chars for `:s` command
-  return text:gsub("([/\\])", "\\%1")
+  return text:gsub('([/\\])', '\\%1')
 end
 
 function ReplaceSelection()
@@ -59,3 +59,7 @@ function ReplaceSelection()
 end
 
 vim.keymap.set('v', '<C-r>', ReplaceSelection, { desc = 'Replace selected text globally' })
+
+vim.api.nvim_create_user_command('Scriptnames', function()
+  require('util.munchies.picker').scriptnames()
+end, { desc = 'Scriptnames' })

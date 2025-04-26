@@ -76,6 +76,7 @@ return {
 
   {
     'quarto-dev/quarto-nvim',
+    enabled = false,
     ft = { 'quarto' },
     dependencies = { 'jmbuhr/otter.nvim' },
     keys = {

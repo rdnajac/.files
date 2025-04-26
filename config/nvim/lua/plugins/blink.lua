@@ -82,12 +82,27 @@ return {
       },
     }
 
-    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' }
+    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot', 'tmux' }
+
+    opts.sources.providers.path = {
+      score_offset = 101,
+      opts = {
+        get_cwd = function(_)
+          return vim.fn.getcwd()
+        end,
+        show_hidden_files_by_default = true,
+      },
+    }
+
+    opts.sources.providers.snippets = {
+      score_offset = 100,
+      opts = { friendly_snippets = false },
+    }
 
     opts.sources.providers.copilot = {
       name = 'copilot',
       module = 'blink-copilot',
-      score_offset = 100,
+      score_offset = 99,
       async = true,
     }
 
@@ -99,14 +114,14 @@ return {
         end, items)
       end,
     }
-    opts.sources.providers.path = {
+
+    opts.sources.providers.tmux = {
+      name = 'tmux',
+      module = 'blink-cmp-tmux',
       opts = {
-        get_cwd = function(_)
-          return vim.fn.getcwd()
-        end,
-        show_hidden_files_by_default = true,
+        all_panes = true,
+        capture_history = true,
       },
     }
-    opts.sources.providers.snippets = { opts = { friendly_snippets = false } }
   end,
 }
