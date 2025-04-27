@@ -15,7 +15,6 @@ return {
     --   command = 'call copilot#Dismiss()',
     --   desc = 'Dismiss Copilot when BlinkCmp menu opens',
     -- })
-
     vim.api.nvim_create_autocmd('User', {
       pattern = 'BlinkCmpAccept',
       callback = function(ev)

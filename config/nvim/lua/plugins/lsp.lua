@@ -32,7 +32,7 @@ return {
 
     opts.servers = {
       lua_ls = { settings = { Lua = { diagnostics = { disable = { 'missing-fields' } } } } },
-      -- taken from LazyVimExtras and updated to not use deprecated functions
+      -- taken from LazyVimExtras and updated to replace deprecated functions
       r_language_server = {
         root_dir = function(fname)
           return require('lspconfig.util').root_pattern('DESCRIPTION', 'NAMESPACE', '.Rbuildignore')(fname)

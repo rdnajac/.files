@@ -1,16 +1,9 @@
 return {
   {
-    'folke/edgy.nvim',
-    -- enabled = true,
-    cond = vim.g.snacks_animate,
-    -- opts = { wo = { winbar = false } },
-  },
-
-  {
     'folke/noice.nvim',
       -- stylua: ignore
     keys = { { '<M-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c' } },
-    enabled = false,
+    -- enabled = false,
 
     ---@param opts NoiceConfig
     opts = function(_, opts)

@@ -73,17 +73,4 @@ return {
       return opts
     end,
   },
-
-  {
-    'quarto-dev/quarto-nvim',
-    enabled = false,
-    ft = { 'quarto' },
-    dependencies = { 'jmbuhr/otter.nvim' },
-    keys = {
-      { '<leader>cp', '<Cmd>QuartoPreview<CR>', desc = 'Quarto Preview' },
-    },
-    opts = function()
-      return { buffer = { write_to_disk = true } }
-    end,
-  },
 }

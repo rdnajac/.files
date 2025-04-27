@@ -10,9 +10,9 @@ return {
       },
     },
   },
-  -- { 'tpope/vim-abolish' },
+  { 'tpope/vim-abolish' },
   { 'tpope/vim-apathy' },
-  -- { 'tpope/vim-tbone' },
+  { 'tpope/vim-tbone' },
   {
     'christoomey/vim-tmux-navigator',
     keys = {

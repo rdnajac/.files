@@ -25,8 +25,8 @@ nmap('<C-c>', 'ciw', 'Change inner word')
 
 nmap('gp', '<Cmd>e <cfile>:p:h<CR>', 'Goto Parent Directory')
 
--- nmap('>', 'V`]>', 'Normal mode indent')
--- nmap('<', 'V`]<', 'Normal mode dedent')
+nmap('>', 'V`]>', 'Normal mode indent')
+nmap('<', 'V`]<', 'Normal mode dedent')
 
 -- stylua: ignore start
 -- buffers
@@ -77,6 +77,7 @@ if vim.fn.executable('lazygit') == 1 then
   nmap('<leader>gL', function() Snacks.picker.git_log() end,                      'Git Log (cwd)')
 end
 
+
 -- Visual mode
 local vmap = function(lhs, rhs, desc)
   vim.keymap.set('v', lhs, rhs, { desc = desc })
@@ -93,10 +94,7 @@ require('which-key').add({
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
   { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer', icon = { icon = ' ', color = 'azure' }, },
   { '<leader>K', '<Cmd>norm! K<CR>', desc = 'Keywordprg', icon = { icon = ' ', color = 'azure' }, },
-  -- { '<leader>q', function() Snacks.bufdelete() end, desc = 'Delete Buffer', },
-  { '<leader>q', function() local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-                            if #bufs <= 1 then vim.cmd('q')
-                            else Snacks.bufdelete() end end, desc = 'Delete Buffer', },
+  { '<leader>q', function() Snacks.bufdelete() end, desc = 'Delete Buffer', },
   { '<leader>Q', '<Cmd>qa<CR>', desc = 'Quit All' },
   { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
   { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
@@ -134,7 +132,6 @@ require('which-key').add({
   { '<leader>fR', function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = 'Recent (cwd)', },
   { '<leader>fs', function() Snacks.picker.files({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks Files', },
   { '<leader>ft', function() require('util.goto').ft('plugin') end, desc = 'Edit after/ftplugin for current filetype', },
-  { '<leader>fT', function() require('util.goto').ft('snippets') end, desc = 'Edit snippets for current filetype', },
   { '<leader>fv', function() Snacks.picker.files({ cwd = vim.fn.expand('~/.config/vim') }) end, desc = 'Find Vim Config File', },
   { '<leader>fV', function() Snacks.picker.files({ cwd = vim.fn.expand('$VIMRUNTIME') }) end, desc = '$VIMRUNTIME', },
   { '<leader>f.', function() Snacks.picker.files({ cwd = vim.fn.expand('$DOTDIR') }) end, desc = '$DOTDIR', },

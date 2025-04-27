@@ -3,17 +3,10 @@ return {
     'github/copilot.vim',
     enabled = true,
     cmd = 'Copilot',
-    event = 'BufWinEnter',
-    -- event = 'VeryLazy',
+    event = 'VeryLazy',
     init = function()
       vim.g.copilot_no_maps = true
-      -- vim.cmd([[
-      --   imap <M-w> <Plug>(copilot-accept-word)
-      --   imap <M-L> <Plug>(copilot-accept-line)
-      --   imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-      --   let g:copilot_no_tab_map = v:true
-      --   let g:copilot_workspace_folders = ["~/GitHub"]
-      -- ]])
+      vim.g.copilot_workspace_folders ={ "~/GitHub" } 
     end,
     config = function()
       -- Block the normal Copilot suggestions
@@ -28,24 +21,7 @@ return {
     end,
   },
 
-  {
-    'saghen/blink.cmp',
-    dependencies = { 'fang2hou/blink-copilot' },
-    opts = {
-      sources = {
-        default = { 'copilot' },
-        providers = {
-          copilot = {
-            name = 'copilot',
-            module = 'blink-copilot',
-            score_offset = 100,
-            async = true,
-          },
-        },
-      },
-    },
-  },
-
+  -- TODO:
   -- https://codecompanion.olimorris.dev
   {
     'olimorris/codecompanion.nvim',
@@ -56,13 +32,11 @@ return {
     },
     opts = {
       strategies = {
-        -- Change copilot default chat adapter
         chat = {
           adapter = 'copilot',
         },
       },
       opts = {
-        -- Set debug logging
         log_level = 'DEBUG',
       },
     },
