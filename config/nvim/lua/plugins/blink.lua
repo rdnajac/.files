@@ -81,7 +81,24 @@ return {
       },
     }
 
-    opts.sources.default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot', 'tmux' }
+    local defaults = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot', 'tmux' }
+
+    opts.sources.default = function()
+      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+      row = row - 1 -- 0-indexed
+      local check_col = col > 0 and col - 1 or col
+
+      local ok, node = pcall(vim.treesitter.get_node, { pos = { row, check_col } })
+      if
+        ok
+        and node
+        and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, node:type())
+      then
+        return { 'lsp', 'path', 'buffer', 'copilot', 'tmux' }
+      else
+        return defaults
+      end
+    end
 
     opts.sources.providers.path = {
       score_offset = 101,
@@ -103,6 +120,7 @@ return {
       module = 'blink-copilot',
       score_offset = 99,
       async = true,
+      opts = { max_completions = 1 },
     }
 
     opts.sources.providers.lsp = {
