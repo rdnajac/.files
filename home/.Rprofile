@@ -12,11 +12,12 @@ options(
   BiocManager.install = "binary"
 )
 
-if (interactive()) {
-  if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-  }
-}
+# FIXME:
+# if (interactive()) {
+#   if (!requireNamespace("BiocManager", quietly = TRUE)) {
+#     install.packages("BiocManager")
+#   }
+# }
 
 if (requireNamespace("BiocManager", quietly = TRUE)) {
   options(renv.config.bioconductor.version = as.character(BiocManager::version()))

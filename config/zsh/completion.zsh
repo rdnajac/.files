@@ -8,6 +8,8 @@ compinit
 # SCP specific tweaks
 zstyle ':completion:*:*:scp:*' tag-order files
 zstyle ':completion:*:scp:*' remote-access yes
+# zstyle ':completion:*:*:(scp|rsync):*' tag-order files
+# zstyle ':completion:*:(scp|rsync):*' remote-access yes
 
 # Completion caching for speed
 # Follow XDG Base Directory spec for cache

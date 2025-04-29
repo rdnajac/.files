@@ -196,7 +196,7 @@ wk.add({
   { '\\a', function() conf('autocmds') end, desc = 'autocmds', icon = { icon = ' ', color = 'yellow' }},
   { '\\i', function() conf('init')     end, desc = 'init.lua', icon = { icon = ' ', color = 'yellow' }},
   { '\\k', function() conf('keymaps')  end, desc = 'keymaps',  icon = { icon = ' ', color = 'yellow' }},
-  { '\\l', function() conf('lazy')     end, desc = 'lazy'},
+  { '\\L', function() conf('lazy')     end, desc = 'lazy'},
   { '\\o', function() conf('options')  end, desc = 'options',  icon = { icon = ' ', color = 'yellow' }},
   { '\\u', function() conf('util')     end, desc = 'util',  icon = { icon = ' ', color = 'green' }},
   { '\\s', function() conf('~/.ssh/config') end, desc = 'ssh',  icon = { icon = ' ', color = 'red' }},

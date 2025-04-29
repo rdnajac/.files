@@ -1,5 +1,5 @@
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = '\\'
 vim.g.autoformat = false
 vim.g.ai_cmp = false
 vim.g.lazyvim_picker = 'snacks'

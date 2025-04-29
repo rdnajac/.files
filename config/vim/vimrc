@@ -105,10 +105,6 @@ nmap yc yygccp
 nmap <C-c> ciw
 nmap <C-s> viW
 
-set tabline=%!ui#tabline()
-set statusline=%!ui#statusline()
-set showtabline=2
-
 augroup autoRestoreCursor
   autocmd!
   autocmd BufReadPost *

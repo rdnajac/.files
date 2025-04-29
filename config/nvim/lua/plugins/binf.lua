@@ -55,6 +55,8 @@ return {
           mapcmd('<localleader>re?', 'renv::status()')
           mapcmd('<localleader>res', 'renv::snapshot()')
           mapcmd('<localleader>rer', 'renv::restore()')
+
+          mapcmd('<localleader>rq', 'quarto::quarto_preview(file="' .. vim.fn.expand("%:p") .. '")')
         end,
       }
 
