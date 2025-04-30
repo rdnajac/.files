@@ -65,6 +65,7 @@ return {
         scss = 'css',
         json = 'json',
         markdown = 'markdown',
+        quarto = 'markdown',
         r = 'r',
         sh = 'sh',
         zsh = 'sh',

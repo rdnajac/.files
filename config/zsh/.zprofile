@@ -30,6 +30,7 @@ export EDITOR=vim
 # unfunction _prepath
 # unfunction _postpath
 
+export PATH=$PATH:/opt/nvim-macos-arm64/bin
 export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin

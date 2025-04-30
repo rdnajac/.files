@@ -6,7 +6,7 @@ return {
     event = 'VeryLazy',
     init = function()
       vim.g.copilot_no_maps = true
-      vim.g.copilot_workspace_folders ={ "~/GitHub" } 
+      vim.g.copilot_workspace_folders ={ "~/GitHub" }
     end,
     config = function()
       -- Block the normal Copilot suggestions

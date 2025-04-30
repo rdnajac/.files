@@ -1,7 +1,7 @@
 local str = [["The computing scientist's main challenge is not to get confused by the complexities of his own making."]]
 
 -- stylua: ignore start
-local short = function() return vim.o.lines < 40 end
+local short = function() return vim.o.lines < 24 end
 local narrow = function() return vim.o.columns < 48 end
 local wide = function() return vim.o.columns >= 128 end
 local in_git_repo = function() return Snacks.git.get_root() ~= nil end
@@ -112,8 +112,7 @@ end
 local M = {
   preset = {
     keys = {
-      { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.smart() end, enabled = function() return not wide() end, },
-      { icon = ' ', key = 'r', title = 'Files',   action = function() Snacks.picker.recent() end, hidden = true },
+      { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.recent() end },
       { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return not wide() and in_git_repo() end },
       { icon = " ", key = "s", desc = 'Session',  action = function() require("persistence").load({ last = true }) end },
       { icon = ' ', key = 'c', desc = 'Config',   action = function() Snacks.picker.files({cwd = vim.fn.expand('$DOTDIR')}) end },
@@ -129,7 +128,7 @@ local M = {
   sections = {
     {
       section = 'terminal',
-      padding = 2,
+      padding = 1,
       width = 69,
       cmd = 'unown nvim',
       enabled = function() return not short() and not narrow() and not wide() end,
@@ -137,7 +136,7 @@ local M = {
     {
       section = 'terminal',
       padding = 2,
-      indent = math.floor((vim.o.columns - 102) / 2 - 18),
+      indent = math.floor((vim.o.columns - 102) / 2 ) - 29,
       width = 120,
       cmd = 'unown neovim',
       enabled = function() return not short() and not narrow() and wide() end,
@@ -165,7 +164,6 @@ local M = {
       section = 'terminal',
       indent = 11,
       height = 10,
-      -- pane = wide() and 2 or 1,
       cmd = 'echo ',
       -- cmd = cowsay(),
       -- enabled = function() return not narrow() end,
@@ -181,11 +179,10 @@ local M = {
       section = 'keys', pane = 2,
       gap = in_git_repo() and 1 or 0,
       enabled = function() return wide() end,
-      -- padding = {0, 20},
     },
     { padding = 1 },
-    { section = 'startup', enabled = function() return wide() end, indent = math.floor((vim.o.columns - 50) / 2) },
     { section = 'startup', enabled = function() return not wide() end },
+    -- { section = 'startup', indent = math.floor((vim.o.columns - 50) / 2) },
   },
 }
 

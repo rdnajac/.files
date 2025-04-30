@@ -19,7 +19,6 @@
       { "language": "html",         "path": "./html.json" },
       { "language": "loremipsum",   "path": "./loremipsum.json" },
       { "language": "make",         "path": "./make.json" },
-      { "language": "quarto",       "path": "./quarto.json" },
       { "language": "rmarkdown",    "path": "./rmarkdown.json" },
       { "language": "pydoc",        "path": "./python/pydoc.json" },
       { "language": "python",       "path": "./python/python.json" },
