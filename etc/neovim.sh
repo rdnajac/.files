@@ -5,6 +5,9 @@ alias L='LAZY=1 nvim'
 alias nvserver='nvim --listen "$NVIM_SOCK"'
 alias pnv='PROF=1 nvim'
 
+alias lvim='NVIM_APPNAME=nvim-lazyvim nvim'
+alias nv='NVIM_APPNAME=vim nvim'
+
 alias zr='nvim $ZDOTDIR'
 alias zrc='nvim $ZDOTDIR/.zshrc'
 alias nn='nvim ${DOTDIR}/etc/nnn.sh'

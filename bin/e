@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+TMUX_PANE_NAME="nnn_visual"
+NNN_SPLITSIZE=${NNN_SPLITSIZE:-80}
+NVIM_SOCK=${NVIM_SOCK:-$HOME/.cache/nvim/server.pipe}
+
+main() {
+	local test_mode=false
+
+	# Parse only known options
+	for arg in "$@"; do
+		case "$arg" in
+			-T) test_mode=true ;;
+			--) shift; break ;;
+			-*) ;; # skip unknown flags, pass to nvim
+			*) break ;;
+		esac
+		shift
+	done
+
+	if [ -n "$NVIM" ]; then
+		echo "nvim is set. exiting..."
+		exit 1
+	fi
+
+	if [ -S "$NVIM_SOCK" ]; then
+		if [ -n "$nnn" ]; then
+			nvim --server "$NVIM_SOCK" --remote "$@"
+		else
+			nvim --server "$NVIM_SOCK" --remote "$(realpath "$1")"
+		fi
+		exit 0
+	fi
+
+	if $test_mode; then
+		nvim -u "$HOME/.config/nvim/repro/repro.lua" "$@"
+		exit 0
+	fi
+
+	if [ -n "$TMUX" ]; then
+		if tmux list-panes -F '#T' | grep -q "^$TMUX_PANE_NAME$"; then
+			local pane_id
+			pane_id=$(tmux list-panes -F '#{pane_id}:#{pane_title}' | grep "$TMUX_PANE_NAME" | cut -d: -f1)
+			tmux send-keys -t "$pane_id" Escape ":e $*" Enter
+		else
+			tmux split-window -h -p "$NNN_SPLITSIZE" "nvim \"$*\""
+			tmux select-pane -T "$TMUX_PANE_NAME"
+		fi
+	else
+		nvim "$@"
+	fi
+}
+
+main "$@"

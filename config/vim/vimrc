@@ -1,18 +1,28 @@
 " vimrc
 scriptencoding utf-8
 
-" let s:VIMHOME    = expand('$HOME/.vim/')
-let s:VIMHOME    = expand('$XDG_CONFIG_HOME/vim/')
-let g:plug_home  = s:VIMHOME . '/.plugged//'
-let &backupdir   = s:VIMHOME . '.backup//'
-let &directory   = s:VIMHOME . '.swap//'
-let &undodir     = s:VIMHOME . '.undo//'
-let &viminfofile = s:VIMHOME . '.viminfo'
-let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
-" let &verbosefile = s:VIMHOME . '.vimlog.txt'
-set undofile swapfile backup
+let s:VIMHOME = expand('$XDG_CONFIG_HOME/vim//')
+let g:plug_home = s:VIMHOME . '/.plugged//'
+if !has('nvim')
+  let &backupdir   = s:VIMHOME . '.backup//'
+  let &directory   = s:VIMHOME . '.swap//'
+  let &undodir     = s:VIMHOME . '.undo//'
+  let &viminfofile = s:VIMHOME . '.viminfo'
+  let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
+  " let &verbosefile = s:VIMHOME . '.vimlog.txt'
+  "
+" better escape
+  noremap jk <esc>
+  noremap kj <esc>
+else
+  " echom 'nvim!'
+endif
+
+set backup
+set undofile undolevels=10000
 
 set autowrite
+set breakindent
 set cursorline
 set formatoptions-=o
 set ignorecase smartcase
@@ -25,7 +35,7 @@ set shiftround
 set splitbelow splitright
 set splitkeep=screen
 set termguicolors
-set linebreak breakindent
+set linebreak
 set showmatch
 set report=0
 set fillchars+=diff:╱,
@@ -43,7 +53,7 @@ set updatetime=69
 set whichwrap+=<,>,[,],h,l
 
 set completeopt=menu,preview,preinsert,longest
-set completeopt=menu,preview,longest
+" set completeopt=menu,preview,longest
 set foldopen+=insert,jump
 " set iskeyword+=_
 set wildmode=longest:full,full
@@ -57,9 +67,6 @@ endif
 let g:mapleader = ' '
 let g:maplocalleader = '/'
 
-" better escape
-noremap jk <esc>
-noremap kj <esc>
 
 nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
@@ -120,34 +127,7 @@ augroup autoMkdir
   autocmd BufWritePre * call file#automkdir(expand('<afile>'))
 augroup END
 
-augroup quickfix
-  autocmd!
-  autocmd QuickFixCmdPost [^l]* cwindow | silent! call ui#qf_signs()
-  autocmd QuickFixCmdPost   l*  lwindow | silent! call ui#qf_signs()
-augroup END
-
 silent! color scheme
-
-" syntax
-" https://stackoverflow.com/a/28399202/26469286
-" For files that don't have filetype-specific syntax rules
-" autocmd BufNewFile,BufRead *syntax match NotPrintableAscii "[^\x20-\x7F]"
-" For files that do have filetype-specific syntax rules
-" autocmd Syntax * syntax match NotPrintableAscii "[^\x20-\x7F]" containedin=ALL
-" hi NotPrintableAscii ctermbg=236
-
-highlight Evil guifg=red guibg=orange
-
-augroup mySyntax
-  autocmd!
-  autocmd BufNewFile,BufRead * syntax match Evil /“\|”/
-  autocmd Syntax * syntax match Evil /“\|”/
-  " highlight error for vim scripts
-  autocmd BufReadPost,BufNewFile *.vim  if search('vim9script', 'nw') == 0 | syn match Error /^\s*#.*$/ | endif
-augroup END
-
-highlight CommentStringInBackticks guibg=NONE guifg=#39ff14
-syntax region CommentStringInBackticks start=/`/ end=/`/ contained containedin=.*Comment
 
 augroup quit_on_q
   autocmd!
@@ -157,23 +137,26 @@ augroup END
 " Quit command window immediately if opened accidentally
 augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
 
-call plug#begin()
-" Plug 'rdnajac/after'
-Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-" only load plugins on certain filetypes
-Plug 'lervag/vimtex', { 'for': 'tex' }
-call plug#end() " executes `filetype plugin indent on` and `syntax enable`
+  call plug#begin()
+  " Plug 'rdnajac/after'
+  Plug 'tpope/vim-apathy'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-scriptease'
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-speeddating'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-tbone'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-vinegar'
+  " only load plugins on certain filetypes
+  Plug 'lervag/vimtex', { 'for': 'tex' }
 
-" vim: ft=vim fdm=marker sw=2 sts=2
+  " Plug 'benekastah/neomake', has('nvim') ? {} : { 'on': [] }
+
+  call plug#end() " executes `filetype plugin indent on` and `syntax enable`
+
+  " vim: ft=vim fdm=marker sw=2 sts=2

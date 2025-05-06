@@ -6,7 +6,8 @@ PSPWD='%F{blue}%~%f'
 PSTIME='%F{magenta}%D{%H:%M:%S}%f'
 PSERROR='%(?.√.%F{red}exit %F{yellow}%?)%f'
 PSRUB="₽ "
-PS1="[${PSTIME}] ${PSPWD} ${PSERROR}${NEWLINE}${PSRUB}"
+# PS1="╭[${PSTIME}] ${PSPWD} ${PSERROR}${NEWLINE}╰ ${CONDA_DEFAULT_ENV} ${PSRUB}"
+PS1="${NEWLINE}╭─[${PSTIME}] ${PSPWD} ${PSERROR}${NEWLINE}╰─► ${PSRUB}"
 
 # make the prompt like bash on non-macOS
 if [[ "$OSTYPE" != darwin* ]]; then

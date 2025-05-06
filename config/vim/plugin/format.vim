@@ -51,3 +51,11 @@ function! format#buffer() abort
     " call feedkeys(" ")
   endtry
 endfunction
+
+function s:plus_to_backticks() abort
+  %s/^+++$/```/ge
+endfunction
+
+function s:normalize_quotes() abort
+  %s/[“”]/"/ge
+endfunction

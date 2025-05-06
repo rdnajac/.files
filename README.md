@@ -96,3 +96,8 @@ eza -T --group-directories-first --colour=always -L 3 --icons=auto
 ## TODO
 
 - [ ] Add bootstrap script for custom comment treesitter
+
+### markdown
+
+- [ ] Make check boxes work as a list so they appear on subsequent newlines
+

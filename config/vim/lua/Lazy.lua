@@ -7,15 +7,11 @@ else
   vim.opt.rtp:prepend(lazypath)
 end
 
-local M = {}
-
----@param opts LazyConfig
-function M.load(opts)
-  opts = vim.tbl_deep_extend('force', {
+local opts = {
     root = lazyroot,
     ---@type LazySpec
     spec = {
-      {
+     {
         'LazyVim/LazyVim',
         import = 'lazyvim.plugins',
         keys = {
@@ -23,12 +19,16 @@ function M.load(opts)
           { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
         },
       },
-      { import = 'plugins' },
+      { import = 'user.plugins' },
     },
     lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
     pkg = { enabled = false },
     rocks = { enabled = false },
-    install = { colorscheme = { 'tokyonight' } },
+  dev = {
+    path = '~/GitHub/rdnajac',
+    fallback = true,
+  },
+    -- install = { colorscheme = { 'tokyonight' } },
     ui = {
       border = 'rounded',
       -- stylua: ignore
@@ -42,8 +42,27 @@ function M.load(opts)
       enabled = true,
       notify = false,
     },
-  }, opts or {})
-  require('lazy').setup(opts)
-end
 
-return M
+  performance = {
+    reset_packpath = false,
+    rtp = {
+      reset = true,
+      disabled_plugins = {
+        'gzip',
+        -- 'matchit',
+        -- 'matchparen',
+        -- 'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
+  profiling = {
+    loader = false,
+    require = false,
+  }
+  }
+
+require('lazy').setup(opts)

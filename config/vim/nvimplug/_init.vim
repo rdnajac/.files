@@ -27,7 +27,7 @@ augroup FileTypeSettings
   autocmd FileType cpp,cuda setlocal sw=4 sts=4
   autocmd FileType json     setlocal sw=2 sts=2
   autocmd FileType python   setlocal sw=4 sts=4
-  autocmd FileType r        setlocal sw=2 sts=2
+  autocmd FileType r,rmd,quarto setlocal sw=2 sts=2
   " autocmd FileType tex    setlocal            fdm=syntax
   autocmd FileType vim,lua  setlocal sw=2 sts=2 kp=:help
 augroup END

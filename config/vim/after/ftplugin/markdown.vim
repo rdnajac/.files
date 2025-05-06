@@ -34,6 +34,7 @@ if has('nvim')
   setlocal formatoptions+=ro
   finish
 endif
+
 let g:markdown_syntax_conceal = 1
 let g:markdown_folding        = 1
 

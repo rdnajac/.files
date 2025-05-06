@@ -1,19 +1,9 @@
--- Delete unwanted autocmds loaded by default
-vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
-
--- Create shorthand for nvim_create_autocmd API
 local au = vim.api.nvim_create_autocmd
 
--- Function declaration using 'local function' syntax
--- This is hoisted, meaning it can be called before its declaration in the code
--- Useful for functions that need to reference themselves (recursion)
 local function aug(name)
-  return vim.api.nvim_create_augroup('config_' .. name, { clear = true })
+  return vim.api.nvim_create_augroup('user_' .. name, { clear = true })
 end
 
--- Function expression assigned to a variable
--- Cannot be called before this line (no hoisting)
--- More flexible for anonymous functions and closures
 local audebug = function(ev)
   print(string.format('event fired: %s', vim.inspect(ev)))
 end

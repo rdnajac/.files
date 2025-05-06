@@ -29,6 +29,7 @@ alias rmf='rm -f'
 alias rmrf='rm -rf'
 alias rmd='rm -drvI'
 alias mkdir='mkdir -v'
+alias rmdir='rmdir -v'
 
 alias link='ln -vsfFwh' # see `man ln`
 alias lock='chmod -w'   # make a file read-only
@@ -92,6 +93,5 @@ alias clean='echo -n "Really clean this directory?";
 	   echo "Not cleaned.";
 	fi'
 
-# alias for the last last arg
-
-alias '#1'='$!'
+lastarg() { printf '%s\n' "${@: -1}"; }
+shiftargs() { printf '%s\n' "${@:2}"; }

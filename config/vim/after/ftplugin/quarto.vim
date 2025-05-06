@@ -2,6 +2,7 @@ runtime! after/ftplugin/rmd.vim
 
 setlocal conceallevel=0
 
+" TODO: write a template file
 inoremap <buffer> --- ---<CR>engine: "knitr"<CR>---<CR><CR>
 
 inoremap <buffer> `b ```{bash}<CR><CR>```<Up>

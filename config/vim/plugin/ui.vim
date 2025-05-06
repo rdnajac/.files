@@ -71,6 +71,9 @@ function! ui#qf_signs() abort
     endfor
 endfunction
 
+autocmd QuickFixCmdPost [^l]* cwindow | silent! call ui#qf_signs()
+autocmd QuickFixCmdPost   l*  lwindow | silent! call ui#qf_signs()
+
 " TODO:
 function! s:toggle(opt, default) abort
   execute 'if &'.a:opt.' == '.a:default.' | '.'set '.a:opt.'=0 | '.'else | '.'set '.a:opt.'='.a:default.' | '.'endif '
@@ -79,3 +82,24 @@ endfunction
 " nnoremap <localleader>st :call <SID>toggle('showtabline', 2)<CR>
 " nnoremap <localleader>ss :call <SID>toggle('laststatus', 2)<CR>
 " nnoremap <localleader>sc :call <SID>toggle('colorcolumn', 81)<CR>
+
+" syntax
+" https://stackoverflow.com/a/28399202/26469286
+" For files that don't have filetype-specific syntax rules
+" autocmd BufNewFile,BufRead *syntax match NotPrintableAscii "[^\x20-\x7F]"
+" For files that do have filetype-specific syntax rules
+" autocmd Syntax * syntax match NotPrintableAscii "[^\x20-\x7F]" containedin=ALL
+" hi NotPrintableAscii ctermbg=236
+
+highlight Evil guifg=red guibg=orange
+
+augroup mySyntax
+  autocmd!
+  autocmd BufNewFile,BufRead * syntax match Evil /“\|”/
+  autocmd Syntax * syntax match Evil /“\|”/
+  " highlight error for vim scripts
+  autocmd BufReadPost,BufNewFile *.vim  if search('vim9script', 'nw') == 0 | syn match Error /^\s*#.*$/ | endif
+augroup END
+
+highlight CommentStringInBackticks guibg=NONE guifg=#39ff14
+syntax region CommentStringInBackticks start=/`/ end=/`/ contained containedin=.*Comment

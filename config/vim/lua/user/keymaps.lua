@@ -49,8 +49,18 @@ nmap('<leader>ui', vim.show_pos, 'Inspect Pos')
 nmap('<leader>uI', function() vim.treesitter.inspect_tree() vim.api.nvim_input('I') end, 'Inspect Tree')
 -- stylua: ignore end
 
+-- map <leader>cd to do <Cmd>cd $dir<CR> and get the dir with vim.ui.input
+nmap('<leader>cd', function()
+  vim.ui.input({ prompt = 'Change Directory: ', default = vim.fn.getcwd() }, function(input)
+    if input then
+      vim.cmd('cd ' .. input)
+    end
+    vim.cmd('pwd')
+  end)
+end, 'Change Directory')
+
 -- diagnostics
-nmap('<leader>cd', vim.diagnostic.open_float, 'Line Diagnostics')
+nmap('<leader>cD', vim.diagnostic.open_float, 'Line Diagnostics')
 
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -77,7 +87,6 @@ if vim.fn.executable('lazygit') == 1 then
   nmap('<leader>gL', function() Snacks.picker.git_log() end,                      'Git Log (cwd)')
 end
 
-
 -- Visual mode
 local vmap = function(lhs, rhs, desc)
   vim.keymap.set('v', lhs, rhs, { desc = desc })
@@ -94,7 +103,15 @@ require('which-key').add({
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
   { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer', icon = { icon = ' ', color = 'azure' }, },
   { '<leader>K', '<Cmd>norm! K<CR>', desc = 'Keywordprg', icon = { icon = ' ', color = 'azure' }, },
-  { '<leader>q', function() Snacks.bufdelete() end, desc = 'Delete Buffer', },
+  { '<leader>w', function()
+      if vim.bo.modified then
+          vim.cmd('write')
+          print("file saved!")
+      else
+          print("no changes to save")
+      end
+  end, desc = 'Save if modified' },
+  { '<leader>q', function() if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then vim.cmd('bdelete') else vim.cmd('quit') end end, desc = 'Smart Quit' },
   { '<leader>Q', '<Cmd>qa<CR>', desc = 'Quit All' },
   { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
   { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },

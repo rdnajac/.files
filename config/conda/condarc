@@ -3,3 +3,4 @@ channels:
   - conda-forge
   - nodefaults
 channel_priority: strict
+env_prompt: "\n({default_env})"
