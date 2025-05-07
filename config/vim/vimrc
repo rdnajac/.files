@@ -3,77 +3,23 @@ scriptencoding utf-8
 
 let s:VIMHOME = expand('$XDG_CONFIG_HOME/vim//')
 let g:plug_home = s:VIMHOME . '/.plugged//'
-if !has('nvim')
-  let &backupdir   = s:VIMHOME . '.backup//'
-  let &directory   = s:VIMHOME . '.swap//'
-  let &undodir     = s:VIMHOME . '.undo//'
-  let &viminfofile = s:VIMHOME . '.viminfo'
-  let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
-  " let &verbosefile = s:VIMHOME . '.vimlog.txt'
-  "
-" better escape
-  noremap jk <esc>
-  noremap kj <esc>
-else
-  " echom 'nvim!'
-endif
-
-set backup
-set undofile undolevels=10000
-
-set autowrite
-set breakindent
-set cursorline
-set formatoptions-=o
-set ignorecase smartcase
-set list
-set mouse=a
-set number relativenumber
-set pumheight=10
-set scrolloff=4
-set shiftround
-set splitbelow splitright
-set splitkeep=screen
-set termguicolors
-set linebreak
-set showmatch
-set report=0
-set fillchars+=diff:╱,
-set fillchars+=eob:\ ,
-set fillchars+=fold:\ ,
-set fillchars+=foldclose:▸,
-set fillchars+=foldopen:▾,
-set fillchars+=foldsep:\ ,
-set fillchars+=foldsep:│
-set fillchars+=stl:\ ,
-set listchars=trail:¿,tab:→\
-set numberwidth=2
-set timeoutlen=420
-set updatetime=69
-set whichwrap+=<,>,[,],h,l
-
-set completeopt=menu,preview,preinsert,longest
-" set completeopt=menu,preview,longest
-set foldopen+=insert,jump
-" set iskeyword+=_
-set wildmode=longest:full,full
-
-if system('uname') =~? '^darwin'
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
+let &backupdir   = s:VIMHOME . '.backup//'
+let &directory   = s:VIMHOME . '.swap//'
+let &undodir     = s:VIMHOME . '.undo//'
+let &viminfofile = s:VIMHOME . '.viminfo'
+let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
+" let &verbosefile = s:VIMHOME . '.vimlog.txt'
 
 let g:mapleader = ' '
 let g:maplocalleader = '/'
 
+" better escape
+noremap jk <esc>
+noremap kj <esc>
 
-nnoremap <leader>v :e $MYVIMRC<CR>
-nnoremap <leader>r :source $MYVIMRC<CR>
 
-" buffer navigation
-nnoremap <tab> :bnext<CR>
-nnoremap <s-tab> :bprev<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
 nnoremap <localleader><Tab> :b#<CR>
 
 " center searches
@@ -92,25 +38,6 @@ inoremap <silent> ,l <C-x><C-l>
 inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
-
-" using <Cmd> here would ignore the `'<,'>` range
-vmap <C-s> :sort<CR>
-
-" paste without overwriting the clipboard
-vnoremap <silent> p "_dP
-
-" indent/dedent in normal mode with < and >
-nnoremap > V`]>
-nnoremap < V`]<
-
-" duplicate and comment out line
-nmap yc yygccp
-
-" quickly edit the current buffer's ~/.vim/after/ftplugin/.. &ft .. .vim
-" nmap <localleader>ft :e ~/.vim/after/ftplugin/<C-R>=&ft<CR>.vim<CR>
-
-nmap <C-c> ciw
-nmap <C-s> viW
 
 augroup autoRestoreCursor
   autocmd!

@@ -29,8 +29,8 @@ vim.filetype.add({
 })
 
 -- set up utilities
-require('util.goto').setup()
-require('util.file').setup()
+require('old.goto').setup()
+require('old.file').setup()
 require('util.ooze').setup()
 require('util.link').setup()
 

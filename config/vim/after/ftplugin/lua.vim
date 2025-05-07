@@ -1,4 +1,5 @@
 runtime! after/ftplugin/vim.vim
+setlocal formatexpr=v:lua.require'conform'.formatexpr()
 
 " auto close brackets
 inoremap <buffer> {<SPACE> {}<LEFT><SPACE><LEFT><SPACE>

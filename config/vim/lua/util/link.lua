@@ -1,5 +1,5 @@
 local function sanitize(s)
-  return (s or ""):match("^[^\r\n]*"):gsub("%s+", " "):gsub("^%s*", ""):gsub("%s*$", "")
+  return (s or ''):match('^[^\r\n]*'):gsub('%s+', ' '):gsub('^%s*', ''):gsub('%s*$', '')
 end
 
 local M = {}

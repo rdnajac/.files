@@ -1,13 +1,14 @@
 autoload -Uz colors && colors
 
 NEWLINE=$'\n'
-PSPWD='%F{blue}%~%f'
-# PSTIME='%F{magenta}%D{%s}%f'
-PSTIME='%F{magenta}%D{%H:%M:%S}%f'
-PSERROR='%(?.√.%F{red}exit %F{yellow}%?)%f'
-PSRUB="₽ "
-# PS1="╭[${PSTIME}] ${PSPWD} ${PSERROR}${NEWLINE}╰ ${CONDA_DEFAULT_ENV} ${PSRUB}"
-PS1="${NEWLINE}╭─[${PSTIME}] ${PSPWD} ${PSERROR}${NEWLINE}╰─► ${PSRUB}"
+PWD='   %F{blue}%~%f'
+# TIME='%F{magenta}%D{%s}%f'
+TIME='%F{magenta}%D{%H:%M:%S}%f'
+ERR='%(?.√.%F{red}exit %F{yellow}%?)%f'
+RUBLE="₽ "
+# PS1="╭[${TIME}] ${PWD} ${ERR}${NEWLINE}╰ ${CONDA_DEFAULT_ENV} ${PSRUB}"
+# PS1="${NEWLINE}╭─[${TIME}] ${PWD} ${ERR}${NEWLINE}╰─► ${RUBLE}"
+PS1="${PWD} ${NEWLINE}╭─[${TIME}] ${ERR}${NEWLINE}╰─► ${RUBLE}"
 
 # make the prompt like bash on non-macOS
 if [[ "$OSTYPE" != darwin* ]]; then

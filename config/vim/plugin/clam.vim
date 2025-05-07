@@ -7,7 +7,7 @@ function! s:ExeclamVisual(command) range
   let @z = old_z
 endfunction
 
-function! s:ExeclamNormal(ranged, l1, l2, command) " {{{
+function! s:ExeclamNormal(ranged, l1, l2, command)
   if a:ranged
     let lines = getline(a:l1, a:l2)
     let stdin = join(lines, "\n") . "\n"

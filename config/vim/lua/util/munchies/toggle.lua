@@ -2,8 +2,8 @@ local M = {}
 
 M.virtual_text = function()
   return Snacks.toggle.new({
-    id = "virtual_text",
-    name = "Virtual Text",
+    id = 'virtual_text',
+    name = 'Virtual Text',
     get = function()
       return vim.diagnostic.config().virtual_text ~= false
     end,
@@ -15,8 +15,8 @@ end
 
 M.color_column = function()
   return Snacks.toggle.new({
-    id = "color_column",
-    name = "Color Column",
+    id = 'color_column',
+    name = 'Color Column',
     get = function()
       local cc = vim.opt_local.colorcolumn:get()
       local tw = vim.bo.textwidth
@@ -26,26 +26,31 @@ M.color_column = function()
     set = function(state)
       local tw = vim.bo.textwidth
       local col = tostring(tw ~= 0 and tw or 81)
-      vim.opt_local.colorcolumn = state and col or ""
+      vim.opt_local.colorcolumn = state and col or ''
     end,
   })
 end
 
 M.translucency = function()
+  local original = vim.api.nvim_get_hl(0, { name = 'Normal', link = false })
+  local saved_bg = original and original.bg
+
   return Snacks.toggle.new({
-    id = "translucency",
-    name = "Translucency",
+    id = 'translucency',
+    name = 'Translucency',
     get = function()
-      local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-      return bg ~= nil and bg ~= 0
-    -- return Snacks.util.is_transparent()
+      local bg = vim.api.nvim_get_hl(0, { name = 'Normal', link = false }).bg
+      return not (bg == nil or bg == 0)
     end,
     set = function(state)
-      if state then
-        vim.cmd("hi Normal guibg=none")
+      if not state then
+        vim.cmd('hi Normal guibg=none')
       else
-        -- vim.cmd("hi Normal guibg=#000000")
-        vim.cmd("hi Normal guibg=#24283B")
+        if saved_bg then
+          vim.api.nvim_set_hl(0, 'Normal', { bg = saved_bg })
+        else
+          vim.cmd('hi Normal guibg=#24283B')
+        end
       end
     end,
   })
@@ -65,11 +70,16 @@ M.flag = function(opts)
   local desc = opts.desc or ('Toggle ' .. name)
 
   -- Define the variable if it doesn't exist
-  vim.cmd(string.format([[
+  vim.cmd(string.format(
+    [[
     if !exists('g:%s')
       let g:%s = %s
     endif
-  ]], name, name, default))
+  ]],
+    name,
+    name,
+    default
+  ))
 
   local toggle = Snacks.toggle({
     name = opts.label or name:gsub('_', ' '):gsub('^%l', string.upper),
