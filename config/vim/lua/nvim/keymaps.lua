@@ -219,6 +219,7 @@ end
 -- Custom toggles
 require('util.munchies.toggle').translucency():map('<leader>ub', { desc = 'Toggle Translucent Background' })
 require('util.munchies.toggle').virtual_text():map('<leader>uv', { desc = 'Toggle Virtual Text' })
+
 require('util.munchies.toggle').color_column():map('<leader>u\\', { desc = 'Toggle Color Column' })
 
 -- stylua: ignore start

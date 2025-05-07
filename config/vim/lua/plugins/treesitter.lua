@@ -88,6 +88,8 @@ return {
     end,
   },
 
+  { 'folke/ts-comments.nvim', event = 'VeryLazy', opts = {}, },
+
   {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'VeryLazy',

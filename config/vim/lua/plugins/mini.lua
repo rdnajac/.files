@@ -7,6 +7,7 @@ return {
       { 'gA', mode = 'x', desc = 'Align Visual' },
     },
   },
+
   {
     'echasnovski/mini.surround',
     event = 'InsertEnter',
@@ -32,6 +33,7 @@ return {
       })
     end,
   },
+
   {
     'echasnovski/mini.icons',
     lazy = true,
@@ -64,19 +66,6 @@ return {
         desc = 'Toggle mini.diff overlay',
       },
     },
-    opts = {
-      view = {
-        style = 'sign',
-        signs = {
-          add = '▎',
-          change = '▎',
-          delete = '',
-        },
-      },
-    },
-  },
-  {
-    'mini.diff',
     opts = function()
       Snacks.toggle({
         name = 'Mini Diff Signs',
@@ -96,6 +85,17 @@ return {
           end, 200)
         end,
       }):map('<leader>uG')
+
+      return {
+        view = {
+          style = 'sign',
+          signs = {
+            add = '▎',
+            change = '▎',
+            delete = '',
+          },
+        },
+      }
     end,
   },
 }
