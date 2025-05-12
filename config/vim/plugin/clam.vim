@@ -1,41 +1,42 @@
-function! s:ExeclamVisual(command) range
-  let old_z = @z
-
-  normal! gv"zy
-  call s:Execlam(a:command, @z)
-
-  let @z = old_z
-endfunction
-
-function! s:ExeclamNormal(ranged, l1, l2, command)
-  if a:ranged
-    let lines = getline(a:l1, a:l2)
-    let stdin = join(lines, "\n") . "\n"
-
-    call s:Execlam(a:command, stdin)
-  else
-    call s:Execlam(a:command)
+" Return selected text or current line with newline
+function! CaptureText() abort
+  if mode() ==# 'n'
+    return getline('.') . "\n"
   endif
+  let save_z = @z
+  silent normal! "zy
+  let text = @z
+  let @z = save_z
+  return text
 endfunction
 
-function! s:Execlam(command, ...)
-  " Build the actual command string to execute
-  let command = join(map(split(a:command), 'expand(v:val)'))
+" Test current line
+function! TestCaptureLine() abort
+  echo getline('.') . "\n"
+endfunction
 
-  " Run the command
-  echo 'Executing: ' . command
+" Test visual selection
+function! TestCaptureVisual() abort
+  echo CaptureText()
+endfunction
 
-  if a:0 == 0
-    let result = system(command)
-  elseif a:0 == 1
-    let result = system(command, a:1)
-  else
-    echom "Invalid number of arguments passed to Execlam()!"
-    return
+" Combined command input capture
+function! CaptureInput(ranged, l1, l2, cmd) abort
+  if mode() ==# 'n'
+    if a:ranged
+      return [a:cmd, join(getline(a:l1, a:l2), "\n") . "\n"]
+    endif
+    return [a:cmd]
   endif
-
-  echo 'Shell command executed: ' . command
+  return [a:cmd, CaptureText()]
 endfunction
 
-command! -range=0 -complete=shellcmd -nargs=+ Clam call s:ExeclamNormal(<count>, <line1>, <line2>, <q-args>)
-command! -range=% -complete=shellcmd -nargs=+ ClamVisual call s:ExeclamVisual(<q-args>)
+" Execute with combined input
+function! ExecuteInput(ranged, l1, l2, cmd) abort
+  let args = CaptureInput(a:ranged, a:l1, a:l2, a:cmd)
+  echo system(args[0], get(args, 1, ''))
+endfunction
+
+command! TestCaptureLine   call TestCaptureLine()
+command! TestCaptureVisual call TestCaptureVisual()
+command! -range=% -nargs=+ ExecuteInput call ExecuteInput(<count>, <line1>, <line2>, <q-args>)

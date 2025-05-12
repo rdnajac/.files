@@ -1,36 +1,254 @@
 " vimrc
-scriptencoding utf-8
-
-let s:VIMHOME = expand('$XDG_CONFIG_HOME/vim//')
-let g:plug_home = s:VIMHOME . '/.plugged//'
-let &backupdir   = s:VIMHOME . '.backup//'
-let &directory   = s:VIMHOME . '.swap//'
-let &undodir     = s:VIMHOME . '.undo//'
-let &viminfofile = s:VIMHOME . '.viminfo'
-let &spellfile   = s:VIMHOME . '.spell/en.utf-8.add'
-" let &verbosefile = s:VIMHOME . '.vimlog.txt'
-
 let g:mapleader = ' '
 let g:maplocalleader = '/'
 
-" better escape
-noremap jk <esc>
-noremap kj <esc>
+" § housekeeping {{{1
+let s:VIMHOME = exists('$XDG_CONFIG_HOME')
+      \ ? expand('$XDG_CONFIG_HOME/vim//')
+      \ : expand('$HOME/.config/vim//')
+let g:plug_home = s:VIMHOME . '.plugged//'
+let &spellfile  = s:VIMHOME . '.spell/en.utf-8.add'
 
+if !has('nvim')
+  let &backupdir   = s:VIMHOME . '.backup//'
+  let &directory   = s:VIMHOME . '.swap//'
+  let &undodir     = s:VIMHOME . '.undo//'
+  let &viminfofile = s:VIMHOME . '.viminfo'
+  let &verbosefile = s:VIMHOME . '.vimlog.txt'
 
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprev<CR>
-nnoremap <localleader><Tab> :b#<CR>
+  " better escape
+  noremap jk <esc>
+  noremap kj <esc>
 
-" center searches
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap * *zzzv
-nnoremap # #zzzv
+  silent! color scheme
+else
+  " nvim sets $MYVIMRC to either init.vim or init.lua
+  " create a script-local variable to store this file's oath
+  let s:vimrc = expand('<sfile>')
+endif
+" }}}
+
+" § edit and reload config {{{1
+if !exists('*VimConfig')
+  function! VimConfig() abort
+    execute 'edit ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC)
+  endfunction
+  nnoremap <leader>v :silent call VimConfig()<CR>
+endif
+
+if !exists('*ReloadVimConfig')
+  function! ReloadVimConfig() abort
+    execute 'source ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC) | echom 'Reloaded config!'
+  endfunction
+  nnoremap <leader>r :call ReloadVimConfig()<CR>
+endif
+
+if !exists('*EditFTSettings')
+  function! EditFTSettings() abort
+    execute 'edit ' . s:VIMHOME . 'after/ftplugin/' . &ft . '.vim'
+  endfunction
+  nnoremap <leader>ft :call EditFTSettings()<CR>
+endif
+" }}}
+
+" § settings {{{1
+set backup
+set undofile undolevels=10000
+
+set autowrite
+set breakindent
+set cursorline
+set formatoptions-=o
+set ignorecase smartcase
+set list
+set mouse=a
+set number relativenumber
+set pumheight=10
+set scrolloff=4
+set shiftround
+set splitbelow splitright
+set splitkeep=screen
+set termguicolors
+set linebreak
+set showmatch
+set report=0
+set fillchars+=diff:╱,
+set fillchars+=eob:\ ,
+set fillchars+=fold:\ ,
+set fillchars+=foldclose:▸,
+set fillchars+=foldopen:▾,
+set fillchars+=foldsep:\ ,
+set fillchars+=foldsep:│
+set fillchars+=stl:\ ,
+set listchars=trail:¿,tab:→\ "
+set numberwidth=2
+set timeoutlen=420
+set updatetime=69
+set whichwrap+=<,>,[,],h,l
+set nowrap
+
+" folding
+set foldopen+=insert,jump
+set foldmethod=expr
+set foldexpr=v:lua.vim.treesitter.foldexpr()
+set foldlevel=99
+
+set completeopt=menu,preview,preinsert,longest
+" set completeopt=menu,preview,longest
+" set iskeyword+=_
+set wildmode=longest:full,full
+
+if system('uname') =~? '^darwin'
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
+" }}}
+
+" § autocmds {{{1
+augroup FileTypeSettings " {{{
+  autocmd!
+  autocmd FileType sh,zsh       setlocal sw=8 sts=8 noexpandtab wrap
+  autocmd FileType c            setlocal sw=8 sts=8 noexpandtab
+  autocmd FileType cpp,cuda     setlocal sw=4 sts=4
+  autocmd FileType json         setlocal sw=2 sts=2
+  autocmd FileType python       setlocal sw=4 sts=4
+  autocmd FileType r,rmd,quarto setlocal sw=2 sts=2
+  " autocmd FileType tex    setlocal            fdm=syntax
+  autocmd FileType vim,lua  setlocal sw=2 sts=2 kp=:help
+augroup END
+" }}}
+augroup ConfigFileSettings " {{{
+  autocmd!
+  autocmd FileType tmux,sshconfig setlocal iskeyword+=- | nnoremap <buffer> <C-Space> viW
+augroup END
+" }}}
+augroup AutoRestoreCursor " {{{
+  autocmd!
+  autocmd BufReadPost *
+	\ let line = line("'\"")
+	\ | if line >= 1 && line <= line("$")
+	\ |   execute "normal! g`\""
+	\ |   execute "silent! normal! zO"
+	\ | endif
+augroup END
+" }}}
+augroup QuitOnQ " {{{
+  autocmd!
+  autocmd FileType help,qf,man,checkhealth setlocal nobuflisted | nnoremap <silent> <buffer> q :<C-u>close <Bar> bwipeout!<CR>
+augroup END
+" }}}
+augroup NoCmdwin " {{{
+  autocmd!
+  autocmd CmdwinEnter * quit
+augroup END
+" }}}
+augroup AutoMkdir " {{{
+  autocmd!
+  autocmd BufWritePre * call bin#mkdir#mkdir(expand('<afile>'))
+augroup END
+" }}}
+augroup AutoReloadFile " {{{
+  autocmd!
+  autocmd FocusGained * if &buftype !=# 'nofile' | checktime | endif
+  if has('nvim')
+    autocmd TermClose,TermLeave * if &buftype !=# 'nofile' | checktime | endif
+  endif
+augroup END
+" }}}
+augroup ResizeSplits " {{{
+  autocmd!
+  autocmd VimResized * let t = tabpagenr() | tabdo wincmd = | execute 'tabnext' t
+augroup END
+" }}}1
+
+" § keymaps {{{1
+vmap <M-s> :sort<CR>
+nmap <C-c> ciw
+nmap <C-s> viW
+
+" Select all
+nnoremap <leader>a :normal! ggVG<CR>
+
+" no-shift for case-toggle
+nnoremap ` ~
+nnoremap ~ `
+
+" goto
+nnoremap gh yi':silent !open https://github.com/<C-R>0<CR>
+
+" buffers {{{
+nnoremap <silent> <Tab>         :bnext<CR>
+nnoremap <silent> <S-Tab>       :bprev<CR>
+nnoremap <silent> [b            :bprevious<CR>
+nnoremap <silent> ]b            :bnext<CR>
+nnoremap <silent> <leader><Tab> :e #<CR>
+nnoremap <silent> <leader>bD    :bd<CR>
+
+" Close buffer
+map <silent> <C-q> <Cmd>bd<CR>
+" }}}
+" resize splits {{{
+nnoremap <M-Up>    :resize +2<CR>
+nnoremap <M-Down>  :resize -2<CR>
+nnoremap <M-Left>  :vertical resize -2<CR>
+nnoremap <M-Right> :vertical resize +2<CR>
+" }}}
+" smarter j/k {{{
+nnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
+xnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> k      v:count == 0 ? 'gk' : 'k'
+xnoremap <expr> k      v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> <Down> v:count == 0 ? 'gj' : 'j'
+xnoremap <expr> <Down> v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
+xnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
+" }}}
+" search behavior (center & fold open) {{{
+"nnoremap <expr> n "'Nn'[v:searchforward]
+""nnoremap <expr> n "'Nn'[v:searchforward] . 'zzzv'"
+"xnoremap <expr> n "'Nn'[v:searchforward]"
+"onoremap <expr> n "'Nn'[v:searchforward]"
+
+"nnoremap <expr> N "'nN'[v:searchforward]
+""nnoremap <expr> N "'nN'[v:searchforward] . 'zzzv'"
+"xnoremap <expr> N "'nN'[v:searchforward]"
+"onoremap <expr> N "'nN'[v:searchforward]"
+
+nnoremap *  *zzzv
+nnoremap #  #zzzv
 nnoremap g* g*zzzv
 nnoremap g# g#zzzv
-
-" better completion
+" }}}
+" Move lines up/down {{{
+nnoremap <A-j> :execute 'move .+' . v:count1<CR>==
+nnoremap <A-k> :execute 'move .-' . (v:count1 + 1)<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :<C-u>execute "'<,'>move '>+" . v:count1<CR>gv=gv
+vnoremap <A-k> :<C-u>execute "'<,'>move '<-" . (v:count1 + 1)<CR>gv=gv
+" }}}
+" insert comment above/below {{{
+nnoremap <silent> gco o<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
+nnoremap <silent> gcO O<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
+" }}}
+" Better indenting {{{
+vnoremap < <gv
+vnoremap > >gv
+nnoremap > V`]>
+nnoremap < V`]<
+" }}}
+" smart delete/paste {{{
+vnoremap <silent> p "_dP
+vnoremap <silent> <leader>d p"_d
+vnoremap <silent> <leader>p "_dP
+" }}}
+" insert mode undo breakpoints {{{
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ; ;<c-g>u
+" }}}
+" easier completion {{{
 inoremap <silent> ,o <C-x><C-o>
 inoremap <silent> ,f <C-x><C-f>
 inoremap <silent> ,i <C-x><C-i>
@@ -38,52 +256,83 @@ inoremap <silent> ,l <C-x><C-l>
 inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
+" }}}
+" }}}1
 
-augroup autoRestoreCursor
-  autocmd!
-  autocmd BufReadPost *
-        \ let line = line("'\"")
-        \ | if line >= 1 && line <= line("$")
-        \ |   execute "normal! g`\""
-        \ |   execute "silent! normal! zO"
-        \ | endif
-augroup END
+" command-line {{{1
+cnoreabbrev !! !./%
+cnoreabbrev ?? verbose set?<Left>
 
-augroup autoMkdir
-  autocmd!
-  autocmd BufWritePre * call file#automkdir(expand('<afile>'))
-augroup END
+command! Wq wqa!
+command! W w!
 
-silent! color scheme
+" cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
+command! L execute getline('.')
+nnoremap <leader>l <Cmd>execute getline('.')<CR>
 
-augroup quit_on_q
-  autocmd!
-  autocmd FileType help,qf,man silent! nnoremap <silent> <buffer> q :<C-U>close<CR>
-augroup END
+" wildmenu
+cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
+cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
+" }}}1
 
-" Quit command window immediately if opened accidentally
-augroup noCmdwin | autocmd! | autocmd CmdwinEnter * quit |  augroup END
+" § vim-plug {{{1
+call plug#begin()
+" Plug 'rdnajac/after'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'folke/tokyonight.nvim'
+Plug 'github/copilot.vim'
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-unimpaired'
+" only load plugins on certain filetypes
+Plug 'lervag/vimtex', { 'for': 'tex' }
 
-  call plug#begin()
-  " Plug 'rdnajac/after'
-  Plug 'tpope/vim-apathy'
+" TODO: https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
+if has('nvim')
+  " libraries
+  Plug 'echasnovski/mini.nvim'
+  Plug 'folke/snacks.nvim'
+
+  " treesitter
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'folke/ts-comments.nvim'
+  Plug 'windwp/nvim-ts-autotag'
+  Plug 'nvim-treesitter/nvim-treesitter-context'
+
+  " lsp
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'mason-org/mason.nvim'
+  Plug 'mason-org/mason-lspconfig.nvim'
+
+  " editor
+  Plug 'folke/which-key.nvim'
+  Plug 'max397574/better-escape.nvim'
+  Plug 'monaqa/dial.nvim'
+
+  " autocomplete
+  Plug 'Saghen/blink.cmp', { 'do': 'cargo build --release' }
+  Plug 'bydlw98/blink-cmp-env'
+  Plug 'mgalliou/blink-cmp-tmux'
+  Plug 'fang2hou/blink-copilot'
+  Plug 'moyiz/blink-emoji.nvim'
+  Plug 'bydlw98/blink-cmp-env'
+
+  " utility
+  Plug 'stevearc/oil.nvim'
+  Plug 'R-nvim/R.nvim'
+  " Plug 'olimorris/codecompanion.nvim'
+else
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-scriptease'
-  Plug 'tpope/vim-sensible'
+  " Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-speeddating'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-tbone'
-  Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-vinegar'
-  " only load plugins on certain filetypes
-  Plug 'lervag/vimtex', { 'for': 'tex' }
+endif
+call plug#end()
 
-  " Plug 'benekastah/neomake', has('nvim') ? {} : { 'on': [] }
-
-  call plug#end() " executes `filetype plugin indent on` and `syntax enable`
-
-  " vim: ft=vim fdm=marker sw=2 sts=2

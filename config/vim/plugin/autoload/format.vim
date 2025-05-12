@@ -6,11 +6,11 @@ function s:strip_trailing_newlines() abort
   %s/\n\+\%$//e
 endfunction
 
-function s:plus_to_backticks() abort
+function format#plus_to_backticks() abort
   %s/^+++$/```/ge
 endfunction
 
-function s:normalize_quotes() abort
+function format#normalize_quotes() abort
   %s/[“”]/"/ge
 endfunction
 

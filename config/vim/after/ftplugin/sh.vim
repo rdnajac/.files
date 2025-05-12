@@ -1,4 +1,10 @@
-setlocal formatexpr=
-" setlocal formatprg=shfmt\ -bn\ -sr
-setlocal formatprg=shellharden\ --transform\ <(shfmt\ -bn\ -sr\ %)
-
+if executable('shfmt')
+  setlocal formatprg=shfmt\ -bn\ -sr
+  let &l:formatprg = 'shfmt -bn -sr'
+  if executable('shellharden')
+    " pipe the formatprg output to shellharden if shellharden is enabled
+    if get(b:, 'shellharden', get(g:, 'shellharden', 0))
+      let &l:formatprg .= ' | shellharden --transform ""'
+    endif
+  endif
+endif

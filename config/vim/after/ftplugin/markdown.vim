@@ -3,6 +3,7 @@ let g:markdown_fenced_languages = ['sh', 'cpp', 'cuda', 'python', 'vim', 'lua', 
 
 setlocal textwidth=80
 setlocal noautoindent
+setlocal conceallevel=1
 
 " treat quoted text as comments for easy toggling
 setlocal commentstring=>\ %s
