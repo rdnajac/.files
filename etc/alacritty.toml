@@ -27,13 +27,13 @@ mouse = "Right"
 
 [keyboard]
 bindings = [
-  # don't accidentally open new alacritty app instances
-  { key = "W", mods = "Command", action = "None" },
-  { key = "T", mods = "Command", action = "None" },
-  { key = "N", mods = "Command", action = "None" },
-  # FIXME:
-  # { key = "Return", mods = "Shift",   chars = "\u001B[13;2u" },
-  # { key = "Return", mods = "Control", chars = "\u001B[13;5u" },
+# don't accidentally open new alacritty app instances
+{ key = "W", mods = "Command", action = "None" },
+{ key = "T", mods = "Command", action = "None" },
+{ key = "N", mods = "Command", action = "None" },
+# FIXME:
+# { key = "Return", mods = "Shift",   chars = "\u001B[13;2u" },
+# { key = "Return", mods = "Control", chars = "\u001B[13;5u" },
 ]
 
 [selection]
