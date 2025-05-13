@@ -1,3 +1,4 @@
+---@type TSConfig
 require('nvim-treesitter.configs').setup({
   incremental_selection = {
     enable = true,
@@ -8,15 +9,15 @@ require('nvim-treesitter.configs').setup({
       node_decremental = '<bs>',
     },
   },
-  -- textobjects = {
-  --   move = {
-  --     enable = true,
-  --     goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
-  --     goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
-  --     goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
-  --     goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
-  --   },
-  -- }
+  textobjects = {
+    move = {
+      enable = true,
+      goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
+      goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
+      goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
+      goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+    },
+  },
   ensure_installed = {
     -- 'asm',
     'bash',
@@ -81,7 +82,6 @@ require('treesitter-context').setup()
 
 -- return { mode = 'cursor', max_lines = 3 }
 
-
 vim.keymap.set('n', '<leader>uI', function()
   vim.treesitter.inspect_tree()
   vim.api.nvim_input('I')
@@ -98,3 +98,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
   desc = 'Use bash parser for kitty config',
 })
+
+local tsc = require('treesitter-context')
+Snacks.toggle({
+  name = 'Treesitter Context',
+  get = tsc.enabled,
+  set = function(state)
+    if state then
+      tsc.enable()
+    else
+      tsc.disable()
+    end
+  end,
+}):map('<leader>ut')
+return { mode = 'cursor', max_lines = 3 }

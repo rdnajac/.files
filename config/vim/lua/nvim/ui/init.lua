@@ -1,0 +1,6 @@
+-- require('vim._extui').enable({})
+-- require('ui.diff')
+require('nvim.ui.hipatterns')
+require('nvim.ui.icons')
+require('nvim.ui.tokyonight')
+require('nvim.ui.clangd')

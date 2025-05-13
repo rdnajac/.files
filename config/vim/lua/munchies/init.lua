@@ -1,13 +1,9 @@
-local M = {}
-
----@type snacks.Config
-M.opts = {
+require('snacks').setup({
   bigfile = { enabled = true },
   dashboard = { enabled = false },
   -- dashboard = require('munchies.dashboard'),
   explorer = { enabled = true },
-  image = { enabled = true },
-  -- image = { enabled = vim.env.TERM == 'xterm-kitty' },
+  image = { enabled = vim.env.TERM == 'xterm-kitty' },
   indent = { indent = { only_current = true, only_scope = true } },
   input = { enabled = true },
   notifier = { style = 'fancy', date_format = '%T', timeout = 2000 },
@@ -67,7 +63,23 @@ M.opts = {
       keymaps = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
       notifications = { layout = { preset = 'ivy_split' }, confirm = 'edit' },
       pickers = { layout = { preset = 'vscode' } },
-      zoxide = { layout = { preset = 'vscode' }, confirm = 'edit' },
+      zoxide = {
+        layout = { preset = 'vscode' },
+        confirm = function(self, item)
+          local dir = item.path or item.filename or item.value or item.text
+          if type(dir) ~= 'string' or dir == '' then
+            vim.notify('No valid directory found', vim.log.levels.WARN)
+            return
+          end
+          local win = vim.api.nvim_get_current_win()
+
+          vim.cmd('leftabove vsplit ' .. vim.fn.fnameescape(dir))
+          vim.cmd('vertical resize ' .. math.floor(vim.o.columns * 0.2))
+          vim.cmd('cd ' .. vim.fn.fnameescape(dir))
+	  vim.cmd('pwd')
+          vim.api.nvim_set_current_win(win)
+        end,
+      },
     },
   },
   quickfile = { enabled = true },
@@ -101,24 +113,21 @@ M.opts = {
     win = { wo = { winbar = '', winhighlight = 'Normal:SpecialWindow' } },
   },
   words = { enabled = true },
-}
+})
 
-require('snacks').setup(M.opts)
-
-_G.dd = function(...)
+_G.dd = _G.dd or function(...)
   Snacks.debug.inspect(...)
 end
 
-_G.bt = function()
+_G.bt = _G.bt or function()
   Snacks.debug.backtrace()
 end
 
 -- Override print to use snacks for `:=` command
 vim.print = _G.dd
 
-require('munchies.autocmds')
-require('munchies.keymaps')
-
 vim.api.nvim_create_user_command('Scriptnames', function()
-  require('util.munchies.picker').scriptnames()
+  require('munchies.picker').scriptnames()
 end, { desc = 'Scriptnames' })
+
+vim.api.nvim_create_user_command('NNN', "lua require('util.nnn').start()", {})

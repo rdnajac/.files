@@ -1,3 +1,4 @@
+" TODO: move to bin
 function! Scp(dest) abort
   if a:dest == ''
     echoerr 'Usage: :Scp user@host:/remote/path'

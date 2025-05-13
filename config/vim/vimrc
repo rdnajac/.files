@@ -89,9 +89,13 @@ set nowrap
 
 " folding
 set foldopen+=insert,jump
-set foldmethod=expr
-set foldexpr=v:lua.vim.treesitter.foldexpr()
-set foldlevel=99
+if has('nvim')
+  set foldmethod=expr
+  set foldexpr=v:lua.vim.treesitter.foldexpr()
+  set foldlevel=99
+else
+  set foldmethod=marker
+endif
 
 set completeopt=menu,preview,preinsert,longest
 " set completeopt=menu,preview,longest
@@ -123,19 +127,12 @@ augroup ConfigFileSettings " {{{
   autocmd FileType tmux,sshconfig setlocal iskeyword+=- | nnoremap <buffer> <C-Space> viW
 augroup END
 " }}}
-augroup AutoRestoreCursor " {{{
+augroup RestoreCursorOpenFold " {{{
   autocmd!
-  autocmd BufReadPost *
-	\ let line = line("'\"")
-	\ | if line >= 1 && line <= line("$")
-	\ |   execute "normal! g`\""
-	\ |   execute "silent! normal! zO"
-	\ | endif
-augroup END
-" }}}
-augroup QuitOnQ " {{{
-  autocmd!
-  autocmd FileType help,qf,man,checkhealth setlocal nobuflisted | nnoremap <silent> <buffer> q :<C-u>close <Bar> bwipeout!<CR>
+  autocmd BufWinEnter * let line = line("'\"") |
+	\ if line >= 1 && line <= line("$") |
+	\   execute "silent! normal! g`\"zO" |
+	\ endif
 augroup END
 " }}}
 augroup NoCmdwin " {{{
@@ -175,7 +172,8 @@ nnoremap ` ~
 nnoremap ~ `
 
 " goto
-nnoremap gh yi':silent !open https://github.com/<C-R>0<CR>
+" nnoremap gh yi':silent !open https://github.com/<C-R>0<CR>
+nmap gh <C-space>y:silent! !open https://github.com/<C-R>0<CR>
 
 " buffers {{{
 nnoremap <silent> <Tab>         :bnext<CR>
@@ -205,6 +203,7 @@ nnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
 xnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
 " }}}
 " search behavior (center & fold open) {{{
+" FIXME:
 "nnoremap <expr> n "'Nn'[v:searchforward]
 ""nnoremap <expr> n "'Nn'[v:searchforward] . 'zzzv'"
 "xnoremap <expr> n "'Nn'[v:searchforward]"
@@ -231,6 +230,11 @@ vnoremap <A-k> :<C-u>execute "'<,'>move '<-" . (v:count1 + 1)<CR>gv=gv
 " insert comment above/below {{{
 nnoremap <silent> gco o<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
 nnoremap <silent> gcO O<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
+
+nnoremap <silent> gco o<Esc>VcTODO:<Space><Esc>:normal gcc<CR>fxa
+nnoremap <silent> gcO O<Esc>VcTODO:<Space><Esc>:normal gcc<CR>fxa
+
+
 " }}}
 " Better indenting {{{
 vnoremap < <gv
@@ -257,18 +261,13 @@ inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
 " }}}
-" }}}1
-
-" command-line {{{1
+" command-line {{{
 cnoreabbrev !! !./%
 cnoreabbrev ?? verbose set?<Left>
 
-command! Wq wqa!
 command! W w!
-
-" cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
-command! L execute getline('.')
-nnoremap <leader>l <Cmd>execute getline('.')<CR>
+command! Wq wq!
+command! Wqa wqa!
 
 " wildmenu
 cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
@@ -305,9 +304,10 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter-context'
 
   " lsp
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'mason-org/mason.nvim'
-  Plug 'mason-org/mason-lspconfig.nvim'
+  " Plug 'neovim/nvim-lspconfig'
+  " Plug 'mason-org/mason-lspconfig.nvim'
+  " Plug 'mason-org/mason.nvim'
+  Plug 'p00f/clangd_extensions.nvim'
 
   " editor
   Plug 'folke/which-key.nvim'
@@ -335,4 +335,5 @@ else
   Plug 'tpope/vim-vinegar'
 endif
 call plug#end()
-
+" }}}
+" vim: fdm=marker fdl=0

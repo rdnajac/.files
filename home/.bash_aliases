@@ -46,6 +46,8 @@ alias zz=fg
 alias ssx='${VISUAL} ${HOME}/.ssh/config'
 alias ba='${VISUAL} ${HOME}/.bash_aliases'
 alias alac='${VISUAL} ${HOME}/.config/alacritty/alacritty.toml'
+alias kk='${VISUAL} ${HOME}/.config/kitty/kitty.conf'
+alias vvv='${VISUAL} ${HOME}/.config/vim/vimrc'
 
 alias ga='git add'
 alias gaa='git add --all'

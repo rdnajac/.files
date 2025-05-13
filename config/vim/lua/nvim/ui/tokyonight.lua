@@ -1,12 +1,12 @@
-require('tokyonight').setup({
+require('tokyonight').setup({ ---@class tokyonight.Config
   style = 'storm',
-  dim_inactive = true,
-  -- transparent = true,
+  -- dim_inactive = true,
+  transparent = true,
   styles = {
     comments = { italic = true },
     keywords = { italic = false, bold = true },
-    -- sidebars = 'transparent',
-    -- floats = 'transparent',
+    sidebars = 'transparent',
+    floats = 'transparent',
   },
   on_highlights = function(hl, _)
     hl['Folded'] = { fg = '#39FF14', bg = 'none' }

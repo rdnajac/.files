@@ -26,7 +26,7 @@ function! s:get_filename(buf) abort
   return !empty(filename) ? filename : '[∅]'
 endfunction
 
-function! ui#tabline() abort
+function! s:tabline() abort
   let line = ''
   let current_buf = bufnr('%')
 
@@ -40,7 +40,7 @@ function! ui#tabline() abort
   return line . '👾'
 endfunction
 
-function! ui#statusline() abort
+function! s:statusline() abort
   let l:statusline = ''
   " File path, modified flag, file type, read-only flag
   " let l:statusline .= ' %F %y %r'
@@ -62,7 +62,7 @@ endfunction
 " lualine
 " statusline=%#lualine_a_command# COMMAND %#lualine_transitional_lualine_a_command_to_lualine_b_command#%#lualine_b_command#  main %#lualine_transitional_lualine_b_command_to_lualine_c_6_command#%<%#lualine_c_6_command# 󱉭  .files %#lualine_c_normal#%#lualine_c_filetype_MiniIconsGreen_command#  %#lualine_c_normal#%#lualine_c_normal#%#lualine_c_9_LV_Bold_command# ui.vim%#lualine_c_normal# %#lualine_c_normal#%#TroubleStatusline0# 󰊕 %*%#TroubleStatusline1#ui#tabline%*  %#lualine_c_normal#%=%#lualine_x_12_command#   %#lualine_c_normal#%#lualine_x_13_command# : %#lualine_transitional_lualine_b_command_to_lualine_x_13_command#%#lualine_b_command# 48%% %#lualine_b_command# 38:3  %#lualine_transitional_lualine_a_command_to_lualine_b_command#%#lualine_a_command#  16:27 
 
-function! ui#qf_signs() abort
+function! s:qf_signs() abort
   call sign_define('QFError',{'text':'💩'})
   call sign_unplace('*')
   let s:qfl = getqflist()
@@ -71,8 +71,8 @@ function! ui#qf_signs() abort
     endfor
 endfunction
 
-autocmd QuickFixCmdPost [^l]* cwindow | silent! call ui#qf_signs()
-autocmd QuickFixCmdPost   l*  lwindow | silent! call ui#qf_signs()
+autocmd QuickFixCmdPost [^l]* cwindow | silent! call s:qf_signs()
+autocmd QuickFixCmdPost   l*  lwindow | silent! call s:qf_signs()
 
 " TODO:
 function! s:toggle(opt, default) abort
