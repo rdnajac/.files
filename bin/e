@@ -6,7 +6,7 @@ NVIM_SOCK=${NVIM_SOCK:-$HOME/.cache/nvim/server.pipe}
 
 resolve_path() {
 	cd "$(dirname "$1")" 2> /dev/null || return 1
-	echo "$(pwd)/$(basename "$1")"
+	echo "$PWD/$(basename "$1")"
 }
 
 main() {
@@ -31,7 +31,7 @@ main() {
 		exit 0
 	fi
 
-	if [ "$TMUX" != "" ]; then
+	if [ "$NNNLVL" != "" ] && [ "$TMUX" != "" ]; then
 		tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
 		# tmux split-window -hf -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
 		tmux select-pane -T "$TMUX_PANE_NAME"
