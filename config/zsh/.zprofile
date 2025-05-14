@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 
 # https://www.arp242.net/zshrc.html#easier-path
 # typeset -U path  # No duplicates
@@ -34,6 +34,7 @@ export PATH=$PATH:/opt/nvim-macos-arm64/bin
 export PATH=$PATH:$DOTDIR/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/GitHub/palomerolab/ngs/bin
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin

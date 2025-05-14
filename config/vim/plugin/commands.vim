@@ -7,9 +7,7 @@ nnoremap <M-j> <Cmd>BreakHere<CR>
 inoremap <M-j> <Cmd>BreakHere<CR>
 vnoremap <C-r> <cmd>ReplaceSelection<CR>
 
-command! QuickFormat call format#buffer()
-nnoremap Q <Cmd>QuickFormat<CR>
-
+nnoremap Q <Cmd>call format#buffer()<CR>
 
 command! -range SendVisual <line1>,<line2>call ooze#sendvisual()
 

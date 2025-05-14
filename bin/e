@@ -4,33 +4,40 @@ TMUX_PANE_NAME="nnn_visual"
 NNN_SPLITSIZE=${NNN_SPLITSIZE:-80}
 NVIM_SOCK=${NVIM_SOCK:-$HOME/.cache/nvim/server.pipe}
 
+resolve_path() {
+	cd "$(dirname "$1")" 2> /dev/null || return 1
+	echo "$(pwd)/$(basename "$1")"
+}
+
 main() {
 	if [ "$NVIM" != "" ]; then
 		echo "NVIM is set. exiting..."
 		exit 1
 	fi
 
+	# Resolve each arg to full path
+	resolved_args=()
+	for arg in "$@"; do
+		resolved_path=$(resolve_path "$arg") || {
+			echo "warning: '$arg' skipped, parent dir missing" >&2
+			continue
+		}
+		resolved_args+=("$resolved_path")
+	done
+
 	if [ -S "$NVIM_SOCK" ]; then
-		# shellcheck disable=SC2154
-		if [ "$nnn" != "" ]; then
-			env NVIM_APPNAME=vim nvim --server "$NVIM_SOCK" --remote "$@"
-		else
-			env NVIM_APPNAME=vim nvim --server "$NVIM_SOCK" --remote "$(realpath "$1")"
-		fi
+		nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
+		echo nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
 		exit 0
 	fi
 
 	if [ "$TMUX" != "" ]; then
-		if tmux list-panes -F '#T' | grep -q "^$TMUX_PANE_NAME$"; then
-			local pane_id
-			pane_id=$(tmux list-panes -F '#{pane_id}:#{pane_title}' | grep "$TMUX_PANE_NAME" | cut -d: -f1)
-			tmux send-keys -t "$pane_id" Escape ":e $*" Enter
-		else
-			tmux split-window -h -p "$NNN_SPLITSIZE" "env NVIM_APPNAME=vim nvim $*"
-			tmux select-pane -T "$TMUX_PANE_NAME"
-		fi
+		tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
+		# tmux split-window -hf -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
+		tmux select-pane -T "$TMUX_PANE_NAME"
 	else
-		env NVIM_APPNAME=vim nvim "$@"
+		echo nvim "${resolved_args[@]}"
+		nvim "${resolved_args[@]}"
 	fi
 }
 
