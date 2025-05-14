@@ -1,5 +1,6 @@
 " cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
-function! s:L() abort
+"
+function! L() abort
   let l:line = getline('.')
   " if ft is lua, prepend lua
   if &ft ==# 'lua'

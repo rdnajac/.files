@@ -16,6 +16,10 @@ require('which-key').setup({
       { '<leader>t', group = 'toggle' },
       { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
 
+      { '<localleader>l', desc = '+vimtex' },
+      -- { '<localleader>r', group = '+R', icon = { icon = ' ', color = 'blue' } },
+      -- { '<localleader>re', group = '++renv' },
+
       -- add icons for existing (vim) keymaps
       { '<leader>A', icon = { icon = ' ', color = 'azure' }, desc = 'Select All' },
       { '<leader>r', icon = { icon = ' ', color = 'azure' } },

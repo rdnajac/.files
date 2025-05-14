@@ -1,7 +1,6 @@
 -- https://cmp.saghen.dev/
-
 ---@module 'blink.cmp'
---- @class  blink.cmp.Config
+---@type blink.cmp.Config
 local opts = {
   completion = {
     documentation = {
@@ -10,7 +9,6 @@ local opts = {
     },
     menu = {
       auto_show = true,
-      -- border = 'rounded',
       draw = {
         treesitter = { 'lsp' },
         columns = {

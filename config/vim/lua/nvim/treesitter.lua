@@ -21,8 +21,8 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {
     -- 'asm',
     'bash',
+    -- 'bibtex',
     'csv',
-    'c',
     'cmake',
     'cpp',
     'cuda',
@@ -42,28 +42,29 @@ require('nvim-treesitter.configs').setup({
     'jsdoc',
     'json',
     'jsonc',
+    -- 'json5',
     'latex',
     'llvm',
-    'lua',
     'luadoc',
     'luap',
     'make',
-    'markdown',
-    'markdown_inline',
+    'ocaml',
     'printf',
     'python',
-    'query',
-    'r',
     'rnoweb',
     'regex',
     'toml',
-    -- 'tmux',
-    -- 'tsx',
-    -- 'typescript',
-    'vim',
-    'vimdoc',
+    'r',
     'xml',
     'yaml',
+    -- these come built-in with neovim
+    -- 'vim',
+    -- 'vimdoc',
+    -- 'c',
+    -- 'lua',
+    -- 'markdown',
+    -- 'markdown_inline',
+    -- 'query',
   },
 })
 
@@ -79,8 +80,6 @@ require('nvim-treesitter.parsers').get_parser_configs().comment = {
 require('ts-comments').setup()
 require('nvim-ts-autotag').setup()
 require('treesitter-context').setup()
-
--- return { mode = 'cursor', max_lines = 3 }
 
 vim.keymap.set('n', '<leader>uI', function()
   vim.treesitter.inspect_tree()
@@ -111,4 +110,4 @@ Snacks.toggle({
     end
   end,
 }):map('<leader>ut')
-return { mode = 'cursor', max_lines = 3 }
+-- return { mode = 'cursor', max_lines = 3 }

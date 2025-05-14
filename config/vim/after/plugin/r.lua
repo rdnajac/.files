@@ -1,58 +1,60 @@
 vim.g.rout_follow_colorscheme = true
 
+-- Register which-key group labels (for UI only)
 require('which-key').add({
   { '<localleader>r', group = 'R', icon = { icon = ' ', color = 'blue' } },
   { '<localleader>re', group = 'renv' },
 })
 
--- Create buffer-local keymaps with a description
-local map = function(mode, lhs, rhs, desc)
-  vim.keymap.set(mode, lhs, rhs, { buffer = 0, desc = desc })
-end
-
--- Create normal mode keymaps to `<Plug>` mappings
-local mapplug = function(keys, plugmap)
-  map('n', keys, '<Plug>' .. plugmap, plugmap)
-end
-
--- Wrapper for creating normal mode keymaps with `RSend`
-local mapcmd = function(keys, func)
-  map('n', keys, '<Cmd>RSend ' .. func .. '<CR>', func)
-end
-
----@class RConfigUserOpts
+---@type RConfigUserOpts
 local opts = {
   R_args = { '--quiet', '--no-save' },
   pdfviewer = '',
   user_maps_only = true,
   hook = {
     on_filetype = function()
-      vim.cmd([[setlocal keywordprg=:RHelp]]) -- Get help with <leader>K
+      print('R.nvim filetype hook triggered!')
+      vim.cmd([[
+        setlocal keywordprg=:RHelp
 
-      mapplug(',,', 'RStart')
-      mapplug(']r', 'NextRChunk')
-      mapplug('[r', 'PreviousRChunk')
-      map('v', '<CR>', '<Plug>RSendSelection', 'Send Selection')
-      mapplug('<CR>', 'RDSendLine')
-      mapplug('<M-CR>', 'RInsertLineOutput')
+        nnoremap <buffer> ,, <Plug>RStart
+        nnoremap <buffer> ]r <Plug>NextRChunk
+        nnoremap <buffer> [r <Plug>PreviousRChunk
+        vnoremap <buffer> <CR> <Plug>RSendSelection
+        nnoremap <buffer> <CR> <Plug>RDSendLine
+        nnoremap <buffer> <M-CR> <Plug>RInsertLineOutput
 
-      mapplug('<localleader>r<CR>', 'RSendFile')
-      mapplug('<localleader>rq', 'RClose')
-      mapplug('<localleader>rD', 'RSetwd')
+        nnoremap <buffer> <localleader>r<CR> <Plug>RSendFile
+        nnoremap <buffer> <localleader>rq <Plug>RClose
+        nnoremap <buffer> <localleader>rD <Plug>RSetwd
 
-      mapcmd('<localleader>r?', 'getwd()')
-      mapcmd('<localleader>rR', 'source(".Rprofile")')
-      mapcmd('<localleader>rd', 'setwd(vim.fn.expand("<cword>"))')
+        nnoremap <buffer> <localleader>r? :RSend getwd()<CR>
+        nnoremap <buffer> <localleader>rR :RSend source(".Rprofile")<CR>
+        nnoremap <buffer> <localleader>rd :RSend setwd(vim.fn.expand("<cword>"))<CR>
 
-      -- renv
-      mapcmd('<localleader>re?', 'renv::status()')
-      mapcmd('<localleader>res', 'renv::snapshot()')
-      mapcmd('<localleader>rer', 'renv::restore()')
+        nnoremap <buffer> <localleader>re? :RSend renv::status()<CR>
+        nnoremap <buffer> <localleader>res :RSend renv::snapshot()<CR>
+        nnoremap <buffer> <localleader>rer :RSend renv::restore()<CR>
+      ]])
 
-      mapcmd('<localleader>rq', 'quarto::quarto_preview(file="' .. vim.fn.expand('%:p') .. '")')
+      -- Quarto preview with dynamic file path from Lua
+      vim.keymap.set('n', '<localleader>rq', function()
+        local file = vim.fn.expand('%:p')
+        vim.cmd('RSend quarto::quarto_preview(file="' .. file .. '")')
+      end, { buffer = true, desc = 'Quarto Preview' })
+    end,
+    after_config = function()
+      vim.cmd([[
+       hi clear RCodeBlock 
+       hi clear RCodeComment
+       ]])
     end,
   },
 }
+
+require('r').setup(opts)
+
+require('r.pdf.generic').open = vim.ui.open
 
 -- If R is remote, extend the options table with remote-specific settings
 -- To configure a remote R session, run `nvim --cmd "let g:R_is_remote = 1"`
@@ -64,5 +66,3 @@ local opts = {
 --     remote_compldir = '/home/ubuntu/.cache/R.nvim',
 --     local_R_library_dir = '/Users/rdn/.local/share/nvim/lazy/R.nvim',
 --   })
-
-require('r').setup(opts)

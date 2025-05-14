@@ -65,7 +65,6 @@ require('which-key').add({
   { '<leader>sN', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File', },
   -- { '<leader>sp', function() Snacks.picker.lazy() end, desc = 'Search for Plugin Spec', },
   { '<leader>sp', function() Snacks.picker.grep({ cwd = vim.g.plug_home }) end, desc = 'Vim-Plug Plugin File' },
-  { '<leader>sp', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('config') .. '/.plugged' }) end, desc = 'Lazy Plugin File', },
   { '<leader>sP', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File', },
   { '<leader>sq', function() Snacks.picker.qflist() end, desc = 'Quickfix List', },
   { '<leader>sR', function() Snacks.picker.resume() end, desc = 'Resume', },
@@ -182,6 +181,7 @@ vim.keymap.set('n', '<leader>dc', ':=vim.lsp.get_clients()[1].server_capabilitie
 vim.keymap.set('n', '<leader>dl', '<Cmd>checkhealth lsp<CR>', { desc = 'LSP' })
 vim.keymap.set('n', '<leader>ds', '<Cmd>checkhealth snacks<CR>', { desc = 'Snacks Health' })
 vim.keymap.set('n', '<leader>dS', ':=require("snacks").meta.get()<CR>', { desc = 'Snacks' })
+vim.keymap.set('n', '<leader>dw', ':=vim.lsp.buf.list_workspace_folders()<CR>', { desc = 'LSP Workspace Folders' })
 
 vim.keymap.set('n', '<leader>fD', '<Cmd>Delete!<CR>', { desc = 'Delete File (and buffer) from disk' })
 

@@ -1,8 +1,9 @@
 " vimrc
-let g:mapleader = ' '
-let g:maplocalleader = '/'
 
 " § housekeeping {{{1
+let g:mapleader = ' '
+let g:maplocalleader = '\'
+
 let s:VIMHOME = exists('$XDG_CONFIG_HOME')
       \ ? expand('$XDG_CONFIG_HOME/vim//')
       \ : expand('$HOME/.config/vim//')
@@ -28,11 +29,11 @@ else
 endif
 " }}}
 
-" § edit and reload config {{{1
+" § edit and reload config {{1
 if !exists('*VimConfig')
   function! VimConfig() abort
     execute 'edit ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC)
-  endfunction
+  endfunction s
   nnoremap <leader>v :silent call VimConfig()<CR>
 endif
 
@@ -55,23 +56,10 @@ endif
 set backup
 set undofile undolevels=10000
 
+set autochdir
 set autowrite
 set breakindent
 set cursorline
-set formatoptions-=o
-set ignorecase smartcase
-set list
-set mouse=a
-set number relativenumber
-set pumheight=10
-set scrolloff=4
-set shiftround
-set splitbelow splitright
-set splitkeep=screen
-set termguicolors
-set linebreak
-set showmatch
-set report=0
 set fillchars+=diff:╱,
 set fillchars+=eob:\ ,
 set fillchars+=fold:\ ,
@@ -80,12 +68,27 @@ set fillchars+=foldopen:▾,
 set fillchars+=foldsep:\ ,
 set fillchars+=foldsep:│
 set fillchars+=stl:\ ,
+set formatoptions-=o
+set ignorecase smartcase
+set linebreak
+set list
 set listchars=trail:¿,tab:→\ "
+set mouse=a
+set nowrap
+set number relativenumber
 set numberwidth=2
+set pumheight=10
+set report=0
+set scrolloff=8
+set shiftround
+set shortmess+=acC
+set showmatch
+set splitbelow splitright
+set splitkeep=screen
+set termguicolors
 set timeoutlen=420
 set updatetime=69
 set whichwrap+=<,>,[,],h,l
-set nowrap
 
 " folding
 set foldopen+=insert,jump
@@ -282,6 +285,8 @@ Plug 'folke/tokyonight.nvim'
 Plug 'github/copilot.vim'
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf.vim'
+Plug '~/GitHub/rdnajac/src/fzf/'
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -322,6 +327,9 @@ if has('nvim')
   Plug 'moyiz/blink-emoji.nvim'
   Plug 'bydlw98/blink-cmp-env'
 
+  " ui
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
+
   " utility
   Plug 'stevearc/oil.nvim'
   Plug 'R-nvim/R.nvim'
@@ -336,4 +344,7 @@ else
 endif
 call plug#end()
 " }}}
+
+" CDC = Change to Directory of Current file
+command CDC cd %:p:h
 " vim: fdm=marker fdl=0

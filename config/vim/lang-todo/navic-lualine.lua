@@ -1,17 +1,3 @@
-LazyVim.lsp.on_dynamic_capability(require("lazyvim.plugins.lsp.keymaps").on_attach)
-LazyVim.lsp.on_supports_method("textDocument/inlayHint", function(client, buffer)
-    vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-
--- code lens
-LazyVim.lsp.on_supports_method("textDocument/codeLens", function(client, buffer)
-  vim.lsp.codelens.refresh()
-  vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-    buffer = buffer,
-    callback = vim.lsp.codelens.refresh,
-  })
-end)
-
-
 return {
   -- lsp symbol navigation for lualine. This shows where
   -- in the code structure you are - within functions, classes,

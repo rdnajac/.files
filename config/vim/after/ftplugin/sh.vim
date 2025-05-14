@@ -1,3 +1,7 @@
+if !exists('g:shellharden')
+  let g:shellharden = 1
+endif
+
 if executable('shfmt')
   setlocal formatprg=shfmt\ -bn\ -sr
   let &l:formatprg = 'shfmt -bn -sr'

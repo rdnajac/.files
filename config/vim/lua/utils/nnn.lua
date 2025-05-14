@@ -27,4 +27,8 @@ function M.nnn()
   })
 end
 
+M.setup = function()
+  vim.api.nvim_create_user_command('NNN', "lua require('util.nnn').start()", {})
+end
+
 return M
