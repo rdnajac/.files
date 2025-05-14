@@ -1,5 +1,6 @@
 vim.opt.cmdheight = 0
 vim.opt.pumblend = 0
+vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 
 require('vim._extui').enable({
@@ -8,7 +9,7 @@ require('vim._extui').enable({
     -- pos = 'cmd',
     pos = 'box',
     box = {
-      timeout = 5000,
+      timeout = 4000,
     },
   },
 })
@@ -18,4 +19,3 @@ require('nvim.ui.icons')
 require('nvim.ui.tokyonight')
 require('nvim.ui.clangd')
 -- require('nvim.ui.markdown')
-

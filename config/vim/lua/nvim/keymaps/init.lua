@@ -156,16 +156,7 @@ vim.keymap.set('n', '<leader>cd', function()
 end, { desc = 'Change Directory' })
 
 vim.keymap.set('n', '<leader>K', '<Cmd>norm! K<CR>', { desc = 'Keywordprg' })
-
-vim.keymap.set('n', '<leader>w', function()
-  if vim.bo.modified then
-    vim.cmd('write')
-    print('file saved!')
-  else
-    print('no changes to save')
-  end
-end, { desc = 'Save if modified' })
-
+vim.keymap.set('n', '<leader>w', '<Cmd>write<CR>', { desc = 'Save if modified' })
 vim.keymap.set('n', '<leader>q', function()
   if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
     vim.cmd('bdelete')
@@ -173,7 +164,6 @@ vim.keymap.set('n', '<leader>q', function()
     vim.cmd('quit')
   end
 end, { desc = 'Smart Quit' })
-
 vim.keymap.set('n', '<leader>Q', '<Cmd>qa<CR>', { desc = 'Quit All' })
 
 vim.keymap.set('n', '<leader>db', '<Cmd>BlinkCmp status<CR>', { desc = 'Blink' })

@@ -89,3 +89,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+  callback = function()
+    vim.opt.laststatus = 0
+  end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  callback = function()
+    vim.opt.laststatus = 2
+  end,
+})

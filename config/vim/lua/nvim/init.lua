@@ -27,12 +27,11 @@ vim.lsp.config('*', {
     vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
 
-    if client.supports_method('textDocument/inlayHint') then
+    if client:supports_method('textDocument/inlayHint') then
       vim.lsp.inlay_hint.enable(true, opts)
     end
 
-    -- CodeLens
-    if client.supports_method('textDocument/codeLens') then
+    if client:supports_method('textDocument/codeLens') then
       vim.lsp.codelens.refresh()
       vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
         buffer = bufnr,

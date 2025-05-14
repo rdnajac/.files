@@ -1,15 +1,12 @@
-" vim-surround {{{
-" Comment-out and duplicate lines
-nmap yc yygccp
-" TODO: use a register
-" nmap yc "ayygccp
+" comment-out and duplicate line
+nmap yc "xyygcc"xp
 
-vnoremap `  S`
-vnoremap b  Sb
-nnoremap S  viWS
-nnoremap yss ys_
+" surround shortcuts
+vmap `  S`
+vmap b  Sb
+nmap S  viWS
+nmap yss ys_
 
-" vim-easy-align {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 

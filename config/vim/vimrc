@@ -29,7 +29,7 @@ else
 endif
 " }}}
 
-" § edit and reload config {{1
+" § edit and reload config {{{1
 if !exists('*VimConfig')
   function! VimConfig() abort
     execute 'edit ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC)
@@ -82,6 +82,7 @@ set report=0
 set scrolloff=8
 set shiftround
 set shortmess+=acC
+set shortmess+=A
 set showmatch
 set splitbelow splitright
 set splitkeep=screen
@@ -222,7 +223,7 @@ nnoremap #  #zzzv
 nnoremap g* g*zzzv
 nnoremap g# g#zzzv
 " }}}
-" Move lines up/down {{{
+" move lines up/down {{{
 nnoremap <A-j> :execute 'move .+' . v:count1<CR>==
 nnoremap <A-k> :execute 'move .-' . (v:count1 + 1)<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
@@ -237,9 +238,8 @@ nnoremap <silent> gcO O<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
 nnoremap <silent> gco o<Esc>VcTODO:<Space><Esc>:normal gcc<CR>fxa
 nnoremap <silent> gcO O<Esc>VcTODO:<Space><Esc>:normal gcc<CR>fxa
 
-
 " }}}
-" Better indenting {{{
+" better indenting {{{
 vnoremap < <gv
 vnoremap > >gv
 nnoremap > V`]>
