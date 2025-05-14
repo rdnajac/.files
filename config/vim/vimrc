@@ -299,8 +299,8 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 " TODO: https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
 if has('nvim')
   " libraries
-  Plug 'echasnovski/mini.nvim'
   Plug 'folke/snacks.nvim'
+  Plug 'echasnovski/mini.nvim'
 
   " treesitter
   Plug 'nvim-treesitter/nvim-treesitter'
@@ -321,7 +321,6 @@ if has('nvim')
 
   " autocomplete
   Plug 'Saghen/blink.cmp', { 'do': 'cargo build --release' }
-  Plug 'bydlw98/blink-cmp-env'
   Plug 'mgalliou/blink-cmp-tmux'
   Plug 'fang2hou/blink-copilot'
   Plug 'moyiz/blink-emoji.nvim'
@@ -345,6 +344,7 @@ endif
 call plug#end()
 " }}}
 
-" CDC = Change to Directory of Current file
+" change to directory of current file
 command CDC cd %:p:h
+
 " vim: fdm=marker fdl=0

@@ -36,14 +36,14 @@ function! format#buffer() abort
       normal! gg=G
       retab
       if !&binary && &filetype != 'diff'
-        call format#whitespace()
+	call format#whitespace()
       endif
     else
       normal! gggqG
       if v:shell_error > 0
-        silent undo
-        redraw
-        throw 'Formatter exited with status ' . v:shell_error
+	silent undo
+	redraw
+	throw 'Formatter exited with status ' . v:shell_error
       endif
     endif
     write
@@ -57,4 +57,3 @@ function! format#buffer() abort
     call winrestview(l:winview)
   endtry
 endfunction
-

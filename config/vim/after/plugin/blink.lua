@@ -1,26 +1,16 @@
 -- https://cmp.saghen.dev/
----@module 'blink.cmp'
----@type blink.cmp.Config
-local opts = {
+require('blink.cmp').setup({
+  signature = { enabled = true },
+  cmdline = { enabled = false },
   completion = {
-    documentation = {
-      auto_show = true,
-      auto_show_delay_ms = 200,
-    },
+    documentation = { auto_show = true, auto_show_delay_ms = 200 },
     menu = {
       auto_show = true,
       draw = {
         treesitter = { 'lsp' },
-        columns = {
-          { 'kind_icon' },
-          { 'label', 'label_description', 'source_name', gap = 1 },
-        },
+        columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } },
       },
     },
-  },
-  signature = {
-    enabled = true,
-    -- window = { border = 'rounded' },
   },
   keymap = {
     ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -58,7 +48,6 @@ local opts = {
       'fallback',
     },
   },
-  cmdline = { enabled = false },
   sources = {
     default = function()
       local row, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -70,14 +59,14 @@ local opts = {
         and node
         and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, node:type())
       then
-        return { 'lsp', 'path', 'buffer', 'copilot', 'tmux' }
+        return { 'lsp', 'path', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
       else
-        return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux' }
+        return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
       end
     end,
     providers = {
       path = {
-        score_offset = 101,
+        score_offset = 100,
         opts = {
           get_cwd = function(_)
             return vim.fn.getcwd()
@@ -86,15 +75,15 @@ local opts = {
         },
       },
       snippets = {
-        score_offset = 100,
+        score_offset = 0,
         opts = { friendly_snippets = false },
       },
       copilot = {
         name = 'copilot',
         module = 'blink-copilot',
-        score_offset = 99,
+        score_offset = 10,
         async = true,
-        opts = { max_completions = 1 },
+        opts = { max_completions = 2 },
       },
       lsp = {
         transform_items = function(_, items)
@@ -107,15 +96,29 @@ local opts = {
       tmux = {
         name = 'tmux',
         module = 'blink-cmp-tmux',
+        score_offset = -1,
         opts = {
           all_panes = true,
           capture_history = true,
         },
       },
+      env = {
+        name = 'env',
+        module = 'blink-cmp-env',
+        opts = {
+          item_kind = require('blink.cmp.types').CompletionItemKind.Variable,
+          show_braces = false,
+          show_documentation_window = true,
+        },
+      },
+      emoji = {
+        module = 'blink-emoji',
+        name = 'emoji',
+        score_offset = 15,
+      },
     },
   },
-}
-
+})
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpAccept',
@@ -129,5 +132,3 @@ vim.api.nvim_create_autocmd('User', {
   end,
   desc = 'Keep completing path on <Tab>',
 })
-
-require('blink.cmp').setup(opts)
