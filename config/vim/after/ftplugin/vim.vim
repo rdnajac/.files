@@ -11,7 +11,8 @@ function! L() abort
 endfunction
 
 command! L call L()
-nnoremap <buffer> <silent> <localleader>l :L<CR>
+" TODO isolate all CR mappings
+nnoremap <buffer> <silent> <CR> :L<CR>
 
 imap <M-Up> <Up>
 imap <M-Down> <Down>

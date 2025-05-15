@@ -45,7 +45,7 @@ local opts = {
     end,
     after_config = function()
       vim.cmd([[
-       hi clear RCodeBlock 
+       hi clear RCodeBlock
        hi clear RCodeComment
        ]])
     end,

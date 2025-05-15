@@ -26,6 +26,7 @@ require('nvim-treesitter.configs').setup({
     'cmake',
     'cpp',
     'cuda',
+    -- FIXME
     'comment', -- HACK: this is a custom parser
     'diff',
     'dockerfile',

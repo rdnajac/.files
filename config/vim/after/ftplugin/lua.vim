@@ -23,4 +23,6 @@ iabbrev <buffer> sie --<SPACE>stylua:<SPACE>ignore<SPACE>end
 " lua vim.snippet.add('lfn', 'local function ${1:name}($2)\n\t${3:-- content}\nend')
 
 " do not highlight vimscript wrapped in `vim.cmd(...)`
-lua vim.api.nvim_set_hl(0, 'LspReferenceText', {})
+if has ('nvim')
+  lua vim.api.nvim_set_hl(0, 'LspReferenceText', {})
+endif

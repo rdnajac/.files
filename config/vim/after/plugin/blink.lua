@@ -64,6 +64,10 @@ require('blink.cmp').setup({
         return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
       end
     end,
+    min_keyword_length = function()
+      -- return vim.bo.filetype == 'markdown' and 2 or 0
+      return 3
+    end,
     providers = {
       path = {
         score_offset = 100,

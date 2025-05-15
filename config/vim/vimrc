@@ -53,7 +53,7 @@ endif
 " }}}
 
 " § settings {{{1
-set backup
+" set backup
 set undofile undolevels=10000
 
 set autochdir
@@ -75,7 +75,8 @@ set list
 set listchars=trail:¿,tab:→\ "
 set mouse=a
 set nowrap
-set number relativenumber
+" set number relativenumber
+set nonumber norelativenumber
 set numberwidth=2
 set pumheight=10
 set report=0
@@ -278,70 +279,69 @@ cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
 " § vim-plug {{{1
-call plug#begin()
-" Plug 'rdnajac/after'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'folke/tokyonight.nvim'
-Plug 'github/copilot.vim'
-Plug 'tpope/vim-abolish'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf.vim'
-Plug '~/GitHub/rdnajac/src/fzf/'
-Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-unimpaired'
-" only load plugins on certain filetypes
-Plug 'lervag/vimtex', { 'for': 'tex' }
+if ! has('nvim')
+  call plug#begin()
+  " Plug 'rdnajac/after'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'folke/tokyonight.nvim'
+  Plug 'github/copilot.vim'
+  Plug 'tpope/vim-abolish'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'junegunn/fzf.vim'
+  Plug '~/GitHub/rdnajac/src/fzf/'
+  Plug 'tpope/vim-apathy'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-tbone'
+  Plug 'tpope/vim-unimpaired'
+  " only load plugins on certain filetypes
+  Plug 'lervag/vimtex', { 'for': 'tex' }
 
-" TODO: https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
-if has('nvim')
   " libraries
-  Plug 'folke/snacks.nvim'
-  Plug 'echasnovski/mini.nvim'
+  " Plug 'folke/snacks.nvim'
+  " Plug 'echasnovski/mini.nvim'
 
   " treesitter
-  Plug 'nvim-treesitter/nvim-treesitter'
-  Plug 'folke/ts-comments.nvim'
-  Plug 'windwp/nvim-ts-autotag'
-  Plug 'nvim-treesitter/nvim-treesitter-context'
+  " Plug 'nvim-treesitter/nvim-treesitter'
+  " Plug 'folke/ts-comments.nvim'
+  " Plug 'windwp/nvim-ts-autotag'
+  " Plug 'nvim-treesitter/nvim-treesitter-context'
 
   " lsp
   " Plug 'neovim/nvim-lspconfig'
   " Plug 'mason-org/mason-lspconfig.nvim'
   " Plug 'mason-org/mason.nvim'
-  Plug 'p00f/clangd_extensions.nvim'
+  " Plug 'p00f/clangd_extensions.nvim'
 
   " editor
-  Plug 'folke/which-key.nvim'
-  Plug 'max397574/better-escape.nvim'
-  Plug 'monaqa/dial.nvim'
+  " Plug 'folke/which-key.nvim'
+  " Plug 'max397574/better-escape.nvim'
+  " Plug 'monaqa/dial.nvim'
 
   " autocomplete
-  Plug 'Saghen/blink.cmp', { 'do': 'cargo build --release' }
-  Plug 'mgalliou/blink-cmp-tmux'
-  Plug 'fang2hou/blink-copilot'
-  Plug 'moyiz/blink-emoji.nvim'
-  Plug 'bydlw98/blink-cmp-env'
+  " Plug 'Saghen/blink.cmp', { 'do': 'cargo build --release' }
+  " Plug 'mgalliou/blink-cmp-tmux'
+  " Plug 'fang2hou/blink-copilot'
+  " Plug 'moyiz/blink-emoji.nvim'
+  " Plug 'bydlw98/blink-cmp-env'
 
   " ui
-  Plug 'MeanderingProgrammer/render-markdown.nvim'
+  " Plug 'MeanderingProgrammer/render-markdown.nvim'
 
   " utility
-  Plug 'stevearc/oil.nvim'
-  Plug 'R-nvim/R.nvim'
+  " Plug 'stevearc/oil.nvim'
+  " Plug 'R-nvim/R.nvim'
   " Plug 'olimorris/codecompanion.nvim'
-else
+  
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-scriptease'
   " Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-vinegar'
+  call plug#end()
 endif
-call plug#end()
 " }}}
 
 " change to directory of current file

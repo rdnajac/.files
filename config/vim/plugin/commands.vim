@@ -3,8 +3,7 @@ command! ReplaceSelection call utils#replaceSelection()
 command! CleanWhitespace call format#whitespace()
 nmap <leader>fw <cmd>CleanWhitespace<CR>
 
-nnoremap <M-j> <Cmd>BreakHere<CR>
-inoremap <M-j> <Cmd>BreakHere<CR>
+nnoremap <space>j <Cmd>BreakHere<CR>
 vnoremap <C-r> <cmd>ReplaceSelection<CR>
 
 nnoremap Q <Cmd>call format#buffer()<CR>

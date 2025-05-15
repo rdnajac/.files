@@ -1,14 +1,28 @@
-vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
-vim.opt.mousescroll = 'hor:0'
-
-require('nvim.ui')
 require('munchies')
 require('nvim.autocmds')
 require('nvim.diagnostics')
 require('nvim.keymaps')
 require('nvim.treesitter')
-
 require('utils.link').setup()
+
+vim.opt.backup = true
+vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
+vim.opt.cmdheight = 0
+vim.opt.mousescroll = 'hor:0'
+vim.opt.pumblend = 0
+vim.opt.signcolumn = 'yes'
+vim.opt.winborder = 'rounded'
+
+require('vim._extui').enable({
+  enable = true,
+  msg = {
+    -- pos = 'cmd',
+    pos = 'box',
+    box = {
+      timeout = 4000,
+    },
+  },
+})
 
 -- Refer to :h vim.lsp.config() for more information.
 vim.lsp.config('*', {
