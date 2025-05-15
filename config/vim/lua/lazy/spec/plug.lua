@@ -2,7 +2,6 @@ return {
   'christoomey/vim-tmux-navigator',
   'github/copilot.vim',
   'tpope/vim-abolish',
-  'junegunn/vim-easy-align',
   'junegunn/fzf.vim',
   dir = '~/GitHub/rdnajac/src/fzf/',
   'tpope/vim-apathy',
