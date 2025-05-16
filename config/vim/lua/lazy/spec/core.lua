@@ -99,7 +99,6 @@ return {
             end,
           },
         },
-
         mode = { 'n', 'v' },
         { '[', group = 'prev' },
         { ']', group = 'next' },
@@ -113,7 +112,19 @@ return {
         -- keep things tidy
         { 'g~', hidden = true },
         { 'gc', hidden = true },
-      },
+      }
     },
   },
+
+  -- {
+  --   'folke/lazydev.nvim',
+  --   ft = 'lua',
+  --   cmd = 'LazyDev',
+  --   opts = {
+  --     library = {
+  --       { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+  --       { path = 'snacks.nvim', words = { 'Snacks' } },
+  --     },
+  --   },
+  -- },
 }
