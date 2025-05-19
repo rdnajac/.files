@@ -9,7 +9,6 @@ return {
     'hrsh7th/nvim-cmp',
   },
   build = 'cargo build --release',
-
   event = 'InsertEnter',
   opts = function()
     vim.api.nvim_create_autocmd('User', {
@@ -25,6 +24,7 @@ return {
       desc = 'Keep completing path on <Tab>',
     })
 
+    ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     return {
       signature = { enabled = true },
@@ -88,10 +88,10 @@ return {
           then
             return { 'lsp', 'path', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
           else
-            return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
+            return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux', 'emoji', 'env', 'lazydev' }
           end
         end,
-        min_keyword_length = 3,
+        -- min_keyword_length = 3,
         providers = {
           path = {
             score_offset = 100,
@@ -143,6 +143,11 @@ return {
             module = 'blink-emoji',
             name = 'emoji',
             score_offset = 15,
+          },
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100, -- show at a higher priority than lsp
           },
         },
       },
