@@ -1,5 +1,7 @@
 runtime! after/ftplugin/rmd.vim
 
+setlocal noautoindent
+
 " TODO: write a template file
 inoremap <buffer> --- ---<CR>engine: "knitr"<CR>---<CR><CR>
 

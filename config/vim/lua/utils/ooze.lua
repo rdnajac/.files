@@ -57,11 +57,11 @@ M.setup = function()
   vim.api.nvim_create_user_command('CR', CR, {})
   vim.keymap.set('n', '<CR>', '<Cmd>CR<CR>', { silent = true })
   vim.keymap.set('v', '<CR>', '<Cmd>OozeVisual<CR>', { silent = true })
-
-  vim.cmd([[
-    command! RunFile call ooze#runfile()
-    nnoremap <silent> ,<CR> <cmd>RunFile<CR>
-  ]])
+  vim.api.nvim_create_user_command('RunFile', function()
+    vim.cmd('call ooze#runfile()')
+  end, {})
+  vim.keymap.set('n', ',<CR>', '<Cmd>RunFile<CR>', { silent = true })
 end
+
 
 return M

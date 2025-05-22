@@ -4,6 +4,8 @@ local new_dial = function(elements, word)
   return augend.constant.new({ elements = elements, word = word, cyclic = true })
 end
 
+-- local species = new_dial({{'human', 'mouse'}, true})
+
 local ordinals = augend.constant.new({
   elements = {
     'first',
@@ -65,6 +67,7 @@ local groups = {
     position2,
     position3,
     dim1,
+    -- species,
   },
   json = { augend.semver.alias.semver },
   css = {

@@ -10,7 +10,7 @@ return {
         comments = { italic = true },
         keywords = { italic = false, bold = true },
         sidebars = 'transparent',
-        -- floats = 'transparent',
+        floats = 'transparent',
       },
       on_highlights = function(hl, _)
         hl['Folded'] = { fg = '#7aa2f7', bg = '#16161d' }
@@ -51,6 +51,25 @@ return {
       },
       words = { enabled = true },
     },
+    init = function()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          -- Setup some globals for debugging (lazy-loaded)
+          _G.dd = function(...)
+            Snacks.debug.inspect(...)
+          end
+          _G.bt = function()
+            Snacks.debug.backtrace()
+          end
+          vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+          vim.api.nvim_create_user_command('Scriptnames', function()
+            require('munchies.picker').scriptnames()
+          end, { desc = 'Scriptnames' })
+        end,
+      })
+    end,
   },
 
   {
@@ -133,7 +152,7 @@ return {
         local mod = dofile(lazydev_path .. '/lua/lazydev/lsp.lua')
         local orig_supports = mod.supports
         mod.supports = function(client)
-	  -- correcrly identify the name of the lsp client
+          -- correcrly identify the name of the lsp client
           if client and vim.tbl_contains({ 'luals' }, client.name) then
             return true
           end

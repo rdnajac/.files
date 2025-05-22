@@ -77,6 +77,8 @@ return {
       },
       sources = {
         default = function()
+          local default_sources = { 'lsp', 'path', 'buffer', 'copilot',         'emoji', 'env', 'lazydev' }
+          local extra_sources = { 'snippets' }
           local row, col = unpack(vim.api.nvim_win_get_cursor(0))
           row = row - 1
           local check_col = col > 0 and col - 1 or col
@@ -86,9 +88,11 @@ return {
             and node
             and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, node:type())
           then
-            return { 'lsp', 'path', 'buffer', 'copilot', 'tmux', 'emoji', 'env' }
+            return default_sources
+          elseif vim.bo.filetype == 'lua' then
+            return { 'lsp', 'path', 'lazydev' }
           else
-            return { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'tmux', 'emoji', 'env', 'lazydev' }
+            return vim.list_extend(vim.deepcopy(default_sources), extra_sources)
           end
         end,
         -- min_keyword_length = 3,
@@ -105,6 +109,9 @@ return {
           snippets = {
             score_offset = 0,
             opts = { friendly_snippets = false },
+            should_show_items = function(ctx)
+              return ctx.trigger.initial_kind ~= 'trigger_character'
+            end,
           },
           copilot = {
             name = 'copilot',
@@ -133,8 +140,9 @@ return {
           env = {
             name = 'env',
             module = 'blink-cmp-env',
+            score_offset = -5,
             opts = {
-              --item_kind = require('blink.cmp.types').CompletionItemKind.Variable,
+              item_kind = require('blink.cmp.types').CompletionItemKind.Variable,
               show_braces = false,
               show_documentation_window = true,
             },

@@ -7,10 +7,20 @@ else
 end
 
 require('lazy').setup({
-  lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
   spec = { import = 'lazy.spec' },
+  lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
   install = { colorscheme = { 'tokyonight' } },
-  ui = { border = 'rounded', },
+  ui = {
+    border = 'rounded',
+    custom_keys = {
+      ['<localleader>d'] = {
+        function(plugin)
+          dd(plugin)
+        end,
+        desc = 'Debug Plugin',
+      },
+    },
+  },
   rocks = { enabled = false },
   change_detection = {
     enabled = true,
@@ -21,14 +31,14 @@ require('lazy').setup({
     rtp = {
       reset = false,
       disabled_plugins = {
-	'gzip',
-	-- 'matchit',
-	-- 'matchparen',
-	-- 'netrwPlugin',
-	'tarPlugin',
-	'tohtml',
-	'tutor',
-	'zipPlugin',
+        'gzip',
+        -- 'matchit',
+        -- 'matchparen',
+        -- 'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
       },
     },
   },
@@ -37,4 +47,3 @@ require('lazy').setup({
     require = false,
   },
 })
-

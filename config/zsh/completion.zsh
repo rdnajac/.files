@@ -28,3 +28,32 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 # Only if you later need bash-style `complete -C` for some weird CLI tools
 # autoload -Uz bashcompinit
 # bashcompinit
+
+# AWS S3 tab completion
+# mkdir -p "$ZSH_CACHE_DIR/aws-s3"
+# aws s3 ls | awk '{print $3}' > "$ZSH_CACHE_DIR/aws-s3/buckets"
+# for b in $(<"$ZSH_CACHE_DIR/aws-s3/buckets"); do
+#   aws s3 ls "s3://$b/" --recursive | awk '{print $4}' > "$ZSH_CACHE_DIR/aws-s3/$b-keys"
+# done
+_aws_s3_cached_complete() {
+  local cur bucket keys_file keys buckets
+  cur=${words[CURRENT]}
+
+  if [[ "$cur" == s3://*/* ]]; then
+    bucket="${cur#s3://}"
+    bucket="${bucket%%/*}"
+    keys_file="$ZSH_CACHE_DIR/aws-s3/${bucket}-keys"
+    [[ -f $keys_file ]] || return
+    keys=("${(@f)$(<"$keys_file")}")
+    compadd -W "s3://$bucket/" -a keys
+  elif [[ "$cur" == s3://* || -z "$cur" ]]; then
+    buckets=("${(@f)$(<"$ZSH_CACHE_DIR/aws-s3/buckets")}")
+    compadd -W "s3://" -a buckets
+  fi
+}
+
+compdef _aws_s3_cached_complete aws-s3c
+
+aws-s3c() {
+  aws s3 "$@"
+}

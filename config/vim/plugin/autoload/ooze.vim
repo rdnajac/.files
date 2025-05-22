@@ -64,3 +64,7 @@ function! ooze#runfile() abort
 endfunction
 
 command! -range=% OozeVisual call ooze#visual()
+
+function! ooze#test() abort
+  echom 'ooze exists!'
+endfunction

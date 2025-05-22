@@ -1,3 +1,4 @@
+-- 'p00f/clangd_extensions.nvim',
 require('clangd_extensions').setup({
   inlay_hints = { inline = false },
   ast = {

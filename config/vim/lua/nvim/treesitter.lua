@@ -78,10 +78,6 @@ require('nvim-treesitter.parsers').get_parser_configs().comment = {
   },
 }
 
-require('ts-comments').setup()
-require('nvim-ts-autotag').setup()
-require('treesitter-context').setup()
-
 vim.keymap.set('n', '<leader>uI', function()
   vim.treesitter.inspect_tree()
   vim.api.nvim_input('I')

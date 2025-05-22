@@ -13,7 +13,6 @@ local opts = {
   user_maps_only = true,
   hook = {
     on_filetype = function()
-      print('R.nvim filetype hook triggered!')
       vim.cmd([[
         setlocal keywordprg=:RHelp
 

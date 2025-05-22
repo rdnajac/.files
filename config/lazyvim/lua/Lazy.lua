@@ -16,7 +16,7 @@ local spec = {
       { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
     },
   },
-  { import = 'user.plugins' },
+  -- { import = 'user.plugins' },
 }
 
 require('lazy').setup(spec, {

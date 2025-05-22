@@ -1,3 +1,5 @@
+setlocal iskeyword-=.
+
 " Note that not all terminals handle these key presses the same way
 inoremap <buffer> <M--> <-<Space>
 inoremap <buffer> <M-Bslash> <bar>><Space>

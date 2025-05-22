@@ -30,8 +30,5 @@ M.linkify = function()
   end)
 end
 
-M.setup = function()
-  vim.keymap.set('v', '<leader>k', M.linkify, { desc = 'Linkify visual selection' })
-end
 
 return M

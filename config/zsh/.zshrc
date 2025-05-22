@@ -6,11 +6,16 @@ fi
 
 setopt interactivecomments
 
+for f in $ZDOTDIR/*.zsh; do
+	. "$f"
+done
+
 have() { (( $+commands[$1] )) }
 
 have brew && {
 	alias brewup='brew update; brew upgrade; brew cleanup -s;'
 	alias ctags='$(brew --prefix)/bin/ctags'
+	alias awk='$(brew --prefix)/bin/gawk'
 }
 
 have micromamba && {
@@ -22,20 +27,17 @@ have micromamba && {
 # have bat && alias cat=bat
 have eza && {
 	alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
-	alias ls='eza --group-directories-first --colour=always --icons=auto'
+	# alias ls='eza --group-directories-first --colour=always --icons=auto'
 	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
 }
 
+# Source custom zsh configs
 
 # Source shell configs for specific programs
 have nnn && . $DOTDIR/etc/nnn.sh
 have fzf && . $DOTDIR/etc/fzf.sh
 have nvim && . $DOTDIR/etc/neovim.sh
-
-# Source custom zsh configs
-for f in $ZDOTDIR/*.zsh; do
-	. "$f"
-done
+have aws && . $DOTDIR/etc/aws.zsh
 
 # set up Ruby environment
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
@@ -65,3 +67,5 @@ micromamba activate cbmf
 eval "$(register-python-argcomplete cbmf)"
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+
+. "$HOME/.local/share/../bin/env"

@@ -74,6 +74,9 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 alias pretty='prettier --write .'
 alias rscript='Rscript'
 
+alias qp='quarto preview'
+alias qr='quarto render'
+
 # alias tmux='tmux -2'
 alias kms='tmux kill-server'
 
@@ -94,6 +97,3 @@ alias clean='echo -n "Really clean this directory?";
 	else
 	   echo "Not cleaned.";
 	fi'
-
-lastarg() { printf '%s\n' "${@: -1}"; }
-shiftargs() { printf '%s\n' "${@:2}"; }

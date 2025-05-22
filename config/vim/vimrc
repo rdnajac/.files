@@ -56,7 +56,7 @@ endif
 " set backup
 set undofile undolevels=10000
 
-set autochdir
+" set autochdir
 set autowrite
 set breakindent
 set cursorline
@@ -84,6 +84,7 @@ set scrolloff=8
 set shiftround
 set shortmess+=acC
 set shortmess+=A
+set shortmess-=o
 set showmatch
 set splitbelow splitright
 set splitkeep=screen
@@ -162,6 +163,21 @@ augroup ResizeSplits " {{{
   autocmd!
   autocmd VimResized * let t = tabpagenr() | tabdo wincmd = | execute 'tabnext' t
 augroup END
+" }}}
+augroup SetLocalPath " {{{
+  autocmd!
+  let s:default_path = escape(&path, '\ ') " store default value of 'path'
+
+  " Always add the current file's directory to the path and tags list if not
+  " already there. Add it to the beginning to speed up searches.
+  autocmd BufRead *
+        \ let s:tempPath = escape(escape(expand("%:p:h"), ' '), '\ ') |
+        \ exec "set path-=" . s:tempPath |
+        \ exec "set path-=" . s:default_path |
+        \ exec "set path^=" . s:tempPath |
+        \ exec "set path^=" . s:default_path
+augroup END
+
 " }}}1
 
 " § keymaps {{{1
@@ -219,18 +235,12 @@ xnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
 "xnoremap <expr> N "'nN'[v:searchforward]"
 "onoremap <expr> N "'nN'[v:searchforward]"
 
+nnoremap n  nzzzv
+nnoremap N  Nzzzv
 nnoremap *  *zzzv
 nnoremap #  #zzzv
 nnoremap g* g*zzzv
 nnoremap g# g#zzzv
-" }}}
-" move lines up/down {{{
-nnoremap <A-j> :execute 'move .+' . v:count1<CR>==
-nnoremap <A-k> :execute 'move .-' . (v:count1 + 1)<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :<C-u>execute "'<,'>move '>+" . v:count1<CR>gv=gv
-vnoremap <A-k> :<C-u>execute "'<,'>move '<-" . (v:count1 + 1)<CR>gv=gv
 " }}}
 " insert comment above/below {{{
 nnoremap <silent> gco o<Esc>Vcx<Esc>:normal gcc<CR>fxa<BS>
@@ -269,6 +279,8 @@ inoremap <silent> ,u <C-x><C-u>
 cnoreabbrev !! !./%
 cnoreabbrev ?? verbose set?<Left>
 
+cabbr <expr> %% expand('%:p:h')
+
 command! W w!
 command! Wq wq!
 command! Wqa wqa!
@@ -282,6 +294,7 @@ cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 if ! has('nvim')
   call plug#begin()
   " Plug 'rdnajac/after'
+  " Plug 'tpope/vim-sensible'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'folke/tokyonight.nvim'
   Plug 'github/copilot.vim'
@@ -295,56 +308,21 @@ if ! has('nvim')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-tbone'
   Plug 'tpope/vim-unimpaired'
-  " only load plugins on certain filetypes
-  Plug 'lervag/vimtex', { 'for': 'tex' }
-
-  " libraries
-  " Plug 'folke/snacks.nvim'
-  " Plug 'echasnovski/mini.nvim'
-
-  " treesitter
-  " Plug 'nvim-treesitter/nvim-treesitter'
-  " Plug 'folke/ts-comments.nvim'
-  " Plug 'windwp/nvim-ts-autotag'
-  " Plug 'nvim-treesitter/nvim-treesitter-context'
-
-  " lsp
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'mason-org/mason-lspconfig.nvim'
-  " Plug 'mason-org/mason.nvim'
-  " Plug 'p00f/clangd_extensions.nvim'
-
-  " editor
-  " Plug 'folke/which-key.nvim'
-  " Plug 'max397574/better-escape.nvim'
-  " Plug 'monaqa/dial.nvim'
-
-  " autocomplete
-  " Plug 'Saghen/blink.cmp', { 'do': 'cargo build --release' }
-  " Plug 'mgalliou/blink-cmp-tmux'
-  " Plug 'fang2hou/blink-copilot'
-  " Plug 'moyiz/blink-emoji.nvim'
-  " Plug 'bydlw98/blink-cmp-env'
-
-  " ui
-  " Plug 'MeanderingProgrammer/render-markdown.nvim'
-
-  " utility
-  " Plug 'stevearc/oil.nvim'
-  " Plug 'R-nvim/R.nvim'
-  " Plug 'olimorris/codecompanion.nvim'
-  
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-scriptease'
-  " Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-vinegar'
+  Plug 'vuciv/golf'
+  " only load plugins on certain filetypes
+  Plug 'lervag/vimtex', { 'for': 'tex' }
   call plug#end()
 endif
 " }}}
 
 " change to directory of current file
 command CDC cd %:p:h
+" parent directory
+command CDP cd %:p:h:h
 
 " vim: fdm=marker fdl=0

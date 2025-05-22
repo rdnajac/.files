@@ -1,28 +1,50 @@
-require('munchies')
 require('nvim.autocmds')
 require('nvim.diagnostics')
 require('nvim.keymaps')
 require('nvim.treesitter')
-require('utils.link').setup()
+require('munchies.terminal').setup()
+require('utils')
 
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
-vim.opt.cmdheight = 0
 vim.opt.mousescroll = 'hor:0'
 vim.opt.pumblend = 0
 vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 
+vim.opt.cmdheight = 0
+-- vim.opt.messagesopt = 'wait:10,history:500'
 require('vim._extui').enable({
-  enable = true,
   msg = {
-    -- pos = 'cmd',
     pos = 'box',
     box = {
       timeout = 4000,
     },
   },
 })
+
+-- HACK: stop msgshow
+local ext = require('vim._extui.shared')
+local messages = require('vim._extui.messages')
+
+local original_msg_show = messages.msg_show
+
+messages.msg_show = function(kind, content)
+  if kind ~= 'search_cmd' and kind ~= 'list_cmd' then
+    -- force `more = false` by replacing internal call
+    local old_show_msg = messages.show_msg
+    messages.show_msg = function(tar, content_, replace_last, _)
+      old_show_msg(tar, content_, replace_last, false)
+    end
+
+    original_msg_show(kind, content)
+
+    -- restore after call
+    messages.show_msg = old_show_msg
+  else
+    original_msg_show(kind, content)
+  end
+end
 
 -- Refer to :h vim.lsp.config() for more information.
 vim.lsp.config('*', {
@@ -62,6 +84,7 @@ vim.lsp.enable({
   'clangd',
   'bash-language-server',
   'marksman',
-  'r_language-server',
+  -- 'r_language-server',
+  'air',
   'ruff',
 })

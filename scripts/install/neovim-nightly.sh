@@ -8,26 +8,33 @@ TAR_NAME="nvim-macos-arm64.tar.gz"
 INSTALL_DIR="$HOME/.local/nvim-nightly"
 BIN_PATH="/usr/local/bin/nvim"
 
-# Step 1: Download
+# Functions
+get_version() {
+	"$1" --version | awk 'NR==1 { print $2 }'
+}
+
+# Execution
+echo "👾 Installing Neovim nightly (ARM64)..."
+
+CURRENT_VERSION=$(command -v nvim >/dev/null && get_version nvim || echo "none")
+echo "Current Neovim version: $CURRENT_VERSION"
+
 echo "Downloading Neovim nightly..."
 curl -L "$URL" -o "$TAR_NAME"
 
-# Step 2: Remove quarantine attribute
 echo "Removing quarantine attribute..."
 xattr -c "$TAR_NAME"
 
-# Step 3: Extract
 echo "Extracting..."
 mkdir -p "$INSTALL_DIR"
 tar -xzf "$TAR_NAME" -C "$INSTALL_DIR" --strip-components=1
 
-# Step 4: Symlink to /usr/local/bin
 echo "Installing Neovim..."
 sudo ln -sf "$INSTALL_DIR/bin/nvim" "$BIN_PATH"
 
-# Step 5: Cleanup
 echo "Cleaning up..."
 rm "$TAR_NAME"
 
+NEW_VERSION=$(get_version nvim)
 echo "✅ Neovim nightly (ARM64) installed successfully!"
-nvim --version
+echo "New Neovim version: $NEW_VERSION"
