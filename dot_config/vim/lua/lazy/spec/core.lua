@@ -3,6 +3,16 @@ return {
   {
     'LazyVim/LazyVim',
     version = false,
+
+    {
+      { import = 'lazyvim.plugins.init' },
+      -- { import = 'lazyvim.plugins.lsp' },
+      { import = 'lazyvim.plugins.formatting' },
+      { import = 'lazyvim.plugins.linting' },
+      -- { import = 'lazyvim.plugins.xtras' },
+      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+      { import = 'lazyvim.plugins.extras.formatting.prettier' },
+    },
     opts = {
       defaults = {
         autocmds = true,
@@ -41,8 +51,15 @@ return {
     opts = function()
       return {
         bigfile = { enabled = true },
-        dashboard = { enabled = false },
-        -- dashboard = require('munchies.dashboard'),
+        -- dashboard = { enabled = false },
+        dashboard = {
+          sections = {
+            { section = 'header' },
+            { icon = ' ', title = 'Keymaps', section = 'keys', indent = 2, padding = 1 },
+            { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+            { section = 'startup' },
+          },
+        },
         explorer = { enabled = true },
         image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil },
         indent = { indent = { only_current = true, only_scope = true } },

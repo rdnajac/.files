@@ -41,72 +41,6 @@ local cowsay = function()
   return cmd
 end
 
-local function my_files()
-  return function()
-    local harpoon = require('harpoon')
-    local uv = vim.uv or vim.loop
-    local fs = svim.fs
-
-    local function normalize(p)
-      if not p or p == '' then
-        return nil
-      end
-      p = fs.normalize(p, { _fast = true, expand_env = false })
-      p = vim.fn.fnamemodify(p, ':p') -- absolute
-      local stat = uv.fs_stat(p)
-      return stat and uv.fs_realpath(p) or nil
-    end
-
-    local seen, ret = {}, {}
-    local limit, i = 9, 1
-    local oldfiles = vim.v.oldfiles
-
-    local function add(file)
-      local path = normalize(file)
-      if not path or seen[path] then
-        return false
-      end
-      seen[path] = true
-      ret[#ret + 1] = {
-        file = path,
-        icon = 'file',
-        action = ':e ' .. vim.fn.fnameescape(path),
-        autokey = true,
-      }
-      return #ret >= limit
-    end
-
-    for _, item in ipairs(harpoon:list().items) do
-      if add(item.value) then
-        return ret
-      end
-    end
-
-    local skip = {
-      [normalize(vim.fn.stdpath('data'))] = true,
-      [normalize(vim.fn.stdpath('cache'))] = true,
-      [normalize(vim.fn.stdpath('state'))] = true,
-    }
-
-    while oldfiles[i] do
-      local path = normalize(oldfiles[i])
-      i = i + 1
-      local skipme = false
-      for prefix in pairs(skip) do
-        if prefix and path and path:sub(1, #prefix) == prefix then
-          skipme = true
-          break
-        end
-      end
-      if not skipme and path and add(path) then
-        break
-      end
-    end
-
-    return ret
-  end
-end
-
 ---@class snacks.dashboard.Config
 -- stylua: ignore
 local M = {
@@ -144,7 +78,6 @@ local M = {
     {
       pane = 1, enabled = function() return wide() end,
       { icon = ' ', title = 'Files', key = 'f', action = function() Snacks.picker.smart() end },
-      { my_files(), indent = 2, enabled = function() return wide() end },
     },
     {
       pane = 1, enabled = function() return wide() and in_git_repo() end,

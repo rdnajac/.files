@@ -37,16 +37,6 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      {
-        { import = 'lazyvim.plugins.init' },
-        -- { import = 'lazyvim.plugins.lsp' },
-        { import = 'lazyvim.plugins.formatting' },
-        { import = 'lazyvim.plugins.linting' },
-	-- { import = 'lazyvim.plugins.xtras' },
-	{ import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-	  { import = 'lazyvim.plugins.extras.formatting.prettier' },
-
-      },
       keys = {
         { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
         { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
