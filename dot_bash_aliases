@@ -43,7 +43,8 @@ alias pip=pip3
 alias zz=fg
 
 alias cz='chezmoi'
-alias cza='chezmoi apply'
+alias cza='chezmoi add'
+alias czA='chezmoi apply'
 alias czc='chezmoi cd'
 alias czd='chezmoi diff'
 alias czs='chezmoi status'
