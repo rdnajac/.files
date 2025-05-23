@@ -3,23 +3,16 @@ return {
   {
     'LazyVim/LazyVim',
     version = false,
-
     {
       { import = 'lazyvim.plugins.init' },
-      -- { import = 'lazyvim.plugins.lsp' },
       { import = 'lazyvim.plugins.formatting' },
       { import = 'lazyvim.plugins.linting' },
+      -- { import = 'lazyvim.plugins.lsp' },
       -- { import = 'lazyvim.plugins.xtras' },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
       { import = 'lazyvim.plugins.extras.formatting.prettier' },
-    },
-    opts = {
-      defaults = {
-        autocmds = true,
-        keymaps = false,
-      },
-    },
   },
+    },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
