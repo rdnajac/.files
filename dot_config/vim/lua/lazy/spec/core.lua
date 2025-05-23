@@ -27,26 +27,8 @@ return {
     'folke/snacks.nvim',
     opts = {
       bigfile = { enabled = true },
-      dashboard = {
-        preset = {
-          -- stylua: ignore
-          ---@type snacks.dashboard.Item[]
-          keys = {
-	    { icon = ' ', key = 'f', title = 'Files',   action = function() Snacks.picker.recent() end },
-	    { icon = ' ', key = 'g', title = 'Lazygit', action = function() Snacks.lazygit() end, enabled = function() return Snacks.git.get_root() ~= nil end },
-	    -- TODO use Snacks
-            -- { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            -- { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-	    { icon = '󰒲 ', key = 'l', desc = 'Lazy',     action = ':Lazy' },
-	    { icon = ' ', key = 'x', desc = 'Extras',   action = ':LazyExtras' },
-	    { icon = ' ', key = 'h', desc = 'Health',   action = ':checkhealth' },
-	    { icon = '󱌣 ', key = 'm', desc = 'Mason',    action = ':Mason' },
-	    { icon = ' ', key = 'q', desc = 'Quit',     action = ':qa' },
-          },
-        },
-      },
-      explorer = { enabled = true },
+      dashboard = require('munchies.dashboard').opts,
+      explorer = { enabled = false },
       image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil },
       indent = { indent = { only_current = true, only_scope = true } },
       input = { enabled = true },

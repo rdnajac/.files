@@ -37,7 +37,6 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-
       opts = {
         defaults = {
           autocmds = true,
