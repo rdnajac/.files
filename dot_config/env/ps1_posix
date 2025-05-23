@@ -1,0 +1,11 @@
+# POSIX-compliant prompt configuration
+
+PS_NEWLINE='\n'
+PS_PWD="\033[34m\w\033[0m"  # Blue for current directory
+PS_TIME="\033[35m\$(date +%s)\033[0m"  # Magenta for timestamp
+PS_ERROR="\$(if [ \$? -eq 0 ]; then echo '√'; else echo '\033[31mexit \033[33m\$?\033[0m'; fi)"  # Error status
+PS_SYMBOL="👾 "
+# PSRUB="₽ "
+
+# Combine all into PS1
+PS1="${PS_TIME} ${PS_PWD} ${PS_ERROR}${PS_NEWLINE}${PS_SYMBOL}"
