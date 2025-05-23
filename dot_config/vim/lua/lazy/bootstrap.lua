@@ -6,11 +6,18 @@ else
   vim.opt.rtp:prepend(lazypath)
 end
 
+-- Don't load LazyVim options
+package.loaded["lazyvim.config.options"] = true
+
 require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      -- import = 'lazyvim.plugins.init',
+      -- import = 'lazyvim.plugins',
+      keys = {
+        { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
+        { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
+      },
     },
     { import = 'lazy.spec' },
   },
