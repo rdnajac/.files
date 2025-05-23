@@ -49,12 +49,18 @@ alias czd='chezmoi diff'
 alias czs='chezmoi status'
 
 # edit config files
-alias ssx='${VISUAL} ${HOME}/.ssh/config'
-alias ba='${VISUAL} ${HOME}/.bash_aliases'
-alias alac='${VISUAL} ${HOME}/.config/alacritty/alacritty.toml'
-alias kk='${VISUAL} ${HOME}/.config/kitty/kitty.conf'
-alias vvv='${VISUAL} ${HOME}/.config/vim/vimrc'
-alias tmx='${VISUAL} ${HOME}/.config/tmux/tmux.conf'
+alias ssx='$VISUAL $HOME/.ssh/config'
+
+# use chezmoi to edit the config files
+alias ba='chezmoi edit --apply $HOME/.bash_aliases'
+
+# fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+
+alias alac='chezmoi edit --apply $XDG_CONFIG_HOME/alacritty/alacritty.toml'
+alias kk='chezmoi edit --apply $XDG_CONFIG_HOME/kitty/kitty.conf'
+alias vvv='chezmoi edit --apply $XDG_CONFIG_HOME/vim/vimrc'
+alias tmx='chezmoi edit --apply $XDG_CONFIG_HOME/tmux/tmux.conf'
 
 alias ga='git add'
 alias gaa='git add --all'
