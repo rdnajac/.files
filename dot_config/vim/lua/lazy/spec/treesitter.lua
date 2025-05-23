@@ -16,7 +16,7 @@ return {
       'cpp',
       'cuda',
       -- FIXME
-      'comment', -- HACK: this is a custom parser
+      -- 'comment', -- HACK: this is a custom parser
       'diff',
       'dockerfile',
       'doxygen',
@@ -47,14 +47,16 @@ return {
       'r',
       'xml',
       'yaml',
-      -- these come built-in with neovim
-      -- 'vim',
-      -- 'vimdoc',
-      -- 'c',
-      -- 'lua',
-      -- 'markdown',
-      -- 'markdown_inline',
-      -- 'query',
+    },
+    -- these come built-in with neovim
+    ignore_install = {
+      'vim',
+      'vimdoc',
+      'c',
+      'lua',
+      'markdown',
+      'markdown_inline',
+      'query',
     },
   },
 }
