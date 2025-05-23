@@ -1,3 +1,4 @@
+require('lazy.bootstrap')
 require('nvim.autocmds')
 require('nvim.diagnostics')
 require('nvim.keymaps')
