@@ -1,6 +1,5 @@
 return {
   'stevearc/conform.nvim',
-  { import = 'lazyvim.plugins.conform' },
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   keys = {

@@ -15,7 +15,7 @@ vim.g.autoformat = false
 vim.g.snacks_animate = true
 
 -- Leave it to "auto" to automatically use `:LazyExtras`
-vim.g.lazyvim_picker = 'auto'
+vim.g.lazyvim_picker = 'snacks'
 vim.g.lazyvim_cmp = 'auto'
 
 -- use completion engine instead of inline suggestions
@@ -37,7 +37,16 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      -- import = 'lazyvim.plugins',
+      {
+        { import = 'lazyvim.plugins.init' },
+        -- { import = 'lazyvim.plugins.lsp' },
+        { import = 'lazyvim.plugins.formatting' },
+        { import = 'lazyvim.plugins.linting' },
+	-- { import = 'lazyvim.plugins.xtras' },
+	{ import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+	  { import = 'lazyvim.plugins.extras.formatting.prettier' },
+
+      },
       keys = {
         { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
         { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
