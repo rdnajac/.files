@@ -1,4 +1,15 @@
 return {
+  { 'folke/lazy.nvim', version = false },
+  {
+    'LazyVim/LazyVim',
+    version = false,
+    opts = {
+      defaults = {
+        autocmds = true,
+        keymaps = false,
+      },
+    },
+  },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
