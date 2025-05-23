@@ -7,7 +7,13 @@ destinationDir = "{{ .chezmoi.destDir }}"
 [git]
   autoAdd = true
   autoCommit = true
-  autoPush = true
+  autoPush = false
 
 [update]
+  apply = true
+
+[edit]
+  apply = true
+
+[add]
   apply = true
