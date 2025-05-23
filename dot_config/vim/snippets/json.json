@@ -1,0 +1,7 @@
+{
+  "snippet": {
+    "prefix": "snippet",
+    "body": "\"snippet\": {\n\t\"prefix\": \"${1:snippet}\",\n\t\"body\": \"${0}\",\n\t\"description\": \"New snippet.\"\n}",
+    "description": "New snippet."
+  }
+}
