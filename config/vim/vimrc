@@ -276,6 +276,8 @@ inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
 " }}}
 " command-line {{{
+nnoremap ; :
+
 cnoreabbrev !! !./%
 cnoreabbrev ?? verbose set?<Left>
 

@@ -48,6 +48,7 @@ alias ba='${VISUAL} ${HOME}/.bash_aliases'
 alias alac='${VISUAL} ${HOME}/.config/alacritty/alacritty.toml'
 alias kk='${VISUAL} ${HOME}/.config/kitty/kitty.conf'
 alias vvv='${VISUAL} ${HOME}/.config/vim/vimrc'
+alias tmx='${VISUAL} ${HOME}/.config/tmux/tmux.conf'
 
 alias ga='git add'
 alias gaa='git add --all'
