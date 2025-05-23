@@ -1,19 +1,6 @@
 return {
   { 'folke/lazy.nvim', version = false },
   {
-    'LazyVim/LazyVim',
-    version = false,
-    {
-      { import = 'lazyvim.plugins.init' },
-      { import = 'lazyvim.plugins.formatting' },
-      { import = 'lazyvim.plugins.linting' },
-      -- { import = 'lazyvim.plugins.lsp' },
-      -- { import = 'lazyvim.plugins.xtras' },
-      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-      { import = 'lazyvim.plugins.extras.formatting.prettier' },
-  },
-    },
-  {
     'folke/tokyonight.nvim',
     priority = 1001,
     opts = {
@@ -36,44 +23,47 @@ return {
       end,
     },
   },
-
   {
     'folke/snacks.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = function()
-      return {
-        bigfile = { enabled = true },
-        -- dashboard = { enabled = false },
-        dashboard = {
-          sections = {
-            { section = 'header' },
-            { icon = ' ', title = 'Keymaps', section = 'keys', indent = 2, padding = 1 },
-            { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
-            { section = 'startup' },
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = {
+        preset = {
+          -- stylua: ignore
+          ---@type snacks.dashboard.Item[]
+          keys = {
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
-        explorer = { enabled = true },
-        image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil },
-        indent = { indent = { only_current = true, only_scope = true } },
-        input = { enabled = true },
-        notifier = { enabled = false },
-        -- notifier = { style = 'fancy', date_format = '%T', timeout = 3000 },
-        picker = require('munchies.picker').opts,
-        quickfile = { enabled = true },
-        scope = { enabled = true },
-        scroll = { enabled = true },
-        statuscolumn = { enabled = false },
-        -- statuscolumn = { left = { 'sign' }, right = { 'git' } },
-        terminal = {
-          start_insert = true,
-          auto_insert = false,
-          auto_close = true,
-          win = { wo = { winbar = '', winhighlight = 'Normal:SpecialWindow' } },
-        },
-        words = { enabled = true },
-      }
-    end,
+      },
+      explorer = { enabled = true },
+      image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil },
+      indent = { indent = { only_current = true, only_scope = true } },
+      input = { enabled = true },
+      notifier = { enabled = false },
+      -- notifier = { style = 'fancy', date_format = '%T', timeout = 3000 },
+      picker = require('munchies.picker').opts,
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = false },
+      -- statuscolumn = { left = { 'sign' }, right = { 'git' } },
+      terminal = {
+        start_insert = true,
+        auto_insert = false,
+        auto_close = true,
+        win = { wo = { winbar = '', winhighlight = 'Normal:SpecialWindow' } },
+      },
+      words = { enabled = true },
+    },
     init = function()
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
@@ -94,7 +84,20 @@ return {
       })
     end,
   },
-
+  {
+    'LazyVim/LazyVim',
+    version = false,
+    {
+      { import = 'lazyvim.plugins.init' },
+      { import = 'lazyvim.plugins.formatting' },
+      { import = 'lazyvim.plugins.linting' },
+      -- { import = 'lazyvim.plugins.lsp' },
+      -- { import = 'lazyvim.plugins.xtras' },
+      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+      { import = 'lazyvim.plugins.extras.formatting.prettier' },
+      -- { import = 'lazyvim.plugins.extras.util.chezmoi' },
+    },
+  },
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
@@ -187,4 +190,5 @@ return {
       end
     end,
   },
+  { 'nvim-lua/plenary.nvim', lazy = true },
 }

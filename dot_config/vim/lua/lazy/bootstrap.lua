@@ -14,6 +14,10 @@ vim.g.lazyvim_check_order = false
 vim.g.autoformat = false
 vim.g.snacks_animate = true
 
+-- Leave it to "auto" to automatically use `:LazyExtras`
+vim.g.lazyvim_picker = 'snacks'
+vim.g.lazyvim_cmp = 'blink'
+
 -- use completion engine instead of inline suggestions
 vim.g.ai_cmp = true
 
