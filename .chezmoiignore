@@ -6,5 +6,8 @@
 
 # vim
 
-**/*.viminfo
+**/*viminfo
 **/*vimlog.txt
+**/*lazy-lock.json
+**/*lazyvim.json
+
