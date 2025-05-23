@@ -1,3 +1,4 @@
+-- TODO make this a picker
 local pick_chezmoi = function()
   local results = require('chezmoi.commands').list({
     args = {

@@ -1,6 +1,6 @@
 require('lazy.bootstrap')
 require('nvim.diagnostics')
 require('nvim.lsp')
-require('nvim.treesitter')
+-- require('nvim.treesitter')
 require('munchies.terminal').setup()
 require('utils')

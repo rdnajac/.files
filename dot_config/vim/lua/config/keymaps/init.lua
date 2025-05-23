@@ -1,8 +1,12 @@
 -- stylua: ignore
+require('config.keymaps.escape')
+require('config.keymaps.shortcuts')
 require('config.keymaps.toggles')
+require('config.keymaps.pickers')
+
 require('which-key').add({
-  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', icon = { icon = ' ' }, },
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
+  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', icon = { icon = ' ' }, },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
   { '<leader>e', function() Snacks.explorer() end, desc = 'Explorer', icon = { icon = ' ', color = 'azure' }, },
   { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
@@ -12,9 +16,9 @@ require('which-key').add({
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' }, },
   { '<leader><space>', function() Snacks.picker() end, desc = 'Pickers', icon = { icons = ' ' }, },
 
+
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
 
-  { '<leader>f', group = "file/find",},
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers', },
   { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)', },
   { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk', },
@@ -58,7 +62,6 @@ require('which-key').add({
   { '<leader>sm', function() Snacks.picker.marks() end, desc = 'Marks', },
   -- <leader>sn is reserved for noice
   { '<leader>sN', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File', },
-  -- { '<leader>sp', function() Snacks.picker.lazy() end, desc = 'Search for Plugin Spec', },
   { '<leader>sp', function() Snacks.picker.grep({ cwd = vim.g.plug_home }) end, desc = 'Vim-Plug Plugin File' },
   { '<leader>sP', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File', },
   { '<leader>sq', function() Snacks.picker.qflist() end, desc = 'Quickfix List', },
@@ -138,47 +141,9 @@ vim.keymap.set('n', '<leader>fD', '<Cmd>Delete!<CR>', { desc = 'Delete File (and
 
 vim.keymap.set('n', '<leader>ga', ':!git add %<CR>', { desc = 'Git Add (file)' })
 
-vim.keymap.set('n', '\\i', '<Cmd>e ' .. vim.fn.stdpath('config') .. '/lua/nvim/init.lua<CR>', { desc = 'init' })
-vim.keymap.set('n', '\\a', '<Cmd>e ' .. vim.fn.stdpath('config') .. '/lua/nvim/autocmds.lua<CR>', { desc = 'autocmds' })
-vim.keymap.set('n', '\\k', '<Cmd>e ' .. vim.fn.stdpath('config') .. '/lua/nvim/keymaps.lua<CR>', { desc = 'keymaps' })
-
-vim.keymap.set('n', '\\K', '<Cmd>e ' .. vim.fn.stdpath('config') .. '../kitty/mykitty.conf<CR>', { desc = 'kitty' })
-vim.keymap.set('n', '\\s', '<Cmd>e ' .. vim.fn.expand('~/.ssh/config') .. '<CR>', { desc = 'ssh' })
-
 vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
   vim.cmd('noh')
   -- LazyVim.cmp.actions.snippet_stop()
   return '<esc>'
 end, { expr = true, desc = 'Escape and Clear hlsearch' })
-
-require('better_escape').setup({
-  mappings = {
-    i = {
-      j = {
-        k = '<Esc>',
-        j = '<Esc>',
-      },
-      k = { j = '<Esc>' },
-    },
-    c = {
-      j = {
-        k = '<Esc>',
-        j = '<Esc>',
-      },
-      k = { j = '<Esc>' },
-    },
-    t = {
-      j = { k = '<C-\\><C-n>' },
-      k = { j = '<C-\\><C-n>' },
-    },
-    v = {
-      j = { k = '<Esc>' },
-      k = { j = '<Esc>' },
-    },
-    s = {
-      j = { k = '<Esc>' },
-      k = { j = '<Esc>' },
-    },
-  },
-})
 
