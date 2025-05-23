@@ -1,0 +1,13 @@
+# ~/.local/share/chezmoi/.chezmoi.toml.tmpl
+
+# Use your actual dotfiles repo location
+sourceDir = "{{ .chezmoi.sourceDir }}"
+destinationDir = "{{ .chezmoi.destDir }}"
+
+[git]
+  autoAdd = true
+  autoCommit = true
+  autoPush = true
+
+[update]
+  apply = true
