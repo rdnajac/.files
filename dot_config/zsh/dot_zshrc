@@ -34,10 +34,10 @@ have eza && {
 # Source custom zsh configs
 
 # Source shell configs for specific programs
-have nnn && . $DOTDIR/etc/nnn.sh
-have fzf && . $DOTDIR/etc/fzf.sh
-have nvim && . $DOTDIR/etc/neovim.sh
-have aws && . $DOTDIR/etc/aws.zsh
+have nnn && . ~/.config/env/nnn.sh
+have fzf && . ~/.config/env/fzf.sh
+have nvim && . ~/.config/env/neovim.sh
+have aws && . ~/.config/env/aws.zsh
 
 # set up Ruby environment
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
