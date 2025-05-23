@@ -7,7 +7,13 @@ else
 end
 
 require('lazy').setup({
-  spec = { import = 'lazy.spec' },
+  spec = {
+    {
+      'LazyVim/LazyVim',
+      -- import = 'lazyvim.plugins.init',
+    },
+    { import = 'lazy.spec' },
+  },
   lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
   install = { colorscheme = { 'tokyonight' } },
   ui = {
