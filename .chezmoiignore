@@ -1,4 +1,10 @@
-**/.zcompcache
-**/.zcompdump
-**/.zsh_history
-**/.zsh_sessions
+# zsh
+**/*zcompcache
+**/*zcompdump
+**/*zsh_history
+**/*zsh_sessions
+
+# vim
+
+**/*.viminfo
+**/*vimlog.txt
