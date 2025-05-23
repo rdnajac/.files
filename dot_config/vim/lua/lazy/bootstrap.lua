@@ -11,11 +11,7 @@ package.loaded["lazyvim.config.options"] = true
 
 -- Quiet error on startup
 vim.g.lazyvim_check_order = false
--- LazyVim auto format
-vim.g.autoformat = true
-
--- Snacks animations
--- Set to `false` to globally disable all snacks animations
+vim.g.autoformat = false
 vim.g.snacks_animate = true
 
 -- LazyVim picker to use.
@@ -32,7 +28,7 @@ vim.g.lazyvim_cmp = "auto"
 
 -- if the completion engine supports the AI source,
 -- use that instead of inline suggestions
-vim.g.ai_cmp = true
+vim.g.ai_cmp = false
 
 -- LazyVim root dir detection
 -- Each entry can be:
