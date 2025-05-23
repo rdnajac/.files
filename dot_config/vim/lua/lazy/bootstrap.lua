@@ -7,47 +7,30 @@ else
 end
 
 -- Don't load LazyVim options
-package.loaded["lazyvim.config.options"] = true
+package.loaded['lazyvim.config.options'] = true
 
 -- Quiet error on startup
 vim.g.lazyvim_check_order = false
 vim.g.autoformat = false
 vim.g.snacks_animate = true
 
--- LazyVim picker to use.
--- Can be one of: telescope, fzf
--- Leave it to "auto" to automatically use the picker
--- enabled with `:LazyExtras`
-vim.g.lazyvim_picker = "auto"
+-- Leave it to "auto" to automatically use `:LazyExtras`
+vim.g.lazyvim_picker = 'auto'
+vim.g.lazyvim_cmp = 'auto'
 
--- LazyVim completion engine to use.
--- Can be one of: nvim-cmp, blink.cmp
--- Leave it to "auto" to automatically use the completion engine
--- enabled with `:LazyExtras`
-vim.g.lazyvim_cmp = "auto"
-
--- if the completion engine supports the AI source,
--- use that instead of inline suggestions
-vim.g.ai_cmp = false
+-- use completion engine instead of inline suggestions
+vim.g.ai_cmp = true
 
 -- LazyVim root dir detection
 -- Each entry can be:
 -- * the name of a detector function like `lsp` or `cwd`
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 
--- Optionally setup the terminal to use
--- This sets `vim.o.shell` and does some additional configuration for:
--- * pwsh
--- * powershell
--- LazyVim.terminal.setup("pwsh")
+-- ignored when used with `util.root.detectors.lsp`
+vim.g.root_lsp_ignore = { 'copilot' }
 
--- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
--- for detecting the LSP root
-vim.g.root_lsp_ignore = { "copilot" }
-
--- Hide deprecation warnings
 vim.g.deprecation_warnings = false
 
 require('lazy').setup({

@@ -1,5 +1,6 @@
 return {
   'stevearc/conform.nvim',
+  { import = 'lazyvim.plugins.conform' },
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   keys = {
@@ -9,14 +10,6 @@ return {
         require('conform').format({ async = true })
       end,
       desc = 'Format Buffer',
-    },
-    {
-      '<leader>cF',
-      function()
-        require('conform').format({ formatters = { 'injected' } })
-      end,
-      mode = { 'n', 'v' },
-      desc = 'Format Injected Langs',
     },
   },
 
