@@ -1,3 +1,5 @@
+require('options.diagnostics')
+require('options.lsp')
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
 vim.opt.mousescroll = 'hor:0'
