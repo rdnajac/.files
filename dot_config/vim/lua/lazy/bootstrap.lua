@@ -44,13 +44,12 @@ require('lazy').setup({
         },
       },
       keys = {
-        { '<leader>l', '<cmd>Lazy<CR>', desc = 'Lazy' },
-        { '<leader>L', '<cmd>LazyExtras<CR>', desc = 'LazyExtras' },
+        { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
+        { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
       },
     },
     { import = 'lazy.spec' },
   },
-  lockfile = vim.fn.stdpath('config') .. '/.lazy-lock.json',
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',

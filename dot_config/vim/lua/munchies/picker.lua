@@ -80,7 +80,7 @@ M.opts = {
   },
 }
 
-local scriptnames = function()
+local scriptnames_items = function()
   local ok, result = pcall(vim.api.nvim_exec2, 'scriptnames', { output = true })
   if not ok then
     return {}
@@ -106,12 +106,58 @@ end
 M.scriptnames = function()
   Snacks.picker.pick({
     title = 'Scriptnames',
-    items = scriptnames(),
+    items = scriptnames_items(),
     format = function(item)
       return { { item.text } }
     end,
     -- format = 'file',
     preview = 'file',
+  })
+end
+
+local chezmoi_items = function()
+  local ok, results = pcall(require('chezmoi.commands').list, {
+    args = {
+      '--path-style',
+      'absolute',
+      '--include',
+      'files',
+      '--exclude',
+      'externals',
+    },
+  })
+  if not ok then
+    return {}
+  end
+
+  local items = {}
+  for _, czFile in ipairs(results) do
+    table.insert(items, {
+      -- formatted = czFile,
+      text = czFile,
+      file = czFile,
+      -- item = czFile,
+    })
+  end
+
+  return items
+end
+
+M.chezmoi = function()
+  Snacks.picker.pick({
+    title = 'Chezmoi Files',
+    items = chezmoi_items(),
+    -- format = function(item)
+    --   return { { item.text } }
+    -- end,
+    -- preview = 'file',
+    confirm = function(picker, item)
+      picker:close()
+      require('chezmoi.commands').edit({
+        targets = { item.text },
+        args = { '--watch' },
+      })
+    end,
   })
 end
 
