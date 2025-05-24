@@ -47,6 +47,8 @@ alias cza='chezmoi add'
 alias czA='chezmoi apply'
 alias czc='chezmoi cd'
 alias czd='chezmoi diff'
+alias cze='chezmoi edit'
+alias czr='chezmoi re-add'
 alias czs='chezmoi status'
 
 # edit config files
