@@ -41,7 +41,7 @@ installed() { command -v "$1" > /dev/null 2>&1; }
 if installed brew; then
 	brewup() {
 		brew update && brew upgrade && brew cleanup -s
-		if installed chezmoi; then
+		if command -v chezmoi > /dev/null 2>&1; then
 			brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
 		fi
 	}
