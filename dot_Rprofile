@@ -7,6 +7,7 @@
 ## │ we can configure this with nvim                                │
 ## ╰────────────────────────────────────────────────────────────────╯
 
+message("~/.Rprofile loaded")
 options(
   repos = c(CRAN = "https://cran.r-project.org"),
   BiocManager.install = "binary"
@@ -30,4 +31,3 @@ if (requireNamespace("BiocManager", quietly = TRUE)) {
 
 # options(nvimcom.verbose = 2)
 # library(colorout)
-message("~/.Rprofile loaded")
