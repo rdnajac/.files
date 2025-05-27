@@ -26,7 +26,7 @@ return {
         textobject = '',
       },
       view = {
-        -- style = 'sign',
+        style = 'sign',
         signs = {
           add = '▎',
           change = '▎',

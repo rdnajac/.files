@@ -4,16 +4,22 @@
 sourceDir = "{{ .chezmoi.sourceDir }}"
 destinationDir = "{{ .chezmoi.destDir }}"
 
+progress = true
+verbose = true
+
 [git]
   autoAdd = true
   autoCommit = true
   autoPush = false
 
-[update]
+[cd]
+  command = '$(brew --prefix)/bin/git status'
+
+[add]
   apply = true
 
 [edit]
   apply = true
 
-[add]
+[update]
   apply = true
