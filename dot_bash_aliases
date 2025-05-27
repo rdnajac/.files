@@ -81,53 +81,57 @@ if installed chezmoi; then
 	alias czs='cz status'
 
 	function czedit() { chezmoi edit --apply --verbose "$@"; }
+	# fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
+	: "${XDG_CONFIG_HOME:=$HOME/.config}"
 
 	alias zr='czedit ${ZDOTDIR}'
 	alias ba='czedit $HOME/.bash_aliases'
 	alias vvv='czedit $XDG_CONFIG_HOME/vim/'
+	alias tmx='czedit $XDG_CONFIG_HOME/tmux/tmux.conf'
 fi
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
 
-# fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
-: "${XDG_CONFIG_HOME:=$HOME/.config}"
+if installed git; then
+	alias ga='git add'
+	alias gaa='git add --all'
+	alias gcm='git commit -m'
+	alias gcam='git commit -am'
+	alias gcl='git clone'
+	alias gp='git push'
+	alias gs='git status'
+	alias gd='git diff'
+	alias gl='git log'
+	alias gba='git branch -a'
+	alias gsub='git submodule'
+fi
 
-alias alac='chezmoi edit --apply $XDG_CONFIG_HOME/alacritty/alacritty.toml'
-alias kk='chezmoi edit --apply $XDG_CONFIG_HOME/kitty/kitty.conf'
-alias vvv='chezmoi edit --apply $XDG_CONFIG_HOME/vim/vimrc'
-alias tmx='chezmoi edit --apply $XDG_CONFIG_HOME/tmux/tmux.conf'
+if installed grep; then
+	alias grep='grep --color=auto'
+	alias diff='diff --color=auto'
+fi
 
-alias ga='git add'
-alias gaa='git add --all'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
-alias gcl='git clone'
-alias gp='git push'
-alias gs='git status'
-alias gd='git diff'
-alias gl='git log'
-alias gba='git branch -a'
-alias gsub='git submodule'
-
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
-
-alias explain='gh copilot explain '
-alias \?\?='gh copilot suggest '
+if installed gh; then
+	alias explain='gh copilot explain '
+	alias \?\?='gh copilot suggest '
+fi
 
 installed bear && alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
              sudo make modules_install && sudo make install'
 
-alias pretty='prettier --write .'
+installed prettier && alias pretty='prettier --write .'
+
 alias rscript='Rscript'
 
-alias qp='quarto preview'
-alias qr='quarto render'
+if installed quarto; then
+	alias qp='quarto preview'
+	alias qr='quarto render'
+fi
 
 # alias tmux='tmux -2'
-alias kms='tmux kill-server'
+installed tmux && alias kms='tmux kill-server'
 
 # fat fingers!
 alias mg=mv
