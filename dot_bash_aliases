@@ -84,6 +84,7 @@ if installed chezmoi; then
 
 	alias zr='czedit ${ZDOTDIR}'
 	alias ba='czedit $HOME/.bash_aliases'
+	alias vvv='czedit $XDG_CONFIG_HOME/vim'
 fi
 
 # edit config files
