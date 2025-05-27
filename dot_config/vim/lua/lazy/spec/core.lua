@@ -49,6 +49,7 @@ return {
       words = { enabled = true },
     },
     init = function()
+      require('lazy.goto')
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()
@@ -76,11 +77,8 @@ return {
       { import = 'lazyvim.plugins.formatting' },
       { import = 'lazyvim.plugins.linting' },
       { import = 'lazyvim.plugins.treesitter' },
-      -- { import = 'lazyvim.plugins.lsp' },
-      -- { import = 'lazyvim.plugins.xtras' },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
       { import = 'lazyvim.plugins.extras.formatting.prettier' },
-      -- { import = 'lazyvim.plugins.extras.util.chezmoi' },
     },
   },
   {

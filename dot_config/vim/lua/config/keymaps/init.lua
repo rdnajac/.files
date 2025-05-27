@@ -1,6 +1,5 @@
 -- stylua: ignore
 require('config.keymaps.escape')
-require('config.keymaps.shortcuts')
 require('config.keymaps.toggles')
 require('config.keymaps.pickers')
 
@@ -15,7 +14,6 @@ require('which-key').add({
   { '<leader>F', function() Snacks.picker.smart() end, desc = 'Smart Find Files', },
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' }, },
   { '<leader><space>', function() Snacks.picker() end, desc = 'Pickers', icon = { icons = ' ' }, },
-
 
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
 
