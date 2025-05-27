@@ -14,8 +14,8 @@ have() { (( $+commands[$1] )) }
 
 have brew && {
 	alias brewup='brew update; brew upgrade; brew cleanup -s;'
-	alias ctags='$(brew --prefix)/bin/ctags'
 	alias awk='$(brew --prefix)/bin/gawk'
+	alias ctags='$(brew --prefix)/bin/ctags'
 }
 
 have micromamba && {
