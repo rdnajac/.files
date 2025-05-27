@@ -74,13 +74,15 @@ if installed chezmoi; then
 	alias cze='cz edit'
 	alias czr='cz re-add'
 	alias czs='cz status'
+
+	function czedit() { chezmoi edit --apply --verbose "$@"; }
+
+	alias zr='czedit ${ZDOTDIR}'
+	alias ba='czedit $HOME/.bash_aliases'
 fi
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
-
-# use chezmoi to edit the config files
-alias ba='chezmoi edit --apply --verbose $HOME/.bash_aliases'
 
 # fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
