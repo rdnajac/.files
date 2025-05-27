@@ -78,6 +78,7 @@ if installed chezmoi; then
 	alias zr='czedit ${ZDOTDIR}'
 	alias ba='czedit $HOME/.bash_aliases'
 	alias vvv='czedit $XDG_CONFIG_HOME/vim/'
+	alias nvv='czedit $XDG_CONFIG_HOME/vim/lua'
 	alias tmx='czedit $XDG_CONFIG_HOME/tmux/tmux.conf'
 fi
 
