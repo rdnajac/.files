@@ -34,28 +34,53 @@ alias rmdir='rmdir -v'
 alias link='ln -vsfFwh' # see `man ln`
 alias lock='chmod -w'   # make a file read-only
 alias chx='chmod u+x'   # make a file executable
+
+# function to check if a command exists
+installed() { command -v "$1" > /dev/null 2>&1; }
+
+if installed brew; then
+	alias brewup='brew update; brew upgrade; brew cleanup -s;'
+	alias awk="$(brew --prefix)/bin/gawk"
+	alias ctags="$(brew --prefix)/bin/ctags"
+fi
+
+if installed micromamba; then
+	alias conda='micromamba'
+	alias mm='micromamba'
+	alias mminstall='micromamba install -c conda-forge -c bioconda'
+fi
+
+# if installed bat; then alias cat=bat; fi
+if installed eza; then
+	alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
+	# alias ls='eza --group-directories-first --colour=always --icons=auto'
+	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
+fi
+
 # rsync all non-hidden files and directories
-alias sync='rsync -avz --progress --exclude=".*"'
+installed rsync && alias sync='rsync -avz --progress --exclude=".*"'
 
 alias pip=pip3
 
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
 alias zz=fg
 
-alias cz='chezmoi --verbose'
-alias cza='cz add'
-alias czA='cz apply'
-alias czc='cz cd'
-alias czd='cz diff'
-alias cze='cz edit'
-alias czr='cz re-add'
-alias czs='cz status'
+if installed chezmoi; then
+	alias cz='chezmoi --verbose'
+	alias cza='cz add'
+	alias czA='cz apply'
+	alias czc='cz cd'
+	alias czd='cz diff'
+	alias cze='cz edit'
+	alias czr='cz re-add'
+	alias czs='cz status'
+fi
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
 
 # use chezmoi to edit the config files
-alias ba='chezmoi edit --apply $HOME/.bash_aliases'
+alias ba='chezmoi edit --apply --verbose $HOME/.bash_aliases'
 
 # fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
@@ -83,7 +108,7 @@ alias diff='diff --color=auto'
 alias explain='gh copilot explain '
 alias \?\?='gh copilot suggest '
 
-alias bmake='bear -- make'
+install bear && alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
              sudo make modules_install && sudo make install'
 
@@ -113,3 +138,6 @@ alias clean='echo -n "Really clean this directory?";
 	else
 	   echo "Not cleaned.";
 	fi'
+
+# clean-up
+unset -f installed
