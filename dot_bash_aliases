@@ -71,7 +71,7 @@ alias pip=pip3
 alias zz=fg
 
 if installed chezmoi; then
-	alias cz='chezmoi --verbose'
+	alias cz='chezmoi'
 	alias cza='cz add'
 	alias czA='cz apply'
 	alias czc='cz cd'
