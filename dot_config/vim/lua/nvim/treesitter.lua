@@ -7,7 +7,6 @@ require('nvim-treesitter.parsers').get_parser_configs().comment = {
   },
 }
 
-
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('kitty', { clear = true }),
   pattern = 'kitty',
