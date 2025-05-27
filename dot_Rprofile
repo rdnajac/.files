@@ -30,3 +30,4 @@ if (requireNamespace("BiocManager", quietly = TRUE)) {
 
 # options(nvimcom.verbose = 2)
 # library(colorout)
+message("~/.Rprofile loaded")
