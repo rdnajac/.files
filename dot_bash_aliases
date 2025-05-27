@@ -14,9 +14,9 @@ cl() { builtin cd "${1:-$HOME}" && ls; }
 # uncomment to make this the default cd
 # alias cd=cl
 alias bd='cd -'
-alias ..'=cd ..'
-alias ...'=cd ../..'
-alias ....'=cd ../../..' # we have to go deeper
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..' # we have to go deeper
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
