@@ -1,11 +1,6 @@
-# Set fpath early to include homebrew-managed completions
-fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
-
 # Enable zsh native completion
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
-# SCP specific tweaks
 zstyle ':completion:*:*:scp:*' tag-order files
 zstyle ':completion:*:scp:*' remote-access yes
 # zstyle ':completion:*:*:(scp|rsync):*' tag-order files
@@ -21,8 +16,6 @@ ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 # Tell completion system to cache there
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # (Optional) Enable bashcompinit only if needed
 # Only if you later need bash-style `complete -C` for some weird CLI tools

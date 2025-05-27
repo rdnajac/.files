@@ -1,17 +1,30 @@
 # .zshrc - my zsh configuration
-
+echo 'sourcing zshrc'
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
 setopt interactivecomments
 
-for f in $ZDOTDIR/*.zsh; do
+for f in $ZDOTDIR/*.zsh(N); do
 	. "$f"
 done
 
 # Source shell configs for specific programs if installed
 have() { (( $+commands[$1] )) }
+
+have brew && {
+	brewup() {
+		brew update && brew upgrade && brew cleanup -s
+		if command -v chezmoi > /dev/null 2>&1; then
+			brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
+		fi
+	}
+	# override macOS tools with Homebrew versions
+	alias awk="${HOMEBREW_PREFIX}/bin/gawk"
+	alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
+}
+
 have nnn && . ~/.config/env/nnn.sh
 have fzf && . ~/.config/env/fzf.sh
 have nvim && . ~/.config/env/neovim.sh

@@ -38,17 +38,6 @@ alias chx='chmod u+x'   # make a file executable
 # function to check if a command exists
 installed() { command -v "$1" > /dev/null 2>&1; }
 
-if installed brew; then
-	brewup() {
-		brew update && brew upgrade && brew cleanup -s
-		if command -v chezmoi > /dev/null 2>&1; then
-			brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
-		fi
-	}
-	alias awk="$(brew --prefix)/bin/gawk"
-	alias ctags="$(brew --prefix)/bin/ctags"
-fi
-
 if installed micromamba; then
 	alias conda='micromamba'
 	alias mm='micromamba'
