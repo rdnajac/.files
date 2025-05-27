@@ -5,9 +5,8 @@
 **/*zsh_sessions
 
 # vim
+**/*lazy-lock.json
+**/*lazyvim.json
 **/*netrwhist
 **/*viminfo
 **/*vimlog.txt
-**/*lazy-lock.json
-**/*lazyvim.json
-
