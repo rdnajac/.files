@@ -42,14 +42,14 @@ alias pip=pip3
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
 alias zz=fg
 
-alias cz='chezmoi'
-alias cza='chezmoi add'
-alias czA='chezmoi apply'
-alias czc='chezmoi cd'
-alias czd='chezmoi diff'
-alias cze='chezmoi edit'
-alias czr='chezmoi re-add'
-alias czs='chezmoi status'
+alias cz='chezmoi --verbose'
+alias cza='cz add'
+alias czA='cz apply'
+alias czc='cz cd'
+alias czd='cz diff'
+alias cze='cz edit'
+alias czr='cz re-add'
+alias czs='cz status'
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
