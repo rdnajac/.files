@@ -66,8 +66,10 @@ if installed chezmoi; then
 	alias czc='cz cd'
 	alias czd='cz diff'
 	alias cze='cz edit'
+	alias czm='cz managed'
 	alias czr='cz re-add'
 	alias czs='cz status'
+	alias czu='cz unmanaged'
 
 	function czedit() { chezmoi edit --apply --verbose "$@"; }
 	# fallback to $HOME/.config if $XDG_CONFIG_HOME is not set

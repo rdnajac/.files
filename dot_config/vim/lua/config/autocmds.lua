@@ -39,6 +39,19 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('kitty', { clear = true }),
+  pattern = 'kitty',
+  callback = function()
+    if require('nvim-treesitter.parsers').has_parser('bash') then
+      vim.treesitter.language.register('bash', 'kitty')
+      vim.treesitter.start(0, 'bash')
+    end
+  end,
+  desc = 'Use bash parser for kitty config',
+})
+
+
 vim.api.nvim_create_autocmd('CmdlineEnter', {
   group = aug('cmdline'),
   callback = function()
