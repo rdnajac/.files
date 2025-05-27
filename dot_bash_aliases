@@ -108,7 +108,7 @@ alias diff='diff --color=auto'
 alias explain='gh copilot explain '
 alias \?\?='gh copilot suggest '
 
-install bear && alias bmake='bear -- make'
+installed bear && alias bmake='bear -- make'
 alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
              sudo make modules_install && sudo make install'
 
