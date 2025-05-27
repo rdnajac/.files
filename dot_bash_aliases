@@ -39,11 +39,10 @@ alias chx='chmod u+x'   # make a file executable
 installed() { command -v "$1" > /dev/null 2>&1; }
 
 if installed brew; then
-	alias brewup='brew update; brew upgrade; brew cleanup -s; brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force' 
-	function brewup() {
+	brewup() {
 		brew update && brew upgrade && brew cleanup -s
 		if installed chezmoi; then
-			brew bundle dump --file="$(chezmoi source-path)/Brewfile" --force
+			brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
 		fi
 	}
 	alias awk="$(brew --prefix)/bin/gawk"
