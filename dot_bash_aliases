@@ -80,7 +80,7 @@ if installed chezmoi; then
 	alias vvv='czedit $XDG_CONFIG_HOME/vim/'
 	alias nvv='czedit $XDG_CONFIG_HOME/vim/lua'
 	alias tmx='czedit $XDG_CONFIG_HOME/tmux/tmux.conf'
-	alias kk='czedit $XDG_CONFIG_HOME/kitty/kitty.conf'
+	alias kk='czedit $XDG_CONFIG_HOME/kitty/'
 fi
 
 # edit config files
