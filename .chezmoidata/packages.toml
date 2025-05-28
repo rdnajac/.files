@@ -1,18 +1,19 @@
 [packages.apt]
 packages = [
-  "git",
   "build-essential",
-  "net-tools",
-  "linux-headers-\"$(uname -r)\"",
   "cmake",
   "curl",
-  "fzf",
   "gettext",
+  "git",
+  "libssl-dev",
+  "linux-headers-\"$(uname -r)\"",
   "make",
+  "net-tools",
   "ninja-build",
+  "pkg-config",
   "rsync",
   "tmux",
-  "vim"
+  "vim",
 ]
 
 [packages.cargo]
