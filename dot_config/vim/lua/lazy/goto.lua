@@ -5,6 +5,10 @@ local goto_lazy = function()
   local word = vim.fn.expand('<cWORD>'):gsub('[,\'"]', ''):gsub('%.', '/')
   local target
 
+  if Snacks.util.is_float() then
+    vim.cmd('q')
+  end
+
   if ft == 'lazy' then
     target = LazyVimPath .. '/lua/lazyvim/plugins/extras/' .. word .. '.lua'
   elseif ft == 'lua' then

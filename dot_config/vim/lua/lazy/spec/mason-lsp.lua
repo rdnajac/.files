@@ -10,20 +10,12 @@ return {
     opts = function()
       ---@class PluginLspOpts
       local ret = {
-        -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-        -- Be aware that you also will need to properly configure your LSP server to
-        -- provide the inlay hints.
         inlay_hints = {
           enabled = true,
-          exclude = { 'vue' }, -- filetypes for which you don't want to enable inlay hints
         },
-        -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-        -- Be aware that you also will need to properly configure your LSP server to
-        -- provide the code lenses.
         codelens = {
           enabled = false,
         },
-        -- add any global capabilities here
         capabilities = {
           workspace = {
             fileOperations = {
@@ -74,18 +66,7 @@ return {
             },
           },
         },
-        -- you can do any additional lsp server setup here
-        -- return true if you don't want this server to be setup with lspconfig
-        ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-        setup = {
-          -- example to setup with typescript.nvim
-          -- tsserver = function(_, opts)
-          --   require("typescript").setup({ server = opts })
-          --   return true
-          -- end,
-          -- Specify * to use this function as a fallback for any server
-          -- ["*"] = function(server, opts) end,
-        },
+        setup = {},
       }
       return ret
     end,
@@ -192,21 +173,9 @@ return {
           handlers = { setup },
         })
       end
-
-      if LazyVim.lsp.is_enabled('denols') and LazyVim.lsp.is_enabled('vtsls') then
-        local is_deno = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
-        LazyVim.lsp.disable('vtsls', is_deno)
-        LazyVim.lsp.disable('denols', function(root_dir, config)
-          if not is_deno(root_dir) then
-            config.settings.deno.enable = false
-          end
-          return false
-        end)
-      end
     end,
   },
 
-  -- cmdline tools and lsp servers
   {
 
     'mason-org/mason.nvim',

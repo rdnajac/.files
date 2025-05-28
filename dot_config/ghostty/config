@@ -4,6 +4,6 @@ background = #000000
 # background-blur = true
 
 font-feature = -calt, -liga, -dlig
-font-size = 13.37
+font-size = 13
 
 window-decoration = none

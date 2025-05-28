@@ -29,7 +29,7 @@ return {
       bigfile = { enabled = true },
       dashboard = require('munchies.dashboard').opts,
       explorer = { enabled = false },
-      image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil },
+      image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil or vim.env.TERM == 'xterm-ghostty' },
       indent = { indent = { only_current = true, only_scope = true } },
       input = { enabled = true },
       notifier = { enabled = false },
@@ -38,8 +38,7 @@ return {
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },
-      statuscolumn = { enabled = false },
-      -- statuscolumn = { left = { 'sign' }, right = { 'git' } },
+      statuscolumn = { left = { 'sign' }, right = { 'git' } },
       terminal = {
         start_insert = true,
         auto_insert = false,
@@ -75,7 +74,7 @@ return {
     {
       { import = 'lazyvim.plugins.init' },
       { import = 'lazyvim.plugins.formatting' },
-      { import = 'lazyvim.plugins.linting' },
+      -- { import = 'lazyvim.plugins.linting' },
       { import = 'lazyvim.plugins.treesitter' },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
       { import = 'lazyvim.plugins.extras.formatting.prettier' },

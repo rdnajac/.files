@@ -75,8 +75,7 @@ set list
 set listchars=trail:¿,tab:→\ "
 set mouse=a
 set nowrap
-" set number relativenumber
-set nonumber norelativenumber
+set number relativenumber
 set numberwidth=2
 set pumheight=10
 set report=0
