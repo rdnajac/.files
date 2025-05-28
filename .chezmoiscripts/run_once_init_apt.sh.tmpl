@@ -1,5 +1,5 @@
 #!/bin/sh
-{{ if ne .chezmoi.os "darwin" }}
+{{ if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.ID "debian") (eq .chezmoi.osRelease.ID "ubuntu")) }}
 sudo apt update
 sudo apt install -y \
   git \
