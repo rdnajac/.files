@@ -105,7 +105,6 @@ endif
 
 set completeopt=menu,preview,preinsert,longest
 " set completeopt=menu,preview,longest
-" set iskeyword+=_
 set wildmode=longest:full,full
 
 if system('uname') =~? '^darwin'
@@ -181,9 +180,8 @@ augroup END
 " }}}1
 
 " § keymaps {{{1
-vmap <M-s> :sort<CR>
 nmap <C-c> ciw
-nmap <C-s> viW
+vmap <C-s> :sort<CR>
 
 " Select all
 nnoremap <leader>a :normal! ggVG<CR>
@@ -199,8 +197,6 @@ nmap gh <C-space>y:silent! !open https://github.com/<C-R>0<CR>
 " buffers {{{
 nnoremap <silent> <Tab>         :bnext<CR>
 nnoremap <silent> <S-Tab>       :bprev<CR>
-nnoremap <silent> [b            :bprevious<CR>
-nnoremap <silent> ]b            :bnext<CR>
 nnoremap <silent> <leader><Tab> :e #<CR>
 nnoremap <silent> <leader>bD    :bd<CR>
 

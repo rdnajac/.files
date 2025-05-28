@@ -127,6 +127,21 @@ return {
               return require('which-key.extras').expand.win()
             end,
           },
+          -- TODO: add unimpaired toggles
+          -- yob	'background' (dark is off, light is on)
+          -- yoc	'cursorline'
+          -- yod	'diff' (actually |:diffthis| / |:diffoff|)
+          -- yoh	'hlsearch'
+          -- yoi	'ignorecase'
+          -- yol	'list'
+          -- yon	'number'
+          -- yor	'relativenumber'
+          -- yos	'spell'
+          -- yot	'colorcolumn' ("+1" or last used value)
+          -- you	'cursorcolumn'
+          -- yov	'virtualedit'
+          -- yow	'wrap'
+          -- yox	'cursorline' 'cursorcolumn' (x as in crosshairs)
         },
         mode = { 'n', 'v' },
         { '[', group = 'prev' },
