@@ -1,6 +1,6 @@
 # ~/.local/share/chezmoi/.chezmoi.toml.tmpl
 {{- $osid := .chezmoi.os -}}
-{{- if hasKey .chezmoi.osRelease "ID" -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
