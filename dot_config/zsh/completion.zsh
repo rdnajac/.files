@@ -1,4 +1,5 @@
 # Enable zsh native completion
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit && compinit
 
 zstyle ':completion:*:*:scp:*' tag-order files
