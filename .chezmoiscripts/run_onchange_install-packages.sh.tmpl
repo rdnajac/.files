@@ -1,6 +1,7 @@
 #!/bin/sh
+## Install packages with their respective package managers.
 
-{{ if eq .osid "linux-debian" }}
+{{ if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
 sudo apt update
 sudo apt install -y \
 {{- range .packages.apt.packages }}
@@ -8,13 +9,7 @@ sudo apt install -y \
 {{- end }}
 {{ end }}
 
-if ! command -v cargo > /dev/null; then
-  echo "Installing rustup..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  . "$HOME/.cargo/env"
-fi
-
-cargo install --locked --force \
+cargo install --locked \
 {{- range .packages.cargo.crates }}
   {{ . }} \
 {{- end }}

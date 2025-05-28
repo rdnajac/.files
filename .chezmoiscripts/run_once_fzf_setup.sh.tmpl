@@ -1,5 +1,0 @@
-#!/bin/sh
-{{ if ne .chezmoi.os "darwin" }}
-git clone --depth 1 https://github.com/junegunn/fzf.git "{{ .chezmoi.homeDir }}/src/fzf"
-"{{ .chezmoi.homeDir }}/src/fzf/install" --bin
-{{ end }}
