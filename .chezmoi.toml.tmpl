@@ -6,8 +6,6 @@
 {{- end -}}
 
 
-[data]
-  osid = {{ $osid | quote }}
 
 [git]
   autoAdd = true
@@ -29,3 +27,6 @@ destinationDir = "{{ .chezmoi.destDir }}"
 
 progress = true
 verbose = true
+
+[data]
+  osid = {{ $osid | quote }}
