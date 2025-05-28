@@ -47,7 +47,7 @@ local logical_operator = new_dial({ 'and', 'or' }, true)
 local logical_alias = new_dial({ '&&', '||' }, false)
 local position1 = new_dial({ 'top', 'middle', 'bottom' }, true)
 local position2 = new_dial({ 'left', 'center', 'right' }, true)
-local position3 = new_dial({ 'start', 'center', 'end' }, true)
+local position3 = new_dial({ 'start', 'end' }, true)
 local dim1 = new_dial({ 'rows', 'cols' }, true)
 
 local groups = {
