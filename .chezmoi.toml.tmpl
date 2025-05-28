@@ -1,11 +1,11 @@
 # ~/.local/share/chezmoi/.chezmoi.toml.tmpl
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "ID" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
 
-# Use your actual dotfiles repo location
-sourceDir = "{{ .chezmoi.sourceDir }}"
-destinationDir = "{{ .chezmoi.destDir }}"
-
-progress = true
-verbose = true
+[data]
+    osid = {{ $osid | quote }}
 
 [git]
   autoAdd = true
@@ -20,3 +20,10 @@ verbose = true
 
 [update]
   apply = true
+
+# Use your actual dotfiles repo location
+sourceDir = "{{ .chezmoi.sourceDir }}"
+destinationDir = "{{ .chezmoi.destDir }}"
+
+progress = true
+verbose = true
