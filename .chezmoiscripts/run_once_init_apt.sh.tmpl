@@ -1,22 +1,25 @@
 #!/bin/sh
-{{ if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.ID "debian") (eq .chezmoi.osRelease.ID "ubuntu")) }}
+{{ if eq .chezmoi.os "darwin" }}
+# macOS-specific code
+{{ else if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.osRelease.id "debian" }}
 sudo apt update
 sudo apt install -y \
-  git \
-  build-essential \
-  net-tools \
-  linux-headers-"$(uname -r)" \
-  cmake \
-  curl \
-  fzf \
-  gettext \
-  make \
-  ninja-build \
-  npm \
-  rsync \
-  tmux \
-  vim
-# intentionally skipped (install via cargo):
-# fd-find
-# ripgrep
+	git \
+	build-essential \
+	net-tools \
+	linux-headers-"$(uname -r)" \
+	cmake \
+	curl \
+	fzf \
+	gettext \
+	make \
+	ninja-build \
+	npm \
+	rsync \
+	tmux \
+	vim
+{{ end }}
+{{ else }}
+# Other OS
 {{ end }}
