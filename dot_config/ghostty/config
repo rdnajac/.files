@@ -1,0 +1,9 @@
+theme = tokyonight_night
+background = #000000
+# background-opacity = .8
+# background-blur = true
+
+font-feature = -calt, -liga, -dlig
+font-size = 13.37
+
+window-decoration = none
