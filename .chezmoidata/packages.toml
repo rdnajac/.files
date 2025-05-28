@@ -1,0 +1,28 @@
+[packages.apt]
+packages = [
+  "git",
+  "build-essential",
+  "net-tools",
+  "linux-headers-\"$(uname -r)\"",
+  "cmake",
+  "curl",
+  "fzf",
+  "gettext",
+  "make",
+  "ninja-build",
+  "rsync",
+  "tmux",
+  "vim"
+]
+
+[packages.cargo]
+crates = [
+  "bat",
+  "cargo-update",
+  "eza",
+  "fd-find",
+  "pokeget",
+  "ripgrep",
+  "shellharden",
+  "zoxide"
+]
