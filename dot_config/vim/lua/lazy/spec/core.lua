@@ -17,7 +17,7 @@ return {
         hl['Folded'] = { fg = '#7aa2f7', bg = '#16161d' }
         hl['String'] = { fg = '#39ff14' }
         hl['SpecialWindow'] = { bg = '#1f2335' }
-        hl['NormalFloat'] = { bg = '#1f2335' }
+        -- hl['NormalFloat'] = { bg = '#1f2335' }
         hl['SpellBad'] = { bg = '#ff0000' }
         hl['CopilotSuggestion'] = { bg = '#414868', fg = '#7AA2F7' }
       end,

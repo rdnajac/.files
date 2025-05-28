@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Convert a manpage to text format, cleaning up any non-ASCII characters.
+# Params: 1, the name of the page we get with `man $1`
+
+if [ $# -eq 0 ]; then
+	echo "Usage: $0 <manpage>"
+	exit
+fi
+
+man -P cat "$1" | col -bx | LC_ALL=C sed 's/[^ -~]//g'
