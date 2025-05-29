@@ -1,3 +1,10 @@
+" vim/plugin/commands.vim
+
+" current file
+command CDC cd %:p:h
+" parent directory
+command CDP cd %:p:h:h
+
 command! BreakHere call utils#breakHere()
 command! ReplaceSelection call utils#replaceSelection()
 command! CleanWhitespace call format#whitespace()

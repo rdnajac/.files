@@ -1,5 +1,4 @@
 " vimrc
-
 let g:mapleader = ' '
 let g:maplocalleader = '\'
 
@@ -296,9 +295,4 @@ else
     lua print('>^.^<')
   endif
 endif
-
-" current file
-command CDC cd %:p:h
-" parent directory
-command CDP cd %:p:h:h
 " vim: fdm=marker fdl=0
