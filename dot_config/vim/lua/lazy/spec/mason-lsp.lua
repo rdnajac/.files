@@ -1,5 +1,4 @@
 return {
-  -- lspconfig
   {
     'neovim/nvim-lspconfig',
     event = 'LazyFile',
@@ -10,12 +9,8 @@ return {
     opts = function()
       ---@class PluginLspOpts
       local ret = {
-        inlay_hints = {
-          enabled = true,
-        },
-        codelens = {
-          enabled = false,
-        },
+        inlay_hints = { enabled = true },
+        codelens = { enabled = false },
         capabilities = {
           workspace = {
             fileOperations = {
@@ -24,9 +19,6 @@ return {
             },
           },
         },
-        -- options for vim.lsp.buf.format
-        -- `bufnr` and `filter` is handled by the LazyVim formatter,
-        -- but can be also overridden when specified
         format = {
           formatting_options = nil,
           timeout_ms = nil,
@@ -35,25 +27,12 @@ return {
         ---@type lspconfig.options
         servers = {
           lua_ls = {
-            -- mason = false, -- set to false if you don't want this server to be installed with mason
-            -- Use this to add any additional keymaps
-            -- for specific lsp servers
-            -- ---@type LazyKeysSpec[]
-            -- keys = {},
             settings = {
               Lua = {
-                workspace = {
-                  checkThirdParty = false,
-                },
-                codeLens = {
-                  enable = true,
-                },
-                completion = {
-                  callSnippet = 'Replace',
-                },
-                doc = {
-                  privateName = { '^_' },
-                },
+                workspace = { checkThirdParty = false },
+                codeLens = { enable = true },
+                completion = { callSnippet = 'Replace' },
+                doc = { privateName = { '^_' } },
                 hint = {
                   enable = true,
                   setType = false,
@@ -83,30 +62,28 @@ return {
       LazyVim.lsp.setup()
       LazyVim.lsp.on_dynamic_capability(require('lazyvim.plugins.lsp.keymaps').on_attach)
 
-      if vim.fn.has('nvim-0.10') == 1 then
-        -- inlay hints
-        if opts.inlay_hints.enabled then
-          LazyVim.lsp.on_supports_method('textDocument/inlayHint', function(client, buffer)
-            if
-              vim.api.nvim_buf_is_valid(buffer)
-              and vim.bo[buffer].buftype == ''
-              and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype)
-            then
-              vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-            end
-          end)
-        end
+      -- inlay hints
+      if opts.inlay_hints.enabled then
+        LazyVim.lsp.on_supports_method('textDocument/inlayHint', function(client, buffer)
+          if
+            vim.api.nvim_buf_is_valid(buffer)
+            and vim.bo[buffer].buftype == ''
+            and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype)
+          then
+            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+          end
+        end)
+      end
 
-        -- code lens
-        if opts.codelens.enabled and vim.lsp.codelens then
-          LazyVim.lsp.on_supports_method('textDocument/codeLens', function(client, buffer)
-            vim.lsp.codelens.refresh()
-            vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-              buffer = buffer,
-              callback = vim.lsp.codelens.refresh,
-            })
-          end)
-        end
+      -- code lens
+      if opts.codelens.enabled and vim.lsp.codelens then
+        LazyVim.lsp.on_supports_method('textDocument/codeLens', function(client, buffer)
+          vim.lsp.codelens.refresh()
+          vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+            buffer = buffer,
+            callback = vim.lsp.codelens.refresh,
+          })
+        end)
       end
 
       local servers = opts.servers
@@ -177,7 +154,6 @@ return {
   },
 
   {
-
     'mason-org/mason.nvim',
     cmd = 'Mason',
     keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },

@@ -20,8 +20,8 @@ require('which-key').add({
   { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers', },
   { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)', },
   { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk', },
-  { '<leader>fe', function() Snacks.explorer({ cwd = Snacks.git.get_root() }) end, desc = 'Explorer (git root)', },
-  { '<leader>fE', function() Snacks.explorer({ cwd = vim.fn.expand('~/GitHub/') }) end, desc = 'Explorer (all repos)', },
+  -- { '<leader>fe', function() Snacks.explorer({ cwd = Snacks.git.get_root() }) end, desc = 'Explorer (git root)', },
+  -- { '<leader>fE', function() Snacks.explorer({ cwd = vim.fn.expand('~/GitHub/') }) end, desc = 'Explorer (all repos)', },
   { '<leader>ff', function() Snacks.picker.files({ cwd = Snacks.git.get_root() }) end, desc = 'Explorer (git root)', },
   { '<leader>fF', function() Snacks.picker.files({ cwd = vim.fn.expand('~/GitHub/') }) end, desc = 'Explorer (all repos)', },
   { '<leader>fg', function() Snacks.picker.git_files() end, desc = 'Find Files (git-files)', },
@@ -85,18 +85,10 @@ if vim.fn.executable('lazygit') == 1 then
   vim.keymap.set('n', '<leader>gl', function() Snacks.picker.git_log() end,      { desc = 'Git Log (cwd)' })
 end
 
-vim.keymap.set({ 'n', 't' }, ',,', function()
-  Snacks.terminal.toggle()
-end, { desc = 'Snacks Terminal' })
-vim.keymap.set('n', '\\\\', function()
-  Snacks.dashboard.open()
-end, { desc = 'Open Snacks Dashboard' })
-vim.keymap.set('n', '<leader>bd', function()
-  Snacks.bufdelete()
-end, { desc = 'Delete Buffer' })
-vim.keymap.set('n', '<leader>bo', function()
-  Snacks.bufdelete.other()
-end, { desc = 'Delete Other Buffers' })
+vim.keymap.set({ 'n', 't' }, ',,', function() Snacks.terminal.toggle() end, { desc = 'Snacks Terminal' })
+vim.keymap.set('n', '\\\\', function() Snacks.dashboard.open() end, { desc = 'Open Snacks Dashboard' })
+vim.keymap.set('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete Buffer' })
+vim.keymap.set('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' })
 
 -- vim.keymap.set('n', 'gp', '<Cmd>e <cfile>:p:h<CR>', { desc = 'Goto Parent Directory' })
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })

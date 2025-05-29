@@ -45,11 +45,6 @@ if installed micromamba; then
 fi
 
 # if installed bat; then alias cat=bat; fi
-if installed eza; then
-	alias l='eza --all --tree -l -L3 --group-directories-first --colour=always --icons=auto --git-ignore'
-	# alias ls='eza --group-directories-first --colour=always --icons=auto'
-	alias ll='eza --all -l --group-directories-first --colour=always --icons=auto'
-fi
 
 # rsync all non-hidden files and directories
 installed rsync && alias sync='rsync -avz --progress --exclude=".*"'
@@ -58,30 +53,6 @@ alias pip=pip3
 
 # NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
 alias zz=fg
-
-if installed chezmoi; then
-	alias cz='chezmoi'
-	alias cza='cz add'
-	alias czA='cz apply'
-	alias czc='cz cd'
-	alias czd='cz diff'
-	alias cze='cz edit'
-	alias czm='cz managed'
-	alias czr='cz re-add'
-	alias czs='cz status'
-	alias czu='cz unmanaged'
-
-	function czedit() { chezmoi edit --apply --verbose "$@"; }
-	# fallback to $HOME/.config if $XDG_CONFIG_HOME is not set
-	: "${XDG_CONFIG_HOME:=$HOME/.config}"
-
-	alias zr='czedit ${ZDOTDIR}'
-	alias ba='czedit $HOME/.bash_aliases'
-	alias vvv='czedit $XDG_CONFIG_HOME/vim/'
-	alias nvv='czedit $XDG_CONFIG_HOME/vim/lua'
-	alias tmx='czedit $XDG_CONFIG_HOME/tmux/tmux.conf'
-	alias kk='czedit $XDG_CONFIG_HOME/kitty/'
-fi
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
