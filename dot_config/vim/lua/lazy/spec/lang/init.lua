@@ -18,6 +18,7 @@ _G.install = {
 return {
   {
     'mason-org/mason-lspconfig.nvim',
+    event = 'VeryLazy',
     dependencies = { 'neovim/nvim-lspconfig', { 'mason-org/mason.nvim', opts = {} } },
     opts_extend = { 'ensure_installed' },
     opts = {

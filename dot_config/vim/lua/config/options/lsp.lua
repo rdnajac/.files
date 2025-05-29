@@ -1,6 +1,6 @@
 -- Refer to :h vim.lsp.config() for more information.
 vim.lsp.config('*', {
-  -- capabilities = require('blink.cmp').get_lsp_capabilities(),
+  capabilities = require('blink.cmp').get_lsp_capabilities(),
   -- capabilities = require('blink.cmp').get_lsp_capabilities(nil, true),
 
   ---@param client vim.lsp.Client
@@ -30,13 +30,3 @@ vim.lsp.config('*', {
     end
   end,
 })
-
--- vim.lsp.enable({
---   'luals',
---   'clangd',
---   'bash-language-server',
---   'marksman',
---   -- 'r_language-server',
---   'air',
---   'ruff',
--- })

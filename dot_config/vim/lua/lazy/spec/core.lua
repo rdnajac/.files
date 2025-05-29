@@ -29,7 +29,7 @@ return {
       bigfile = { enabled = true },
       dashboard = require('munchies.dashboard').opts,
       explorer = { enabled = false },
-      image = { enabled = vim.env.KITTY_INSTALLATION_DIR ~= nil or vim.env.TERM == 'xterm-ghostty' },
+      image = { enabled = true },
       indent = { indent = { only_current = true, only_scope = true } },
       input = { enabled = true },
       notifier = { enabled = false },

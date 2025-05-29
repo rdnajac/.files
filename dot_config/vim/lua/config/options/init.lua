@@ -1,5 +1,11 @@
 require('config.options.diagnostics')
-require('config.options.lsp')
+-- require('config.options.lsp')
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function()
+    require('config.options.lsp')
+  end,
+})
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
 vim.opt.mousescroll = 'hor:0'
