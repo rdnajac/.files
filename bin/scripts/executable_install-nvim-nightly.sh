@@ -1,7 +1,7 @@
 #!/bin/bash
 ## Install `neovim` nightly build for ARM64 on macOS.
 
-set -eux
+set -eu
 
 URL="https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz"
 TARBALL="${URL##*/}"
@@ -24,7 +24,7 @@ curl -L "$URL" -o "$TARBALL"
 xattr -c "$TARBALL"
 rm -rf "$INSTALL_DIR/runtime"
 tar -xzf "$TARBALL" -C "$INSTALL_DIR" --strip-components=1
-sudo ln -sf "$INSTALL_DIR/bin/nvim" "$BIN_DIR/nvim"
+ln -sf "$INSTALL_DIR/bin/nvim" "$BIN_DIR/nvim"
 rm "$TARBALL"
 
 echo "✅ Neovim nightly $(nvim_version) installed successfully!"
