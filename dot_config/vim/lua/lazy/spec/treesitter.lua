@@ -69,15 +69,15 @@ return {
         'xml',
         'yaml',
       },
-      -- these come built-in with neovim
+      -- these come bundled with neovim
       ignore_install = {
-        'vim',
-        'vimdoc',
         'c',
         'lua',
         'markdown',
         'markdown_inline',
         'query',
+        'vim',
+        'vimdoc',
       },
       -- textobjects = {
       --   move = {

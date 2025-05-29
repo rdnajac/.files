@@ -6,7 +6,6 @@ return {
     'fang2hou/blink-copilot',
     'moyiz/blink-emoji.nvim',
     'bydlw98/blink-cmp-env',
-    'hrsh7th/nvim-cmp',
   },
   build = 'cargo build --release',
   event = 'InsertEnter',
@@ -77,8 +76,9 @@ return {
       },
       sources = {
         default = function()
-          local default_sources = { 'lsp', 'path', 'buffer', 'copilot',         'emoji', 'env', 'lazydev' }
+          local default_sources = { 'lsp', 'path', 'buffer', 'copilot', 'emoji', 'env', 'lazydev' }
           local extra_sources = { 'snippets' }
+          local shell_sources = { 'snippets', 'env', 'tmux' }
           local row, col = unpack(vim.api.nvim_win_get_cursor(0))
           row = row - 1
           local check_col = col > 0 and col - 1 or col
@@ -91,6 +91,8 @@ return {
             return default_sources
           elseif vim.bo.filetype == 'lua' then
             return { 'lsp', 'path', 'lazydev' }
+          elseif vim.bo.filetype == 'sh' then
+            return vim.list_extend(vim.deepcopy(default_sources), shell_sources)
           else
             return vim.list_extend(vim.deepcopy(default_sources), extra_sources)
           end

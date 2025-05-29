@@ -10,12 +10,21 @@ return {
   'tpope/vim-unimpaired',
   'lervag/vimtex',
   -- 'vuciv/golf',
- 
-  -- neovim
-  'monaqa/dial.nvim',
-  'MeanderingProgrammer/render-markdown.nvim',
-  'stevearc/oil.nvim',
-  -- { 'j-hui/fidget.nvim', opts = {}, },
+
+  {
+    'stevearc/oil.nvim',
+    lazy = false,
+    config = function()
+      require('nvim.oil')
+    end,
+  },
+  {
+    'monaqa/dial.nvim',
+    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
+    config = function()
+      require('nvim.dial')
+    end,
+  },
   {
     'junegunn/fzf.vim',
     init = function()
