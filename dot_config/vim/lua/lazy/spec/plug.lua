@@ -15,7 +15,6 @@ return {
   'monaqa/dial.nvim',
   'MeanderingProgrammer/render-markdown.nvim',
   'stevearc/oil.nvim',
-  'R-nvim/R.nvim',
   -- { 'j-hui/fidget.nvim', opts = {}, },
   {
     'junegunn/fzf.vim',
