@@ -169,11 +169,11 @@ augroup SetLocalPath " {{{
   " Always add the current file's directory to the path and tags list if not
   " already there. Add it to the beginning to speed up searches.
   autocmd BufRead *
-        \ let s:tempPath = escape(escape(expand("%:p:h"), ' '), '\ ') |
-        \ exec "set path-=" . s:tempPath |
-        \ exec "set path-=" . s:default_path |
-        \ exec "set path^=" . s:tempPath |
-        \ exec "set path^=" . s:default_path
+	\ let s:tempPath = escape(escape(expand("%:p:h"), ' '), '\ ') |
+	\ exec "set path-=" . s:tempPath |
+	\ exec "set path-=" . s:default_path |
+	\ exec "set path^=" . s:tempPath |
+	\ exec "set path^=" . s:default_path
 augroup END
 
 " }}}1
@@ -287,12 +287,12 @@ cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
 cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
-" § vim-plug {{{1
+
 if ! has('nvim')
-  call plug#begin()
+  call plug#begin() " {{{
   " Plug 'rdnajac/after'
   " Plug 'tpope/vim-sensible'
-  Plug 'christoomey/vim-tmux-navigator'
+  " Plug 'christoomey/vim-tmux-navigator'
   Plug 'folke/tokyonight.nvim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-abolish'
@@ -313,11 +313,15 @@ if ! has('nvim')
   Plug 'vuciv/golf'
   " only load plugins on certain filetypes
   Plug 'lervag/vimtex', { 'for': 'tex' }
-  call plug#end()
+  call plug#end() " }}}
+else
+  if !exists('g:loaded_nvim')
+    lua require('nvim')
+    let g:loaded_nvim = 1
+  endif
 endif
-" }}}
 
-" change to directory of current file
+" current file
 command CDC cd %:p:h
 " parent directory
 command CDP cd %:p:h:h
