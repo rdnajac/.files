@@ -1,6 +1,5 @@
 " vimrc
 
-" § housekeeping {{{1
 let g:mapleader = ' '
 let g:maplocalleader = '\'
 
@@ -22,35 +21,7 @@ if !has('nvim')
   noremap kj <esc>
 
   silent! color scheme
-else
-  " nvim sets $MYVIMRC to either init.vim or init.lua
-  " create a script-local variable to store this file's oath
-  let s:vimrc = expand('<sfile>')
 endif
-" }}}
-
-" § edit and reload config {{{1
-if !exists('*VimConfig')
-  function! VimConfig() abort
-    execute 'edit ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC)
-  endfunction s
-  nnoremap <leader>v :silent call VimConfig()<CR>
-endif
-
-if !exists('*ReloadVimConfig')
-  function! ReloadVimConfig() abort
-    execute 'source ' . fnameescape(has('nvim') ? s:vimrc : $MYVIMRC) | echom 'Reloaded config!'
-  endfunction
-  nnoremap <leader>r :call ReloadVimConfig()<CR>
-endif
-
-if !exists('*EditFTSettings')
-  function! EditFTSettings() abort
-    execute 'edit ' . s:VIMHOME . 'after/ftplugin/' . &ft . '.vim'
-  endfunction
-  nnoremap <leader>ft :call EditFTSettings()<CR>
-endif
-" }}}
 
 " § settings {{{1
 " set backup
@@ -179,6 +150,10 @@ augroup END
 " }}}1
 
 " § keymaps {{{1
+nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
+nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
+nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
+
 nmap <C-c> ciw
 vmap <C-s> :sort<CR>
 
@@ -203,8 +178,8 @@ nnoremap <silent> <leader>bD    :bd<CR>
 map <silent> <C-q> <Cmd>bd<CR>
 " }}}
 " resize splits {{{
-nnoremap <M-Up>    :resize +2<CR>
-nnoremap <M-Down>  :resize -2<CR>
+nnoremap <M-Up>    :resize -2<CR>
+nnoremap <M-Down>  :resize +2<CR>
 nnoremap <M-Left>  :vertical resize -2<CR>
 nnoremap <M-Right> :vertical resize +2<CR>
 " }}}
@@ -287,7 +262,6 @@ cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
 cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
-
 if ! has('nvim')
   call plug#begin() " {{{
   " Plug 'rdnajac/after'
@@ -318,6 +292,8 @@ else
   if !exists('g:loaded_nvim')
     lua require('nvim')
     let g:loaded_nvim = 1
+  else
+    lua print('>^.^<')
   endif
 endif
 
@@ -325,5 +301,4 @@ endif
 command CDC cd %:p:h
 " parent directory
 command CDP cd %:p:h:h
-
 " vim: fdm=marker fdl=0
