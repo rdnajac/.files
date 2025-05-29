@@ -92,7 +92,7 @@ M.setup = function()
   end, {})
 
   vim.keymap.set('n', ',<CR>', '<Cmd>RunFile<CR>', { silent = true })
-  vim.keymap.set({'n', 't'}, '<C-\\>', snacks_terminal_toggle_or_open, { desc = 'Toggle Snacks Terminal' })
+  -- vim.keymap.set({'n', 't'}, '<C-\\>', snacks_terminal_toggle_or_open, { desc = 'Toggle Snacks Terminal' })
 end
 
 return M

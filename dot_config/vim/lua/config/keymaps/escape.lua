@@ -11,5 +11,5 @@ end
 
 -- Terminal mode: 'jk' and 'kj' to <C-\><C-n>
 for _, combo in ipairs({ 'jk', 'kj' }) do
-  map_combo('t', combo, '<C-\\><C-n>')
+  map_combo('t', combo, '<BS><BS><C-\\><C-n>')
 end
