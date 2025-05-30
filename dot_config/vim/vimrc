@@ -51,8 +51,7 @@ set pumheight=10
 set report=0
 set scrolloff=8
 set shiftround
-set shortmess+=acC
-set shortmess+=A
+set shortmess+=aAcCI
 set shortmess-=o
 set showmatch
 set splitbelow splitright

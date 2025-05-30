@@ -8,6 +8,6 @@ vim.opt.pumblend = 0
 -- vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 
-if vim.fn.has('nvim-0.12') == 1 then
-  require('nvim.config.options.extui')
-end
+-- if vim.fn.has('nvim-0.12') == 1 then
+--   require('nvim.config.options.extui')
+-- end
