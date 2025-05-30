@@ -16,6 +16,9 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
+      init = function()
+        vim.g.lazyvim_check_order = false
+      end,
       opts = {
         defaults = {
           autocmds = false,
