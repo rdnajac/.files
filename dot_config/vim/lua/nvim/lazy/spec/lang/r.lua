@@ -1,5 +1,5 @@
 return {
-  mason_ensure_installed({ 'r_language_server' }),
+  mason_ensure_installed({ 'r-languageserver' }),
   {
     'R-nvim/R.nvim',
     ---@type RConfigUserOpts

@@ -98,7 +98,7 @@ augroup END
 " }}}
 augroup ConfigFileSettings " {{{
   autocmd!
-  autocmd FileType tmux,sshconfig setlocal iskeyword+=- | nnoremap <buffer> <C-Space> viW
+  autocmd FileType tmux,sshconfig,mason setlocal iskeyword+=- | nnoremap <buffer> <C-Space> viW
 augroup END
 " }}}
 augroup RestoreCursorOpenFold " {{{
@@ -314,5 +314,6 @@ let g:ale_virtualtext_cursor = 'current'
 let g:ale_disable_lsp = 1
 let g:ale_use_neovim_diagnostics_api = 1
 
+nnoremap Q <Cmd>ALEFix<CR>
 
 " vim: fdm=marker fdl=0

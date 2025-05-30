@@ -24,6 +24,5 @@ crates = [
   "fd-find",
   "pokeget",
   "ripgrep",
-  "shellharden",
   "zoxide"
 ]

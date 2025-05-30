@@ -13,7 +13,7 @@ nmap <leader>fw <cmd>CleanWhitespace<CR>
 nnoremap <space>j <Cmd>BreakHere<CR>
 vnoremap <C-r> <cmd>ReplaceSelection<CR>
 
-nnoremap Q <Cmd>call format#buffer()<CR>
+" nnoremap Q <Cmd>call format#buffer()<CR>
 
 command! -range SendVisual <line1>,<line2>call ooze#sendvisual()
 
