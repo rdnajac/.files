@@ -109,7 +109,7 @@ return {
             },
           },
           snippets = {
-            score_offset = 0,
+            score_offset = 10,
             opts = { friendly_snippets = false },
             should_show_items = function(ctx)
               return ctx.trigger.initial_kind ~= 'trigger_character'
@@ -152,7 +152,7 @@ return {
           emoji = {
             module = 'blink-emoji',
             name = 'emoji',
-            score_offset = 15,
+            score_offset = -1,
           },
           lazydev = {
             name = 'LazyDev',

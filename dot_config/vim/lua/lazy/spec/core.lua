@@ -1,5 +1,16 @@
 return {
-  { 'folke/lazy.nvim', version = false },
+  { -- https://www.lazyvim.org/news
+    'LazyVim/LazyVim',
+    version = false,
+    {
+      -- { import = 'lazyvim.plugins.init' },
+      -- { import = 'lazyvim.plugins.formatting' },
+      -- { import = 'lazyvim.plugins.linting' },
+      -- { import = 'lazyvim.plugins.treesitter' },
+      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+      -- { import = 'lazyvim.plugins.extras.formatting.prettier' },
+    },
+  },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
@@ -23,7 +34,7 @@ return {
       end,
     },
   },
-  {
+  { -- https://github.com/folke/snacks.nvim?tab=readme-ov-file#-features
     'folke/snacks.nvim',
     opts = {
       bigfile = { enabled = true },
@@ -64,21 +75,13 @@ return {
           vim.api.nvim_create_user_command('Scriptnames', function()
             require('munchies.picker').scriptnames()
           end, { desc = 'Scriptnames' })
+
+          vim.api.nvim_create_user_command('Chezmoi', function()
+            require('munchies.picker').chezmoi()
+          end, { desc = 'Chezmoi' })
         end,
       })
     end,
-  },
-  {
-    'LazyVim/LazyVim',
-    version = false,
-    {
-      { import = 'lazyvim.plugins.init' },
-      { import = 'lazyvim.plugins.formatting' },
-      -- { import = 'lazyvim.plugins.linting' },
-      -- { import = 'lazyvim.plugins.treesitter' },
-      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-      { import = 'lazyvim.plugins.extras.formatting.prettier' },
-    },
   },
   {
     'folke/which-key.nvim',
@@ -158,7 +161,6 @@ return {
       },
     },
   },
-
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -189,4 +191,5 @@ return {
     end,
   },
   { 'nvim-lua/plenary.nvim', lazy = true },
+  { 'folke/lazy.nvim', version = false },
 }

@@ -11,27 +11,6 @@ package.loaded['lazyvim.config.options'] = true
 
 -- Quiet error on startup
 vim.g.lazyvim_check_order = false
-vim.g.autoformat = false
-vim.g.snacks_animate = true
-
--- Leave it to "auto" to automatically use `:LazyExtras`
-vim.g.lazyvim_picker = 'snacks'
-vim.g.lazyvim_cmp = 'blink'
-
--- use completion engine instead of inline suggestions
-vim.g.ai_cmp = true
-
--- LazyVim root dir detection
--- Each entry can be:
--- * the name of a detector function like `lsp` or `cwd`
--- * a pattern or array of patterns like `.git` or `lua`.
--- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
-
--- ignored when used with `util.root.detectors.lsp`
-vim.g.root_lsp_ignore = { 'copilot' }
-
-vim.g.deprecation_warnings = false
 
 require('lazy').setup({
   spec = {
@@ -39,7 +18,7 @@ require('lazy').setup({
       'LazyVim/LazyVim',
       opts = {
         defaults = {
-          autocmds = true,
+          autocmds = false,
           keymaps = false,
         },
       },

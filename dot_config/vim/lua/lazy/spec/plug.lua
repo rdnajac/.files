@@ -1,5 +1,5 @@
 return {
-  'github/copilot.vim',
+  'dense-analysis/ale',
   'tpope/vim-abolish',
   'tpope/vim-apathy',
   'tpope/vim-fugitive',
@@ -10,7 +10,13 @@ return {
   'tpope/vim-unimpaired',
   'lervag/vimtex',
   -- 'vuciv/golf',
-
+  {
+    'github/copilot.vim',
+    init = function()
+      -- HACK: remove this once plugin is updated
+      vim.deprecate = function() end
+    end,
+  },
   {
     'stevearc/oil.nvim',
     lazy = false,

@@ -26,6 +26,8 @@ vim.lsp.config('*', {
         callback = vim.lsp.codelens.refresh,
       })
 
+      client.server_capabilities.documentFormattingProvider = false
+
       print('LSP attached: ' .. client.name)
     end
   end,

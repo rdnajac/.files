@@ -9,7 +9,7 @@ return {
   },
   {
     'xvzc/chezmoi.nvim',
-    cmd = { 'ChezmoiEdit' },
+    cmd = { 'ChezmoiEdit', 'ChezmoiList' },
     keys = {
       { '<leader>fc', '<Cmd>lua require("munchies.picker").chezmoi()<CR>', desc = 'Chezmoi', },
     },
@@ -23,9 +23,6 @@ return {
         on_apply = true,
         on_watch = false,
       },
-      -- telescope = {
-      --   select = { '<CR>' },
-      -- },
     },
     init = function()
       -- run chezmoi edit on file enter
