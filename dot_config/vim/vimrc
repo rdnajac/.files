@@ -61,6 +61,7 @@ set termguicolors
 set timeoutlen=420
 set updatetime=69
 set whichwrap+=<,>,[,],h,l
+set signcolumn=yes
 
 " folding
 set foldopen+=insert,jump
