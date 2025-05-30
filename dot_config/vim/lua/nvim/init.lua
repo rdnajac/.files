@@ -59,6 +59,6 @@ vim.api.nvim_create_autocmd('User', {
     require('nvim.config.autocmds')
     require('munchies.terminal').setup()
     require('utils')
-    vim.cmd([[ colorscheme tokyonight-night ]])
+    vim.cmd([[ colorscheme tokyonight ]])
   end,
 })

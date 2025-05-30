@@ -3,7 +3,7 @@ return {
     'folke/tokyonight.nvim',
     priority = 1001,
     opts = {
-      style = 'storm',
+      style = 'night',
       dim_inactive = true,
       transparent = true,
       styles = {
