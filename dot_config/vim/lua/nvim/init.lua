@@ -49,5 +49,15 @@ require('lazy').setup({
   },
   profiling = { loader = false, require = false },
 })
-require('nvim.config')
+require('nvim.config.options')
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  callback = function()
+    require('nvim.config.keymaps')
+    require('nvim.config.autocmds')
+    require('munchies.terminal').setup()
+    require('utils')
+  end,
+})
 vim.cmd([[ colorscheme tokyonight-night ]])
