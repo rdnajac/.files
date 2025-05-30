@@ -3,7 +3,7 @@ return {
     'LazyVim/LazyVim',
     version = false,
     {
-      -- { import = 'lazyvim.plugins.init' },
+      { import = 'lazyvim.plugins.init' },
       -- { import = 'lazyvim.plugins.formatting' },
       -- { import = 'lazyvim.plugins.linting' },
       -- { import = 'lazyvim.plugins.treesitter' },
