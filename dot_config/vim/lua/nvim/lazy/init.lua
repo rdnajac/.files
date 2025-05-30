@@ -10,7 +10,7 @@ end
 package.loaded['lazyvim.config.options'] = true
 
 -- Quiet error on startup
-vim.g.lazyvim_check_order = false
+-- vim.g.lazyvim_check_order = false
 
 require('lazy').setup({
   spec = {
