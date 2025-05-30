@@ -5,10 +5,12 @@ require('config.keymaps.pickers')
 
 require('which-key').add({
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
-  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', icon = { icon = ' ' }, },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
-  { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
-  { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
+
+  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', icon = { icon = ' ' }, },
+  -- { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
+  -- { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
+
   { '<leader>,', function() Snacks.picker.buffers() end, desc = 'Buffers', },
   { '<leader>F', function() Snacks.picker.smart() end, desc = 'Smart Find Files', },
   { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' }, },
@@ -38,7 +40,6 @@ require('which-key').add({
   { '<leader>si', function() Snacks.picker.icons() end, desc = 'Icons', },
   { '<leader>sj', function() Snacks.picker.jumps() end, desc = 'Jumps', },
   { '<leader>sk', function() Snacks.picker.keymaps() end, desc = 'Keymaps', },
-  { '<leader>sl', function() Snacks.picker.loclist() end, desc = 'Location List', },
   { '<leader>sL', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File', },
   { '<leader>sM', function() Snacks.picker.man() end, desc = 'Man Pages', },
   { '<leader>sm', function() Snacks.picker.marks() end, desc = 'Marks', },
@@ -55,7 +56,6 @@ require('which-key').add({
   { '<leader>fV', function() Snacks.picker.files({ cwd = vim.fn.expand('$VIMRUNTIME') }) end, desc = '$VIMRUNTIME', },
 
   { '<leader>sN', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File', },
-  { '<leader>sp', function() Snacks.picker.grep({ cwd = vim.g.plug_home }) end, desc = 'Vim-Plug Plugin File' },
   { '<leader>sP', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File', },
 
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
@@ -73,6 +73,7 @@ require('which-key').add({
 })
 
 -- stylua: ignore
+vim.keymap.set('n', '<leader>ga', ':!git add %<CR>', { desc = 'Git Add (file)' })
 if vim.fn.executable('lazygit') == 1 then
   vim.keymap.set('n', '<leader>gg', function() Snacks.lazygit() end,             { desc = 'Lazygit (cwd)' })
   vim.keymap.set('n', '<leader>gf', function() Snacks.picker.git_log_file() end, { desc = 'Git Current File History' })
@@ -124,7 +125,6 @@ vim.keymap.set('n', '<leader>dw', ':=vim.lsp.buf.list_workspace_folders()<CR>', 
 
 vim.keymap.set('n', '<leader>fD', '<Cmd>Delete!<CR>', { desc = 'Delete File (and buffer) from disk' })
 
-vim.keymap.set('n', '<leader>ga', ':!git add %<CR>', { desc = 'Git Add (file)' })
 
 vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
   vim.cmd('noh')

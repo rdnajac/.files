@@ -25,5 +25,5 @@ return {
       ensure_installed = { 'lua_ls' },
     },
   },
-  { import = 'lazy.spec.lang' },
+  { import = 'nvim.lazy.spec.lang' },
 }

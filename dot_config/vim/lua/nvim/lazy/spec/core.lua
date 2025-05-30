@@ -59,7 +59,6 @@ return {
       words = { enabled = true },
     },
     init = function()
-      require('lazy.goto')
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()

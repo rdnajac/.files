@@ -1,10 +1,3 @@
-let g:copilot_no_maps = v:true
-augroup github_copilot_block_suggestions
-  autocmd!
-  autocmd FileType,BufUnload * call copilot#OnFileType()
-augroup END
-call copilot#OnFileType()
-
 " comment-out and duplicate line
 nmap yc "xyygcc"xp
 

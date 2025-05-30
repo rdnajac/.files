@@ -27,7 +27,7 @@ require('lazy').setup({
         { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
       },
     },
-    { import = 'lazy.spec' },
+    { import = 'nvim.lazy.spec' },
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
@@ -67,3 +67,5 @@ require('lazy').setup({
     require = false,
   },
 })
+
+require('nvim.lazy.goto')

@@ -11,13 +11,6 @@ return {
   'lervag/vimtex',
   -- 'vuciv/golf',
   {
-    'github/copilot.vim',
-    init = function()
-      -- HACK: remove this once plugin is updated
-      vim.deprecate = function() end
-    end,
-  },
-  {
     'stevearc/oil.nvim',
     lazy = false,
     config = function()
