@@ -6,26 +6,18 @@ else
   vim.opt.rtp:prepend(lazypath)
 end
 
--- Don't load LazyVim options
-package.loaded['lazyvim.config.options'] = true
-
--- Quiet error on startup
--- vim.g.lazyvim_check_order = false
-
 require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
       init = function()
+        package.loaded['lazyvim.config.options'] = true
         vim.g.lazyvim_check_order = false
       end,
-      opts = {
-        defaults = {
-          autocmds = false,
-          keymaps = false,
-        },
-      },
+      opts = { defaults = { autocmds = false, keymaps = false } },
+      -- stylua: ignore
       keys = {
+        { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
         { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
         { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
       },
