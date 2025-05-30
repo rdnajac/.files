@@ -4,7 +4,7 @@ return {
   'tpope/vim-apathy',
   'tpope/vim-fugitive',
   'tpope/vim-repeat',
-  -- 'tpope/vim-scriptease',
+  -- 'tpope/vim-scriptease'
   'tpope/vim-surround',
   'tpope/vim-tbone',
   'tpope/vim-unimpaired',

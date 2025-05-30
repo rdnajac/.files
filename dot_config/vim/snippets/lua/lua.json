@@ -1,7 +1,7 @@
 {
   "snippet": {
     "prefix": "init",
-    "body": ["init = function()\n  ${0}\nend"],
+    "body": ["init = function()\n  ${0}\nend,"],
     "description": "lazy spec init"
   },
   "require": {

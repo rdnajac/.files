@@ -1,7 +1,7 @@
 -- stylua: ignore start
-require('config.keymaps.escape')
-require('config.keymaps.pickers')
-require('config.keymaps.toggles')
+require('nvim.config.keymaps.escape')
+require('nvim.config.keymaps.pickers')
+require('nvim.config.keymaps.toggles')
 
 require('which-key').add({
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },

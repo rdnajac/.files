@@ -1,16 +1,4 @@
 return {
-  { -- https://www.lazyvim.org/news
-    'LazyVim/LazyVim',
-    version = false,
-    {
-      { import = 'lazyvim.plugins.init' },
-      -- { import = 'lazyvim.plugins.formatting' },
-      -- { import = 'lazyvim.plugins.linting' },
-      -- { import = 'lazyvim.plugins.treesitter' },
-      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-      -- { import = 'lazyvim.plugins.extras.formatting.prettier' },
-    },
-  },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
@@ -36,6 +24,7 @@ return {
   },
   { -- https://github.com/folke/snacks.nvim?tab=readme-ov-file#-features
     'folke/snacks.nvim',
+    priority = 1000,
     opts = {
       bigfile = { enabled = true },
       dashboard = require('munchies.dashboard').opts,

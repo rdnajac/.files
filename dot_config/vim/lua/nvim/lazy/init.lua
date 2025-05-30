@@ -6,15 +6,11 @@ else
   vim.opt.rtp:prepend(lazypath)
 end
 
+require('nvim.lazy.hacks')
 require('lazy').setup({
   spec = {
-    {
+    { -- https://www.lazyvim.org/news
       'LazyVim/LazyVim',
-      init = function()
-        -- package.loaded['lazyvim.config.options'] = true
-        vim.g.lazyvim_check_order = false
-      end,
-      opts = { defaults = { autocmds = false, keymaps = false } },
       -- stylua: ignore
       keys = {
         { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
@@ -22,6 +18,7 @@ require('lazy').setup({
         { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
       },
     },
+    { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
     { import = 'nvim.lazy.spec' },
   },
   install = { colorscheme = { 'tokyonight' } },

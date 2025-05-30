@@ -7,7 +7,18 @@ _G.mason_ensure_installed = function(tools)
 end
 
 return {
-  { 'mason-org/mason.nvim', opts = {} },
+  {
+    'mason-org/mason.nvim',
+    opts = {
+      ui = {
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
+      },
+    },
+  },
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     event = 'VeryLazy',
