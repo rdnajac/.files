@@ -90,7 +90,7 @@ return {
           then
             return default_sources
           elseif vim.bo.filetype == 'lua' then
-            return { 'lsp', 'path', 'lazydev' }
+            return { 'path', 'lazydev', 'snippets' }
           elseif vim.bo.filetype == 'sh' then
             return vim.list_extend(vim.deepcopy(default_sources), shell_sources)
           else
