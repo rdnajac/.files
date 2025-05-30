@@ -1,25 +1,17 @@
 -- Helper functions to install language servers and treesitter parsers
-_G.install = {
-  language_servers = function(servers)
+_G.mason_ensure_installed = function(tools)
     return {
-      'mason-org/mason.nvim',
-      opts = { ensure_installed = servers },
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      opts = { ensure_installed = tools },
     }
-  end,
-
-  treesitter_parsers = function(parsers)
-    return {
-      'nvim-treesitter/nvim-treesitter',
-      opts = { ensure_installed = parsers },
-    }
-  end,
-}
+  end
 
 return {
+  { 'mason-org/mason.nvim', opts = {} },
   {
-    'mason-org/mason.nvim',
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts_extend = { 'ensure_installed' },
-    opts = { ensure_installed = {} },
+    opts = { ensure_installed = {'stylua'} },
   },
   { import = 'nvim.lazy.spec.lang' },
 }

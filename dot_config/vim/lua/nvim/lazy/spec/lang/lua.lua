@@ -1,5 +1,5 @@
 return {
-  install.language_servers({ 'lua_ls' }),
+  mason_ensure_installed({ 'lua-language-server', 'stylua' }),
   {
     'folke/lazydev.nvim',
     ft = 'lua',

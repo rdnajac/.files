@@ -33,4 +33,4 @@ vim.lsp.config('*', {
   end,
 })
 
-vim.lsp.enable('lua_ls')
+vim.lsp.enable('luals')

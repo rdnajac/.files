@@ -1,5 +1,5 @@
 " cnoreabbrev <expr> L getcmdtype() == ':' && getcmdline() ==# 'L' ? '<c-r><c-l>' : 'L'
-"
+
 function! L() abort
   let l:line = getline('.')
   " if ft is lua, prepend lua
@@ -20,5 +20,5 @@ imap <M-Left> <Left>
 imap <M-Right> <Right>
 
 setlocal iskeyword-=#
-" setlocal foldmethod=marker
+setlocal foldmethod=marker
 " setlocal foldlevel=0

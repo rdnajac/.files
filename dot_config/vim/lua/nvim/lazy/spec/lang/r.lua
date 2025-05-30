@@ -1,6 +1,5 @@
 return {
-  install.language_servers({ 'r_language_server' }),
-  install.treesitter_parsers({ 'r', 'rnoweb' }),
+  mason_ensure_installed({ 'r_language_server' }),
   {
     'R-nvim/R.nvim',
     ---@type RConfigUserOpts

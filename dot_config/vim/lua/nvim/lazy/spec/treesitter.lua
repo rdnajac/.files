@@ -65,6 +65,8 @@ return {
         'printf',
         'python',
         'regex',
+	'r',
+	'rnoweb',
         'toml',
         'xml',
         'yaml',
