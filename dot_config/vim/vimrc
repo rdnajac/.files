@@ -261,8 +261,9 @@ cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
 cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
-if ! has('nvim')
-  call plug#begin() " {{{
+" § plugins/nvim {{{1
+if !has('nvim')
+  call plug#begin()
   " Plug 'rdnajac/after'
   " Plug 'tpope/vim-sensible'
   " Plug 'christoomey/vim-tmux-navigator'
@@ -287,17 +288,31 @@ if ! has('nvim')
   Plug 'vuciv/golf'
   " only load plugins on certain filetypes
   Plug 'lervag/vimtex', { 'for': 'tex' }
-  call plug#end() " }}}
+  call plug#end()
 else
   if !exists('g:loaded_nvim')
     lua require('nvim')
     let g:loaded_nvim = 1
-  else
-    lua print('>^.^<')
   endif
 endif
+" }}}
 
 let g:copilot_workspace_folders = ['~/GitHub', '~/.local/share/chezmoi/']
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'lua': ['stylua'],
+\}
+let g:ale_fix_on_save = 0
+let g:ale_completion_enabled = 0
+let g:ale_linters = {
+\   'lua': ['lua_language_server'],
+\}
 let g:ale_linters_explicit = 1
+let g:ale_virtualtext_cursor = 'current'
+" let g:ale_set_highlights = 0
+" let g:ale_disable_lsp = 1
+let g:ale_use_neovim_diagnostics_api = 1
+
 
 " vim: fdm=marker fdl=0

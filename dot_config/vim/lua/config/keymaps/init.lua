@@ -1,73 +1,20 @@
 -- stylua: ignore start
 require('config.keymaps.escape')
-require('config.keymaps.toggles')
 require('config.keymaps.pickers')
+require('config.keymaps.toggles')
 
 require('which-key').add({
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
-
-  { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', icon = { icon = ' ' }, },
   -- { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
   -- { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications', },
-
-  { '<leader>,', function() Snacks.picker.buffers() end, desc = 'Buffers', },
-  { '<leader>F', function() Snacks.picker.smart() end, desc = 'Smart Find Files', },
-  { '<leader>z', function() Snacks.picker.zoxide() end, desc = 'Zoxide', icon = { icon = '󰄻 ' }, },
-
-  { '<leader><space>', function() Snacks.picker() end, desc = 'Pickers', icon = { icons = ' ' }, },
-  { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers', },
-  { '<leader>fB', function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = 'Buffers (all)', },
-  { '<leader>ff', function() Snacks.picker.files({ cwd = Snacks.git.get_root() }) end, desc = 'Explorer (git root)', },
-  { '<leader>fF', function() Snacks.picker.files({ cwd = vim.fn.expand('~/GitHub/') }) end, desc = 'Explorer (all repos)', },
-  { '<leader>fG', function() Snacks.picker.files({ cwd = vim.fn.expand('~/GitHub/') }) end, desc = 'GitHub Repos', },
-  { '<leader>fL', function() Snacks.picker.files({ cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim Files', },
-  { '<leader>fp', function() Snacks.picker.files({ cwd = vim.g.plug_home }) end, desc = 'Vim-Plug Plugins', },
-  { '<leader>fP', function() Snacks.picker.files({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugins', },
-  { '<leader>fr', function() Snacks.picker.recent() end, desc = 'Recent' },
-  { '<leader>fR', function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = 'Recent (cwd)', },
-  { '<leader>sa', function() Snacks.picker.autocmds() end, desc = 'Autocmds', },
-  { '<leader>sb', function() Snacks.picker.lines() end, desc = 'Buffer Lines', },
-  { '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers', },
-  { '<leader>sc', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('config') }) end, desc = 'Grep Config Files', },
-  { '<leader>sC', function() Snacks.picker.commands() end, desc = 'Commands', },
-  { '<leader>sd', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics', },
-  { '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, desc = 'Buffer Diagnostics', },
-  { '<leader>sg', function() Snacks.picker.grep() end, desc = 'Grep (Root Dir)', },
-  { '<leader>sG', function() Snacks.picker.grep({ root = false }) end, desc = 'Grep (cwd)', },
-  { '<leader>sh', function() Snacks.picker.help() end, desc = 'Help Pages', },
-  { '<leader>sH', function() Snacks.picker.highlights() end, desc = 'Highlights', },
-  { '<leader>si', function() Snacks.picker.icons() end, desc = 'Icons', },
-  { '<leader>sj', function() Snacks.picker.jumps() end, desc = 'Jumps', },
-  { '<leader>sk', function() Snacks.picker.keymaps() end, desc = 'Keymaps', },
-  { '<leader>sL', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/LazyVim' }) end, desc = 'LazyVim File', },
-  { '<leader>sM', function() Snacks.picker.man() end, desc = 'Man Pages', },
-  { '<leader>sm', function() Snacks.picker.marks() end, desc = 'Marks', },
-  { '<leader>sq', function() Snacks.picker.qflist() end, desc = 'Quickfix List', },
-  { '<leader>sR', function() Snacks.picker.resume() end, desc = 'Resume', },
-  { '<leader>su', function() Snacks.picker.undo() end,desc = 'Undotree', },
-  { '<leader>sv', function() Snacks.picker.grep({ cwd = vim.fn.expand('~/.config/vim') }) end, desc = 'Find Vim Config File', },
-  { '<leader>sV', function() Snacks.picker.grep({ cwd = vim.fn.expand('$VIMRUNTIME') }) end, desc = '$VIMRUNTIME', },
-  { '<leader>s:', function() Snacks.picker.command_history() end, desc = 'Command History', },
-  { '<leader>s"', function() Snacks.picker.registers() end, desc = 'Registers', },
-  { '<leader>s/', function() Snacks.picker.search_history() end, desc = 'Search History', },
-
-  { '<leader>fs', function() Snacks.picker.files({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks Files', },
-  { '<leader>fV', function() Snacks.picker.files({ cwd = vim.fn.expand('$VIMRUNTIME') }) end, desc = '$VIMRUNTIME', },
-
-  { '<leader>sN', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy/snacks.nvim' }) end, desc = 'Snacks File', },
-  { '<leader>sP', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File', },
-
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
-
   { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk', },
-
   { '<leader>gb', function() Snacks.picker.git_log_line() end, desc = 'Git Blame Line', },
   { '<leader>gB', function() Snacks.gitbrowse() end, desc = 'Git Browse (open)', },
   { '<leader>gd', function() Snacks.picker.git_diff() end, desc = 'Git Diff (hunks)', },
   { '<leader>gs', function() Snacks.picker.git_status() end, desc = 'Git Status', },
   { '<leader>gS', function() Snacks.picker.git_stash() end, desc = 'Git Stash', },
-
   { '<leader>uC', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes', icon = { icon = ' ', color = 'yellow' }, },
   { '<leader>uz', function() Snacks.zen() end, desc = 'Zen Mode', icon = { icon = ' ', color = 'blue' }, },
 })
@@ -85,7 +32,6 @@ vim.keymap.set('n', '\\\\', function() Snacks.dashboard.open() end, { desc = 'Op
 vim.keymap.set('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete Buffer' })
 vim.keymap.set('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' })
 
--- vim.keymap.set('n', 'gp', '<Cmd>e <cfile>:p:h<CR>', { desc = 'Goto Parent Directory' })
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set(
@@ -116,6 +62,7 @@ vim.keymap.set('n', '<leader>q', function()
 end, { desc = 'Smart Quit' })
 vim.keymap.set('n', '<leader>Q', '<Cmd>qa<CR>', { desc = 'Quit All' })
 
+vim.keymap.set('n', '<leader>da', '<Cmd>ALEInfo<CR>', { desc = 'Ale' })
 vim.keymap.set('n', '<leader>db', '<Cmd>BlinkCmp status<CR>', { desc = 'Blink' })
 vim.keymap.set('n', '<leader>dc', ':=vim.lsp.get_clients()[1].server_capabilities<CR>', { desc = 'LSP Capabilities' })
 vim.keymap.set('n', '<leader>dl', '<Cmd>checkhealth lsp<CR>', { desc = 'LSP' })
@@ -140,3 +87,4 @@ vim.keymap.set('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Se
 vim.keymap.set('n', 'N', "'nN'[v:searchforward].'zv'", { expr = true, desc = 'Prev Search Result' })
 vim.keymap.set('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
 vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
+

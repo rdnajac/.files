@@ -32,3 +32,5 @@ vim.lsp.config('*', {
     end
   end,
 })
+
+vim.lsp.enable('lua_ls')
