@@ -13,7 +13,6 @@ Event.mappings['User LazyFile'] = Event.mappings.LazyFile
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
   callback = function()
-    require('nvim.config')
     require('munchies.terminal').setup()
     require('utils')
   end,

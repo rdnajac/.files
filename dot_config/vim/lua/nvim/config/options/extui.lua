@@ -3,17 +3,13 @@ vim.opt.cmdheight = 0
 require('vim._extui').enable({
   msg = {
     pos = 'box',
-    box = {
-      timeout = 4000,
-    },
+    box = { timeout = 4000 },
   },
 })
 
 -- HACK: stop msgshow
 local messages = require('vim._extui.messages')
-
 local original_msg_show = messages.msg_show
-
 messages.msg_show = function(kind, content)
   if kind ~= 'search_cmd' and kind ~= 'list_cmd' then
     -- force `more = false` by replacing internal call
@@ -30,4 +26,3 @@ messages.msg_show = function(kind, content)
     original_msg_show(kind, content)
   end
 end
-

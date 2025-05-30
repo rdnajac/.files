@@ -49,4 +49,5 @@ require('lazy').setup({
   },
   profiling = { loader = false, require = false },
 })
--- vim.cmd('colorscheme tokyonight-night')
+require('nvim.config')
+vim.cmd([[ colorscheme tokyonight-night ]])
