@@ -1,7 +1,8 @@
 " WARNING: make sure its compatible!
 runtime! after/ftplugin/vim.vim
 
-setlocal formatprg=stylua\ --search-parent-directories\ -
+setlocal expandtab
+" setlocal formatprg=stylua\ --search-parent-directories\ -
 
 setlocal formatoptions-=o
 setlocal autochdir
