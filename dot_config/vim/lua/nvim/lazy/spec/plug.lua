@@ -24,12 +24,12 @@ return {
       require('nvim.dial')
     end,
   },
-  {
-    'junegunn/fzf.vim',
-    init = function()
-      -- local fzf_path = vim.fn.expand('~/GitHub/rdnajac/src/fzf')
-      -- vim.opt.runtimepath:prepend(fzf_path)
-      vim.cmd([[source ~/GitHub/rdnajac/src/fzf/plugin/fzf.vim]])
-    end,
-  },
+  -- {
+  --   'junegunn/fzf.vim',
+  --   init = function()
+  --     -- local fzf_path = vim.fn.expand('~/GitHub/rdnajac/src/fzf')
+  --     -- vim.opt.runtimepath:prepend(fzf_path)
+  --     vim.cmd([[source ~/GitHub/rdnajac/src/fzf/plugin/fzf.vim]])
+  --   end,
+  -- },
 }
