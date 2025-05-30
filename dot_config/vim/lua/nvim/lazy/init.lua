@@ -11,7 +11,7 @@ require('lazy').setup({
     {
       'LazyVim/LazyVim',
       init = function()
-        package.loaded['lazyvim.config.options'] = true
+        -- package.loaded['lazyvim.config.options'] = true
         vim.g.lazyvim_check_order = false
       end,
       opts = { defaults = { autocmds = false, keymaps = false } },
@@ -27,20 +27,13 @@ require('lazy').setup({
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',
+      -- stylua: ignore
     custom_keys = {
-      ['<localleader>d'] = {
-        function(plugin)
-          dd(plugin)
-        end,
-        desc = 'Debug Plugin',
-      },
+      ['<localleader>d'] = { function(plugin) dd(plugin) end, desc = 'Debug Plugin', },
     },
   },
   rocks = { enabled = false },
-  change_detection = {
-    enabled = true,
-    notify = false,
-  },
+  change_detection = { enabled = true, notify = false },
   performance = {
     reset_packpath = false,
     rtp = {
@@ -57,10 +50,5 @@ require('lazy').setup({
       },
     },
   },
-  profiling = {
-    loader = false,
-    require = false,
-  },
+  profiling = { loader = false, require = false },
 })
-
-require('nvim.lazy.goto')
