@@ -2,6 +2,7 @@ return {
   mason_ensure_installed({ 'r-languageserver' }),
   {
     'R-nvim/R.nvim',
+    event = "LazyFile",
     ---@type RConfigUserOpts
     opts = {
       R_args = { '--quiet', '--no-save' },

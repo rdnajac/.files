@@ -1,4 +1,4 @@
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 -- vim.opt.messagesopt = 'wait:10,history:500'
 require('vim._extui').enable({
   msg = {
