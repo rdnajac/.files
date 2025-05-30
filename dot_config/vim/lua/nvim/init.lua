@@ -1,2 +1,2 @@
-require('nvim.lazy')
 vim.cmd('colorscheme tokyonight-night')
+require('nvim.lazy')
