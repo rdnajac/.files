@@ -109,7 +109,7 @@ return {
             },
           },
           snippets = {
-            score_offset = 10,
+            score_offset = 20,
             opts = { friendly_snippets = false },
             should_show_items = function(ctx)
               return ctx.trigger.initial_kind ~= 'trigger_character'

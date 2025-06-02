@@ -3,6 +3,7 @@ brewup() {
 	if command -v chezmoi > /dev/null 2>&1; then
 		brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
 	fi
+	~/bin/scripts/install-nvim-nightly.sh
 }
 
 # override macOS tools with Homebrew versions

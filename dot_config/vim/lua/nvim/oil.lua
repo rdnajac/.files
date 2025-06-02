@@ -132,4 +132,12 @@ vim.api.nvim_create_autocmd('User', {
 
 require('oil').setup(opts)
 
-vim.keymap.set('n', '-', '<Cmd>Oil --float<CR>')
+local oil = function()
+  if #vim.api.nvim_list_wins() == 1 then
+    vim.cmd('Oil --float')
+  else
+    vim.cmd('Oil')
+  end
+end
+
+vim.keymap.set('n', '-', oil)
