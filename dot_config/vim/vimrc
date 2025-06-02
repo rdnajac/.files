@@ -4,18 +4,14 @@ scriptencoding=utf-8
 let g:mapleader = ' '
 let g:maplocalleader = '\'
 
-let s:VIMHOME = exists('$XDG_CONFIG_HOME')
-      \ ? expand('$XDG_CONFIG_HOME/vim//')
-      \ : expand('$HOME/.config/vim//')
+let s:VIMHOME = expand('$HOME/.config/vim//')
 let g:plug_home = s:VIMHOME . '.plugged//'
 let &spellfile  = s:VIMHOME . '.spell/en.utf-8.add'
 
 if !has('nvim')
-  let &backupdir   = s:VIMHOME . '.backup//'
-  let &directory   = s:VIMHOME . '.swap//'
   let &undodir     = s:VIMHOME . '.undo//'
   let &viminfofile = s:VIMHOME . '.viminfo'
-  let &verbosefile = s:VIMHOME . '.vimlog.txt'
+  " let &verbosefile = s:VIMHOME . '.vimlog.txt'
 
   " better escape
   noremap jk <esc>
@@ -24,7 +20,7 @@ if !has('nvim')
   silent! color scheme
 endif
 
-" § aettings {{{1
+" § settings {{{1
 " set backup
 set undofile undolevels=10000
 
@@ -85,7 +81,7 @@ else
 endif
 " }}}
 
-" § butocmds {{{1
+" § autocmds {{{1
 augroup FileTypeSettings " {{{
   autocmd!
   autocmd FileType sh,zsh         setl sw=8 sts=8 noet wrap
@@ -150,17 +146,18 @@ augroup END
 
 " }}}1
 
-" § ceymaps {{{1
+" § keymaps {{{1
 function! s:edit_config(file) abort
   let l:target = expand('~/.config/' . a:file)
-  if executable('chezmoi')
-    execute 'ChezmoiEdit ' . fnameescape(l:target)
+  if has('nvim') && executable('chezmoi')
+    let l:edit = 'ChezmoiEdit'
   else
-    execute 'edit ' . fnameescape(l:target)
+    let l:edit = 'edit'
   endif
+  execute printf('%s %s', l:edit, fnameescape(l:target))
 endfunction
 
-command! -nargs=1 EditConfig call s:edit_config(<f-args>)
+command! -nargs=1 EditConfig call s:edit_config(<q-args>)
 
 nnoremap <leader>v :EditConfig vim/vimrc<CR>
 
@@ -275,7 +272,7 @@ cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
 cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
-" § dlugins/nvim {{{1
+" § plugins/nvim {{{1
 if !has('nvim')
   call plug#begin()
   " Plug 'rdnajac/after'
@@ -305,9 +302,11 @@ if !has('nvim')
   call plug#end()
 else
   if !exists('g:loaded_nvim')
-    lua require('nvim')
+    lua require('nvim.lazy')
     let g:loaded_nvim = 1
   endif
+    let g:ale_disable_lsp = 1
+    let g:ale_use_neovim_diagnostics_api = 1
 endif
 " }}}
 
@@ -325,14 +324,11 @@ let g:ale_linters = {
 let g:ale_linters_explicit = 1
 let g:ale_virtualtext_cursor = 'current'
 " let g:ale_set_highlights = 0
-let g:ale_disable_lsp = 1
-let g:ale_use_neovim_diagnostics_api = 1
 
 nnoremap Q <Cmd>ALEFix<CR>
 
-function! InsertMarksAfterSection()
-    let s:mark = 'a'
-    g/§/call setline(line('.'), substitute(getline('.'), '§\s*\zs.', '\=s:mark', '')) | let s:mark = nr2char(char2nr(s:mark)+1)
+function! MarkFirstCharAfterSection() abort
+    g/§/let c = matchstr(getline('.'), '§\s*\zs.') | if c =~# '^[A-Za-z]$' | execute 'mark ' . c | endif
 endfunction
 
 " vim: fdm=marker fdl=0
