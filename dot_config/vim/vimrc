@@ -150,7 +150,7 @@ augroup END
 nnoremap <leader>Q <Cmd>qa<CR>
 nnoremap <leader>K <Cmd>norm! K<CR>
 nnoremap <leader>w <Cmd>write<CR>
-nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
+nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'Reloaded config!'<CR>
 nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
 
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
