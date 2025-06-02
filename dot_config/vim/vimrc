@@ -149,11 +149,8 @@ augroup END
 " § keymaps {{{1
 function! s:edit_config(file) abort
   let l:target = expand('~/.config/' . a:file)
-  if has('nvim') && executable('chezmoi')
-    let l:edit = 'ChezmoiEdit'
-  else
+    " let l:edit = 'ChezmoiEdit'
     let l:edit = 'edit'
-  endif
   execute printf('%s %s', l:edit, fnameescape(l:target))
 endfunction
 
