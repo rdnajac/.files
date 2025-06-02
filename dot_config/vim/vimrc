@@ -147,14 +147,11 @@ augroup END
 " }}}1
 
 " § keymaps {{{1
-
-command! -nargs=1 EditConfig call s:edit_config(<q-args>)
-
 nnoremap <leader>Q <Cmd>qa<CR>
 nnoremap <leader>K <Cmd>norm! K<CR>
 nnoremap <leader>w <Cmd>write<CR>
 nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
-nnoremap <leader>v :EditConfig vim/vimrc<CR>
+nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
 
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
 
