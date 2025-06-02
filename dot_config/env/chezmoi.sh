@@ -15,7 +15,8 @@ function czedit() { chezmoi edit --apply --verbose "$@"; }
 
 alias zr='czedit ${ZDOTDIR}'
 alias ba='czedit $HOME/.bash_aliases'
-alias vvv='czedit $XDG_CONFIG_HOME/vim/'
-alias nvv='czedit $XDG_CONFIG_HOME/vim/lua'
+# alias vvv='czedit $XDG_CONFIG_HOME/vim/'
+alias vvv='cd $XDG_CONFIG_HOME/vim/'
+# alias nvv='czedit $XDG_CONFIG_HOME/vim/lua'
+alias nvv='cd $XDG_CONFIG_HOME/vim/lua'
 alias tmx='czedit $XDG_CONFIG_HOME/tmux/tmux.conf'
-alias kk='czedit $XDG_CONFIG_HOME/kitty/'

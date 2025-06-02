@@ -8,12 +8,12 @@ vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     local opts = { buffer = bufnr }
 
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    -- vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+    -- vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
 
     if client:supports_method('textDocument/inlayHint') then
       vim.lsp.inlay_hint.enable(true, opts)
@@ -32,5 +32,3 @@ vim.lsp.config('*', {
     end
   end,
 })
-
-vim.lsp.enable('luals')

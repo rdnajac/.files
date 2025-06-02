@@ -1,15 +1,4 @@
 return {
-  'dense-analysis/ale',
-  'tpope/vim-abolish',
-  'tpope/vim-apathy',
-  'tpope/vim-fugitive',
-  'tpope/vim-repeat',
-  -- 'tpope/vim-scriptease'
-  'tpope/vim-surround',
-  'tpope/vim-tbone',
-  'tpope/vim-unimpaired',
-  'lervag/vimtex',
-  -- 'vuciv/golf',
   {
     'stevearc/oil.nvim',
     lazy = false,
