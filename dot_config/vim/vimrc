@@ -159,9 +159,12 @@ endfunction
 
 command! -nargs=1 EditConfig call s:edit_config(<q-args>)
 
+nnoremap <leader>Q <Cmd>qa<CR>
+nnoremap <leader>K <Cmd>norm! K<CR>
+nnoremap <leader>w <Cmd>write<CR>
+nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
 nnoremap <leader>v :EditConfig vim/vimrc<CR>
 
-nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
 
 nmap <C-c> ciw
@@ -203,20 +206,16 @@ xnoremap <expr> <Down> v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
 xnoremap <expr> <Up>   v:count == 0 ? 'gk' : 'k'
 " }}}
-" search behavior (center & fold open) {{{
-" FIXME:
-"nnoremap <expr> n "'Nn'[v:searchforward]
-""nnoremap <expr> n "'Nn'[v:searchforward] . 'zzzv'"
-"xnoremap <expr> n "'Nn'[v:searchforward]"
-"onoremap <expr> n "'Nn'[v:searchforward]"
+" https://github.com/mhinz/vim-galore?tab=readme-ov-file#saner-behavior-of-n-and-n {{{
+" normal mode also openz folds and centers the cursor
+nnoremap <expr> n ('Nn'[v:searchforward]) . 'zvzz'
+xnoremap <expr> n  'Nn'[v:searchforward]
+onoremap <expr> n  'Nn'[v:searchforward]
 
-"nnoremap <expr> N "'nN'[v:searchforward]
-""nnoremap <expr> N "'nN'[v:searchforward] . 'zzzv'"
-"xnoremap <expr> N "'nN'[v:searchforward]"
-"onoremap <expr> N "'nN'[v:searchforward]"
+nnoremap <expr> N ('Nn'[v:searchforward]) . 'zvzz'
+xnoremap <expr> N  'nN'[v:searchforward]
+onoremap <expr> N  'nN'[v:searchforward]
 
-nnoremap n  nzzzv
-nnoremap N  Nzzzv
 nnoremap *  *zzzv
 nnoremap #  #zzzv
 nnoremap g* g*zzzv
@@ -302,7 +301,7 @@ if !has('nvim')
   call plug#end()
 else
   if !exists('g:loaded_nvim')
-    lua require('nvim.lazy')
+    lua require('nvim')
     let g:loaded_nvim = 1
   endif
     let g:ale_disable_lsp = 1

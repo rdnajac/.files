@@ -86,14 +86,6 @@ return {
         {
           -- TODO: offload these to keymaps.lua
           mode = { 'n' },
-          { '<leader>c', group = 'code' },
-          { '<leader>d', group = 'debug' },
-          { '<leader>dp', group = 'profiler' },
-          { '<leader>f', group = 'file/find' },
-          { '<leader>s', group = 'search/grep' },
-          { '<leader>t', group = 'toggle' },
-          { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
-
           -- { '<localleader>l', desc = '+vimtex' },
           -- { '<localleader>r', group = '+R', icon = { icon = ' ', color = 'blue' } },
           -- { '<localleader>re', group = '++renv' },
@@ -138,7 +130,6 @@ return {
         { ']', group = 'next' },
         { 'g', group = 'goto' },
         { 'z', group = 'fold' },
-        { '<leader>g', group = 'git' },
 
         -- better descriptions
         { 'gx', desc = 'Open with system app' },
