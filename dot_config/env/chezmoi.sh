@@ -1,4 +1,4 @@
-alias cz='chezmoi'
+alias cz='chezmoi --verbose'
 alias cza='cz add'
 alias czA='cz apply'
 alias czc='cz cd'
