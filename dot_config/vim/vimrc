@@ -315,7 +315,5 @@ let g:ale_linters_explicit = 1
 let g:ale_virtualtext_cursor = 'current'
 " let g:ale_set_highlights = 0
 
-nnoremap Q <Cmd>ALEFix<CR>
-
 
 " vim: fdm=marker fdl=0

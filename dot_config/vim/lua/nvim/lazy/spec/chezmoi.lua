@@ -10,21 +10,17 @@ return {
   {
     'xvzc/chezmoi.nvim',
     cmd = { 'ChezmoiEdit', 'ChezmoiList' },
-    keys = {
-      { '<leader>fc', '<Cmd>lua require("munchies.picker").chezmoi()<CR>', desc = 'Chezmoi', },
-    },
     opts = {
       edit = {
         watch = false,
         force = false,
       },
-      notification = {
-        on_open = true,
-        on_apply = true,
-        on_watch = false,
-      },
     },
     init = function()
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufWritePost' }, {
+  pattern = os.getenv('HOME') .. '/.config/vim/*',
+  command = '!chezmoi add %',
+})
       -- run chezmoi edit on file enter
       vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
         pattern = { os.getenv('HOME') .. '/.local/share/chezmoi/*' },
@@ -32,6 +28,7 @@ return {
           vim.schedule(require('chezmoi.commands.__edit').watch)
         end,
       })
+      -- TODO: delete?
     end,
   },
 

@@ -12,6 +12,7 @@ require('which-key').add({
   { '<leader>bd', function() Snacks.bufdelete() end, desc = 'Delete Buffer', mode = 'n' },
 
   { '<leader>c', group = 'code' },
+  { '<leader>cz', function() require("munchies.picker").chezmoi() end, desc = 'Chezmoi', },
 
   { '<leader>d', group = 'debug' },
   { '<leader>da', '<Cmd>ALEInfo<CR>', desc = 'Ale', mode = 'n' },
@@ -21,10 +22,12 @@ require('which-key').add({
   { '<leader>ds', '<Cmd>checkhealth snacks<CR>', desc = 'Snacks Health', mode = 'n' },
   { '<leader>dS', ':=require("snacks").meta.get()<CR>', desc = 'Snacks', mode = 'n' },
   { '<leader>dw', ':=vim.lsp.buf.list_workspace_folders()<CR>', desc = 'LSP Workspace Folders', mode = 'n' },
+
   { '<leader>dp', group = 'profiler' },
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
 
   { '<leader>f', group = 'file/find' },
+  { '<leader>fc', function() require("munchies.picker").chezmoi() end, desc = 'Chezmoi', },
   { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk', },
 
   { '<leader>s', group = 'search/grep' },
