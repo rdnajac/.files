@@ -1,4 +1,6 @@
 " vimrc
+scriptencoding=utf-8
+
 let g:mapleader = ' '
 let g:maplocalleader = '\'
 
@@ -22,7 +24,7 @@ if !has('nvim')
   silent! color scheme
 endif
 
-" § settings {{{1
+" § aettings {{{1
 " set backup
 set undofile undolevels=10000
 
@@ -83,7 +85,7 @@ else
 endif
 " }}}
 
-" § autocmds {{{1
+" § butocmds {{{1
 augroup FileTypeSettings " {{{
   autocmd!
   autocmd FileType sh,zsh         setl sw=8 sts=8 noet wrap
@@ -148,8 +150,20 @@ augroup END
 
 " }}}1
 
-" § keymaps {{{1
-nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
+" § ceymaps {{{1
+function! s:edit_config(file) abort
+  let l:target = expand('~/.config/' . a:file)
+  if executable('chezmoi')
+    execute 'ChezmoiEdit ' . fnameescape(l:target)
+  else
+    execute 'edit ' . fnameescape(l:target)
+  endif
+endfunction
+
+command! -nargs=1 EditConfig call s:edit_config(<f-args>)
+
+nnoremap <leader>v :EditConfig vim/vimrc<CR>
+
 nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'reloaded config!'<CR>
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
 
@@ -261,7 +275,7 @@ cnoremap <expr> <Down> wildmenumode() ? "\<C-n>" : "\<Down>"
 cnoremap <expr> <Up> wildmenumode() ? "\<C-p>" : "\<Up>"
 " }}}1
 
-" § plugins/nvim {{{1
+" § dlugins/nvim {{{1
 if !has('nvim')
   call plug#begin()
   " Plug 'rdnajac/after'
@@ -315,5 +329,10 @@ let g:ale_disable_lsp = 1
 let g:ale_use_neovim_diagnostics_api = 1
 
 nnoremap Q <Cmd>ALEFix<CR>
+
+function! InsertMarksAfterSection()
+    let s:mark = 'a'
+    g/§/call setline(line('.'), substitute(getline('.'), '§\s*\zs.', '\=s:mark', '')) | let s:mark = nr2char(char2nr(s:mark)+1)
+endfunction
 
 " vim: fdm=marker fdl=0
