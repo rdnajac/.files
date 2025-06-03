@@ -1,4 +1,3 @@
-vim.lsp.enable('luals')
 
 return {
   mason_ensure_installed({ 'lua-language-server', 'stylua' }),

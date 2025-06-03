@@ -12,4 +12,7 @@ return {
       },
     },
   },
+  on_attach = function(client, _)
+    require('lazydev').attach(client)
+  end,
 }
