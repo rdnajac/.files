@@ -24,13 +24,6 @@ return {
       require('nvim.oil')
     end,
   },
-  {
-    'monaqa/dial.nvim',
-    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
-    config = function()
-      require('nvim.dial')
-    end,
-  },
   -- {
   --   'junegunn/fzf.vim',
   --   init = function()

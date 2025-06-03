@@ -85,39 +85,22 @@ local groups = {
   },
   sh = { new_dial({ '-x', '+x' }, false) },
 }
-
-for name, group in pairs(groups) do
-  if name ~= 'default' then
-    vim.list_extend(group, groups.default)
-  end
-end
-
-require('dial.config').augends:register_group(groups)
-
-vim.g.dials_by_ft = {
-  css = 'css',
-  sass = 'css',
-  scss = 'css',
-  json = 'json',
-  markdown = 'markdown',
-  quarto = 'markdown',
-  r = 'r',
-  sh = 'sh',
-  zsh = 'sh',
+return {
+  {
+    'monaqa/dial.nvim',
+    event = { 'LazyFile' },
+    init = function()
+      vim.g.dials_by_ft = {
+        css = 'css',
+        sass = 'css',
+        scss = 'css',
+        json = 'json',
+        markdown = 'markdown',
+        quarto = 'markdown',
+        r = 'r',
+        sh = 'sh',
+        zsh = 'sh',
+      }
+    end,
+  },
 }
-
----@param increment boolean
----@param g? boolean
-local dial = function(increment, g)
-  local mode = vim.fn.mode(true)
-  local is_visual = mode == 'v' or mode == 'V' or mode == '\22'
-  local func = (increment and 'inc' or 'dec') .. (g and '_g' or '_') .. (is_visual and 'visual' or 'normal')
-  local group = vim.g.dials_by_ft[vim.bo.filetype] or 'default'
-  return require('dial.map')[func](group)
-end
-
--- stylua: ignore
-vim.keymap.set({ 'n', 'v' }, '<C-a>', function() return dial(true) end, { expr = true })
-vim.keymap.set({ 'n', 'v' }, '<C-x>', function() return dial(false) end, { expr = true })
-vim.keymap.set('v', 'g<C-a>', function() return dial(true, true) end, { expr = true })
-vim.keymap.set('v', 'g<C-x>', function() return dial(false, true) end, { expr = true })
