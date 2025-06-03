@@ -7,7 +7,8 @@ return {
     ft = 'lua',
     cmd = 'LazyDev',
     keys = {
-      { '<leader>dL', '<Cmd>LazyDev debug<CR>' },
+      { '<leader>dd', '<Cmd>LazyDev debug<CR>' },
+      { '<leader>dL', '<Cmd>LazyDev lsp<CR>' },
     },
     opts = {
       library = {
