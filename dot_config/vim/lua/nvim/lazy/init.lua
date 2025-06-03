@@ -9,7 +9,7 @@ end
 require('lazy').setup({
   spec = {
     {
-      'LazyVim/LazyVim', opts = {},
+      'LazyVim/LazyVim',
       -- init = function()
       --   print('init LazyVim')
       -- end,
