@@ -152,20 +152,18 @@ command! -bar -bang -nargs=+ Chmod execute bin#chmod#chmod(<bang>0, <f-args>)
 command! -bar -bang          Delete call bin#delete#delete(<bang>0)
 
 " § keymaps {{{1
-nnoremap <leader>Q <Cmd>qa<CR>
 nnoremap <leader>K <Cmd>norm! K<CR>
-nnoremap <leader>w <Cmd>write<CR>
+nnoremap <leader>Q <Cmd>qa<CR>
+nnoremap <leader>a :normal! ggVG<CR>
 nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'Reloaded config!'<CR>
 nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
+nnoremap <leader>w <Cmd>write<CR>
 
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
 nnoremap <leader>fD <Cmd>Delete!<CR>
 
 nmap <C-c> ciw
 vmap <C-s> :sort<CR>
-
-" Select all
-nnoremap <leader>a :normal! ggVG<CR>
 
 " no-shift for case-toggle
 nnoremap ` ~
