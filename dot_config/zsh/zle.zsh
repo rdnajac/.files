@@ -21,7 +21,6 @@ bindkey "^[[1;2C" forward-word      # Shift + Right
 # bindkey "^[[1;3D" backward-word       # Alt + Left (most terminals)
 # bindkey "^[[1;3C" forward-word        # Alt + Right (most terminals)
 
-^[[1;2D^[[1;2C
 bindkey "^[[1;4D" beginning-of-line # Shift + Alt + Left
 bindkey "^[[1;4C" end-of-line       # Shift + Alt + Right
 
