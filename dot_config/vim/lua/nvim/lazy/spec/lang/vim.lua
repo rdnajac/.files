@@ -1,5 +1,5 @@
 vim.lsp.enable('vimls')
-return{
+return {
   'tpope/vim-abolish',
   'tpope/vim-apathy',
   'tpope/vim-fugitive',
@@ -10,4 +10,5 @@ return{
   'tpope/vim-unimpaired',
   'lervag/vimtex',
   -- 'vuciv/golf',
-  }
+  mason_ensure_installed({ 'vim-language-server' }),
+}
