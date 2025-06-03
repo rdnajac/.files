@@ -8,11 +8,12 @@ return {
     'LazyVim/LazyVim',
 
     dependancies = {
- 'folke/tokyonight.nvim' },
+      'folke/tokyonight.nvim',
+    },
     ---@class LazyVimOptions
     opts = {
-      defaults = { autocmds = false, keymaps = false, },
-      news = { lazyvim = false, neovim = false, },
+      defaults = { autocmds = false, keymaps = false },
+      news = { lazyvim = false, neovim = false },
     },
   },
   { 'nvim-lua/plenary.nvim', lazy = true },
