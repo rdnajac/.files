@@ -2,7 +2,7 @@
 require('config.keymaps.escape')
 require('config.keymaps.pickers')
 require('config.keymaps.toggles')
-
+require('config.keymaps.shortcuts')
 
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set('n', '<Cmd>', vim.show_pos, { desc = 'Inspect Pos' })
@@ -51,7 +51,6 @@ require('which-key').add({
   { '<leader>gl', function() Snacks.picker.git_log() end, desc = 'Git Log (cwd)', mode = 'n' },
 
   { ',,', function() Snacks.terminal.toggle() end, desc = 'Snacks Terminal', mode = { 'n', 't' } },
-  { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard', mode = 'n' },
 
   { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
   { '<leader>uC', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes', icon = { icon = ' ', color = 'yellow' }, },
