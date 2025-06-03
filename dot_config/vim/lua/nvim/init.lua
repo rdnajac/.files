@@ -1,10 +1,15 @@
+require('nvi.lazy')
+require('utils')
+-- § options {{{
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
 vim.opt.mousescroll = 'hor:0'
 vim.opt.pumblend = 0
 -- vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
+--- }}}
 
+-- § diagnostics {{{
 vim.diagnostic.config({
   underline = false,
   severity_sort = true,
@@ -23,8 +28,9 @@ vim.diagnostic.config({
     },
   },
 })
+--- }}}
 
-
+-- § extui {{{
 if vim.fn.has('nvim-0.12') == 1 then
   vim.opt.cmdheight = 0
   require('vim._extui').enable({
@@ -34,7 +40,9 @@ if vim.fn.has('nvim-0.12') == 1 then
     },
   })
 end
+--- }}}
 
+-- § lsp {{{
 -- Refer to :h vim.lsp.config() for more information.
 vim.lsp.config('*', {
   -- capabilities = require('blink.cmp').get_lsp_capabilities(),
@@ -69,8 +77,6 @@ vim.lsp.config('*', {
     end
   end,
 })
+--- }}}
 
--- require('munchies.terminal').setup()
-require('nvim.lazy')
-require('utils')
-
+-- vim: fdm=marker
