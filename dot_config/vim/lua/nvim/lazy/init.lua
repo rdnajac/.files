@@ -13,7 +13,7 @@ require('lazy').setup({
 init = function()
   print('init LazyVim')
 end
-    }
+    },
 
   import = 'nvim.lazy.spec' },
   dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
