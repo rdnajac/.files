@@ -8,8 +8,13 @@ end
 
 require('lazy').setup({
   spec = {
-    'LazyVim/LazyVim',
-    import = 'nvim.lazy.spec',
+    {
+      'LazyVim/LazyVim',
+      { import = 'lazyvim.plugins.extras' }
+    },
+    {
+      import = 'nvim.lazy.spec',
+    }
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
