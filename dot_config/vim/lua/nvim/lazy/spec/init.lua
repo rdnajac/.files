@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd('User', {
     require('nvim.config')
   end,
 })
+
 return {
   {
     'LazyVim/LazyVim',
