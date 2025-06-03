@@ -8,7 +8,11 @@ vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set('n', '<Cmd>', vim.show_pos, { desc = 'Inspect Pos' })
 
 require('which-key').add({
+
+  { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
+  { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'Lazy Extras' },
   { '<leader>R', '<Cmd>restart<CR>', desc = 'Restart Neovim', icon = { icon = '' } },
+  { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
 
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
