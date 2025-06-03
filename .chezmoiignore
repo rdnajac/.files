@@ -5,11 +5,3 @@ README.md
 **/*zcompdump
 **/*zsh_history
 **/*zsh_sessions
-
-# vim
-**/*lazy-lock.json
-**/*lazyvim.json
-**/*netrwhist
-**/*viminfo
-**/*vimlog.txt
-**vim/pack
