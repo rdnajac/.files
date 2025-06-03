@@ -1,5 +1,22 @@
--- require('lazyvim.config').init()
-require('lazyvim.util.plugin').lazy_file()
+_G.LazyVim = require("lazyvim.util")
+
+LazyVim.plugin.lazy_file()
+
+---@type LazyPicker
+LazyVim.pick.register({
+  name = "snacks",
+  commands = {
+    files = "files",
+    live_grep = "grep",
+    oldfiles = "recent",
+  },
+
+  ---@param source string
+  ---@param opts? snacks.picker.Config
+  open = function(source, opts)
+    return Snacks.picker.pick(source, opts)
+  end,
+})
 
 vim.api.nvim_create_user_command('LazyExtras', function()
   LazyVim.extras.show()
