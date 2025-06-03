@@ -1,4 +1,14 @@
 return {
+  { -- https://www.lazyvim.org/news
+      -- 'LazyVim/LazyVim',
+      -- stylua: ignore
+      keys = {
+        { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
+        { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
+        { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
+      },
+    },
+    { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
