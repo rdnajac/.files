@@ -1,4 +1,3 @@
-print('load user options')
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
 vim.opt.mousescroll = 'hor:0'

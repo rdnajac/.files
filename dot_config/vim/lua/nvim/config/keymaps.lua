@@ -1,5 +1,3 @@
--- stylua: ignore start
-print('load user keymaps')
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 
 vim.keymap.set(
@@ -34,6 +32,8 @@ vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
   -- LazyVim.cmp.actions.snippet_stop()
   return '<esc>'
 end, { expr = true, desc = 'Escape and Clear hlsearch' })
+
+-- stylua: ignore start
 require('which-key').add({
   { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
   { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'Lazy Extras' },
@@ -144,7 +144,7 @@ require('which-key').add({
   { '<leader>sP', function() Snacks.picker.grep({ cwd = vim.fn.stdpath('data') .. '/lazy' }) end, desc = 'Lazy Plugin File', },
 })
 
-  -- better escape " {{{
+  -- better escape " {{{1
 local map_combo = require('mini.keymap').map_combo
 
 -- Modes: i = insert, c = command, x = visual, s = select
@@ -160,7 +160,8 @@ for _, combo in ipairs({ 'jk', 'kj' }) do
   map_combo('t', combo, '<BS><BS><C-\\><C-n>')
 end
 
--- § edit shortcuts {{{
+-- § edit shortcuts {{{1
+-- TODO: use snacks
 --- Display a warning message using Neovim's notification system.
 --- @param msg string: The warning message to display.
 local function warn(msg)
@@ -185,7 +186,6 @@ local function edit(file, should_warn)
     return false
   end
 end
-
 
 require('which-key').add({
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard' },

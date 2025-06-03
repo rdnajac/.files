@@ -1,4 +1,3 @@
-print('load user autocmds')
 local aug = function(aug)
   vim.api.nvim_create_augroup('nvim_' .. aug, { clear = true })
 end
@@ -15,7 +14,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight on yank',
 })
 
--- close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
   group = aug('close_with_q'),
   pattern = {
@@ -52,7 +50,6 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Use bash parser for kitty config',
 })
 
-
 vim.api.nvim_create_autocmd('CmdlineEnter', {
   group = aug('cmdline'),
   callback = function()
@@ -88,21 +85,21 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Set a bg color for certain filetypes',
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp-path-prepend', { clear = true }),
-  desc = 'Prepend LSP root and default path to &path on attach',
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.config.root_dir then
-      local root = vim.fn.escape(client.config.root_dir, ' \\')
-      local default = vim.fn.escape(vim.o.path, ' \\')
-      vim.cmd('set path-=' .. root)
-      vim.cmd('set path-=' .. default)
-      vim.cmd('set path^=' .. root)
-      vim.cmd('set path^=' .. default)
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   group = vim.api.nvim_create_augroup('lsp-path-prepend', { clear = true }),
+--   desc = 'Prepend LSP root and default path to &path on attach',
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if client and client.config.root_dir then
+--       local root = vim.fn.escape(client.config.root_dir, ' \\')
+--       local default = vim.fn.escape(vim.o.path, ' \\')
+--       vim.cmd('set path-=' .. root)
+--       vim.cmd('set path-=' .. default)
+--       vim.cmd('set path^=' .. root)
+--       vim.cmd('set path^=' .. default)
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("CmdlineEnter", {
   callback = function()
@@ -114,9 +111,4 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
     vim.opt.laststatus = 2
   end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'lua',
-  command = 'setlocal foldmethod=marker'
 })
