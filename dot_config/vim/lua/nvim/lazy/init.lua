@@ -6,7 +6,6 @@ else
   vim.opt.rtp:prepend(lazypath)
 end
 
-require('nvim.lazy.hacks')
 require('lazy').setup({
   spec = { import = 'nvim.lazy.spec' },
   dev = {
