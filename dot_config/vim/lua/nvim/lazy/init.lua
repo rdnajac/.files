@@ -10,9 +10,10 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      'folke/tokyonight.nvim',
       -- import = 'lazyvim.plugins'
     },
+
+    'folke/tokyonight.nvim',
     import = 'nvim.lazy.spec',
   },
   dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
