@@ -2,7 +2,7 @@ return {
   { 'folke/lazy.nvim', version = false },
   {
     'folke/tokyonight.nvim',
-    priority = 10000,
+    priority = 1001,
     opts = {
       style = 'night',
       dim_inactive = true,
