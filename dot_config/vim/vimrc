@@ -146,6 +146,11 @@ augroup END
 
 " }}}1
 
+
+" § commands {{{1
+command! -bar -bang -nargs=+ Chmod execute bin#chmod#chmod(<bang>0, <f-args>)
+command! -bar -bang          Delete call bin#delete#delete(<bang>0)
+
 " § keymaps {{{1
 nnoremap <leader>Q <Cmd>qa<CR>
 nnoremap <leader>K <Cmd>norm! K<CR>
