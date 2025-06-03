@@ -7,7 +7,10 @@ else
 end
 
 require('lazy').setup({
-  spec = { 'LazyVim/LazyVim', import = 'nvim.lazy.spec' },
+  spec = {
+    'LazyVim/LazyVim',
+    import = 'nvim.lazy.spec',
+  },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',
