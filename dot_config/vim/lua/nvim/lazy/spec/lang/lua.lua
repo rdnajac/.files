@@ -6,6 +6,9 @@ return {
     'folke/lazydev.nvim',
     ft = 'lua',
     cmd = 'LazyDev',
+    keys = {
+      { '<leader>dL', '<Cmd>LazyDev debug' },
+    },
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
