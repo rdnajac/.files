@@ -7,15 +7,16 @@ else
 end
 
 require('lazy').setup({
-  spec = { 
+  spec = {
     {
-'LazyVim/LazyVim',
-init = function()
-  print('init LazyVim')
-end
+      'LazyVim/LazyVim',
+      init = function()
+        print('init LazyVim')
+      end,
     },
 
-  import = 'nvim.lazy.spec' },
+    import = 'nvim.lazy.spec',
+  },
   dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
