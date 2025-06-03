@@ -7,8 +7,8 @@ return {
         { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
         { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
       },
-    },
-    { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+  },
+  { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
   {
     'folke/tokyonight.nvim',
     priority = 1001,
