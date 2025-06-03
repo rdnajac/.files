@@ -8,8 +8,9 @@ end
 
 require('nvim.lazy.hacks')
 require('lazy').setup({
-  spec = {
-    { import = 'nvim.lazy.spec' },
+  spec = { import = 'nvim.lazy.spec' },
+  dev = {
+     path = vim.fn.stdpath('data') .. '/pack/vimfect/start',
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
@@ -37,6 +38,7 @@ require('lazy').setup({
       },
     },
   },
+
   profiling = { loader = false, require = false },
 })
 
