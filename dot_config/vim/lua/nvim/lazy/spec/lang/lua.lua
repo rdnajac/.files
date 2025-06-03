@@ -23,6 +23,7 @@ return {
         mod.supports = function(client)
           -- correcrly identify the name of the lsp client
           if client and vim.tbl_contains({ 'luals' }, client.name) then
+            dd(client.name)
             return true
           end
           return orig_supports(client)
