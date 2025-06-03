@@ -1,6 +1,7 @@
 vim.g.lazyvim_check_order = false
 
-require('lazyvim.config').init()
+-- require('lazyvim.config').init()
+require('lazyvim.util.plugin').lazy_file()
 
 return {
   {
@@ -8,7 +9,7 @@ return {
     ---@class LazyVimOptions
     opts = {
       defaults = { autocmds = false, keymaps = false, },
-      news = { lazyvim = true, neovim = true, },
+      news = { lazyvim = false, neovim = false, },
     },
   },
   { 'nvim-lua/plenary.nvim', lazy = true },

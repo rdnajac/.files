@@ -10,9 +10,7 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      -- init = function()
-      --   print('init LazyVim')
-      -- end,
+      -- import = 'lazyvim.plugins'
     },
     import = 'nvim.lazy.spec',
   },
