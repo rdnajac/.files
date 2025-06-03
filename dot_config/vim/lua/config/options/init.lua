@@ -1,5 +1,5 @@
-require('nvim.config.options.diagnostics')
-require('nvim.config.options.lsp')
+require('config.options.diagnostics')
+require('config.options.lsp')
 
 vim.opt.backup = true
 vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup//'
