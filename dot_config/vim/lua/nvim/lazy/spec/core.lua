@@ -1,7 +1,7 @@
 return {
   { -- https://www.lazyvim.org/news
     'LazyVim/LazyVim',
-    dev =true,
+    dev = true,
     -- stylua: ignore
     keys = {
       { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
