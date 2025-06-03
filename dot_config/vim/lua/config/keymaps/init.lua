@@ -3,6 +3,8 @@ require('config.keymaps.escape')
 require('config.keymaps.pickers')
 require('config.keymaps.toggles')
 
+vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
+
 require('which-key').add({
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
@@ -49,17 +51,18 @@ require('which-key').add({
 
   { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
   { '<leader>uC', function() Snacks.picker.colorschemes() end, desc = 'Colorschemes', icon = { icon = ' ', color = 'yellow' }, },
+
+  { '<leader>ui', function() vim.show_pos() end, desc = 'Inspect Pos' },
   { '<leader>uz', function() Snacks.zen() end, desc = 'Zen Mode', icon = { icon = ' ', color = 'blue' }, },
 })
 
-vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
-vim.keymap.set('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set(
   'n',
   '<leader>ur',
   '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
   { desc = 'Redraw/Clear hlsearch/Diff Update' }
 )
+
 
 vim.keymap.set('n', '<leader>cd', function()
   vim.ui.input({ prompt = 'Change Directory: ', default = vim.fn.getcwd() }, function(input)
