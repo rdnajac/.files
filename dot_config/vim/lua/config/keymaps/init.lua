@@ -4,6 +4,7 @@ require('config.keymaps.pickers')
 require('config.keymaps.toggles')
 
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
+vim.keymap.set('n', '<Cmd>', vim.show_pos, { desc = 'Inspect Pos' })
 
 require('which-key').add({
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
