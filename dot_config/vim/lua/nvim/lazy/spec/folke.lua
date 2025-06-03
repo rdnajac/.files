@@ -107,21 +107,6 @@ return {
           require('munchies.toggle').translucency():map('<leader>ub', { desc = 'Toggle Translucent Background' })
           require('munchies.toggle').virtual_text():map('<leader>uv', { desc = 'Toggle Virtual Text' })
           require('munchies.toggle').color_column():map('<leader>u\\', { desc = 'Toggle Color Column' })
-
-          local has_tsc, tsc = pcall(require, 'treesitter-context')
-          if has_tsc then
-            Snacks.toggle({
-              name = 'Treesitter Context',
-              get = tsc.enabled,
-              set = function(state)
-                if state then
-                  tsc.enable()
-                else
-                  tsc.disable()
-                end
-              end,
-            }):map('<leader>ut')
-          end
         end,
       })
     end,
