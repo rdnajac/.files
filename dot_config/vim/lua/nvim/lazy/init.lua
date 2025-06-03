@@ -10,10 +10,6 @@ require('lazy').setup({
   spec = {
     { -- https://www.lazyvim.org/news
       'LazyVim/LazyVim',
-      opts = {
-        defaults = { autocmds = false, keymaps = false },
-        news = { lazyvim = true, neovim = true },
-      },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
     },
     { import = 'nvim.lazy.spec' },
