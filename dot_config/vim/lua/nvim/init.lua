@@ -1,3 +1,3 @@
 require('nvim.lazy')
-  require('munchies.terminal').setup()
-  require('utils')
+require('munchies.terminal').setup()
+require('utils')
