@@ -10,7 +10,7 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-        'folke/tokyonight.nvim',
+      'folke/tokyonight.nvim',
       -- import = 'lazyvim.plugins'
     },
     import = 'nvim.lazy.spec',
