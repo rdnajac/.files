@@ -81,7 +81,6 @@ vim.keymap.set('n', '<leader>q', function()
 end, { desc = 'Smart Quit' })
 
 
-
 vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
   vim.cmd('noh')
   -- LazyVim.cmp.actions.snippet_stop()
