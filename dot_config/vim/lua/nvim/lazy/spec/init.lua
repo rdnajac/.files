@@ -3,6 +3,7 @@ vim.g.lazyvim_check_order = false
 -- require('lazyvim.config').init()
 require('lazyvim.util.plugin').lazy_file()
 
+
 return {
   {
     'LazyVim/LazyVim',
