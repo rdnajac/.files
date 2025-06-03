@@ -18,7 +18,6 @@ require('lazy').setup({
     },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
     },
-
     { import = 'nvim.lazy.spec' },
   },
   dev = {
