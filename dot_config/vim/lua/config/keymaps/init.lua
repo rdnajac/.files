@@ -1,4 +1,5 @@
 -- stylua: ignore start
+print(' load user keymaps')
 require('config.keymaps.escape')
 require('config.keymaps.pickers')
 require('config.keymaps.toggles')

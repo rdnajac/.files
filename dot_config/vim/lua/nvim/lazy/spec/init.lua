@@ -6,10 +6,6 @@ require('lazyvim.util.plugin').lazy_file()
 return {
   {
     'LazyVim/LazyVim',
-
-    dependancies = {
-      'folke/tokyonight.nvim',
-    },
     ---@class LazyVimOptions
     opts = {
       defaults = { autocmds = false, keymaps = false },

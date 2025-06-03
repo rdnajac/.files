@@ -7,16 +7,7 @@ else
 end
 
 require('lazy').setup({
-  spec = {
-    {
-      'LazyVim/LazyVim',
-      -- import = 'lazyvim.plugins'
-    },
-
-    'folke/tokyonight.nvim',
-    import = 'nvim.lazy.spec',
-  },
-  dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
+  spec = { 'LazyVim/LazyVim', import = 'nvim.lazy.spec' },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',
