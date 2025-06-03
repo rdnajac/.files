@@ -10,9 +10,10 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
+      { import = 'lazyvim.plugins.coding' },
+      { import = 'lazyvim.plugins.extras.editor.dial' },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
       { import = 'lazyvim.plugins.extras.ui.treesitter-context' },
-      { import = 'lazyvim.plugins.extras.editor.dial' },
     },
     'tpope/vim-abolish',
     'tpope/vim-apathy',

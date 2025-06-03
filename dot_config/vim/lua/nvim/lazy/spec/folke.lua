@@ -116,7 +116,7 @@ return {
     event = 'VeryLazy',
     opts = {
       show_help = false,
-      keys = {
+     keys = {
         scroll_down = '<C-j>',
         scroll_up = '<C-k>',
       },

@@ -13,12 +13,6 @@ return {
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')
     end,
-    dependencies = {
-      { 'RRethy/nvim-treesitter-endwise' },
-      { 'nvim-treesitter/nvim-treesitter-context', opts = {} },
-      { 'windwp/nvim-ts-autotag', opts = {} },
-      { 'folke/ts-comments.nvim', opts = {} },
-    },
     opts_extend = { 'ensure_installed' },
     opts = {
       incremental_selection = {

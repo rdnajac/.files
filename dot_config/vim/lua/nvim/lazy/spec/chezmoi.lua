@@ -9,6 +9,7 @@ return {
   },
   {
     'xvzc/chezmoi.nvim',
+    enabled = false,
     cmd = { 'ChezmoiEdit', 'ChezmoiList' },
     opts = {
       edit = {
