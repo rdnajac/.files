@@ -7,13 +7,7 @@ else
 end
 
 require('lazy').setup({
-  spec = {
-    { -- https://www.lazyvim.org/news
-      'LazyVim/LazyVim',
-      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
-    },
-    { import = 'nvim.lazy.spec' },
-  },
+  spec = { import = 'nvim.lazy.spec' , },
   dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
