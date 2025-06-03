@@ -1,4 +1,4 @@
-require('nvi.lazy')
+require('nvim.lazy')
 require('utils')
 -- § options {{{
 vim.opt.backup = true
@@ -8,7 +8,6 @@ vim.opt.pumblend = 0
 -- vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 --- }}}
-
 -- § diagnostics {{{
 vim.diagnostic.config({
   underline = false,
@@ -29,7 +28,6 @@ vim.diagnostic.config({
   },
 })
 --- }}}
-
 -- § extui {{{
 if vim.fn.has('nvim-0.12') == 1 then
   vim.opt.cmdheight = 0
@@ -41,7 +39,6 @@ if vim.fn.has('nvim-0.12') == 1 then
   })
 end
 --- }}}
-
 -- § lsp {{{
 -- Refer to :h vim.lsp.config() for more information.
 vim.lsp.config('*', {
