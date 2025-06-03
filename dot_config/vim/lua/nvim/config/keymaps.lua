@@ -2,6 +2,38 @@
 print('load user keymaps')
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 
+vim.keymap.set(
+  'n',
+  '<leader>ur',
+  '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
+  { desc = 'Redraw/Clear hlsearch/Diff Update' }
+)
+
+vim.keymap.set('n', '<leader>cd', function()
+  vim.ui.input({ prompt = 'Change Directory: ', default = vim.fn.getcwd() }, function(input)
+    if input then
+      vim.cmd('cd ' .. input)
+    end
+    vim.cmd('pwd')
+  end)
+end, { desc = 'Change Directory' })
+
+
+vim.keymap.set('n', '<leader>q', function()
+  if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
+    -- vim.cmd('bdelete')
+    Snacks.bufdelete()
+  else
+    vim.cmd('quit')
+  end
+end, { desc = 'Smart Quit' })
+
+
+vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
+  vim.cmd('noh')
+  -- LazyVim.cmp.actions.snippet_stop()
+  return '<esc>'
+end, { expr = true, desc = 'Escape and Clear hlsearch' })
 require('which-key').add({
   { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
   { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'Lazy Extras' },
@@ -56,39 +88,6 @@ require('which-key').add({
   { '<leader>ui', function() vim.show_pos() end, desc = 'Inspect Pos' },
   { '<leader>uz', function() Snacks.zen() end, desc = 'Zen Mode', icon = { icon = ' ', color = 'blue' }, },
 })
-
-vim.keymap.set(
-  'n',
-  '<leader>ur',
-  '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
-  { desc = 'Redraw/Clear hlsearch/Diff Update' }
-)
-
-vim.keymap.set('n', '<leader>cd', function()
-  vim.ui.input({ prompt = 'Change Directory: ', default = vim.fn.getcwd() }, function(input)
-    if input then
-      vim.cmd('cd ' .. input)
-    end
-    vim.cmd('pwd')
-  end)
-end, { desc = 'Change Directory' })
-
-
-vim.keymap.set('n', '<leader>q', function()
-  if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
-    -- vim.cmd('bdelete')
-    Snacks.bufdelete()
-  else
-    vim.cmd('quit')
-  end
-end, { desc = 'Smart Quit' })
-
-
-vim.keymap.set({ 'i', 'n', 's' }, '<esc>', function()
-  vim.cmd('noh')
-  -- LazyVim.cmp.actions.snippet_stop()
-  return '<esc>'
-end, { expr = true, desc = 'Escape and Clear hlsearch' })
 
 -- stylua: ignore
 require('which-key').add({
@@ -190,5 +189,4 @@ end
 
 require('which-key').add({
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard' },
-
 })
