@@ -4,6 +4,7 @@ require('lazyvim.util.plugin').lazy_file()
 return {
   {
     'LazyVim/LazyVim',
+    version = false,
     init = function()
       vim.g.lazyvim_check_order = false
     end,

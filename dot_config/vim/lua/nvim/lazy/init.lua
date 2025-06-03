@@ -10,11 +10,19 @@ require('lazy').setup({
   spec = {
     {
       'LazyVim/LazyVim',
-      { import = 'lazyvim.plugins.extras' }
+      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+      { import = 'lazyvim.plugins.extras.ui.treesitter-context' },
     },
+    'tpope/vim-abolish',
+    'tpope/vim-apathy',
+    'tpope/vim-fugitive',
+    'tpope/vim-repeat',
+    'tpope/vim-surround',
+    'tpope/vim-tbone',
+    'tpope/vim-unimpaired',
     {
       import = 'nvim.lazy.spec',
-    }
+    },
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
