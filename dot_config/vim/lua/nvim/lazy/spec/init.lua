@@ -13,7 +13,7 @@ local opts = {
     neovim = true,
   },
 }
-require("lazyvim.config ").setup(opts)
+require("lazyvim.config").setup(opts)
 require("lazyvim.config").init()
 
 return {
