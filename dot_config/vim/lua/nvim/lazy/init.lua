@@ -22,9 +22,11 @@ require('lazy').setup({
     'tpope/vim-surround',
     'tpope/vim-tbone',
     'tpope/vim-unimpaired',
+    'stevearc/oil.nvim',
     {
       import = 'nvim.lazy.spec',
     },
+    { 'nvim-lua/plenary.nvim', lazy = true },
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {

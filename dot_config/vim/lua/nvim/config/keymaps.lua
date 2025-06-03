@@ -192,4 +192,5 @@ require('which-key').add({
   { '\\a', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/autocmds.lua') end },
   { '\\o', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/options.lua') end },
   { '\\k', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/keymaps.lua') end },
+  { '\\l', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/lazy/init.lua') end },
 })
