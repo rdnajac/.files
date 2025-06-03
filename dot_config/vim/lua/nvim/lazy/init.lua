@@ -10,7 +10,7 @@ require('nvim.lazy.hacks')
 require('lazy').setup({
   spec = { import = 'nvim.lazy.spec' },
   dev = {
-     path = vim.fn.stdpath('data') .. '/pack/vimfect/start',
+     path = vim.fn.stdpath('config') .. '/pack/vimfect/start',
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
