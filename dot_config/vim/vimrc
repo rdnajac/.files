@@ -146,10 +146,28 @@ augroup END
 
 " }}}1
 
-
 " § commands {{{1
 command! -bar -bang -nargs=+ Chmod execute bin#chmod#chmod(<bang>0, <f-args>)
 command! -bar -bang          Delete call bin#delete#delete(<bang>0)
+
+" current file
+command CDC cd %:p:h
+" parent directory
+command CDP cd %:p:h:h
+
+command! BreakHere call utils#breakHere()
+command! ReplaceSelection call utils#replaceSelection()
+command! CleanWhitespace call format#whitespace()
+nmap <leader>fw <cmd>CleanWhitespace<CR>
+
+nnoremap <space>j <Cmd>BreakHere<CR>
+vnoremap <C-r> <cmd>ReplaceSelection<CR>
+
+" nnoremap Q <Cmd>call format#buffer()<CR>
+
+command! -range SendVisual <line1>,<line2>call ooze#sendvisual()
+
+" }}}
 
 " § keymaps {{{1
 nnoremap <leader>a :normal! ggVG<CR>
