@@ -7,9 +7,23 @@ else
 end
 
 require('lazy').setup({
-  spec = { import = 'nvim.lazy.spec' },
+  spec = {
+    { -- https://www.lazyvim.org/news
+      'LazyVim/LazyVim',
+      dev = true,
+    -- stylua: ignore
+    keys = {
+      { 'gL', function() require('nvim.lazy.goto') end, { desc = 'Goto LazyVim module' }, },
+      { '<leader>l', '<Cmd>Lazy<CR>', desc = 'Lazy' },
+      { '<leader>L', '<Cmd>LazyExtras<CR>', desc = 'LazyExtras' },
+    },
+      { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
+    },
+
+    { import = 'nvim.lazy.spec' },
+  },
   dev = {
-     path = vim.fn.stdpath('config') .. '/pack/vimfect/start',
+    path = vim.fn.stdpath('config') .. '/pack/vimfect/start',
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
