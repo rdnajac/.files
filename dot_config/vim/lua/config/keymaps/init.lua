@@ -3,10 +3,13 @@ require('config.keymaps.escape')
 require('config.keymaps.pickers')
 require('config.keymaps.toggles')
 
+
 vim.keymap.set('n', 'zS', vim.show_pos, { desc = 'Inspect Pos' })
 vim.keymap.set('n', '<Cmd>', vim.show_pos, { desc = 'Inspect Pos' })
 
 require('which-key').add({
+  { '<leader>R', '<Cmd>restart<CR>', desc = 'Restart Neovim', icon = { icon = '' } },
+
   { '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer', },
   { '<leader>>', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer', },
   -- { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History', },
@@ -63,7 +66,6 @@ vim.keymap.set(
   '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
   { desc = 'Redraw/Clear hlsearch/Diff Update' }
 )
-
 
 vim.keymap.set('n', '<leader>cd', function()
   vim.ui.input({ prompt = 'Change Directory: ', default = vim.fn.getcwd() }, function(input)
