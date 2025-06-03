@@ -25,6 +25,7 @@ return {
   },
   { -- https://github.com/folke/snacks.nvim?tab=readme-ov-file#-features
     'folke/snacks.nvim',
+    lazy = false,
     priority = 1000,
     opts = {
       bigfile = { enabled = true },
