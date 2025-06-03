@@ -15,9 +15,7 @@ require('lazy').setup({
     },
     { import = 'nvim.lazy.spec' },
   },
-  dev = {
-    path = vim.fn.stdpath('config') .. '/pack/vimfect/start',
-  },
+  dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start', },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',
@@ -44,18 +42,5 @@ require('lazy').setup({
       },
     },
   },
-
   profiling = { loader = false, require = false },
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'VeryLazy',
-  callback = function()
-    require('config.options')
-    require('config.keymaps')
-    require('config.autocmds')
-    require('munchies.terminal').setup()
-    require('utils')
-    vim.cmd([[ colorscheme tokyonight ]])
-  end,
 })
