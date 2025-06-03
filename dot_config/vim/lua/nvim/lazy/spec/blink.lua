@@ -38,8 +38,11 @@ return {
           },
         },
       },
+      -- stylua: ignore
       keymap = {
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        [',s'] = { function(cmp) cmp.show({ providers = { 'snippets' } }) end },
+        [',l'] = { function(cmp) cmp.show({ providers = { 'lazydev' } }) end },
         ['<C-e>'] = { 'hide', 'fallback' },
         ['<Tab>'] = {
           function(cmp)
