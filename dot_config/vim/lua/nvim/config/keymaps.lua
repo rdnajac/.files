@@ -63,7 +63,7 @@ require('which-key').add({
   { '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer', },
 
   { '<leader>f', group = 'file/find' },
-  { '<leader>fc', function() require("munchies.picker").chezmoi() end, desc = 'Chezmoi', },
+  { '<leader>fc', function() LazyVim.pick.config_files() end, desc = 'Config Files', },
   { '<leader>fC', function() Snacks.rename.rename_file() end, desc = 'Change (rename) File on disk', },
 
   { '<leader>s', group = 'search/grep' },
