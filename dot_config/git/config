@@ -47,4 +47,3 @@
 	editcommit = commit --amend
 	logg = log --color --oneline -a --graph
 	tree = log --graph --oneline --all --decorate
-	plug = "!f() { git clone --depth=1 \"$1\"; }; f"
