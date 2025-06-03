@@ -12,6 +12,6 @@ return {
       defaults = { autocmds = false, keymaps = false, },
       news = { lazyvim = true, neovim = true, },
     },
-  }
+  },
   { 'nvim-lua/plenary.nvim', lazy = true },
 }
