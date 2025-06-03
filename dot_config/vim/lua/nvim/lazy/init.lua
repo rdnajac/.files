@@ -48,7 +48,6 @@ require('lazy').setup({
   profiling = { loader = false, require = false },
 })
 
-vim.opt.cmdheight = 0
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
   callback = function()
