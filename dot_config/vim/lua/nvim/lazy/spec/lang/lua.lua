@@ -20,11 +20,11 @@ return {
         local mod = dofile(lazydev_path .. '/lua/lazydev/lsp.lua')
         local orig_supports = mod.supports
         mod.supports = function(client)
+          dd(client.name)
           -- correcrly identify the name of the lsp client
           if client and vim.tbl_contains({ 'luals' }, client.name) then
             return true
           end
-          dd('in supports')
           return orig_supports(client)
         end
         return mod
