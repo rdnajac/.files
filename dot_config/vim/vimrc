@@ -146,7 +146,7 @@ augroup END
 augroup vimrc " {{{
   autocmd!
   " when we read $MYVIMRC, apply the marks from vim#vimrcmarks()
-autocmd BufReadPost vimrc call vim#vimrcmarks()
+  autocmd BufReadPost vimrc call vim#vimrcmarks()
 augroup END
 
 " }}}1
@@ -319,22 +319,22 @@ else
     lua require('nvim')
     let g:loaded_nvim = 1
   endif
-    let g:ale_disable_lsp = 1
-    let g:ale_use_neovim_diagnostics_api = 1
+  let g:ale_disable_lsp = 1
+  let g:ale_use_neovim_diagnostics_api = 1
 endif
 " }}}
 
 let g:copilot_workspace_folders = ['~/GitHub', '~/.local/share/chezmoi/']
 
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'lua': ['stylua'],
-\}
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'lua': ['stylua'],
+      \}
 let g:ale_fix_on_save = 0
 let g:ale_completion_enabled = 0
 let g:ale_linters = {
-\   'lua': ['lua_language_server'],
-\}
+      \   'lua': ['lua_language_server'],
+      \}
 let g:ale_linters_explicit = 1
 let g:ale_virtualtext_cursor = 'current'
 " let g:ale_set_highlights = 0
