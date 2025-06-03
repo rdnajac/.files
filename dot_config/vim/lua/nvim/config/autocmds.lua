@@ -1,3 +1,4 @@
+print('load user autocmds')
 local aug = function(aug)
   vim.api.nvim_create_augroup('nvim_' .. aug, { clear = true })
 end

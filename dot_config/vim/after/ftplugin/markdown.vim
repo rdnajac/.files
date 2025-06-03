@@ -1,4 +1,5 @@
 " after/ftplugin/markdown.vim
+hi clear RenderMarkdownCode 
 let g:markdown_fenced_languages = ['sh', 'cpp', 'cuda', 'python', 'vim', 'lua', 'r']
 
 if executable('prettier')

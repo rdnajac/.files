@@ -22,7 +22,7 @@ require('lazy').setup({
   rocks = { enabled = false },
   change_detection = { enabled = true, notify = false },
   performance = {
-    reset_packpath = false,
+    reset_packpath = true,
     rtp = {
       reset = false,
       disabled_plugins = {
