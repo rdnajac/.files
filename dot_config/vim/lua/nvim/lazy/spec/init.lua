@@ -5,7 +5,6 @@ require('lazyvim.config').init()
 return {
   {
     'LazyVim/LazyVim',
-
     ---@class LazyVimOptions
     opts = {
       defaults = { autocmds = false, keymaps = false, },
