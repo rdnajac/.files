@@ -14,7 +14,7 @@ vim.g.lazyvim_check_order = false
 --   },
 -- }
 -- require('lazyvim.config').setup(opts)
-require('lazyvim.config').init()
+-- require('lazyvim.config').init()
 
 return {
   { 'nvim-lua/plenary.nvim', lazy = true },
