@@ -11,14 +11,14 @@ require('lazy').setup({
     { -- https://www.lazyvim.org/news
       'LazyVim/LazyVim',
       opts = {
-      defaults = { autocmds = false, keymaps = false },
-  news = { lazyvim = true, neovim = true, },
-},
+        defaults = { autocmds = false, keymaps = false },
+        news = { lazyvim = true, neovim = true },
+      },
       { import = 'lazyvim.plugins.extras.util.mini-hipatterns' },
     },
     { import = 'nvim.lazy.spec' },
   },
-  dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start', },
+  dev = { path = vim.fn.stdpath('config') .. '/pack/vimfect/start' },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
     border = 'rounded',
