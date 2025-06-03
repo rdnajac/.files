@@ -5,7 +5,7 @@ let g:mapleader = ' '
 let g:maplocalleader = '\'
 
 let s:VIMHOME = expand('$HOME/.config/vim//')
-let g:plug_home = s:VIMHOME . '.plugged//'
+let g:plug_home = s:VIMHOME . './pack/plugged//'
 let &spellfile  = s:VIMHOME . '.spell/en.utf-8.add'
 
 if !has('nvim')
