@@ -1,6 +1,6 @@
-" WARNING: make sure its compatible!
 runtime! after/ftplugin/vim.vim
 
+setlocal foldmethod=syntax
 setlocal expandtab
 setlocal formatprg=stylua\ --search-parent-directories\ -
 
