@@ -26,7 +26,6 @@ require('lazy').setup({
     {
       import = 'nvim.lazy.spec',
     },
-    { 'nvim-lua/plenary.nvim', lazy = true },
   },
   install = { colorscheme = { 'tokyonight' } },
   ui = {
