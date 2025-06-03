@@ -169,7 +169,7 @@ end
 
 --- Edit a file if it is readable, otherwise optionally display a warning.
 --- @param file string: The path to the file to edit.
---- @param should_warn boolean: Whether to warn if the file is not found.
+--- @param should_warn? boolean: Whether to warn if the file is not found.
 --- @return boolean: True if the file was successfully edited, false otherwise.
 local function edit(file, should_warn)
   if vim.fn.filereadable(file) == 1 then
@@ -189,4 +189,7 @@ end
 
 require('which-key').add({
   { '\\\\', function() Snacks.dashboard.open() end, desc = 'Open Snacks Dashboard' },
+  { '\\a', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/autocmds.lua') end },
+  { '\\o', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/options.lua') end },
+  { '\\k', function() edit(vim.fn.stdpath('config') .. '/lua/nvim/config/keymaps.lua') end },
 })
