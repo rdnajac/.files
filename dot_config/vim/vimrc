@@ -159,7 +159,7 @@ nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'Reloaded config!'<CR>
 nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
 
 nnoremap <leader>ft <Cmd>execute 'edit ' . fnamemodify($MYVIMRC, ':p:h') . '/after/ftplugin/' . &ft . '.vim'<CR>
-nnoremap <leader>fd <Cmd>Delete!<CR>
+nnoremap <leader>fD <Cmd>Delete!<CR>
 
 nmap <C-c> ciw
 vmap <C-s> :sort<CR>
