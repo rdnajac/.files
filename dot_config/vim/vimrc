@@ -152,9 +152,9 @@ command! -bar -bang -nargs=+ Chmod execute bin#chmod#chmod(<bang>0, <f-args>)
 command! -bar -bang          Delete call bin#delete#delete(<bang>0)
 
 " § keymaps {{{1
+nnoremap <leader>a :normal! ggVG<CR>
 nnoremap <leader>K <Cmd>norm! K<CR>
 nnoremap <leader>Q <Cmd>qa<CR>
-nnoremap <leader>a :normal! ggVG<CR>
 nnoremap <leader>r <Cmd>source $MYVIMRC <Bar> echom 'Reloaded config!'<CR>
 nnoremap <leader>v <Cmd>edit $MYVIMRC<CR>
 nnoremap <leader>w <Cmd>write<CR>
