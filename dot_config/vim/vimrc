@@ -143,6 +143,9 @@ augroup SetLocalPath " {{{
 	\ exec "set path^=" . s:tempPath |
 	\ exec "set path^=" . s:default_path
 augroup END
+augroup vimrc " {{{
+  autocmd!
+  " when we read $MYVIMRC, apply the marks from vim#curso
 
 " }}}1
 

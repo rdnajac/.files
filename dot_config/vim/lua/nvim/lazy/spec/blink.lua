@@ -89,6 +89,8 @@ return {
             and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, node:type())
           then
             return default_sources
+          elseif vim.bo.filetype == 'vim' then
+            return { 'path', 'snippets', 'copilot', 'lsp', 'emoji', 'env' }
           elseif vim.bo.filetype == 'lua' then
             return { 'path', 'lazydev', 'snippets', 'copilot' }
           elseif vim.bo.filetype == 'sh' then
