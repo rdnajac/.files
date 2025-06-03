@@ -25,6 +25,7 @@ return {
           if client and vim.tbl_contains({ 'luals' }, client.name) then
             return true
           end
+          dd('in supports')
           return orig_supports(client)
         end
         return mod
