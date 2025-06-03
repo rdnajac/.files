@@ -38,7 +38,8 @@ return {
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },
-      statuscolumn = { left = { 'sign' }, right = { 'git' } },
+      statuscolumn = { enabled = true },
+      -- statuscolumn = { left = { 'sign' }, right = { 'git' } },
       terminal = {
         start_insert = true,
         auto_insert = false,
