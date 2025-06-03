@@ -17,10 +17,10 @@ return {
       },
     },
     init = function()
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufWritePost' }, {
-  pattern = os.getenv('HOME') .. '/.config/vim/*',
-  command = '!chezmoi add %',
-})
+      vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufWritePost' }, {
+        pattern = os.getenv('HOME') .. '/.config/vim/*',
+        command = '!chezmoi add %',
+      })
       -- run chezmoi edit on file enter
       vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
         pattern = { os.getenv('HOME') .. '/.local/share/chezmoi/*' },
