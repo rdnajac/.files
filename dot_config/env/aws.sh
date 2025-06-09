@@ -1,3 +1,16 @@
+# Aliases for AWS S3 commands
+alias s3ls='aws s3 ls'
+alias s3cp='aws s3 cp'
+alias s3rm='aws s3 rm'
+alias s3mv='aws s3 mv'
+alias s3sync='aws s3 sync'
+
+# exit if not zsh
+if $SHELL != "zsh"; then
+  echo "Skipping aws zsh completion setup: not using zsh shell."
+  return 1
+fi
+
 # Set cache location
 mkdir -p "$ZSH_CACHE_DIR/aws-s3"
 
@@ -31,13 +44,6 @@ _aws_s3_complete() {
     compadd -W "s3://" -a buckets
   fi
 }
-
-# Aliases for AWS S3 commands
-alias s3ls='aws s3 ls'
-alias s3cp='aws s3 cp'
-alias s3rm='aws s3 rm'
-alias s3mv='aws s3 mv'
-alias s3sync='aws s3 sync'
 
 # Register completion for each alias
 compdef _aws_s3_complete s3ls
