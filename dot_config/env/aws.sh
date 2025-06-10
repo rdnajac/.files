@@ -6,7 +6,7 @@ alias s3mv='aws s3 mv'
 alias s3sync='aws s3 sync'
 
 # exit if not zsh
-if $SHELL != "zsh"; then
+if [ "${SHELL##*/}" != "zsh" ]; then
   echo "Skipping aws zsh completion setup: not using zsh shell."
   return 1
 fi
