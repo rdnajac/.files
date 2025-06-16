@@ -1,0 +1,10 @@
+command = /opt/homebrew/bin/tmux new-session -A -s ghostty
+theme = tokyonight_night
+background = #000000
+# background-opacity = .8
+# background-blur = true
+
+font-feature = -calt, -liga, -dlig
+font-size = 13
+
+window-decoration = none

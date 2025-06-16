@@ -1,0 +1,15 @@
+#!/bin/sh
+## Install packages with their respective package managers.
+
+{{ if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
+sudo apt update
+sudo apt install -y \
+{{- range .packages.apt.packages }}
+  {{ . }} \
+{{- end }}
+{{ end }}
+
+cargo install --locked \
+{{- range .packages.cargo.crates }}
+  {{ . }} \
+{{- end }}

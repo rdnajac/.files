@@ -1,0 +1,49 @@
+[user]
+	email = ryan.najac@columbia.edu
+	name = Ryan D. Najac
+	username = rdnajac
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	excludesfile = {{ .chezmoi.destDir }}/.config/git/ignore
+
+[credential "https://github.com"]
+	helper =
+	helper = !{{ lookPath "gh" }} auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !{{ lookPath "gh" }} auth git-credential
+
+[pull]
+	rebase = false
+
+[mergetool]
+	prompt = false
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[diff]
+	tool = vimdiff
+
+[mergetool "vimdiff"]
+	layout = LOCAL,MERGED,REMOTE
+
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+	uncommit = reset HEAD~1
+	recommit = commit --amend --no-edit
+	undo = reset --soft HEAD^
+	editcommit = commit --amend
+	logg = log --color --oneline -a --graph
+	tree = log --graph --oneline --all --decorate

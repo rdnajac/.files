@@ -1,0 +1,29 @@
+#!/bin/sh
+## Extract various archive formats.
+
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <archive>" >&2
+	exit 1
+fi
+
+archive=$1
+
+if [ ! -f "$archive" ]; then
+	echo "$0: file not found: $archive" >&2
+	exit 1
+fi
+
+case "$archive" in
+*.tar.gz | *.tgz) tar -xvzf "$archive" ;;
+*.tar.bz2) tar -xvjf "$archive" ;;
+*.tar.xz) tar -xvJf "$archive" ;;
+*.tar) tar -xvf "$archive" ;;
+*.gz) gunzip "$archive" ;;
+*.zip) unzip "$archive" ;;
+*.rar) unrar x "$archive" ;;
+*.7z) 7z x "$archive" ;;
+*)
+	echo "$0: unknown or unsupported file type: $archive" >&2
+	exit 1
+	;;
+esac

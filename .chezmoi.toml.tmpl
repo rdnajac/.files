@@ -1,0 +1,32 @@
+#, ~/.local/share/chezmoi/.chezmoi.toml.tmpl
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{ end }}
+
+[data]
+  osid = {{ $osid | quote }}
+
+[git]
+  autoAdd = true
+  autoCommit = true
+  autoPush = false
+
+[add]
+  apply = true
+
+[edit]
+  apply = true
+
+[update]
+  apply = true
+
+[merge]
+  command = "nvim -d"
+
+# Use your actual dotfiles repo location
+sourceDir = "{{ .chezmoi.sourceDir }}"
+destinationDir = "{{ .chezmoi.destDir }}"
+
+progress = true
+verbose = true
