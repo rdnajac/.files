@@ -24,5 +24,7 @@ crates = [
   "fd-find",
   "pokeget",
   "ripgrep",
+  "yazi-cli",
+  "yazi-fm",
   "zoxide"
 ]
