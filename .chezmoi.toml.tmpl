@@ -9,7 +9,7 @@
 
 {{- $email := "your@email.com" -}}
 {{- if hasKey . "email" -}}
-{{-   $email = .email -}}
+{{-  $email = .email -}}
 {{- else if $interactive -}}
 {{-   $email = promptString "email" $email -}}
 {{- end -}}
