@@ -1,32 +1,52 @@
-#, ~/.local/share/chezmoi/.chezmoi.toml.tmpl
+{{- $interactive := stdinIsATTY -}}
+
+{{- $name := "Your Name" -}}
+{{- if hasKey . "name" -}}
+{{-   $name = .name -}}
+{{- else if $interactive -}}
+{{-   $name = promptString "name" $name -}}
+{{- end -}}
+
+{{- $email := "your@email.com" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- else if $interactive -}}
+{{-   $email = promptString "email" $email -}}
+{{- end -}}
+
+{{- if $interactive -}}
+{{-   writeToStdout "💡 Tip: you can re-enter your name and email with `chezmoi init --data=false`.\n" -}}
+{{- end }}
+
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
-{{ end }}
+{{- end }}
 
 [data]
-  osid = {{ $osid | quote }}
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+osid = {{ $osid | quote }}
 
 [git]
-  autoAdd = true
-  autoCommit = true
-  autoPush = false
+autoAdd = true
+autoCommit = false
+autoPush = false
 
 [add]
-  apply = true
+apply = true
 
 [edit]
-  apply = true
+apply = true
 
 [update]
-  apply = true
+apply = true
 
 [merge]
-  command = "nvim -d"
+command = "nvim -d"
 
-# Use your actual dotfiles repo location
-sourceDir = "{{ .chezmoi.sourceDir }}"
-destinationDir = "{{ .chezmoi.destDir }}"
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+destinationDir = {{ .chezmoi.destDir | quote }}
 
 progress = true
 verbose = true
