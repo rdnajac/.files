@@ -1,9 +1,0 @@
-**/tags
-.backup/
-.lazy-lock.json
-.plugged/
-.spell/
-.swap/
-.undo/
-.viminfo
-.vimlog.txt
