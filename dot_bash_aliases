@@ -98,6 +98,14 @@ if installed quarto; then
 	alias qr='quarto render'
 fi
 
+if installed aws; then
+	alias s3ls='aws s3 ls'
+	alias s3cp='aws s3 cp'
+	alias s3rm='aws s3 rm'
+	alias s3mv='aws s3 mv'
+	alias s3sync='aws s3 sync'
+fi
+
 # alias tmux='tmux -2'
 installed tmux && alias kms='tmux kill-server'
 

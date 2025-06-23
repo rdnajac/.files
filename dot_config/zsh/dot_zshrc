@@ -99,3 +99,4 @@ micromamba activate cbmf 2>/dev/null || true
 eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+# vim ft=zsh fdm=marker fdl = 0
