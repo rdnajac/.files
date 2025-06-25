@@ -9,6 +9,7 @@ sudo apt install -y \
 {{- end }}
 {{ end }}
 
+. "$HOME/.cargo/env"
 cargo install --locked \
 {{- range .packages.cargo.crates }}
   {{ . }} \
