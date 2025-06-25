@@ -1,16 +1,17 @@
+{{- if and (not .ephemeral) (not .headless) -}}
 #!/bin/sh
 ## Install packages with their respective package managers.
-
-{{ if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
+{{- if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
 sudo apt update
 sudo apt install -y \
-{{- range .packages.apt.packages }}
-  {{ . }} \
+  {{- range .packages.apt.packages }}
+    {{ . }} \
+  {{- end }}
 {{- end }}
-{{ end }}
 
 . "$HOME/.cargo/env"
 cargo install --locked \
-{{- range .packages.cargo.crates }}
-  {{ . }} \
+  {{- range .packages.cargo.crates }}
+    {{ . }} \
+  {{- end }}
 {{- end }}

@@ -1,7 +1,0 @@
-#!/bin/sh
-## Install fzf with its installer script.
-{{ if ne .chezmoi.os "darwin" }}
-git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/src/fzf"
-"$HOME/src/fzf/install" --bin
-cp "$HOME/src/fzf/bin/fzf" "$HOME/.local/bin/fzf"
-{{ end }}

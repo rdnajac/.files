@@ -1,22 +1,53 @@
-{{- $interactive := stdinIsATTY -}}
-{{- $codespaces := env "CODESPACES" | not | not -}}
+{{/* https://github.com/twpayne/dotfiles/blob/master/home/.chezmoi.toml.tmpl */}}
+{{/* boolean feature tags */}}
+{{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
+{{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
+{{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
+{{- $work := false -}}{{/* true if this machine is a work machine */}}
+{{- "" -}}
+
+{{- $osID := .chezmoi.os -}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
+{{-   $osID = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{/* detect GitHub codespaces, VSCode remote containers, Docker containers, Multipass VMs, and Vagrant boxes */}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+{{-   $ephemeral = true -}}
+{{-   $headless = true -}}
+{{- end -}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $hostname = output "scutil" "--get" "LocalHostName" | trim -}}
+{{- end -}}
+
+{{- if not $ephemeral -}}
+{{-   if eq $hostname "Ryans-MacBook-Air" -}}
+{{-     $personal = true -}}
+{{-   else if eq $hostname "GPU-PC" -}}
+{{-     $work = true -}}
+{{-   else if eq $hostname "ubuntu" -}}
+{{-     $headless = true -}}
+{{-     $personal = true -}}
+{{-   else if stdinIsATTY -}}
+{{-     $headless = promptBoolOnce . "headless" "headless" -}}
+{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
+{{-     $work = promptBoolOnce . "work" "work" -}}
+{{-   else -}}
+{{-     $ephemeral = true -}}
+{{-     $headless = true -}}
+{{-   end -}}
+{{- end -}}
 
 {{- $name := "Ryan D. Najac" -}}
-{{- if and $interactive (not $codespaces) -}}
-  {{- $name = promptString "name" $name -}}
-{{- else if hasKey . "name" -}}
-  {{- $name = .name -}}
-{{- end -}}
+{{- $email := "rdn2108@columbia.edu" -}}
 
-{{- $email := "rdn2108@cumc.columbia.edu" -}}
-{{- if and $interactive (not $codespaces) -}}
-  {{- $email = promptString "email" $email -}}
-{{- else if hasKey . "email" -}}
-  {{- $email = .email -}}
-{{- end -}}
-
-{{- if and $interactive (not $codespaces) -}}
-{{-   writeToStdout "💡 Tip: you can re-enter your name and email with `chezmoi init --data=false`.\n" -}}
+{{- if $work }}
+{{-   $email = "rdn2108@cumc.columbia.edu" -}}
+{{- else if $personal -}}
+{{-   $email = "ryan.najac@columbia.edu" -}}
 {{- end -}}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
@@ -25,15 +56,14 @@ progress = true
 verbose = true
 
 [data]
-  name = {{ $name | quote }}
-  email = {{ $email | quote }}
-  codespaces = {{ $codespaces }}
-
-{{- $osid := .chezmoi.os -}}
-{{- if hasKey .chezmoi.osRelease "id" -}}
-{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
-{{- end }}
-  osid = {{ $osid | quote }}
+email = {{ $email | quote }}
+ephemeral = {{ $ephemeral }}
+headless = {{ $headless }}
+hostname = {{ $hostname | quote }}
+name = {{ $name | quote }}
+osid = {{ $osID | quote }}
+personal = {{ $personal }}
+work = {{ $work }}
 
 [git]
 autoAdd = true
@@ -51,3 +81,4 @@ apply = true
 
 [merge]
 command = "nvim -d"
+
