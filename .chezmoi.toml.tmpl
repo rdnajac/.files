@@ -1,32 +1,39 @@
 {{- $interactive := stdinIsATTY -}}
+{{- $codespaces := env "CODESPACES" | not | not -}}
 
-{{- $name := "Your Name" -}}
-{{- if hasKey . "name" -}}
-{{-   $name = .name -}}
-{{- else if $interactive -}}
-{{-   $name = promptString "name" $name -}}
+{{- $name := "Ryan D. Najac" -}}
+{{- if and $interactive (not $codespaces) -}}
+  {{- $name = promptString "name" $name -}}
+{{- else if hasKey . "name" -}}
+  {{- $name = .name -}}
 {{- end -}}
 
-{{- $email := "your@email.com" -}}
-{{- if hasKey . "email" -}}
-{{-  $email = .email -}}
-{{- else if $interactive -}}
-{{-   $email = promptString "email" $email -}}
+{{- $email := "rdn2108@cumc.columbia.edu" -}}
+{{- if and $interactive (not $codespaces) -}}
+  {{- $email = promptString "email" $email -}}
+{{- else if hasKey . "email" -}}
+  {{- $email = .email -}}
 {{- end -}}
 
-{{- if $interactive -}}
+{{- if and $interactive (not $codespaces) -}}
 {{-   writeToStdout "💡 Tip: you can re-enter your name and email with `chezmoi init --data=false`.\n" -}}
-{{- end }}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+destinationDir = {{ .chezmoi.destDir | quote }}
+progress = true
+verbose = true
+
+[data]
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
+  codespaces = {{ $codespaces }}
 
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end }}
-
-[data]
-name = {{ $name | quote }}
-email = {{ $email | quote }}
-osid = {{ $osid | quote }}
+  osid = {{ $osid | quote }}
 
 [git]
 autoAdd = true
@@ -44,9 +51,3 @@ apply = true
 
 [merge]
 command = "nvim -d"
-
-sourceDir = {{ .chezmoi.sourceDir | quote }}
-destinationDir = {{ .chezmoi.destDir | quote }}
-
-progress = true
-verbose = true
