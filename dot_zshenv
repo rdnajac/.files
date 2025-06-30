@@ -1,4 +1,4 @@
-echo 'sourcing zshenv'
+# echo 'sourcing zshenv'
 # Define XDG Base Directories in case they are not set
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"

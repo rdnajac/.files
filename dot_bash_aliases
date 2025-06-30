@@ -64,7 +64,7 @@ if installed git; then
 	alias gcam='git commit -am'
 	alias gcl='git clone'
 	alias gp='git push'
-	alias gs='git status'
+	alias gs='git status -sb'
 	alias gd='git diff'
 	alias gl='git log'
 	alias gba='git branch -a'

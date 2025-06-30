@@ -24,6 +24,7 @@
 [mergetool]
 	prompt = false
 
+# TODO use `nvim -d`
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
@@ -47,3 +48,6 @@
 	editcommit = commit --amend
 	logg = log --color --oneline -a --graph
 	tree = log --graph --oneline --all --decorate
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v

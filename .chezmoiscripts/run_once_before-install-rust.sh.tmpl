@@ -1,4 +1,4 @@
-{{- if and (not .ephemeral) (not .headless) }}
+{{- if and (not .ephemeral) (not .headless) -}}
 #!/bin/sh
 ## Install rust using rustup if it is not already installed.
 if ! command -v cargo > /dev/null; then
