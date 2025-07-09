@@ -4,8 +4,8 @@
 {{ if or .headless .ephemeral }}
 export DEBIAN_FRONTEND=noninteractive
 {{ end }}
-sudo apt update
-sudo apt install -y \
+apt-get update -y
+apt-get install -y --no-install-recommends \
   {{- range .packages.apt.packages }}
     {{ . }} \
   {{- end }}
