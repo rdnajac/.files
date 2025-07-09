@@ -1,6 +1,9 @@
 #!/bin/sh
 ## Install packages with their respective package managers.
 {{- if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
+{{ if or .headless .ephemeral }}
+export DEBIAN_FRONTEND=noninteractive
+{{ end }}
 sudo apt update
 sudo apt install -y \
   {{- range .packages.apt.packages }}
