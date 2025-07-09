@@ -1,4 +1,4 @@
-[packages.apt]
+[apt]
 packages = [
   "build-essential",
   "cmake",
@@ -14,17 +14,4 @@ packages = [
   "rsync",
   "tmux",
   "vim",
-]
-
-[packages.cargo]
-crates = [
-  "bat",
-  "cargo-update",
-  "eza",
-  "fd-find",
-  "pokeget",
-  "ripgrep",
-  "yazi-cli",
-  "yazi-fm",
-  "zoxide"
 ]

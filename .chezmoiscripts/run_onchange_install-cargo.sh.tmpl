@@ -1,0 +1,16 @@
+{{- if and (not .ephemeral) (not .headless) -}}
+#!/bin/sh
+## checksum of crates.toml: {{ include ".chezmoidata/crates.toml" | sha256sum }}
+
+if ! command -v cargo > /dev/null; then
+  echo "Installing Rust..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+. "$HOME/.cargo/env"
+
+if command -v cargo > /dev/null; then
+  echo "Installing cargo crates..."
+  cargo install --jobs $(nproc) --locked{{- range .cargo.crates }} {{ . }}{{- end }}
+fi
+{{- end }}

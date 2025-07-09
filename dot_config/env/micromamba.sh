@@ -7,4 +7,3 @@ else
     alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
 fi
 unset __mamba_setup
-

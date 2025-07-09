@@ -11,13 +11,18 @@ nv() {
 			realpath "$1" 2>/dev/null || readlink -f "$1" 2>/dev/null
 		}
 
+		fallback_path() {
+			printf "%s/%s" "$(pwd)" "$1"
+		}
+
 		resolved_args=()
 		for arg in "$@"; do
-			resolved_path=$(resolve_path "$arg") || {
-				echo "warning: '$arg' skipped, parent dir missing" >&2
-				continue
-			}
-			resolved_args+=("$resolved_path")
+			resolved_path=$(resolve_path "$arg")
+			if [ "$resolved_path" != "" ]; then
+				resolved_args+=("$resolved_path")
+			else
+				resolved_args+=("$(fallback_path "$arg")")
+			fi
 		done
 
 		nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
@@ -26,7 +31,7 @@ nv() {
 	fi
 }
 
-# send 
+# send
 nvr() {
 	nvim --headless --noplugin --server "$NVIM_SOCK" --remote-expr "$1"
 }
