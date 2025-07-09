@@ -1,4 +1,6 @@
 # Set cache location
+export ZSH_CACHE_DIR="${ZSH_CACHE_DIR:-$HOME/.cache/zsh}"
+
 mkdir -p "$ZSH_CACHE_DIR/aws-s3"
 
 # Update cache: list buckets and keys
