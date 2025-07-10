@@ -36,7 +36,7 @@ alias lock='chmod -w'   # make a file read-only
 alias chx='chmod u+x'   # make a file executable
 
 # function to check if a command exists
-installed() { command -v "$1" > /dev/null 2>&1; }
+installed() { command -v "$1" >/dev/null 2>&1; }
 
 if installed micromamba; then
 	alias conda='micromamba'
@@ -56,6 +56,11 @@ alias zz=fg
 
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
+alias zr='$VISUAL $ZDOTDIR'
+alias ba='$VISUAL $HOME/.bash_aliases'
+alias vvv='cd $HOME/.vim/'
+alias nvv='cd $XDG_CONFIG_HOME/nvim/lua'
+alias tmx='$VISUAL $XDG_CONFIG_HOME/tmux/tmux.conf'
 
 if installed git; then
 	alias ga='git add'
@@ -106,6 +111,22 @@ if installed aws; then
 	alias s3sync='aws s3 sync'
 fi
 
+if installed chezmoi; then
+	alias cz='chezmoi --verbose'
+	alias cza='cz add'
+	alias czA='cz apply'
+	alias czc='cz cd'
+	alias czd='cz diff'
+	alias cze='cz edit'
+	alias czi='cz init'
+	alias czm='cz managed'
+	alias czr='cz re-add'
+	alias czs='cz status'
+	alias czu='cz unmanaged'
+	alias czx='cz execute-template'
+	alias czz='cd ~/.local/share/chezmoi/dot_config/zsh'
+fi
+
 # alias tmux='tmux -2'
 installed tmux && alias kms='tmux kill-server'
 
@@ -120,3 +141,4 @@ alias DSclean='rm -rfv **/.DS_Store'
 
 # clean-up
 unset -f installed
+# vim:ft=bash fdm=indent fdl=0

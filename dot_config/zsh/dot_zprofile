@@ -3,38 +3,3 @@ if command -v /opt/homebrew/bin/brew >/dev/null 2>&1; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# https://www.arp242.net/zshrc.html#easier-path
-typeset -U path  # No duplicates
-# path=()
-
-_prepath() {
-  for dir in "$@"; do
-    dir=${dir:A}
-    [[ ! -d "$dir" ]] && continue
-    path=("$dir" $path[@])
-  done
-}
-
-_postpath() {
-  for dir in "$@"; do
-    dir=${dir:A}
-    [[ ! -d "$dir" ]] && continue
-    path=($path[@] "$dir")
-  done
-}
-
-# Add personal stuff at the front
-_prepath "$HOME/bin" "$HOME/.local/bin"
-
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  _prepath /Library/Frameworks/R.framework/Resources/bin
-fi
-
-# Clean up
-unfunction _prepath
-unfunction _postpath
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

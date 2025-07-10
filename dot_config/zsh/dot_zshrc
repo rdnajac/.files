@@ -1,11 +1,22 @@
 # .zshrc - my zsh configuration
-# echo 'sourcing zshrc'
+setopt interactivecomments
+
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
-setopt interactivecomments
-# history {{{
+# Loop over all files in env dir and source them if the executable exists
+for f in "${XDG_CONFIG_HOME:-$HOME/.config}"/env/*.sh(N); do
+	(( $+commands[${f:t:r}] )) && . "$f"
+done
+
+# Section: PATH {{{
+typeset -U path
+path=( "$HOME/bin" "$HOME/.local/bin" $path )
+[[ "$OSTYPE" == darwin* ]] && path=( /Library/Frameworks/R.framework/Resources/bin $path )
+# }}}
+
+# Section: History {{{
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
@@ -20,13 +31,13 @@ alias wget='wget --no-hsts'
 export LESSHISTFILE=-
 # }}}
 
-# Zsh Line Editor (ZLE) configuration {{{
+# Section: Zsh Line Editor (ZLE) {{{
 # https://zsh.sourceforge.io/Guide/zshguide04.html#l76
 # https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
 
 # Run command without clearing input with `<M-Enter>`
+# tested on alacrity, ghostty
 bindkey '\e\r' accept-and-hold
-# XXX: Tested on alacrity, but not on other terminals
 
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 
@@ -53,30 +64,17 @@ export WORDCHARS=${WORDCHARS//[&.;\/]}
 zle_highlight=('paste:none')
 # }}}
 
-# Enable zsh native completion {{{
-fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+# Section: Completion {{{
+
 autoload -Uz compinit && compinit
+# cache dir for faster startups
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$ZSH_CACHE_DIR"
+zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
-zstyle ':completion:*:*:scp:*' tag-order files
-zstyle ':completion:*:scp:*' remote-access yes
-# zstyle ':completion:*:*:(scp|rsync):*' tag-order files
-# zstyle ':completion:*:(scp|rsync):*' remote-access yes
-
-# Completion caching for speed
-# Follow XDG Base Directory spec for cache
-ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-
-# Create if missing
-[[ ! -d $ZSH_CACHE_DIR ]] && mkdir -p "$ZSH_CACHE_DIR"
-
-# Tell completion system to cache there
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
-
-# (Optional) Enable bashcompinit only if needed
-# Only if you later need bash-style `complete -C` for some weird CLI tools
-# autoload -Uz bashcompinit
-# bashcompinit
+zstyle ':completion:*:rsync:*' remote-access yes
+zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
+compdef _rsync oil
 # }}}
 
 # Load additional zsh configs in this dir
@@ -84,19 +82,18 @@ for f in $ZDOTDIR/*.zsh(N); do
 	. "$f"
 done
 
-# Loop over all files in env dir and source them if the executable exists
-for f in "${XDG_CONFIG_HOME:-$HOME/.config}"/env/*.sh(N); do
-    (( $+commands[${f:t:r}] )) && . "$f"
-done
-
 # set up Ruby environment
 # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 # source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 # chruby ruby-3.1.3 # run chruby to see actual version
 
-# silence erros in case we don't have this
-micromamba activate cbmf 2>/dev/null || true
-eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
+# FIXME:
+# micromamba activate cbmf 2>/dev/null || true
+# eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
 
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+#
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
-# vim ft=zsh fdm=marker fdl = 0
+# vim:ft=zsh:fdm=marker:fdl=0

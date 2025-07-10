@@ -1,3 +1,4 @@
+# TODO chezmoi template for shells
 # if on mac
 if [ $(uname) = "Darwin" ]; then
   FZF_ALT_C_COMMAND= source <(fzf --zsh)

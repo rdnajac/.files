@@ -1,0 +1,21 @@
+#compdef oil
+
+_oil_host_config_only() {
+	local -a hosts
+	hosts=( ${(f)"$(awk '$1=="Host"{for(i=2;i<=NF;i++) if($i!="*") print $i}' ~/.ssh/config)"} )
+	_describe -t hosts 'SSH config hosts' hosts
+}
+
+_oil_remote_files_strict() {
+	local host path raw files
+	host="${words[1]}"
+	path="${words[2]:-~}"
+
+	raw=$(ssh -o BatchMode=yes "$host" "ls -1a -- ${path:q}" 2>/dev/null) || return 1
+	files=( ${(f)raw:#.|..} )
+	_describe -t remote-files 'remote files' files
+}
+
+_arguments -C \
+	'1:remote host:_oil_host_config_only' \
+	'2:remote path:_oil_remote_files_strict'

@@ -68,6 +68,13 @@ n() {
 	}
 }
 
+
+resolve_path() {
+	cd "$(dirname "$1")" 2> /dev/null || return 1
+	echo "$PWD/$(basename "$1")"
+}
+
+
 # sync subshell directory with nnn
 nnn_cd() {
 	if ! [ -z "$NNN_PIPE" ]; then

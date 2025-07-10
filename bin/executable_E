@@ -1,44 +1,62 @@
 #!/usr/bin/env bash
 
-TMUX_PANE_NAME="nnn_visual"
-NNN_SPLITSIZE=${NNN_SPLITSIZE:-80}
-NVIM_SOCK=${NVIM_SOCK:-$HOME/.cache/nvim/server.pipe}
+set -euo pipefail
+
+NVIM_SOCK="${NVIM_SOCK:-${XDG_RUNTIME_DIR:-$HOME/.cache}/nvim/server.pipe}"
+TMUX_PANE_NAME="${TMUX_PANE_NAME:-nvim_visual}"
+NNN_SPLITSIZE="${NNN_SPLITSIZE:-80}"
+
+usage() {
+	cat <<EOF
+Usage: $0 [-s] [-n] [-t] [--] <file1> [file2...]
+  -s    Use nvim socket if available
+  -n    Force new nvim instance in a tmux split (if in tmux)
+  -t    Use tmux even if socket is available (overrides -s)
+  --    End of options
+EOF
+	exit 1
+}
 
 resolve_path() {
-	cd "$(dirname "$1")" 2> /dev/null || return 1
-	echo "$PWD/$(basename "$1")"
+	realpath "$1" 2>/dev/null || readlink -f "$1" 2>/dev/null || echo "$PWD/$1"
 }
 
-main() {
-	if [ "$NVIM" != "" ]; then
-		echo "NVIM is set. exiting..."
-		exit 1
-	fi
+use_socket=false
+force_tmux=false
 
-	# Resolve each arg to full path
-	resolved_args=()
-	for arg in "$@"; do
-		resolved_path=$(resolve_path "$arg") || {
-			echo "warning: '$arg' skipped, parent dir missing" >&2
-			continue
-		}
-		resolved_args+=("$resolved_path")
-	done
+while getopts ":snt" opt; do
+	case ${opt} in
+	s) use_socket=true ;;
+	n) force_tmux=true ;;
+	t)
+		force_tmux=true
+		use_socket=false
+		;;
+	*) usage ;;
+	esac
+done
+shift $((OPTIND - 1))
 
-	if [ -S "$NVIM_SOCK" ]; then
-		nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
-		echo nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
-		exit 0
-	fi
+[ "$#" -eq 0 ] && usage
 
-	if [ "$NNNLVL" != "" ] && [ "$TMUX" != "" ]; then
-		tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
-		# tmux split-window -hf -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
-		tmux select-pane -T "$TMUX_PANE_NAME"
-	else
-		echo nvim "${resolved_args[@]}"
-		nvim "${resolved_args[@]}"
-	fi
-}
+resolved_args=()
+for arg in "$@"; do
+	resolved_args+=("$(resolve_path "$arg")")
+done
 
-main "$@"
+if [[ ${NVIM:-} != "" ]]; then
+	echo "NVIM is set. exiting..."
+	exit 1
+fi
+
+if "$use_socket" && [[ -S $NVIM_SOCK ]]; then
+	nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
+	exit $?
+fi
+
+if "$force_tmux" || ([ "${NNNLVL:-}" != "" ] && [ "${TMUX:-}" != "" ]); then
+	tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
+	tmux select-pane -T "$TMUX_PANE_NAME"
+else
+	nvim "${resolved_args[@]}"
+fi
