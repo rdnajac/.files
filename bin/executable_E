@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
 NVIM_SOCK="${NVIM_SOCK:-${XDG_RUNTIME_DIR:-$HOME/.cache}/nvim/server.pipe}"
@@ -7,56 +6,67 @@ TMUX_PANE_NAME="${TMUX_PANE_NAME:-nvim_visual}"
 NNN_SPLITSIZE="${NNN_SPLITSIZE:-80}"
 
 usage() {
-	cat <<EOF
-Usage: $0 [-s] [-n] [-t] [--] <file1> [file2...]
-  -s    Use nvim socket if available
-  -n    Force new nvim instance in a tmux split (if in tmux)
-  -t    Use tmux even if socket is available (overrides -s)
-  --    End of options
+  cat << EOF
+Usage: $0 [-f] [-t] [--] [nvim-flags] [file...]
+  -f       force plain nvim (skip socket)
+  -t       open in tmux split if no socket
+  --       end of options
 EOF
-	exit 1
+  exit 1
 }
 
-resolve_path() {
-	realpath "$1" 2>/dev/null || readlink -f "$1" 2>/dev/null || echo "$PWD/$1"
+resolve() {
+  realpath "$1" 2>/dev/null ||
+  readlink -f "$1" 2>/dev/null ||
+  printf '%s/%s\n' "$PWD" "$1"
 }
 
-use_socket=false
-force_tmux=false
+skip_socket=false
+tmux_split=false
 
-while getopts ":snt" opt; do
-	case ${opt} in
-	s) use_socket=true ;;
-	n) force_tmux=true ;;
-	t)
-		force_tmux=true
-		use_socket=false
-		;;
-	*) usage ;;
-	esac
+while getopts "ft" opt; do
+  case $opt in
+    f) skip_socket=true ;;
+    t) tmux_split=true ;;
+    *) OPTIND=$((OPTIND-1)); break ;;
+  esac
 done
-shift $((OPTIND - 1))
+shift $((OPTIND-1))
 
-[ "$#" -eq 0 ] && usage
+[[ ${1:-} == "--" ]] && shift
 
-resolved_args=()
-for arg in "$@"; do
-	resolved_args+=("$(resolve_path "$arg")")
+# collect args: resolve paths, leave flags intact
+args=()
+for a; do
+  if [[ $a == -* ]]; then
+    args+=("$a")
+  else
+    args+=("$(resolve "$a")")
+  fi
 done
 
-if [[ ${NVIM:-} != "" ]]; then
-	echo "NVIM is set. exiting..."
-	exit 1
+# default: no args → keep args empty, so nvim opens dashboard or empty buffer
+
+# socket branch: connect or start listener
+if ! $skip_socket; then
+  if [[ -S $NVIM_SOCK ]]; then
+    exec nvim --server "$NVIM_SOCK" --remote "${args[@]}"
+  else
+    exec nvim --listen "$NVIM_SOCK" "${args[@]}"
+  fi
 fi
 
-if "$use_socket" && [[ -S $NVIM_SOCK ]]; then
-	nvim --server "$NVIM_SOCK" --remote "${resolved_args[@]}"
-	exit $?
+# inside nvim already: nothing to do
+if [[ -n ${NVIM:-} ]]; then
+  exit 0
 fi
 
-if "$force_tmux" || ([ "${NNNLVL:-}" != "" ] && [ "${TMUX:-}" != "" ]); then
-	tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${resolved_args[*]}"
-	tmux select-pane -T "$TMUX_PANE_NAME"
-else
-	nvim "${resolved_args[@]}"
+# tmux split branch
+if $tmux_split && [[ -n ${TMUX:-} ]]; then
+  tmux split-window -h -p "$NNN_SPLITSIZE" "nvim ${args[*]}"
+  tmux select-pane -T "$TMUX_PANE_NAME"
+  exit
 fi
+
+# fallback
+exec nvim "${args[@]}"

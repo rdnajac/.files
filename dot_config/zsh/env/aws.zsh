@@ -1,7 +1,5 @@
 # AWS S3 caching and completion
 
-# cache dirs
-ZSH_CACHE_DIR="${ZSH_CACHE_DIR:-$HOME/.cache/zsh}"
 S3_CACHE="$ZSH_CACHE_DIR/aws-s3"
 mkdir -p "$S3_CACHE"
 

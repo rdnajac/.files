@@ -9,6 +9,10 @@ When in doubt, `man zsh`
 > `$ZDOTDIR/.zshrc`. Finally, if the shell is a login shell, `/etc/zlogin` and
 > `$ZDOTDIR/.zlogin` are read.
 
+## TODO:
+
+- [ ] zsh treesitter parser
+
 ## Resources
 
 - [The Z Shell Manual](https://zsh.sourceforge.io/Doc/Release/index.html)
