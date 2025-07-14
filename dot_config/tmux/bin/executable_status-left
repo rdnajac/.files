@@ -1,0 +1,1 @@
+~/.local/bin/nvim --headless --noplugin --server "${XDG_RUNTIME_DIR:-/tmp}/nvim.pipe" --remote-expr "TmuxLeft()"

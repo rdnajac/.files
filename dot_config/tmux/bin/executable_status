@@ -1,0 +1,20 @@
+# vim:ft=sh
+NVIM_PIPE="${NVIM_PIPE:-${XDG_RUNTIME_DIR:-/tmp}/nvim.pipe}"
+
+side="${1:-}"
+if [[ $side != "left" && $side != "right" ]]; then
+	echo "Usage: $0 left|right"
+	exit 1
+fi
+
+expr="TmuxLeft()"
+[[ $side == "right" ]] && expr="TmuxRight()"
+
+# out=$(
+	~/.local/bin/nvim --headless --noplugin \
+		--server "$NVIM_PIPE" \
+		--remote-expr "$expr"
+		# --remote-expr "$expr" 2> /dev/null
+# )
+
+# [ "$out" != "" ] && printf '%s' "$out"

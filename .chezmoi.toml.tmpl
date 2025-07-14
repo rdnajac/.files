@@ -76,10 +76,17 @@ apply = true
 
 [edit]
 apply = true
+# https://www.chezmoi.io/user-guide/tools/editor/
+hardlink = false
 
 [update]
 apply = true
 
 [merge]
-command = "nvim -d"
-
+command = "nvim"
+args = [
+    "-d",
+    {{ printf "%q" "{{ .Destination }}" }},
+    {{ printf "%q" "{{ .Source }}" }},
+    {{ printf "%q" "{{ .Target }}" }},
+]

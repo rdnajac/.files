@@ -1,5 +1,16 @@
-# echo 'sourcing zprofile'
-if command -v /opt/homebrew/bin/brew >/dev/null 2>&1; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+typeset -U path
+
+# NOTE: this triggers a reordering of your `$PATH`
+# Make your changes to PATH after homebrew init
+if command -v /opt/homebrew/bin/brew > /dev/null 2>&1; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+if [[ "$OSTYPE" == darwin* ]]; then
+	RBINDIR="/Library/Frameworks/R.framework/Resources/bin"
+	if [[ -d "$RBINDIR" ]]; then
+		path=( "$RBINDIR" $path )
+	fi
+fi
+
+path=( "$HOME/bin" "$HOME/.local/bin" $path )

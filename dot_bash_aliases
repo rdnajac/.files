@@ -25,69 +25,44 @@ alias .......='cd ../../../../../..'
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
-alias rmf='rm -f'
-alias rmrf='rm -rf'
 alias rmd='rm -drvI'
 alias mkdir='mkdir -v'
 alias rmdir='rmdir -v'
+alias lock='chmod -vv -w'   # make a file read-only
+alias chx='chmod -vv u+x'   # make a file executable
+alias link='ln -vsfFwh'     # see `man ln` for flags
 
-alias link='ln -vsfFwh' # see `man ln`
-alias lock='chmod -w'   # make a file read-only
-alias chx='chmod u+x'   # make a file executable
+# colored output for common commands
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+alias pip=pip3
+alias zz=fg        # `<CTRL-Z> from (n)vim` suspends the process
+alias rscript='Rscript'
 
 # function to check if a command exists
 installed() { command -v "$1" >/dev/null 2>&1; }
 
-if installed micromamba; then
-	alias conda='micromamba'
-	alias mm='micromamba'
-	alias mminstall='micromamba install -c conda-forge -c bioconda'
-fi
+# installed bat && alias cat=bat;
 
-# if installed bat; then alias cat=bat; fi
+# update all cargo packages if cargo-install-update is also installed
+installed cargo-install-update && alias cargoup='cargo install-update -a'
 
 # rsync all non-hidden files and directories
 installed rsync && alias sync='rsync -avz --progress --exclude=".*"'
 
-alias pip=pip3
-
-# NOTE: pressing `<CTRL-Z> from (n)vim` suspends the process
-alias zz=fg
-
+VISUAL=${VISUAL:-nv}
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias zr='$VISUAL $ZDOTDIR'
 alias ba='$VISUAL $HOME/.bash_aliases'
 alias vvv='cd $HOME/.vim/'
-alias nvv='cd $XDG_CONFIG_HOME/nvim/lua'
-alias tmx='$VISUAL $XDG_CONFIG_HOME/tmux/tmux.conf'
-
-if installed git; then
-	alias ga='git add'
-	alias gaa='git add --all'
-	alias gcm='git commit -m'
-	alias gcam='git commit -am'
-	alias gcl='git clone'
-	alias gp='git push'
-	alias gs='git status -sb'
-	alias gd='git diff'
-	alias gl='git log'
-	alias gba='git branch -a'
-	alias gsub='git submodule'
-fi
-
-if installed grep; then
-	alias grep='grep --color=auto'
-	alias diff='diff --color=auto'
-fi
+alias nvv='cd $HOME/.vim/lua'
+alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 if installed gh; then
 	alias explain='gh copilot explain '
 	alias \?\?='gh copilot suggest --shell-out'
-fi
-
-if installed cargo; then
-	alias cargoup='command -v cargo-install-update >/dev/null 2>&1 || cargo install cargo-update && cargo install-update -a'
 fi
 
 installed bear && alias bmake='bear -- make'
@@ -96,27 +71,10 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 
 installed prettier && alias pretty='prettier --write .'
 
-alias rscript='Rscript'
 
 if installed quarto; then
 	alias qp='quarto preview'
 	alias qr='quarto render'
-fi
-
-if installed chezmoi; then
-	alias cz='chezmoi --verbose'
-	alias cza='cz add'
-	alias czA='cz apply'
-	alias czc='cz cd'
-	alias czd='cz diff'
-	alias cze='cz edit'
-	alias czi='cz init'
-	alias czm='cz managed'
-	alias czr='cz re-add'
-	alias czs='cz status'
-	alias czu='cz unmanaged'
-	alias czx='cz execute-template'
-	alias czz='cd ~/.local/share/chezmoi/dot_config/zsh'
 fi
 
 # alias tmux='tmux -2'
@@ -133,4 +91,3 @@ alias DSclean='rm -rfv **/.DS_Store'
 
 # clean-up
 unset -f installed
-# vim:ft=bash fdm=indent fdl=0
