@@ -9,3 +9,7 @@ README.md
 **/*zcompdump
 **/*zsh_history
 **/*zsh_sessions
+
+# ghostty
+# .config/ghostty/shaders/**
+# !.config/ghostty/shaders/cursor_blaze_tapered.glsl

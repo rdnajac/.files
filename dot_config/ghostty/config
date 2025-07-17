@@ -1,10 +1,18 @@
-command = /opt/homebrew/bin/tmux new-session -A -s ghostty
+command = "$(command -v tmux)" new-session -A -s ghostty
+
 theme = tokyonight_night
 background = #16161d
 # background-opacity = .8
 # background-blur = true
 # window-decoration = false
 font-feature = -calt, -liga, -dlig
+# TODO: use chezmoi template for font configs
 font-size = 13
 # fullscreen = true
 # macos-non-native-fullscreen = true
+
+ ustom-shader = ./shaders/ghostty-shader-playground/shaders/cursor_blaze_tapered.glsl
+# custom-shader = ./shaders/ghostty-shader-playground/shaders/cursor_smear.glsl
+# custom-shader = ./shaders/ghostty-shader-playground/shaders/cursor_frozen.glsl
+# custom-shader = ./shaders/glitchy.glsl
+
