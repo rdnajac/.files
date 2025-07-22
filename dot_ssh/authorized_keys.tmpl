@@ -1,5 +1,5 @@
-{{- if .ephemeral -}}
+{{- if or .ephemeral .work -}}
 {{- range gitHubKeys .githubUsername -}}
 {{   .Key }}
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
