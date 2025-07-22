@@ -9,11 +9,11 @@ type = "archive"
 url = "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz"
 executable = true
 refreshPeriod = "24h"
+{{- end }}
 
 [".local/bin/fzf"]
 type = "archive-file"
-url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
+url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
 path = "fzf"
 executable = true
 refreshPeriod = "168h"
-{{- end }}
