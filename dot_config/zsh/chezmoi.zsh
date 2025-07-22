@@ -1,3 +1,6 @@
+# https://www.chezmoi.io
+eval "$(chezmoi completion zsh)"
+
 alias cz='chezmoi'
 alias cza='cz add'
 alias czA='cz apply'
@@ -11,3 +14,4 @@ alias czs='cz status'
 alias czu='cz unmanaged'
 alias czx='cz execute-template'
 alias czz='cd ~/.local/share/chezmoi/dot_config/zsh'
+

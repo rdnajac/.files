@@ -3,10 +3,10 @@
 ## Default .bashrc files automatically source `~/.bash_aliases` when present
 ## check out `/usr/share/doc/bash` for more resources
 
-# uncomment the next line for a more intuitive default ls
+# uncomment the next line for a more intuitive default `ls`
 # alias ls='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
-alias lll='ls -lAc --size -1 -S --classify'
+# alias lll='ls -lAc --size -1 -S --classify'
 
 # function to change directory and list files
 cl() { builtin cd "${1:-$HOME}" && ls; }
@@ -46,10 +46,12 @@ installed() { command -v "$1" >/dev/null 2>&1; }
 # installed bat && alias cat=bat;
 
 # update all cargo packages if cargo-install-update is also installed
-installed cargo-install-update && alias cargoup='cargo install-update -a'
+installed cargo-install-update \
+	&& alias cargoup='cargo install-update -a'
 
 # rsync all non-hidden files and directories
-installed rsync && alias sync='rsync -avz --progress --exclude=".*"'
+installed rsync \
+	&& alias sync='rsync -avz --progress --exclude=".*"'
 
 VISUAL=${VISUAL:-nv}
 # edit config files
@@ -59,6 +61,9 @@ alias ba='$VISUAL $HOME/.bash_aliases'
 alias vvv='cd $HOME/.vim/'
 alias nvv='cd $HOME/.vim/lua'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
+
+alias gs='git status'
+alias ga='git add'
 
 if installed gh; then
 	alias explain='gh copilot explain '
@@ -70,7 +75,6 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 	sudo make modules_install && sudo make install'
 
 installed prettier && alias pretty='prettier --write .'
-
 
 if installed quarto; then
 	alias qp='quarto preview'
@@ -87,7 +91,7 @@ alias cim=vim
 # clear scren and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
 
-alias DSclean='rm -rfv **/.DS_Store'
+alias Clean='rm -rfv **/.{DS_Store,bak,swp}'
 
 # clean-up
 unset -f installed

@@ -1,3 +1,20 @@
+/*
+ * Cursor trail effect using SDFs
+ *
+ * Draws a rectangle for the current cursor and a parallelogram trail
+ * connecting to the previous position. Uses smooth interpolation and
+ * antialiasing to blend the trail over time.
+ *
+ * Configure the colors using vec4 values in the format:
+ * `vec4(r, g, b, a)` where r, g, b are in the range [0.0, 1.0] and a is the alpha value.
+ * Convert colors from hex to vec4 using the following link:
+ * `<https://enchanted.games/app/colour-converter/>`
+ */
+const vec4 TRAIL_COLOR_ACCENT = vec4(0.224, 1.0, 0.078, 1.0);
+const vec4 TRAIL_COLOR        = vec4(0.078, 0.157, 0.039, 1.0);
+const float DURATION = 0.3; //IN SECONDS
+
+
 float getSdfRectangle(in vec2 p, in vec2 xy, in vec2 b)
 {
     vec2 d = abs(p - xy) - b;
@@ -64,13 +81,6 @@ vec2 getRectangleCenter(vec4 rectangle) {
 float ease(float x) {
     return pow(1.0 - x, 3.0);
 }
-
-/**
- * Set the color here
- */
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.224, 1.0, 0.078, 1.0);
-const vec4 TRAIL_COLOR        = vec4(0.078, 0.157, 0.039, 1.0);
-const float DURATION = 0.3; //IN SECONDS
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {

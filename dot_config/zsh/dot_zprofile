@@ -1,3 +1,4 @@
+# .zprofile - set up `$PATH`
 typeset -U path
 
 # NOTE: this triggers a reordering of your `$PATH`

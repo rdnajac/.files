@@ -6,6 +6,16 @@ alias repro='NVIM_APPNAME=repro nvim'
 alias zzz='nvim -c "lua Snacks.lazygit()"'
 alias nvr='nvim --headless --noplugin --server "$NVIM_SOCK" --remote-expr'
 
+_nvim_oilssh_passthrough() {
+  if [[ ${words[CURRENT]} == oil-ssh://* ]]; then
+    words[CURRENT]=${words[CURRENT]#oil-ssh://}
+  fi
+  _rsync
+}
+
+compdef _nvim_oilssh_passthrough nvim
+
+: '
 oil() {
 	if [[ $1==*:* ]]; then
 		h=${1%%:*}
@@ -18,3 +28,4 @@ oil() {
 }
 
 compdef _rsync oil
+'

@@ -1,6 +1,8 @@
 alias eza='eza --group-directories-first --colour=auto --icons=auto'
-alias l='eza --all --tree -l --git-ignore'
 alias ll='eza --all -l'
+
+# tree
+alias l='eza --all --tree -l --git-ignore'
 alias l1='ll --tree -L1 --git-ignore'
 alias l2='ll --tree -L2 --git-ignore'
 alias l3='ll --tree -L3 --git-ignore'

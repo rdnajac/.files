@@ -1,4 +1,4 @@
-{{ if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") }}
+{{- if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") -}}
 #!/bin/sh
 ## checksum of packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
   {{ if or .headless .ephemeral }}

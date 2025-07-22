@@ -12,6 +12,7 @@ When in doubt, `man zsh`
 ## TODO:
 
 - [ ] zsh treesitter parser
+- [ ] bat, eza, fd-find, ripgrep, zoxide
 
 ## Resources
 

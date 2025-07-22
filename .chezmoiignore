@@ -3,6 +3,7 @@
 install.sh
 LICENSE
 README.md
+test/
 
 # zsh
 **/*zcompcache

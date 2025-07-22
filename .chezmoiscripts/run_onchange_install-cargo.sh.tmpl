@@ -1,3 +1,4 @@
+{{- if not .personal -}}
 {{- if and (not .ephemeral) (not .headless) -}}
 #!/bin/sh
 ## checksum of crates.toml: {{ include ".chezmoidata/crates.toml" | sha256sum }}
@@ -13,4 +14,5 @@ if command -v cargo > /dev/null; then
   echo "Installing cargo crates..."
   cargo install --jobs $(nproc) --locked{{- range .cargo.crates }} {{ . }}{{- end }}
 fi
+{{- end }}
 {{- end }}

@@ -27,39 +27,6 @@ alias wget='wget --no-hsts'
 export LESSHISTFILE=-
 # }}}
 
-# Section: Zsh Line Editor (ZLE) {{{
-# https://zsh.sourceforge.io/Guide/zshguide04.html#l76
-# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
-
-# Run command without clearing input with `<M-Enter>`
-# tested on alacrity, ghostty
-bindkey '\e\r' accept-and-hold
-
-autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-bindkey '^[[A' up-line-or-beginning-search # Arrow up
-bindkey '^[OA' up-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search # Arrow down
-bindkey '^[OB' down-line-or-beginning-search
-
-bindkey "^[[1;2D" backward-word # Shift + Left
-bindkey "^[[1;2C" forward-word  # Shift + Right
-# bindkey "^[[1;3D" backward-word       # Alt + Left (most terminals)
-# bindkey "^[[1;3C" forward-word        # Alt + Right (most terminals)
-
-bindkey "^[[1;4D" beginning-of-line # Shift + Alt + Left
-bindkey "^[[1;4C" end-of-line       # Shift + Alt + Right
-
-# https://zsh.sourceforge.io/Guide/zshguide04.html#l87
-export WORDCHARS=${WORDCHARS//[&.;\/]/}
-
-# don't disable bracketed paste, do this instead
-zle_highlight=('paste:none')
-# }}}
-
 # Section: Completion {{{
 autoload -Uz compinit && compinit
 
@@ -71,30 +38,31 @@ zstyle ':completion:*:rsync:*' remote-access yes
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
 # }}}
 
-# Load additional zsh configs in this dir
-# for f in "$ZDOTDIR"/*.zsh(N); do
-for f in "$ZDOTDIR"/*.zsh; do
-	. "$f"
-done
-
-# Loop over all files in env dir and source them if the executable exists
-for f in "$ZDOTDIR"/env/*.zsh(N); do
-  if (( ${+commands[${f:t:r}]} )); then
-    . "$f"
-  fi
-done
-
+# Section: Executables {{{
 # override macOS tools with Homebrew versions
 alias awk="${HOMEBREW_PREFIX}/bin/gawk"
 # if the names are the same, rely on the `$PATH` order
 # alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
-# }}}
 
+# Load additional zsh configs in this dir
+# `(N)` is a zsh glob qualifier; bash uses `shopt -s nullglob`
+for f in "$ZDOTDIR"/*.zsh(N); do
+	. "$f"
+done
+
+# `zoxide`
+eval "$(zoxide init zsh)"
+# eval "${$(zoxide init zsh):s#_files -/#_cd#}"
+# alias cd=z
+alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
+
+# `micromamba`
 export MAMBA_EXE="$HOME/.local/bin/micromamba"
 export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
 eval "$("$MAMBA_EXE" shell hook -s zsh)"
+# }}}
 
-# FIXME:
+# FIXME: this doesn't belong here
 micromamba activate cbmf 2>/dev/null || true
 eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
 

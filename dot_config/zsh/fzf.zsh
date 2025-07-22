@@ -1,10 +1,6 @@
-# TODO chezmoi template for shells
-# if on mac
-if [ $(uname) = "Darwin" ]; then
-  FZF_ALT_C_COMMAND= source <(fzf --zsh)
-else
-  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-fi
+# https://junegunn.github.io/fzf/
+FZF_ALT_C_COMMAND= source <(fzf --zsh)
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --info=inline-right \
