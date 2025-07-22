@@ -4,7 +4,7 @@ type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
 refreshPeriod = "0s"
 
-[".local/bin/nvim"]
+[".local/"]
 type = "archive"
 {{- if eq .chezmoi.os "darwin" }}
 url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-%s.tar.gz" .chezmoi.arch | quote }}

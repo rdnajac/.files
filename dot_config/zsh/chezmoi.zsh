@@ -1,7 +1,7 @@
 # https://www.chezmoi.io
 eval "$(chezmoi completion zsh)"
 
-alias cz='chezmoi'
+alias cz='chezmoi --verbose'
 alias cza='cz add'
 alias czA='cz apply'
 alias czc='cz cd'
