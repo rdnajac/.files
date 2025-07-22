@@ -3,18 +3,17 @@ type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
 refreshPeriod = "0s"
 
-{{- if .work }}
+{{- if or .codespaces .work }}
 [".local/bin/nvim"]
-type = "file"
-refreshPeriod = "24h"
-url = https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage
+type = "archive"
+url = "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz"
 executable = true
+refreshPeriod = "24h"
 
 [".local/bin/fzf"]
 type = "archive-file"
 url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
-executable = true
 path = "fzf"
+executable = true
 refreshPeriod = "168h"
 {{- end }}
-

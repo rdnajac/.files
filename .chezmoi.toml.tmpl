@@ -4,6 +4,7 @@
 {{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
 {{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
 {{- $work := false -}}{{/* true if this machine is a work machine */}}
+{{- $codespaces:= env "CODESPACES" | not | not -}}
 {{- "" -}}
 
 {{- $osID := .chezmoi.os -}}
@@ -65,6 +66,7 @@ osid = {{ $osID | quote }}
 personal = {{ $personal }}
 work = {{ $work }}
 githubUsername = "rdnajac"
+codespaces = {{ $codespaces }}
 
 [git]
 autoAdd = true
