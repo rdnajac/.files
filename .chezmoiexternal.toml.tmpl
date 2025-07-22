@@ -6,7 +6,11 @@ refreshPeriod = "0s"
 
 [".local/bin/nvim"]
 type = "archive"
-url = "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz"
+{{- if eq .chezmoi.os "darwin" }}
+url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-%s.tar.gz" .chezmoi.arch | quote }}
+{{- else if eq .chezmoi.os "linux" }}
+url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-%s.tar.gz" .chezmoi.arch | quote }}
+{{- end }}
 executable = true
 refreshPeriod = "24h"
 {{- end }}
