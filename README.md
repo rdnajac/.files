@@ -6,6 +6,10 @@ My dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply https://github.com/rdnajac/.files.git
 ```
 
+## TODO:
+
+Downloading nvim archive doesnt put nvim in path
+
 ## Resources:
 
 https://www.chezmoi.io/user-guide/templating/
