@@ -5,11 +5,12 @@ refreshPeriod = "0s"
 
 [".local/"]
 type = "archive"
-{{- $platform := "linux" }}
+
+{{- $platform := "linux" -}}
 {{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
 {{- $arch := "x86_64" -}}
 {{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end -}}
-url = "{{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch }}"
+url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
 executable = true
 refreshPeriod = "24h"
 
