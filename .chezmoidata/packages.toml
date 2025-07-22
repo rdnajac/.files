@@ -14,4 +14,8 @@ packages = [
   "rsync",
   "tmux",
   "vim",
+  "bat",
+  "eza",
+  "fd-find",
+  "ripgrep",
 ]

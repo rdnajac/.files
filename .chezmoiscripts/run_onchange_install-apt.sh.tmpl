@@ -4,9 +4,12 @@
   {{ if or .headless .ephemeral }}
 export DEBIAN_FRONTEND=noninteractive
   {{ end }}
-apt-get update -y
-apt-get install -y --no-install-recommends \
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo apt-get install -y --no-install-recommends \
   {{- range .apt.packages }}
     {{ . }} \
   {{- end }}
-{{ end }}
+sudo apt-get autoremove -y
+sudo apt-get clean
+{{- end }}

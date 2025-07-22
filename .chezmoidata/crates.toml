@@ -1,20 +1,18 @@
 [cargo]
 crates = [
-  "bat",
+  # "bat",
+  # "eza",
+  # "fd-find",
+  # "ripgrep",
   "bottom",
   "cargo-update",
   "du-dust",
-  "eza",
-  "fd-find",
   "hexyl",
   "pokeget",
   "procs",
-  "ripgrep",
-  "shellharden",
   "so",
   "tealdeer",
   "tokei",
   # "yazi-cli",
   # "yazi-fm",
-  "zoxide"
 ]
