@@ -1,4 +1,3 @@
-{{- if or .codespaces .work }}
 [".vim/"]
 type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
@@ -6,14 +5,11 @@ refreshPeriod = "0s"
 
 [".local/"]
 type = "archive"
-{{- if eq .chezmoi.os "darwin" }}
-url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-%s.tar.gz" .chezmoi.arch | quote }}
-{{- else if eq .chezmoi.os "linux" }}
-url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-%s.tar.gz" .chezmoi.arch | quote }}
-{{- end }}
+{{- $platform := ternary "macos" "linux" (eq .chezmoi.os "darwin") }}
+{{- $arch := ternary "arm64" "x86_64" (eq .chezmoi.arch "arm64") }}
+url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
 executable = true
 refreshPeriod = "24h"
-{{- end }}
 
 [".local/bin/fzf"]
 type = "archive-file"
