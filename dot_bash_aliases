@@ -66,6 +66,7 @@ alias gs='git status'
 alias ga='git add'
 
 if installed gh; then
+	alias ghcs='gh codespace'
 	alias explain='gh copilot explain '
 	alias \?\?='gh copilot suggest --shell-out'
 fi

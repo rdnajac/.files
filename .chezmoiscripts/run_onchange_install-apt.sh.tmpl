@@ -1,15 +1,14 @@
 {{- if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") -}}
 #!/bin/sh
 ## checksum of packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
-  {{ if or .headless .ephemeral }}
+
 export DEBIAN_FRONTEND=noninteractive
-  {{ end }}
+
 sudo apt-get update -y
-sudo apt-get upgrade -y
 sudo apt-get install -y --no-install-recommends \
-  {{- range .apt.packages }}
-    {{ . }} \
-  {{- end }}
+{{- range .apt.packages }}
+  {{- . }} \
+{{ end }}
 sudo apt-get autoremove -y
 sudo apt-get clean
 {{- end }}
