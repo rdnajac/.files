@@ -5,8 +5,7 @@ refreshPeriod = "0s"
 
 [".local/"]
 type = "archive"
-
-{{- $platform := "linux" -}}
+{{ $platform := "linux" }}
 {{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
 {{- $arch := "x86_64" -}}
 {{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end -}}
