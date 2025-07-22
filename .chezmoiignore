@@ -1,9 +1,9 @@
-.archive
+.archive/
 .github/
+test/
 install.sh
 LICENSE
 README.md
-test/
 
 # zsh
 **/*zcompcache

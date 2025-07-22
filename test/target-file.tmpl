@@ -1,0 +1,8 @@
+# This file is managed by chezmoi
+# Source: {{ .chezmoi.sourceFile }}
+# Target: {{ .chezmoi.targetFile }}
+
+{{ $dir := .chezmoi.targetFile | dir }}
+# Source: {{ $dir }}
+{{ $script := printf "%s/myscript.sh" $dir }}
+# Target: {{ $script }}

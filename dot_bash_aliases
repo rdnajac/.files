@@ -1,7 +1,6 @@
-## download this file with
-## $ curl https://raw.githubusercontent.com/rdnajac/.files/refs/heads/main/home/.bash_aliases > "$HOME"/.bash_aliases
-## Default .bashrc files automatically source `~/.bash_aliases` when present
-## check out `/usr/share/doc/bash` for more resources
+# ~/.bash_aliases
+# Default .bashrc automatically sources `~/.bash_aliases` when present
+# check out `/usr/share/doc/bash` for more resources
 
 # uncomment the next line for a more intuitive default `ls`
 # alias ls='ls -F --color=auto --human-readable --group-directories-first'
@@ -11,8 +10,6 @@ alias ll='ls -lA'
 # function to change directory and list files
 cl() { builtin cd "${1:-$HOME}" && ls; }
 
-# uncomment to make this the default cd
-# alias cd=cl
 alias bd='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -40,30 +37,42 @@ alias pip=pip3
 alias zz=fg        # `<CTRL-Z> from (n)vim` suspends the process
 alias rscript='Rscript'
 
-# function to check if a command exists
-installed() { command -v "$1" >/dev/null 2>&1; }
-
-# installed bat && alias cat=bat;
-
-# update all cargo packages if cargo-install-update is also installed
-installed cargo-install-update \
-	&& alias cargoup='cargo install-update -a'
-
-# rsync all non-hidden files and directories
-installed rsync \
-	&& alias sync='rsync -avz --progress --exclude=".*"'
-
 VISUAL=${VISUAL:-nv}
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias zr='$VISUAL $ZDOTDIR'
 alias ba='$VISUAL $HOME/.bash_aliases'
+alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 alias vvv='cd $HOME/.vim/'
 alias nvv='cd $HOME/.vim/lua'
-alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 alias gs='git status'
 alias ga='git add'
+alias gcam='git commit -am'
+alias gp='git push'
+alias gs='git status'
+
+alias Clean='rm -rfv **/.{DS_Store,bak,swp}'
+
+# function to check if a command exists
+installed() { command -v "$1" >/dev/null 2>&1; }
+
+installed prettier && alias pretty='prettier --write .'
+
+# alias tmux='tmux -2'
+installed tmux && alias kms='tmux kill-server'
+
+# rsync all non-hidden files and directories
+installed rsync \
+	&& alias sync='rsync -avz --progress --exclude=".*"'
+
+# update all cargo packages if cargo-install-update is also installed
+installed cargo-install-update \
+	&& alias cargoup='cargo install-update -a'
+
+installed bear && alias bmake='bear -- make'
+alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
+	sudo make modules_install && sudo make install'
 
 if installed gh; then
 	alias cs='gh codespace'
@@ -71,28 +80,12 @@ if installed gh; then
 	alias \?\?='gh copilot suggest --shell-out'
 fi
 
-installed bear && alias bmake='bear -- make'
-alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
-	sudo make modules_install && sudo make install'
-
-installed prettier && alias pretty='prettier --write .'
-
 if installed quarto; then
 	alias qp='quarto preview'
 	alias qr='quarto render'
 fi
 
-# alias tmux='tmux -2'
-installed tmux && alias kms='tmux kill-server'
-
-# fat fingers!
-alias mg=mv
-alias cim=vim
+unset -f installed # clean-up
 
 # clear scren and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
-
-alias Clean='rm -rfv **/.{DS_Store,bak,swp}'
-
-# clean-up
-unset -f installed

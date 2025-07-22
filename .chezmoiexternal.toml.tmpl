@@ -1,9 +1,9 @@
+{{- if or .codespaces .work }}
 [".vim/"]
 type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
 refreshPeriod = "0s"
 
-{{- if or .codespaces .work }}
 [".local/bin/nvim"]
 type = "archive"
 url = "https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz"

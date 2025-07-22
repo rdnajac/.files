@@ -1,5 +1,9 @@
 {{- if lookPath "tmux" }}
-command = {{ lookPath "tmux" }} tmux list-clients -t ghostty >/dev/null 2>&1 || {{ lookPath "tmux" }} new-session -A -s ghostty
+command = {{ lookPath "tmux" }} new-session -A -s ghostty
+{{- end }}
+font-size = {{ .fontSize }}
+{{- if not .fontLigatures }}
+font-feature = -calt, -liga, -dlig
 {{- end }}
 theme = tokyonight_night
 background = #16161d
@@ -7,15 +11,7 @@ background = #16161d
 # background-blur = true
 # window-decoration = false
 
-font-size = {{ .fontSize }}
-{{- if not .fontLigatures }}
-font-feature = -calt, -liga, -dlig
-{{- end }}
-
 # fullscreen = true
 # macos-non-native-fullscreen = true
 
 custom-shader = ./shaders/cursor_blaze_tapered.glsl
-# custom-shader = ./shaders/ghostty-shader-playground/shaders/cursor_smear.glsl
-# custom-shader = ./shaders/ghostty-shader-playground/shaders/cursor_frozen.glsl
-# custom-shader = ./shaders/glitchy.glsl
