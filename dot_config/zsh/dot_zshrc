@@ -3,14 +3,6 @@ setopt interactivecomments
 
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
 
-brewup() {
-	brew update && brew upgrade && brew cleanup -s
-	if command -v chezmoi >/dev/null 2>&1; then
-		brew bundle dump --file="$(chezmoi source-path)/dot_config/brewfile/Brewfile" --force
-	fi
-	~/bin/scripts/install-nvim-nightly.sh
-}
-
 # Section: History {{{
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
@@ -26,7 +18,6 @@ setopt HIST_REDUCE_BLANKS
 alias wget='wget --no-hsts'
 export LESSHISTFILE=-
 # }}}
-
 # Section: Completion {{{
 autoload -Uz compinit && compinit
 
@@ -38,12 +29,6 @@ zstyle ':completion:*:rsync:*' remote-access yes
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
 # }}}
 
-# Section: Executables {{{
-# override macOS tools with Homebrew versions
-alias awk="${HOMEBREW_PREFIX}/bin/gawk"
-# if the names are the same, rely on the `$PATH` order
-# alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
-
 # Load additional zsh configs in this dir
 # `(N)` is a zsh glob qualifier; bash uses `shopt -s nullglob`
 for f in "$ZDOTDIR"/*.zsh(N); do
@@ -51,9 +36,9 @@ for f in "$ZDOTDIR"/*.zsh(N); do
 done
 
 # `zoxide`
-eval "$(zoxide init zsh)"
-# eval "${$(zoxide init zsh):s#_files -/#_cd#}"
-# alias cd=z
+# eval "$(zoxide init zsh)"
+eval "${$(zoxide init zsh):s#_files -/#_cd#}"
+alias cd=z
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
 # `micromamba`

@@ -8,7 +8,8 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply https
 
 ## TODO:
 
-Downloading nvim archive doesnt put nvim in path
+- [ ] Downloading nvim archive doesnt put nvim in path
+- [ ] vim-chezmoi prevents markdown ftdetection
 
 ## Resources:
 
@@ -17,4 +18,3 @@ https://www.chezmoi.io/user-guide/templating/
 ## License
 
 MIT
-

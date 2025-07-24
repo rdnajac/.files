@@ -1,4 +1,4 @@
-{{- if or .ephemeral .work -}}
+{{- if .work -}}
 {{- range gitHubKeys .githubUsername -}}
 {{   .Key }}
 {{- end -}}

@@ -4,13 +4,13 @@ command = {{ lookPath "tmux" }} new-session -A -s ghostty
 font-size = {{ .fontSize }}
 {{- if not .fontLigatures }}
 font-feature = -calt, -liga, -dlig
+# TODO: some features linger (see: backticks `` `)
 {{- end }}
 theme = tokyonight_night
 background = #16161d
 # background-opacity = .8
 # background-blur = true
 # window-decoration = false
-
 # fullscreen = true
 # macos-non-native-fullscreen = true
 

@@ -13,10 +13,6 @@ cl() { builtin cd "${1:-$HOME}" && ls; }
 alias bd='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ....='cd ../../..' # we have to go deeper
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
 
 # make verbose default
 alias cp='cp -vi'
@@ -34,17 +30,16 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 alias pip=pip3
-alias zz=fg        # `<CTRL-Z> from (n)vim` suspends the process
 alias rscript='Rscript'
+
+alias zz=fg
 
 VISUAL=${VISUAL:-nv}
 # edit config files
 alias ssx='$VISUAL $HOME/.ssh/config'
-alias zr='$VISUAL $ZDOTDIR'
+# chezmoi-managed
 alias ba='$VISUAL $HOME/.bash_aliases'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
-alias vvv='cd $HOME/.vim/'
-alias nvv='cd $HOME/.vim/lua'
 
 alias gs='git status'
 alias ga='git add'
@@ -52,12 +47,14 @@ alias gcm='git commit -m'
 alias gcam='git commit -am'
 alias gp='git push'
 alias gs='git status'
-
-alias Clean='rm -rfv **/.{DS_Store,bak,swp}'
+alias gcd='cd $(git rev-parse --show-toplevel)'
+alias zg='cd $(git rev-parse --show-toplevel)'
 
 # function to check if a command exists
 installed() { command -v "$1" >/dev/null 2>&1; }
 
+# TODO: don't install with brew, use npx
+# TODO: don't use alias manually, integrate with nvim or git hook
 installed prettier && alias pretty='prettier --write .'
 
 # alias tmux='tmux -2'
@@ -77,8 +74,8 @@ alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
 
 if installed gh; then
 	alias cs='gh codespace'
-	alias explain='gh copilot explain '
-	alias \?\?='gh copilot suggest --shell-out'
+	alias whats='gh copilot explain '
+	alias \?\?='gh copilot suggest --shell-out '
 fi
 
 if installed quarto; then
@@ -90,3 +87,16 @@ unset -f installed # clean-up
 
 # clear scren and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
+
+# TODO: move this to ~/bin
+# clean up common files that are not needed in the repository
+Clean() {
+  if [ -n "$ZSH_VERSION" ]; then
+    setopt localoptions null_glob
+    rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+  elif [ -n "$BASH_VERSION" ]; then
+    shopt -s globstar nullglob
+    rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+    shopt -u globstar nullglob
+  fi
+}
