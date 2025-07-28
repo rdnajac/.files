@@ -28,16 +28,6 @@
 {{-     $personal = true -}}
 {{-   else if eq $hostname "GPU-PC" -}}
 {{-     $work = true -}}
-{{-   else if eq $hostname "ubuntu" -}}
-{{-     $headless = true -}}
-{{-     $personal = true -}}
-{{-   else if stdinIsATTY -}}
-{{-     $headless = promptBoolOnce . "headless" "headless" -}}
-{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
-{{-     $work = promptBoolOnce . "work" "work" -}}
-{{-   else -}}
-{{-     $ephemeral = true -}}
-{{-     $headless = true -}}
 {{-   end -}}
 {{- end -}}
 
