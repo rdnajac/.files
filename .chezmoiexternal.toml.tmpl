@@ -3,6 +3,8 @@ type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
 refreshPeriod = "0s"
 
+
+{{- if or .work .personal }}
 [".local/nvim"]
 type = "archive"
 stripComponents = 1
@@ -13,6 +15,7 @@ stripComponents = 1
 url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
 executable = false 
 refreshPeriod = "24h"
+{{- end }}
 
 [".local/bin/fzf"]
 type = "archive-file"
