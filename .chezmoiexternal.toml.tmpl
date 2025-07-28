@@ -15,7 +15,6 @@ stripComponents = 1
 url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
 executable = false 
 refreshPeriod = "24h"
-{{- end }}
 
 [".local/bin/fzf"]
 type = "archive-file"
@@ -23,3 +22,4 @@ url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz"
 path = "fzf"
 executable = true
 refreshPeriod = "168h"
+{{- end }}
