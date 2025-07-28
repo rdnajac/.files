@@ -2,7 +2,7 @@
 #!/bin/sh
 ## checksum of packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
 
-export DEBIAN_FRONTEND=noninteractive
+export debian_frontend=noninteractive
 
 sudo apt-get update -y
 sudo apt-get install -y --no-install-recommends \
