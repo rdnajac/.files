@@ -5,8 +5,9 @@ refreshPeriod = "0s"
 
 
 {{- if or .work .personal }}
-[".local/nvim"]
+[".local/neovim"]
 type = "archive"
+exact = true
 stripComponents = 1
 {{ $platform := "linux" }}
 {{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
