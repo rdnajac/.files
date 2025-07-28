@@ -1,3 +1,0 @@
-#!/bin/sh
-
-chezmoi execute-template --file $1
