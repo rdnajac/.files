@@ -1,0 +1,6 @@
+{{- if or (eq .osid "linux-debian") (eq .osid "linux-ubuntu") -}}
+#!/usr/bin/env bash
+
+sudo apt-get install -y build-essential procps curl file git
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh
+{{- end }}

@@ -66,6 +66,9 @@ personal = {{ $personal }}
 work = {{ $work }}
 githubUsername = "rdnajac"
 
+[diff]
+    exclude = ["externals"]
+
 [git]
 autoAdd = true
 autoCommit = false
@@ -91,5 +94,3 @@ args = [
     {{ printf "%q" "{{ .Target }}" }},
 ]
 
-[diff]
-    exclude = ["externals"]

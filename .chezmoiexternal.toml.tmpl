@@ -3,14 +3,15 @@ type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
 refreshPeriod = "0s"
 
-[".local/"]
+[".local/nvim"]
 type = "archive"
+stripComponents = 1
 {{ $platform := "linux" }}
 {{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
 {{- $arch := "x86_64" -}}
 {{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end -}}
 url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
-executable = true
+executable = false 
 refreshPeriod = "24h"
 
 [".local/bin/fzf"]
