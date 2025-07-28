@@ -28,6 +28,16 @@
 {{-     $personal = true -}}
 {{-   else if eq $hostname "GPU-PC" -}}
 {{-     $work = true -}}
+{{-   else if eq $hostname "ubuntu" -}}
+{{-     $headless = true -}}
+{{-     $personal = true -}}
+{{-   else if stdinIsATTY -}}
+{{-     $headless = promptBoolOnce . "headless" "headless" -}}
+{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
+{{-     $work = promptBoolOnce . "work" "work" -}}
+{{-   else -}}
+{{-     $ephemeral = true -}}
+{{-     $headless = true -}}
 {{-   end -}}
 {{- end -}}
 
@@ -40,10 +50,10 @@
 {{-   $email = "ryan.najac@columbia.edu" -}}
 {{- end -}}
 
-# TODO: change sourceDir on home machine
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 destinationDir = {{ .chezmoi.destDir | quote }}
 progress = true
+verbose = true
 
 [data]
 email = {{ $email | quote }}
@@ -56,9 +66,6 @@ personal = {{ $personal }}
 work = {{ $work }}
 githubUsername = "rdnajac"
 
-[diff]
-    exclude = ["externals"]
-
 [git]
 autoAdd = true
 autoCommit = false
@@ -69,7 +76,6 @@ apply = true
 
 [edit]
 apply = true
-# https://www.chezmoi.io/user-guide/tools/editor/
 hardlink = false
 
 [update]
@@ -83,4 +89,7 @@ args = [
     {{ printf "%q" "{{ .Source }}" }},
     {{ printf "%q" "{{ .Target }}" }},
 ]
+
+[diff]
+    exclude = ["externals"]
 
