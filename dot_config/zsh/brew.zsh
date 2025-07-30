@@ -6,9 +6,10 @@ brewup() {
 	# ~/bin/scripts/install-nvim-nightly.sh
 }
 
-# override macOS tools with Homebrew versions
-# TODO: only if on macOS?
-alias awk="${HOMEBREW_PREFIX}/bin/gawk"
+# override macOS tools with GNU versions if available
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	alias awk="${HOMEBREW_PREFIX}/bin/gawk"
+fi
 
 # if the names are the same, rely on the `$PATH` order
 # alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
