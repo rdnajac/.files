@@ -1,5 +1,8 @@
-{{- if lookPath "tmux" }}
+{{- if lookPath "tmux" -}}
 command = {{ lookPath "tmux" }} new-session -A -s ghostty
+# command = {{ lookPath "tmux" }} new-session -A -s ghostty "{{ .chezmoi.homeDir }}/bin/nv -c 'Snacks.terminal.open()'"
+# command = {{ lookPath "tmux" }} new-session -A -s ghostty "{{ .chezmoi.homeDir }}/.local/bin/nvim"
+{{- else -}}
 {{- end }}
 font-size = {{ .fontSize }}
 {{- if not .fontLigatures }}
