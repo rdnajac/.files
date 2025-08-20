@@ -1,21 +1,24 @@
 {{- if lookPath "tmux" -}}
 # command = {{ lookPath "tmux" }} new-session -A -s ghostty
-# command = {{ lookPath "tmux" }} new-session -A -s ghostty "{{ .chezmoi.homeDir }}/bin/nv -c 'Snacks.terminal.open()'"
 # command = {{ lookPath "tmux" }} new-session -A -s ghostty "{{ .chezmoi.homeDir }}/.local/bin/nvim"
 # initial-command = {{ lookPath "nvim" }}  --listen http://127.0.0.1:6969
 # {{- else -}}
-{{- end }}
+{{- end -}}
+
 font-size = {{ .fontSize }}
 {{- if not .fontLigatures }}
-font-feature = -calt, -liga, -dlig
 # TODO: some features linger (see: backticks `` `)
+font-feature = -calt, -liga, -dlig
 {{- end }}
+
 theme = tokyonight_night
 background = #16161d
-# background-opacity = .8
+background-opacity = .8
 # background-blur = true
-# window-decoration = false
+window-decoration = false
 # fullscreen = true
-# macos-non-native-fullscreen = true
+macos-non-native-fullscreen = true
 
-custom-shader = ./shaders/cursor_blaze_tapered.glsl
+custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
+# custom-shader = ~/.config/ghostty/shaders/galaxy.glsl
+cursor-style = block
