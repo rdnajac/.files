@@ -1,0 +1,23 @@
+#!/bin/sh
+## Clone GitHub repos with ssh
+## Accepts either USER/REPO or REPO (for personal repos)
+## Uses `--depth=1` to avoid cloning full history (shallow clone)
+
+BIN_DIR=$(dirname "$(readlink -f "$0")")
+
+. "$BIN_DIR/lib/common.sh"
+
+if [ "$1" = "" ]; then
+	die "Usage: $1 [USER/]REPO"
+fi
+
+REPO=""
+
+case "$1" in
+*/*) REPO="https://github.com/$1.git" ;;
+*) REPO="git@github.com:rdnajac/$1.git" ;;
+esac
+
+info "REPO=$REPO"
+git clone --depth=1 "$REPO" || die "Failed to clone $REPO"
+success "Cloned $REPO"

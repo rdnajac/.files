@@ -1,0 +1,20 @@
+#!/bin/sh
+## command
+# The command to run, usually a shell. If this is not an absolute path, it'll be
+# looked up in the PATH. If this is not set, a default will be looked up from
+# your system. The rules for the default lookup are:
+# - `$SHELL` environment variable
+# - `passwd` entry (user information)
+
+# If additional args are provided, the command is executed using `/bin/sh -c`
+# IMPORTANT: Ghostty does not do any shell command parsing.
+
+# This command will be used for all new terminal surfaces, i.e. new windows,
+# tabs, etc. If you want to run a command only for the first terminal surface
+# created when Ghostty starts, use the initial-command configuration.
+
+# Ghostty supports the common -e flag for executing a command with arguments.
+# For example, ghostty -e fish --with --custom --args. This flag sets the
+# initial-command configuration, see that for more information.
+
+tmux new-session -A -s ghostty

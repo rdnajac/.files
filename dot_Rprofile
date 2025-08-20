@@ -7,7 +7,7 @@
 ## │ we can configure this with nvim                                │
 ## ╰────────────────────────────────────────────────────────────────╯
 
-message("~/.Rprofile loaded")
+# message("~/.Rprofile loaded")
 options(
   repos = c(CRAN = "https://cran.r-project.org"),
   BiocManager.install = "binary"
