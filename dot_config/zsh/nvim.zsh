@@ -3,7 +3,7 @@ export NVIM_PIPE="${XDG_RUNTIME_DIR:-/tmp}/nvim.pipe"
 
 alias lv='NVIM_APPNAME=lazyvim nvim'
 alias repro='NVIM_APPNAME=repro nvim'
-alias zzz='nvim -c "lua Snacks.lazygit()"'
+alias zzz='nvim +"lua Snacks.lazygit()" +"startinsert"'
 alias nvr='nvim --headless --noplugin --server "$NVIM_SOCK" --remote-expr'
 
 _nvim_oilssh_passthrough() {
