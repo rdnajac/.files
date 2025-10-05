@@ -55,5 +55,10 @@ eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
 # export SDKMAN_DIR="$HOME/.sdkman"
 # [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# TeX Live 2025
+export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
+export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 # vim:fdm=marker:fdl=0

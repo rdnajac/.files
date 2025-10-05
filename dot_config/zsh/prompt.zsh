@@ -2,8 +2,7 @@ autoload -Uz colors && colors
 
 # default password prompt
 # enum colors `black=0 red=1 green=2 yellow=3 blue=4 magenta=5 cyan=6 white=7`
-SUDO_PROMPT="$(tput setaf 0 setab 1 bold)Password:$(tput sgr0) "
-export SUDO_PROMPT
+export SUDO_PROMPT="$(tput setaf 1; tput bold)Password:$(tput sgr0) "
 
 NEWLINE=$'\n'
 CWD='   %F{blue}%~%f'

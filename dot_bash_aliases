@@ -14,7 +14,7 @@ alias bd='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# make verbose default
+# verbose
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
@@ -25,30 +25,20 @@ alias lock='chmod -vv -w'   # make a file read-only
 alias chx='chmod -vv u+x'   # make a file executable
 alias link='ln -vsfFwh'     # see `man ln` for flags
 
-# colored output for common commands
+# color
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 alias pip=pip3
-alias rscript='Rscript'
+alias rscript=Rscript
 
+alias g=git
 alias zz=fg
 
-VISUAL=${VISUAL:-nv}
-# edit config files
+VISUAL=${VISUAL:-nvim}
 alias ssx='$VISUAL $HOME/.ssh/config'
-# chezmoi-managed
-alias ba='$VISUAL $HOME/.bash_aliases'
+alias  ba='$VISUAL $HOME/.bash_aliases'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
-
-alias gs='git status'
-alias ga='git add'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
-alias gp='git push'
-alias gs='git status'
-alias gcd='cd $(git rev-parse --show-toplevel)'
-alias zg='cd $(git rev-parse --show-toplevel)'
 
 # function to check if a command exists
 installed() { command -v "$1" >/dev/null 2>&1; }
@@ -100,3 +90,5 @@ Clean() {
     shopt -u globstar nullglob
   fi
 }
+
+alias nv=nvim
