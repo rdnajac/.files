@@ -14,4 +14,4 @@ if [[ "$OSTYPE" == darwin* ]]; then
 	fi
 fi
 
-path=( "$HOME/bin" "$HOME/.local/bin" "$HOME/.vim/bin" $path )
+path=( "$HOME/bin" "$HOME/.local/bin" "$HOME/.vim/bin" "$HOME/.local/share/nvim/mason/bin" $path )

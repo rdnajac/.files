@@ -21,9 +21,9 @@ alias rm='rm -vi'
 alias rmd='rm -drvI'
 alias mkdir='mkdir -v'
 alias rmdir='rmdir -v'
-alias lock='chmod -vv -w'   # make a file read-only
-alias chx='chmod -vv u+x'   # make a file executable
-alias link='ln -vsfFwh'     # see `man ln` for flags
+alias lock='chmod -vv -w' # make a file read-only
+alias chx='chmod -vv u+x' # make a file executable
+alias link='ln -vsfFwh'   # see `man ln` for flags
 
 # color
 alias grep='grep --color=auto'
@@ -37,11 +37,11 @@ alias zz=fg
 
 VISUAL=${VISUAL:-nvim}
 alias ssx='$VISUAL $HOME/.ssh/config'
-alias  ba='$VISUAL $HOME/.bash_aliases'
+alias ba='$VISUAL $HOME/.bash_aliases'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 # function to check if a command exists
-installed() { command -v "$1" >/dev/null 2>&1; }
+installed() { command -v "$1" > /dev/null 2>&1; }
 
 # TODO: don't install with brew, use npx
 # TODO: don't use alias manually, integrate with nvim or git hook
@@ -81,14 +81,27 @@ ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
 # TODO: move this to ~/bin
 # clean up common files that are not needed in the repository
 Clean() {
-  if [ -n "$ZSH_VERSION" ]; then
-    setopt localoptions null_glob
-    rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
-  elif [ -n "$BASH_VERSION" ]; then
-    shopt -s globstar nullglob
-    rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
-    shopt -u globstar nullglob
-  fi
+	if [ "$ZSH_VERSION" != "" ]; then
+		setopt localoptions null_glob
+		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+	elif [ "$BASH_VERSION" != "" ]; then
+		shopt -s globstar nullglob
+		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+		shopt -u globstar nullglob
+	fi
 }
 
 alias nv=nvim
+#
+# Convert a file into a Bash array of lines
+file_to_array() {
+	local file="$1"
+	local lines=()
+	local line
+	while IFS= read -r line; do
+		lines+=("$line")
+	done < "$file" || return 1
+	# Now `lines` is the array
+	# To print or use:
+	printf '%s\n' "${lines[@]}"
+}

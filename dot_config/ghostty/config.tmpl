@@ -1,8 +1,5 @@
 {{- if lookPath "tmux" -}}
 # command = {{ lookPath "tmux" }} new-session -A -s ghostty
-# command = {{ lookPath "tmux" }} new-session -A -s ghostty "{{ .chezmoi.homeDir }}/.local/bin/nvim"
-# initial-command = {{ lookPath "nvim" }}  --listen http://127.0.0.1:6969
-{{- else -}}
 {{- end -}}
 
 font-size = {{ .fontSize }}
@@ -13,8 +10,8 @@ font-feature = -dlig
 {{- end }}
 
 theme = tokyonight_night
-# background = #16161d
-background-opacity = .9
+background = #16161d
+# background-opacity = .9
 # background-blur = true
 # window-decoration = false
 # fullscreen = true
