@@ -42,66 +42,62 @@ alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 # function to check if a command exists
 installed() { command -v "$1" > /dev/null 2>&1; }
-
-# TODO: don't install with brew, use npx
-# TODO: don't use alias manually, integrate with nvim or git hook
-installed prettier && alias pretty='prettier --write .'
-
-# alias tmux='tmux -2'
-installed tmux && alias kms='tmux kill-server'
-
-# rsync all non-hidden files and directories
-installed rsync \
-	&& alias sync='rsync -avz --progress --exclude=".*"'
-
-# update all cargo packages if cargo-install-update is also installed
-installed cargo-install-update \
-	&& alias cargoup='cargo install-update -a'
-
 installed bear && alias bmake='bear -- make'
-alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
-	sudo make modules_install && sudo make install'
+installed prettier && alias pretty='prettier --write .'
+installed rsync && alias sync='rsync -avz --progress --exclude=".*"'
+installed tmux && alias kms='tmux kill-server'
+installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
+installed cargo-install-update && alias cargoup='cargo install-update -a'
+if installed eza; then # {{{
+	alias eza='eza --group-directories-first --colour=auto --icons=auto'
+	alias ll='eza --all -l'
+	# alias ls='eza --group-directories-first --colour=always --icons=auto'
 
-if installed gh; then
+	# tree
+	alias l='eza --all --tree -l --git-ignore'
+	alias l1='ll --tree -L1 --git-ignore'
+	alias l2='ll --tree -L2 --git-ignore'
+	alias l3='ll --tree -L3 --git-ignore'
+	alias L1='ll --tree -L1'
+	alias L2='ll --tree -L2'
+	alias L3='ll --tree -L3'
+fi                    # }}}
+if installed gh; then # {{{
 	alias cs='gh codespace'
 	alias whats='gh copilot explain '
 	alias \?\?='gh copilot suggest --shell-out '
-fi
-
-if installed quarto; then
+fi                        # }}}
+if installed quarto; then # {{{
 	alias qp='quarto preview'
 	alias qr='quarto render'
-fi
+fi                         # }}}
+if installed chezmoi; then # {{{
+	alias cz='chezmoi --verbose'
+	alias cza='cz add'
+	alias czA='cz apply'
+	alias czc='cz cd'
+	alias czd='cz diff'
+	alias cze='cz edit'
+	alias czi='cz init'
+	alias czr='cz re-add'
+	alias czs='cz status'
+	alias czz='$VISUAL $CHEZMOI_SOURCE_DIR/dot_config/zsh'
+
+	# force commands to operate on the current directory
+	alias czm='cz managed .'
+	alias czu='cz unmanaged .'
+
+	# debugging
+	alias czx='cz execute-template'
+	alias cztest='cz execute-template --file'
+fi # }}}
 
 unset -f installed # clean-up
 
-# clear scren and restart shell
+alias kmake='cd ~/kernel_dev/linux && make -j $(nproc) && \
+	sudo make modules_install && sudo make install'
+
+# clear screen and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
 
-# TODO: move this to ~/bin
-# clean up common files that are not needed in the repository
-Clean() {
-	if [ "$ZSH_VERSION" != "" ]; then
-		setopt localoptions null_glob
-		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
-	elif [ "$BASH_VERSION" != "" ]; then
-		shopt -s globstar nullglob
-		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
-		shopt -u globstar nullglob
-	fi
-}
-
-alias nv=nvim
-#
-# Convert a file into a Bash array of lines
-file_to_array() {
-	local file="$1"
-	local lines=()
-	local line
-	while IFS= read -r line; do
-		lines+=("$line")
-	done < "$file" || return 1
-	# Now `lines` is the array
-	# To print or use:
-	printf '%s\n' "${lines[@]}"
-}
+# vim: ft=sh fdl=0

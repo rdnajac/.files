@@ -1,0 +1,15 @@
+# font-size = {{ .fontSize }}
+font-size = 14
+font-feature = -calt,-liga,-dlig
+
+theme = tokyonight_night
+background = #16161d
+background-opacity = .9
+background-blur = true
+# window-decoration = false
+# fullscreen = true
+macos-non-native-fullscreen = true
+
+cursor-style = block
+custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
+# custom-shader-animation = always

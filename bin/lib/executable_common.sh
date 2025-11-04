@@ -38,3 +38,16 @@ die() {
 cd_or_die() {
 	cd "$1" || die "Failed to change directory to '$1'"
 }
+
+# Convert a file into a Bash array of lines
+file_to_array() {
+	local file="$1"
+	local lines=()
+	local line
+	while IFS= read -r line; do
+		lines+=("$line")
+	done < "$file" || return 1
+	# Now `lines` is the array
+	# To print or use:
+	printf '%s\n' "${lines[@]}"
+}

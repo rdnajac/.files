@@ -28,12 +28,21 @@ zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 zstyle ':completion:*:rsync:*' remote-access yes
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
 # }}}
+# Section: Executables {{{
+# override macOS tools with GNU versions if available
+alias awk="${HOMEBREW_PREFIX}/bin/gawk"
+# if the names are the same, rely on the `$PATH` order
+# alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
+# }}}
 
 # Load additional zsh configs in this dir
 # `(N)` is a zsh glob qualifier; bash uses `shopt -s nullglob`
 for f in "$ZDOTDIR"/*.zsh(N); do
 	. "$f"
 done
+
+# `https://www.chezmoi.io`
+eval "$(chezmoi completion "${SHELL##*/}")"
 
 # `zoxide`
 # eval "$(zoxide init zsh)"
@@ -59,6 +68,41 @@ eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
 export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
 export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+
+# OSC 7 support for Neovim's built-in terminal
+# Run this code only if NVIM is set (i.e., we're in Neovim)
+if [[ -n $NVIM ]]; then
+	echo "Setting up OSC 7 for Neovim terminal"
+	typeset -ga precmd_functions
+	print_osc7() {
+		printf '\033]7;file://%s\033\\' "$PWD"
+	}
+	precmd_functions+=(print_osc7)
+fi
+
+eval $(thefuck --alias)
+
+# TODO: mac doesnt like opening xlsx with libreoffice
+# add a wrapper around `open` to do this 
+# xattr -d com.apple.quarantine <filepath>
+
+
+alias nv=nvim
+
+export MANPAGER="nvim +Man!"
+
+brewup() {
+brew update && brew upgrade 
+# brew cleanup -s &
+
+if command -v chezmoi > /dev/null 2>&1; then
+	BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
+	else
+	BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
+	fi
+	brew bundle dump --force --file="$BREWFILE"
+~/.vim/bin/nv-update-nightly
+}
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 # vim:fdm=marker:fdl=0

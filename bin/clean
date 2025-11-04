@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# clean up common files that are not needed in the repository
+Clean() {
+	if [ "$ZSH_VERSION" != "" ]; then
+		setopt localoptions null_glob
+		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+	elif [ "$BASH_VERSION" != "" ]; then
+		shopt -s globstar nullglob
+		rm -rfv **/.{netrwhist,DS_Store} **/*.{swp,bak}
+		shopt -u globstar nullglob
+	fi
+}
+
