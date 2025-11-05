@@ -1,59 +1,60 @@
 [user]
-	email =  {{ .email }}
-	name = {{ .name }}
-	username = rdnajac
+  email =  {{ .email }}
+  name = {{ .name }}
+  username = rdnajac
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 
 [core]
-	editor = nvim
-	excludesfile = {{ .chezmoi.destDir }}/.config/git/ignore
+  editor = nvim
+  excludesfile = {{ .chezmoi.destDir }}/.config/git/ignore
 
 [credential "https://github.com"]
-	helper =
-	helper = !{{ lookPath "gh" }} auth git-credential
+  helper =
+  helper = !{{ lookPath "gh" }} auth git-credential
 
 [credential "https://gist.github.com"]
-	helper =
-	helper = !{{ lookPath "gh" }} auth git-credential
+  helper =
+  helper = !{{ lookPath "gh" }} auth git-credential
 
 [pull]
-	rebase = false
+  rebase = false
 
-[mergetool]
-	prompt = false
-
-# TODO use `nvim -d`
-[merge]
-	tool = vimdiff
-	conflictstyle = diff3
+[difftool "nvim_difftool"]
+  cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 
 [diff]
-	tool = vimdiff
+  tool = nvim_difftool
 
 [mergetool "vimdiff"]
-	layout = LOCAL,MERGED,REMOTE
+  layout = LOCAL,MERGED,REMOTE
+  ; prompt = false
 
+; TODO use `nvim -d`
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
 [alias]
-	a = add -v
-	ca = commit -a
-	cm = commit -m
-	cma = commit -ma
-	cam = commit -am
-	s = status
-	P = push
-	uncommit = reset HEAD~1
-	recommit = commit --amend --no-edit
-	undo = reset --soft HEAD^
-	logg = log --color --oneline -a --graph
-	tree = log --graph --oneline --all --decorate
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
+  a = add -v
+  ca = commit -a
+  cm = commit -m
+  cma = commit -ma
+  cam = commit -am
+  s = status
+  P = push
+  uncommit = reset HEAD~1
+  recommit = commit --amend --no-edit
+  undo = reset --soft HEAD^
+  logg = log --color --oneline -a --graph
+  tree = log --graph --oneline --all --decorate
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
