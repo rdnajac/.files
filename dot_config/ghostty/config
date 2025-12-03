@@ -3,10 +3,13 @@ font-size = 14
 font-feature = -calt,-liga,-dlig
 
 theme = tokyonight_night
-background = #16161d
-background-opacity = .9
-background-blur = true
-# window-decoration = false
+# background = #000000
+# background = #16161d
+# background-opacity = 0.4
+# background-blur = true
+background-opacity-cells = true
+
+window-decoration = false
 # fullscreen = true
 macos-non-native-fullscreen = true
 

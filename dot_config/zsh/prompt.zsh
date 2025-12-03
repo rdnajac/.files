@@ -1,8 +1,19 @@
 autoload -Uz colors && colors
 
+# # git branch {{{
+# autoload -Uz vcs_info
+# precmd() { vcs_info }
+# setopt prompt_subst
+# autoload -Uz vcs_info
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
+# setopt prompt_subst
+# RPROMPT=\$vcs_info_msg_0_
+# # }}}
+
 # default password prompt
 # enum colors `black=0 red=1 green=2 yellow=3 blue=4 magenta=5 cyan=6 white=7`
-export SUDO_PROMPT="$(tput setaf 1; tput bold)Password:$(tput sgr0) "
+# export SUDO_PROMPT="$( tput setaf 1 tput bold)Password:$(tput sgr0) "
 
 NEWLINE=$'\n'
 CWD='   %F{blue}%~%f'

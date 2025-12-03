@@ -42,9 +42,8 @@ for f in "$ZDOTDIR"/*.zsh(N); do
 done
 
 # `https://www.chezmoi.io`
-eval "$(chezmoi completion "${SHELL##*/}")"
+eval "$(chezmoi completion zsh)"
 
-# `zoxide`
 # eval "$(zoxide init zsh)"
 eval "${$(zoxide init zsh):s#_files -/#_cd#}"
 alias cd=z
@@ -81,28 +80,6 @@ if [[ -n $NVIM ]]; then
 fi
 
 eval $(thefuck --alias)
-
-# TODO: mac doesnt like opening xlsx with libreoffice
-# add a wrapper around `open` to do this 
-# xattr -d com.apple.quarantine <filepath>
-
-
-alias nv=nvim
-
-export MANPAGER="nvim +Man!"
-
-brewup() {
-brew update && brew upgrade 
-# brew cleanup -s &
-
-if command -v chezmoi > /dev/null 2>&1; then
-	BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
-	else
-	BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
-	fi
-	brew bundle dump --force --file="$BREWFILE"
-~/.vim/bin/nv-update-nightly
-}
 
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 # vim:fdm=marker:fdl=0

@@ -1,3 +1,6 @@
+# XXX: don't disable bracketed paste, do this instead:
+zle_highlight=('paste:none')
+
 copy() {
     echo "copy called with arguments: $@"
     pbcopy < "${1:-/dev/stdin}"

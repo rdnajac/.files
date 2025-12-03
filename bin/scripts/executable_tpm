@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BIN_DIR="${CURRENT_DIR}/bindings"
+SCRIPTS_DIR="${CURRENT_DIR}/scripts"
+
+# PLUGIN_DIR="$XDG"
+
+. "${SCRIPTS_DIR}/common.sh"
+
+"$SCRIPTS_DIR/source_plugins.sh" > /dev/null 2>&1

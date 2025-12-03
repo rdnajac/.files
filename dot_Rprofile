@@ -29,6 +29,6 @@ if (requireNamespace("BiocManager", quietly = TRUE)) {
 # wiht renv by using the bioc:: prefix. For example:
 # `renv::install("bioc::Biobase")`
 
-# options(nvimcom.verbose = 2)
+# options(nvimcom.verbose = 5)
 # library(colorout)
 
