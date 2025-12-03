@@ -1,14 +1,8 @@
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
-
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local bootstrap = 'https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua'
-  vim.net.request(bootstrap, {}, function(err, res)
-    if err then
-      vim.notify('Failed to fetch bootstrap.lua: ' .. err, vim.log.levels.ERROR)
-      return
-    end
-    load(res.body)() -- res.body contains the downloaded Lua code
-  end)
+if not vim.uv.fs_stat(lazypath) then
+  load(
+    vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua')
+  )()
 else
   vim.opt.rtp:prepend(lazypath)
 end
