@@ -3,16 +3,22 @@ font-size = 14
 font-feature = -calt,-liga,-dlig
 
 theme = tokyonight_night
-# background = #000000
+background = #000000
 # background = #16161d
 # background-opacity = 0.4
 # background-blur = true
 background-opacity-cells = true
 
-window-decoration = false
+# window-decoration = false
 # fullscreen = true
 macos-non-native-fullscreen = true
 
 cursor-style = block
 custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
 # custom-shader-animation = always
+
+# Split navigation
+keybind = shift+alt+left=goto_split:left
+keybind = shift+alt+right=goto_split:right
+keybind = shift+alt+up=goto_split:top
+keybind = shift+alt+down=goto_split:bottom

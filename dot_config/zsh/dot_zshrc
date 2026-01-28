@@ -20,7 +20,6 @@ export LESSHISTFILE=-
 # }}}
 # Section: Completion {{{
 autoload -Uz compinit && compinit
-
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 mkdir -p "$ZSH_CACHE_DIR"
 zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
@@ -81,5 +80,6 @@ fi
 
 eval $(thefuck --alias)
 
+compdef _vim nv
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 # vim:fdm=marker:fdl=0

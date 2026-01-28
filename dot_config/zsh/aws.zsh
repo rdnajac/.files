@@ -1,12 +1,11 @@
 # AWS S3 caching and completion
 # Make sure completion is enabled in your .zshrc
 # and that the $ZSH_CACHE_DIR is set.
-
 S3_CACHE="$ZSH_CACHE_DIR/aws-s3"
-mkdir -p "$S3_CACHE"
 
 # manual refresh
 s3-refresh-cache() {
+mkdir -p "$S3_CACHE"
 	aws s3 ls | awk '{print $3}' > "$S3_CACHE/buckets" || return
 	while read -r bucket; do
 		aws s3 ls "s3://$bucket/" --recursive \

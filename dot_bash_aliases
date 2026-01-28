@@ -45,28 +45,25 @@ alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 installed() { command -v "$1" > /dev/null 2>&1; }
 installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
 installed cargo-install-update && alias cargoup='cargo install-update -a'
-if installed eza; then
-	alias eza='eza --group-directories-first --colour=auto --icons=auto'
-	alias ll='eza --all -l'
-	# alias ls='eza --group-directories-first --colour=always --icons=auto'
-
-	# tree
-	alias l='eza --all --tree -l --git-ignore'
-	alias l1='ll --tree -L1 --git-ignore'
-	alias l2='ll --tree -L2 --git-ignore'
-	alias l3='ll --tree -L3 --git-ignore'
-	alias L1='ll --tree -L1'
-	alias L2='ll --tree -L2'
-	alias L3='ll --tree -L3'
-fi
-if installed gh; then
-	alias cs='gh codespace'
-	alias whats='gh copilot explain '
-	alias \?\?='gh copilot suggest --shell-out '
-fi
 if installed quarto; then
 	alias qp='quarto preview'
 	alias qr='quarto render'
+fi
+if installed brew; then
+	brewup() {
+		brew update && brew upgrade
+
+		# if installed chezmoi; then
+		if command -v chezmoi > /dev/null 2>&1; then
+			BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
+		else
+			BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
+		fi
+		brew bundle dump --force --file="$BREWFILE"
+		brew cleanup -s
+		~/.vim/bin/nv-update-nightly
+		nvim -c 'PlugUpdate'
+	}
 fi
 if installed chezmoi; then
 	alias cz='chezmoi --verbose'
@@ -88,29 +85,39 @@ if installed chezmoi; then
 	alias czx='cz execute-template'
 	alias cztest='cz execute-template --file'
 fi
+if installed eza; then
+	alias eza='eza --group-directories-first --colour=auto --icons=auto'
+	alias ll='eza --all -l'
+	# alias ls='eza --group-directories-first --colour=always --icons=auto'
+
+	# tree
+	alias l='eza --all --tree -l --git-ignore'
+	alias l1='ll --tree -L1 --git-ignore'
+	alias l2='ll --tree -L2 --git-ignore'
+	alias l3='ll --tree -L3 --git-ignore'
+	alias L1='ll --tree -L1'
+	alias L2='ll --tree -L2'
+	alias L3='ll --tree -L3'
+fi
+if installed gh; then
+	alias cs='gh codespace'
+	alias whats='gh copilot explain '
+	alias \?\?='gh copilot suggest --shell-out '
+fi
 if installed nvim; then
 	export MANPAGER="nvim +Man!"
-	alias nv=nvim
+	nv() {
+		if [ "$NVIM" = "" ]; then
+			nvim -- "$@"
+		else
+			# nvim --server "$NVIM" --remote-send "q"
+			nvim --server "$NVIM" --remote "$1"
+		fi
+	}
 	# alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
 	alias lv='NVIM_APPNAME=lazyvim nvim'
 	# alias repro='NVIM_APPNAME=repro nvim'
-	alias zzz='nvim +"lua Snacks.lazygit()" +"startinsert"'
-fi
-if installed brew; then
-	brewup() {
-		brew update && brew upgrade
-
-		# if installed chezmoi; then
-		if command -v chezmoi > /dev/null 2>&1; then
-			BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
-		else
-			BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
-		fi
-		brew bundle dump --force --file="$BREWFILE"
-		brew cleanup -s
-		~/.vim/bin/nv-update-nightly
-		nvim -c 'PlugUpdate'
-	}
+	alias zzz='nvim +"lua Snacks.lazygit()"'
 fi
 
 unset -f installed # clean-up
