@@ -7,11 +7,11 @@ background = #000000
 # background = #16161d
 # background-opacity = 0.4
 # background-blur = true
-background-opacity-cells = true
+# background-opacity-cells = true
 
 # window-decoration = false
 # fullscreen = true
-macos-non-native-fullscreen = true
+# macos-non-native-fullscreen = true
 
 cursor-style = block
 custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
