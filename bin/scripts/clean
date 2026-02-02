@@ -12,3 +12,8 @@ Clean() {
 	fi
 }
 
+# invoke function on script execution
+# must be posix
+if [ "${0##*/}" = "clean" ]; then
+	Clean "$@"
+fi

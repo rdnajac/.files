@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pr_unown() {
+hidden_power() {
 	input=$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')
 	unownstring=""
 
@@ -13,8 +13,8 @@ pr_unown() {
 		[b-z]) unownstring="${unownstring} unown-$char " ;;
 		'!') unownstring="${unownstring} unown-exclamation " ;;
 		'?') unownstring="${unownstring} unown-question " ;;
+		*) unownstring="${unownstring} " ;;
 		esac
-
 		i=$((i + 1))
 	done
 
@@ -27,4 +27,4 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-pr_unown "$1"
+hidden_power "$1"

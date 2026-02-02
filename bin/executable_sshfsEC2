@@ -1,3 +1,0 @@
-#!/bin/sh
-
-sshfs "${1}:${2:-/home/ubuntu/} ${HOME}/mnt/${1}" 
