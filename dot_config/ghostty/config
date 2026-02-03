@@ -2,7 +2,7 @@
 font-size = 14
 font-feature = -calt,-liga,-dlig
 
-theme = tokyonight_night
+theme = TokyoNight Night
 background = #000000
 # background = #16161d
 # background-opacity = 0.4

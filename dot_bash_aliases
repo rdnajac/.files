@@ -44,7 +44,6 @@ alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 installed() { command -v "$1" > /dev/null 2>&1; }
 installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
-installed cargo-install-update && alias cargoup='cargo install-update -a'
 if installed quarto; then
 	alias qp='quarto preview'
 	alias qr='quarto render'
@@ -67,14 +66,6 @@ if installed brew; then
 fi
 if installed chezmoi; then
 	alias cz='chezmoi --verbose'
-	alias cza='cz add'
-	alias czA='cz apply'
-	alias czc='cz cd'
-	alias czd='cz diff'
-	alias cze='cz edit'
-	alias czi='cz init'
-	alias czr='cz re-add'
-	alias czs='cz status'
 	alias czz='$VISUAL $CHEZMOI_SOURCE_DIR/dot_config/zsh'
 
 	# force commands to operate on the current directory
@@ -98,11 +89,6 @@ if installed eza; then
 	alias L1='ll --tree -L1'
 	alias L2='ll --tree -L2'
 	alias L3='ll --tree -L3'
-fi
-if installed gh; then
-	alias cs='gh codespace'
-	alias whats='gh copilot explain '
-	alias \?\?='gh copilot suggest --shell-out '
 fi
 if installed nvim; then
 	export MANPAGER="nvim +Man!"

@@ -19,13 +19,17 @@ alias wget='wget --no-hsts'
 export LESSHISTFILE=-
 # }}}
 # Section: Completion {{{
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 autoload -Uz compinit && compinit
+
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 mkdir -p "$ZSH_CACHE_DIR"
 zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
 zstyle ':completion:*:rsync:*' remote-access yes
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
+
+compdef _vim nv
 # }}}
 # Section: Executables {{{
 # override macOS tools with GNU versions if available
@@ -80,6 +84,5 @@ fi
 
 eval $(thefuck --alias)
 
-compdef _vim nv
 echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
 # vim:fdm=marker:fdl=0
