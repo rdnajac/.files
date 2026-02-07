@@ -5,23 +5,26 @@
 # uncomment the next line for a more intuitive default `ls`
 # alias ls='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
-# alias lll='ls -lAc --size -1 -S --classify'
-
-cl() { builtin cd "${1:-$HOME}" && ls; }
-# alias cd=cl
+alias lll='ls -lAc --size -1 -S --classify'
 
 alias bd='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# verbose
+# correct, POSIX compliant function definition
+cl() { command cd "${1:-$HOME}" && command ls; }
+
+# be `--verbose` by default
+alias mkdir='mkdir -v'
+alias rmdir='rmdir -v'
+# prompt before destructive actions
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
-alias rmd='rm -drvI'
-alias mkdir='mkdir -v'
-alias rmdir='rmdir -v'
-alias lock='chmod -vv -w'
+
+# file permissions
+alias lock='chmod -vv -w' # make file read-only
+alias unlock='chmod -vv +w' # make file writable
 alias chx='chmod -vv u+x'
 alias link='ln -vsfFwh'
 alias kms='tmux kill-server'
@@ -110,5 +113,5 @@ unset -f installed # clean-up
 
 # clear screen and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
-
+. "$HOME/.cargo/env"
 # vim: ft=sh fdl=0 fdm=indent fml=0
