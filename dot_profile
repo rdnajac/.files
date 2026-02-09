@@ -1,0 +1,33 @@
+export MAMBA_EXE="$HOME/.local/bin/micromamba"
+export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
+# FIXME: this doesn't belong here
+micromamba activate cbmf 2>/dev/null || true
+
+eval "$("$MAMBA_EXE" shell hook -s zsh)"
+eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
+eval "$(chezmoi completion zsh)"
+eval "$(thefuck --alias)"
+eval "$(zoxide init zsh)"
+#
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# TeX Live 2025
+export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
+export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+
+# OSC 7 support for Neovim's built-in terminal
+# Run this code only if NVIM is set (i.e., we're in Neovim)
+if [[ -n $NVIM ]]; then
+	echo "Setting up OSC 7 for Neovim terminal"
+	typeset -ga precmd_functions
+	print_osc7() {
+		printf '\033]7;file://%s\033\\' "$PWD"
+	}
+	precmd_functions+=(print_osc7)
+fi
+
+echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+# vim: ft=sh

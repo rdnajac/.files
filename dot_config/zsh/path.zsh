@@ -1,4 +1,3 @@
-# .zprofile - set up `$PATH`
 # NOTE: this triggers a reordering of your `$PATH`
 # Make your changes to PATH after homebrew init
 if command -v /opt/homebrew/bin/brew > /dev/null 2>&1; then

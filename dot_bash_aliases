@@ -17,15 +17,17 @@ cl() { command cd "${1:-$HOME}" && command ls; }
 # be `--verbose` by default
 alias mkdir='mkdir -v'
 alias rmdir='rmdir -v'
+
 # prompt before destructive actions
 alias cp='cp -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
 
 # file permissions
-alias lock='chmod -vv -w' # make file read-only
+alias lock='chmod -vv -w'   # make file read-only
 alias unlock='chmod -vv +w' # make file writable
 alias chx='chmod -vv u+x'
+
 alias link='ln -vsfFwh'
 alias kms='tmux kill-server'
 alias sync='rsync -avz --progress --exclude=".*"'
@@ -34,10 +36,9 @@ alias sync='rsync -avz --progress --exclude=".*"'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
+alias g=git
 alias pip=pip3
 alias rscript=Rscript
-
-alias g=git
 alias zz=fg
 
 VISUAL=${VISUAL:-nvim}
@@ -63,8 +64,8 @@ if installed brew; then
 		fi
 		brew bundle dump --force --file="$BREWFILE"
 		brew cleanup -s
-		~/.vim/bin/nv-update-nightly
-		nvim -c 'PlugUpdate'
+		# ~/.vim/bin/nv-update-nightly
+		# nvim -c 'PlugUpdate'
 	}
 fi
 if installed chezmoi; then
@@ -109,9 +110,35 @@ if installed nvim; then
 	alias zzz='nvim +"lua Snacks.lazygit()"'
 fi
 
+if installed zoxide; then
+	alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
+fi
+
+copy() {
+	# echo "copy called with arguments: $@"
+	if installed pbcopy; then
+		pbcopy < "${1:-/dev/stdin}"
+	elif installed xclip; then
+		xclip -sel clip < "${1:-/dev/stdin}"
+	fi
+	printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "${1:-/dev/stdin}"
+}
+
+paste() {
+	# echo "paste called with arguments: $@"
+	if installed pbpaste; then
+		pbpaste > "${1:-/dev/stdout}"
+	elif installed xclip; then
+		xclip -sel clip -o > "${1:-/dev/stdout}"
+	fi
+	printf "\033[0;31mPasted contents of clipboard to %s\033[0m\n" "${1:-/dev/stdout}"
+}
+
 unset -f installed # clean-up
 
 # clear screen and restart shell
 ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
+
 . "$HOME/.cargo/env"
+
 # vim: ft=sh fdl=0 fdm=indent fml=0

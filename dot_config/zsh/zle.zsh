@@ -1,4 +1,4 @@
-# Zsh Line Editor (ZLE)
+# Zsh Line Editor (ZLE) {{{
 # https://zsh.sourceforge.io/Guide/zshguide04.html#l76
 # https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
 
@@ -34,3 +34,7 @@ change-first-word() {
 }
 zle -N change-first-word
 bindkey '^H' change-first-word # <C-BS> to delete first word
+
+# XXX: don't disable bracketed paste, do this instead:
+zle_highlight=('paste:none')
+# }}}
