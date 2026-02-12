@@ -34,16 +34,20 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 alias g=git
+alias mm=micromamba
 alias pip=pip3
 # alias qp='quarto preview'
 # alias qr='quarto render'
 alias rscript=Rscript
 alias zz=fg
 
-export MAMBA_EXE="$HOME/.local/bin/micromamba"
-export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
 export MANPAGER="nvim +Man!"
 export VISUAL=nvim
+
+# micromamba {{{
+export MAMBA_EXE="$HOME/.local/bin/micromamba"
+export MAMBA_ROOT_PREFIX="$HOME/.cache/micromamba"
+# }}}
 
 # TeX Live 2025 {{{
 export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
@@ -82,5 +86,5 @@ alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
 
-printf "The computing scientist's main challenge is not to get confused by the complexities of his own making.\n" >&2
+printf "\033[32mThe computing scientist's main challenge is not to get confused by the complexities of his own making.\033[0m\n" >&2
 # vim: ft=sh fdm=marker fdl=-

@@ -3,7 +3,6 @@ if status is-interactive
 
   # `eval` processes the output of command substitutions
   eval (/opt/homebrew/bin/brew shellenv)
-  eval ($MAMBA_EXE shell hook -s fish)
 
   # pipe command outputs to `source`for completions
   chezmoi completion fish | source
@@ -24,3 +23,10 @@ if status is-interactive
     end
   end
 end
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'micromamba shell init' !!
+set -gx MAMBA_EXE "/Users/rdn/.local/bin/micromamba"
+set -gx MAMBA_ROOT_PREFIX "/Users/rdn/.cache/micromamba"
+$MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+# <<< mamba initialize <<<
