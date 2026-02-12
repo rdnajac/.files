@@ -44,11 +44,6 @@ alias zz=fg
 export MANPAGER="nvim +Man!"
 export VISUAL=nvim
 
-# micromamba {{{
-export MAMBA_EXE="$HOME/.local/bin/micromamba"
-export MAMBA_ROOT_PREFIX="$HOME/.cache/micromamba"
-# }}}
-
 # TeX Live 2025 {{{
 export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
 export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"

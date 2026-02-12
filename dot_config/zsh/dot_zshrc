@@ -3,7 +3,6 @@ setopt interactivecomments
 
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
 
-eval "$("$MAMBA_EXE" shell hook -s zsh)"
 eval "$(chezmoi completion zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
@@ -48,6 +47,21 @@ alias awk="${HOMEBREW_PREFIX}/bin/gawk"
 for f in "$ZDOTDIR"/*.zsh(N); do
 	. "$f"
 done
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'micromamba shell init' !!
+export MAMBA_EXE='/Users/rdn/.local/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/Users/rdn/.cache/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+# eval "$("$MAMBA_EXE" shell hook -s zsh)"
 
 # eval "$(register-python-argcomplete cbmf 2> /dev/null)" || true
 

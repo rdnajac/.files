@@ -2,6 +2,12 @@
 ## POSIX-compliant profile script
 ## tested on bash, zsh, and dash
 
+export MAMBA_EXE="$HOME/.local/bin/micromamba"
+export MAMBA_ROOT_PREFIX="$HOME/.cache/micromamba"
+
+# FIXME: 
+# $MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+
 # correct, POSIX-compliant function definition
 installed() { command -v "$1" > /dev/null 2>&1; }
 
