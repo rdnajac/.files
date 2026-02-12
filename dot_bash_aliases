@@ -80,6 +80,4 @@ alias cztest='cz execute-template --file'
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
-
-printf "\033[32mThe computing scientist's main challenge is not to get confused by the complexities of his own making.\033[0m\n" >&2
 # vim: ft=sh fdm=marker fdl=-
