@@ -1,32 +1,15 @@
-. "$HOME/.cargo/env"
+## ~/.profile
+## POSIX-compliant profile script
+## tested on bash, zsh, and dash
 
-export MAMBA_EXE="$HOME/.local/bin/micromamba"
-export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
-# FIXME: this doesn't belong here
-micromamba activate cbmf 2> /dev/null || true
-
-eval "$("$MAMBA_EXE" shell hook -s zsh)"
-eval "$(register-python-argcomplete cbmf 2> /dev/null)" || true
-eval "$(chezmoi completion zsh)"
-eval "$(thefuck --alias)"
-eval "$(zoxide init zsh)"
 # correct, POSIX-compliant function definition
 installed() { command -v "$1" > /dev/null 2>&1; }
-# installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
-
-# if [ "$NVIM" = "" ]; then
-# 	alias nv=nvim
-# else # we're inside an nvim session
-# 	nv() {
-# 		# nvim --server "$NVIM" --remote-send "q"
-# 		nvim --server "$NVIM" --remote "$1"
-# 	}
-# fi
 
 clipboard_err() {
 	printf "\033[0;31mNo clipboard utility found\033[0m\n"
 	exit 1
 }
+
 copy() {
 	local file="${1:-/dev/stdin}"
 	if installed pbcopy; then
@@ -39,6 +22,7 @@ copy() {
 	fi
 	printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "$file"
 }
+
 paste() {
 	local file="${1:-/dev/stdout}"
 	if installed pbpaste; then
@@ -54,16 +38,24 @@ paste() {
 
 unset -f installed # clean-up
 
-# OSC 7 support for Neovim's built-in terminal
 # Run this code only if NVIM is set (i.e., we're in Neovim)
-if [[ -n $NVIM ]]; then
+if [ "$NVIM" != "" ]; then
 	echo "Setting up OSC 7 for Neovim terminal"
+
+	# shellcheck disable=SC3044
 	typeset -ga precmd_functions
 	print_osc7() {
+		# shellcheck disable=SC1003
 		printf '\033]7;file://%s\033\\' "$PWD"
 	}
+	# shellcheck disable=SC3044
 	precmd_functions+=(print_osc7)
-fi
 
-echo "The computing scientist's main challenge is not to get confused by the complexities of his own making."
+	nv() {
+		nvim --server "$NVIM" --remote "$1"
+	}
+else
+
+	alias nv=nvim
+fi
 # vim: ft=sh

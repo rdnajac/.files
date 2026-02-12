@@ -24,8 +24,9 @@ alias lock='chmod -vv -w'   # make file read-only
 alias unlock='chmod -vv +w' # make file writable
 alias chx='chmod -vv u+x'   # make file executable
 
-alias link='ln -vsfFwh'
 alias kms='tmux kill-server'
+alias link='ln -vsfFwh'
+# alias open='xdg-open > /dev/null 2>&1 &'
 alias sync='rsync -avz --progress --exclude=".*"'
 
 # color
@@ -39,6 +40,8 @@ alias pip=pip3
 alias rscript=Rscript
 alias zz=fg
 
+export MAMBA_EXE="$HOME/.local/bin/micromamba"
+export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
 export MANPAGER="nvim +Man!"
 export VISUAL=nvim
 
