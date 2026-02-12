@@ -1,22 +1,58 @@
+. "$HOME/.cargo/env"
+
 export MAMBA_EXE="$HOME/.local/bin/micromamba"
 export MAMBA_ROOT_PREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/micromamba"
 # FIXME: this doesn't belong here
-micromamba activate cbmf 2>/dev/null || true
+micromamba activate cbmf 2> /dev/null || true
 
 eval "$("$MAMBA_EXE" shell hook -s zsh)"
-eval "$(register-python-argcomplete cbmf 2>/dev/null)" || true
+eval "$(register-python-argcomplete cbmf 2> /dev/null)" || true
 eval "$(chezmoi completion zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
-#
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# correct, POSIX-compliant function definition
+installed() { command -v "$1" > /dev/null 2>&1; }
+# installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
 
-# TeX Live 2025
-export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
-export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+# if [ "$NVIM" = "" ]; then
+# 	alias nv=nvim
+# else # we're inside an nvim session
+# 	nv() {
+# 		# nvim --server "$NVIM" --remote-send "q"
+# 		nvim --server "$NVIM" --remote "$1"
+# 	}
+# fi
+
+clipboard_err() {
+	printf "\033[0;31mNo clipboard utility found\033[0m\n"
+	exit 1
+}
+copy() {
+	local file="${1:-/dev/stdin}"
+	if installed pbcopy; then
+		pbcopy < "$file"
+	elif installed xclip; then
+		xclip -sel clip < "$file"
+	else
+		printf "\033[0;31mNo clipboard utility found\033[0m\n"
+		exit 1
+	fi
+	printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "$file"
+}
+paste() {
+	local file="${1:-/dev/stdout}"
+	if installed pbpaste; then
+		pbpaste > "$file"
+	elif installed xclip; then
+		xclip -sel clip -o > "$file"
+	else
+		printf "\033[0;31mNo clipboard utility found\033[0m\n"
+		exit 1
+	fi
+	printf "\033[0;31mPasted contents of clipboard to %s\033[0m\n" "$file"
+}
+
+unset -f installed # clean-up
 
 # OSC 7 support for Neovim's built-in terminal
 # Run this code only if NVIM is set (i.e., we're in Neovim)

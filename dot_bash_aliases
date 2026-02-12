@@ -1,18 +1,14 @@
 # ~/.bash_aliases
-# Default .bashrc automatically sources `~/.bash_aliases` when present
+# default .bashrc will automatically source this file
 # check out `/usr/share/doc/bash` for more resources
 
-# uncomment the next line for a more intuitive default `ls`
-# alias ls='ls -F --color=auto --human-readable --group-directories-first'
+alias l='ls -F --color=auto --human-readable --group-directories-first'
 alias ll='ls -lA'
 alias lll='ls -lAc --size -1 -S --classify'
 
 alias bd='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
-
-# correct, POSIX compliant function definition
-cl() { command cd "${1:-$HOME}" && command ls; }
 
 # be `--verbose` by default
 alias mkdir='mkdir -v'
@@ -26,7 +22,7 @@ alias rm='rm -vi'
 # file permissions
 alias lock='chmod -vv -w'   # make file read-only
 alias unlock='chmod -vv +w' # make file writable
-alias chx='chmod -vv u+x'
+alias chx='chmod -vv u+x'   # make file executable
 
 alias link='ln -vsfFwh'
 alias kms='tmux kill-server'
@@ -38,107 +34,50 @@ alias diff='diff --color=auto'
 
 alias g=git
 alias pip=pip3
+# alias qp='quarto preview'
+# alias qr='quarto render'
 alias rscript=Rscript
 alias zz=fg
 
-VISUAL=${VISUAL:-nvim}
+export MANPAGER="nvim +Man!"
+export VISUAL=nvim
+
+# TeX Live 2025 {{{
+export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
+export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+# }}}
+
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias ba='$VISUAL $HOME/.bash_aliases'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
-installed() { command -v "$1" > /dev/null 2>&1; }
-installed xdg-open && alias open='xdg-open > /dev/null 2>&1 &'
-if installed quarto; then
-	alias qp='quarto preview'
-	alias qr='quarto render'
-fi
-if installed brew; then
-	brewup() {
-		brew update && brew upgrade
+alias cz='chezmoi --verbose'
+alias czz='$VISUAL $CHEZMOI_SOURCE_DIR/dot_config/zsh'
+alias czm='cz managed .'
+alias czu='cz unmanaged .'
+alias czx='cz execute-template'
+alias cztest='cz execute-template --file'
+# alias eza='eza --group-directories-first --colour=auto --icons=auto'
+# alias ll='eza --all -l'
+# # alias ls='eza --group-directories-first --colour=always --icons=auto'
+# alias l='eza --all --tree -l --git-ignore'
+# alias l1='ll --tree -L1 --git-ignore'
+# alias l2='ll --tree -L2 --git-ignore'
+# alias l3='ll --tree -L3 --git-ignore'
+# alias L1='ll --tree -L1'
+# alias L2='ll --tree -L2'
+# alias L3='ll --tree -L3'
+#
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# alias lv='NVIM_APPNAME=lazyvim nvim'
+# alias repro='NVIM_APPNAME=repro nvim'
+# alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
+alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
-		# if installed chezmoi; then
-		if command -v chezmoi > /dev/null 2>&1; then
-			BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
-		else
-			BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
-		fi
-		brew bundle dump --force --file="$BREWFILE"
-		brew cleanup -s
-		# ~/.vim/bin/nv-update-nightly
-		# nvim -c 'PlugUpdate'
-	}
-fi
-if installed chezmoi; then
-	alias cz='chezmoi --verbose'
-	alias czz='$VISUAL $CHEZMOI_SOURCE_DIR/dot_config/zsh'
+alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
 
-	# force commands to operate on the current directory
-	alias czm='cz managed .'
-	alias czu='cz unmanaged .'
-
-	# debugging
-	alias czx='cz execute-template'
-	alias cztest='cz execute-template --file'
-fi
-if installed eza; then
-	alias eza='eza --group-directories-first --colour=auto --icons=auto'
-	alias ll='eza --all -l'
-	# alias ls='eza --group-directories-first --colour=always --icons=auto'
-
-	# tree
-	alias l='eza --all --tree -l --git-ignore'
-	alias l1='ll --tree -L1 --git-ignore'
-	alias l2='ll --tree -L2 --git-ignore'
-	alias l3='ll --tree -L3 --git-ignore'
-	alias L1='ll --tree -L1'
-	alias L2='ll --tree -L2'
-	alias L3='ll --tree -L3'
-fi
-if installed nvim; then
-	export MANPAGER="nvim +Man!"
-	nv() {
-		if [ "$NVIM" = "" ]; then
-			nvim -- "$@"
-		else
-			# nvim --server "$NVIM" --remote-send "q"
-			nvim --server "$NVIM" --remote "$1"
-		fi
-	}
-	# alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
-	alias lv='NVIM_APPNAME=lazyvim nvim'
-	# alias repro='NVIM_APPNAME=repro nvim'
-	alias zzz='nvim +"lua Snacks.lazygit()"'
-fi
-
-if installed zoxide; then
-	alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
-fi
-
-copy() {
-	# echo "copy called with arguments: $@"
-	if installed pbcopy; then
-		pbcopy < "${1:-/dev/stdin}"
-	elif installed xclip; then
-		xclip -sel clip < "${1:-/dev/stdin}"
-	fi
-	printf "\033[0;31mCopied contents of %s to clipboard\033[0m\n" "${1:-/dev/stdin}"
-}
-
-paste() {
-	# echo "paste called with arguments: $@"
-	if installed pbpaste; then
-		pbpaste > "${1:-/dev/stdout}"
-	elif installed xclip; then
-		xclip -sel clip -o > "${1:-/dev/stdout}"
-	fi
-	printf "\033[0;31mPasted contents of clipboard to %s\033[0m\n" "${1:-/dev/stdout}"
-}
-
-unset -f installed # clean-up
-
-# clear screen and restart shell
-ree() { clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"; }
-
-. "$HOME/.cargo/env"
-
-# vim: ft=sh fdl=0 fdm=indent fml=0
+printf "The computing scientist's main challenge is not to get confused by the complexities of his own making.\n" >&2
+# vim: ft=sh fdm=marker fdl=-

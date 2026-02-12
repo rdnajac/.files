@@ -1,0 +1,16 @@
+#!/bin/sh
+brew update
+brew upgrade
+
+if command -v chezmoi > /dev/null 2>&1; then
+	BREWFILE="$(chezmoi source-path)/dot_config/brewfile/Brewfile"
+else
+	BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brewfile/Brewfile"
+fi
+
+brew bundle dump --force --file="$BREWFILE"
+brew cleanup -s
+
+# ~/.vim/bin/nv-update-nightly
+
+# nvim -c 'PlugUpdate'
