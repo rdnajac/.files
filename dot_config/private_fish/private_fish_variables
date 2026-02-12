@@ -1,4 +1,4 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/Users/rdn/\x2envim\x2dmacos\x2darm64/bin
+SETUVAR fish_user_paths:/Users/rdn/\x2elocal/share/nvim/mason/bin
