@@ -6,10 +6,10 @@ LICENSE
 README.md
 
 # zsh
-**/*zcompcache
-**/*zcompdump
-**/*zsh_history
-**/*zsh_sessions
+zcompcache
+zcompdump
+zsh_history
+zsh_sessions
 
 # ghostty
 # .config/ghostty/shaders/**

@@ -1,7 +1,10 @@
-# My dotfiles
+# .files
 
 My dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 
+## Install script
+
+Installs chezmoi binary to `~/.local/bin`
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply https://github.com/rdnajac/.files.git
 ```
@@ -17,9 +20,6 @@ Pros:
 
 - Default font is JetBrains (with glyphs)
 
-
-
-## TODO:
 
 ## Resources:
 
