@@ -1,6 +1,7 @@
-# font-size = {{ .fontSize }}
-font-size = 14
+font-size = {{ .font.size }}
+{{- if eq .font.ligatures false }}
 font-feature = -calt,-liga,-dlig
+{{- end }}
 
 theme = TokyoNight Night
 background = #000000
