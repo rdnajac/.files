@@ -1,7 +1,9 @@
 #!/bin/sh
 ## update and upgrade brew packages, then dump Brewfile
 ## re-runs whenever this value changes: {{ now.YearDay }}
+{{ if lookPath "brew" -}}
 brew update
 brew upgrade
 brew bundle dump --force --file="{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
 brew cleanup -s
+{{- end }}
