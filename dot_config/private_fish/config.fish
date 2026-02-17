@@ -1,9 +1,6 @@
 if status is-interactive
   # Commands to run in interactive sessions can go here
 
-  # `eval` processes the output of command substitutions
-  eval (/opt/homebrew/bin/brew shellenv) # modifies `$PATH`
-
   # pipe command outputs to `source`for completions
   chezmoi completion fish | source
   thefuck --alias | source
