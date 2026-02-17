@@ -1,18 +1,13 @@
 # .zshrc
 
 # use fish without overriding the default shell
-if [[ -o interactive && -z "$FISH_VERSION" ]]; then
+if [[ -o interactive && -z "$FISH_VERSION" && -z "$NVIM" ]]; then
   exec /opt/homebrew/bin/fish -l
 fi
 
 setopt interactivecomments
 
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
-
-eval "$(chezmoi completion zsh)"
-eval "$(thefuck --alias)"
-eval "$(zoxide init zsh)"
-
 # Section: History {{{
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
@@ -50,6 +45,11 @@ alias awk="${HOMEBREW_PREFIX}/bin/gawk"
 # if the names are the same, rely on the `$PATH` order
 # alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
 # }}}
+#
+
+eval "$(chezmoi completion zsh)"
+eval "$(thefuck --alias)"
+eval "$(zoxide init zsh)"
 
 # Load additional zsh configs
 if [ -d "$ZDOTDIR" ]; then
@@ -57,8 +57,6 @@ if [ -d "$ZDOTDIR" ]; then
 	for f in "$ZDOTDIR"/*.zsh(N); do
 		. "$f"
 	done
-else 
-	echo 'no ZDOTDIR set, skipping loading additional zsh configs'
 fi
 
 # >>> mamba initialize >>>
