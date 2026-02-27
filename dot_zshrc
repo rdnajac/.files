@@ -2,11 +2,8 @@
 
 # use fish without overriding the default shell
 if [[ -o interactive && -z "$FISH_VERSION" && -z "$NVIM" ]]; then
-  exec /opt/homebrew/bin/fish -l
+  # exec /opt/homebrew/bin/fish -l
 fi
-
-export PATH=/Users/rdn/bin:$PATH
-export PATH=/Users/rdn/.local/bin:$PATH
 
 setopt interactivecomments
 

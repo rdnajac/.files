@@ -43,21 +43,11 @@ alias pip=pip3
 alias rscript=Rscript
 alias zz=fg
 
-export MANPAGER="nvim +Man!"
-export VISUAL=nvim
-
-# TeX Live 2025 {{{
-export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
-export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
-# }}}
-
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias ba='$VISUAL $HOME/.bash_aliases'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 alias cz='chezmoi --verbose'
-alias czz='$VISUAL $CHEZMOI_SOURCE_DIR/dot_config/zsh'
 alias czm='cz managed .'
 alias czu='cz unmanaged .'
 alias czx='cz execute-template'

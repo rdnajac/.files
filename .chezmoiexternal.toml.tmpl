@@ -13,7 +13,7 @@ stripComponents = 1
 {{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end -}}
 url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
 executable = false
-refreshPeriod = "12h"
+refreshPeriod = "6h"
 
 {{- if .work }}
 [".local/bin/fzf"]
