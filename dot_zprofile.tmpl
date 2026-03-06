@@ -1,4 +1,12 @@
 eval "$({{ lookPath "brew" }} shellenv)"
-export PATH="/Users/rdn/bin:$PATH"
-export PATH="/Users/rdn/.local/bin:$PATH"
-export PATH="/Users/rdn/.local/neovim/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+# chezmoi-managed neovim nightly install location
+export PATH="$HOME/.local/neovim/bin:$PATH"
+# local neovim build for dev (takes precedence)
+export PATH="$HOME/neovim/bin:$PATH"
+
+export MANPAGER="nvim +Man!"
+export VISUAL=nvim
+
+[ -f "$HOME"/.cargo/env ] && . "$HOME"/.cargo/env

@@ -20,6 +20,10 @@ Pros:
 
 - Default font is JetBrains (with glyphs)
 
+## TODO:
+
+eval "$(/usr/libexec/path_helper)"
+
 
 ## Resources:
 

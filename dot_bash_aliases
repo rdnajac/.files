@@ -2,8 +2,8 @@
 # default .bashrc will automatically source this file
 # check out `/usr/share/doc/bash` for more resources
 
-alias l='ls -F --color=auto --human-readable --group-directories-first'
-alias ll='ls -lA'
+# alias l='ls -F --human-readable --group-directories-first'
+alias ll='ls -lA --color=auto'
 alias lll='ls -lAc --size -1 -S --classify'
 
 alias bd='cd -'
