@@ -1,3 +1,4 @@
+{{- if .work }}
 [".vim/"]
 type = "git-repo"
 url = "https://github.com/rdnajac/.vim.git"
@@ -15,7 +16,6 @@ url = {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim
 executable = false
 refreshPeriod = "6h"
 
-{{- if .work }}
 [".local/bin/fzf"]
 type = "archive-file"
 url = {{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-*-%s_%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}

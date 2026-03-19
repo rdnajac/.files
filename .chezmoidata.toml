@@ -2,3 +2,25 @@
 size = 13
 family = "JetBrains Mono"
 ligatures =  false
+
+[apt]
+packages = [
+  "build-essential",
+  "cmake",
+  "curl",
+  "gettext",
+  "git",
+  "libssl-dev",
+  "linux-headers-\"$(uname -r)\"",
+  "make",
+  "net-tools",
+  "ninja-build",
+  "pkg-config",
+  "rsync",
+  "tmux",
+  "vim",
+  "bat",
+  "eza",
+  "fd-find",
+  "ripgrep",
+]
