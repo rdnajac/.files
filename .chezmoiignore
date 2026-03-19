@@ -1,12 +1,10 @@
-.archive/
-.github/
-test/
-install.sh
-LICENSE
-README.md
+# .chezmoiignore
+# `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
 
-# zsh
-.config/zsh/**
+LICENSE
+Makefile
+install.sh
+**/README.md
 
 # ghostty
 # .config/ghostty/shaders/**
