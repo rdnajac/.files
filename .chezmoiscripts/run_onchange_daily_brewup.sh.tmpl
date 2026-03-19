@@ -2,5 +2,6 @@
 #!/bin/sh
 ## update/upgrade brew packages whenever this value changes: {{ now.YearDay }}
 brew update && brew upgrade && brew cleanup -s
-brew bundle dump --force --file="{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
+brew bundle dump --force --file=- \
+	| sort > "{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
 {{- end }}
