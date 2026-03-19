@@ -62,13 +62,14 @@ alias cztest='cz execute-template --file'
 # alias L1='ll --tree -L1'
 # alias L2='ll --tree -L2'
 # alias L3='ll --tree -L3'
-#
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+alias histgrep='history | grep'
+
+# neovim
 # alias lv='NVIM_APPNAME=lazyvim nvim'
 # alias repro='NVIM_APPNAME=repro nvim'
 # alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
+
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
