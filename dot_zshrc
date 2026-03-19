@@ -2,9 +2,10 @@
 
 # use fish without overriding the default shell
 # skip if: non-interactive, in nvim, or already launched fish
-if [[ -o interactive && -z "$FISH_VERSION" && -z "$NVIM" && -z "$FROM_FISH" ]]; then
-  export FROM_FISH=1
-  exec /opt/homebrew/bin/fish -l
+# if [[ -o interactive && -z $NVIM && -z $🐟 ]]; then
+if [[ $NO_FISHING == '' ]]; then
+	export NO_FISHING=🎣
+	exec /opt/homebrew/bin/fish -l
 fi
 
 setopt interactivecomments # makes `#` behave like a comment character in interactive shells
@@ -39,7 +40,7 @@ export LESSHISTFILE=-
 
 # Section: Completion {{{
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-autoload -Uz compinit && compinit                     # initialize zsh's completion system
+autoload -Uz compinit && compinit # initialize zsh's completion system
 # autoload -Uz bashcompinit && bashcompinit             # enable bash completion scripts
 
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
@@ -63,13 +64,13 @@ eval "$(zoxide init zsh)"
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!
-export MAMBA_EXE='/Users/rdn/.local/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/Users/rdn/.cache/micromamba';
+export MAMBA_EXE='/Users/rdn/.local/bin/micromamba'
+export MAMBA_ROOT_PREFIX='/Users/rdn/.cache/micromamba'
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
 	eval "$__mamba_setup"
 else
-	alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
+	alias micromamba="$MAMBA_EXE" # Fallback on help from micromamba activate
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
