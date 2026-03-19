@@ -1,13 +1,26 @@
 # .zshrc
 
 # use fish without overriding the default shell
-if [[ -o interactive && -z "$FISH_VERSION" && -z "$NVIM" ]]; then
+# skip if: non-interactive, in nvim, or already launched fish
+if [[ -o interactive && -z "$FISH_VERSION" && -z "$NVIM" && -z "$FROM_FISH" ]]; then
+  export FROM_FISH=1
   exec /opt/homebrew/bin/fish -l
 fi
 
-setopt interactivecomments
+setopt interactivecomments # makes `#` behave like a comment character in interactive shells
 
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
+
+CONFDIR=${ZDOTDIR:-$HOME/.config/zsh}
+# Load additional zsh configs
+if [ -d "$CONFDIR" ]; then
+	# `(N)` is a zsh glob qualifier
+	# bash uses `shopt -s nullglob`
+	for f in "$CONFDIR"/*.zsh(N); do
+		. "$f"
+	done
+fi
+
 # Section: History {{{
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
@@ -26,38 +39,27 @@ export LESSHISTFILE=-
 
 # Section: Completion {{{
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit                     # initialize zsh's completion system
+# autoload -Uz bashcompinit && bashcompinit             # enable bash completion scripts
 
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 mkdir -p "$ZSH_CACHE_DIR"
 zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
-zstyle ':completion:*:rsync:*' remote-access yes
+zstyle ':completion:*:rsync:*' remote-access yes # rsync completion over ssh
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
-
-# TODO: cominit?
-# compdef _vim nv
 # }}}
 
 # Section: Executables {{{
 # override macOS tools with GNU versions if available
-alias awk="${HOMEBREW_PREFIX}/bin/gawk"
 # if the names are the same, rely on the `$PATH` order
+# alias awk="${HOMEBREW_PREFIX}/bin/gawk"
 # alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
-# }}}
-#
 
 eval "$(chezmoi completion zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
-
-# Load additional zsh configs
-if [ -d "$ZDOTDIR" ]; then
-# `(N)` is a zsh glob qualifier; bash uses `shopt -s nullglob`
-	for f in "$ZDOTDIR"/*.zsh(N); do
-		. "$f"
-	done
-fi
+# }}}
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!

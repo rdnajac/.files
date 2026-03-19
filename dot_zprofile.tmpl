@@ -6,7 +6,11 @@ export PATH="$HOME/.local/neovim/bin:$PATH"
 # local neovim build for dev (takes precedence)
 export PATH="$HOME/neovim/bin:$PATH"
 
-export MANPAGER="nvim +Man!"
+export EDITOR=vim
 export VISUAL=nvim
+# use the nvim man plugin to view manpages
+export MANPAGER='nvim +Man!'
+# edit the system clipboard with nvim
+alias pbedit='nvim +Clipboard'
 
 [ -f "$HOME"/.cargo/env ] && . "$HOME"/.cargo/env
