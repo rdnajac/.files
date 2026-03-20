@@ -24,6 +24,9 @@ Pros:
 
 eval "$(/usr/libexec/path_helper)"
 
+missing or unsuitable terminal: xterm-ghostty
+https://ghostty.org/docs/help/terminfo#ssh
+
 
 ## Resources:
 

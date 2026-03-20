@@ -12,16 +12,6 @@ setopt interactivecomments # makes `#` behave like a comment character in intera
 
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
 
-CONFDIR=${ZDOTDIR:-$HOME/.config/zsh}
-# Load additional zsh configs
-if [ -d "$CONFDIR" ]; then
-	# `(N)` is a zsh glob qualifier
-	# bash uses `shopt -s nullglob`
-	for f in "$CONFDIR"/*.zsh(N); do
-		. "$f"
-	done
-fi
-
 # Section: History {{{
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
@@ -61,6 +51,14 @@ eval "$(chezmoi completion zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
 # }}}
+
+CONFDIR=${ZDOTDIR:-$HOME/.config/zsh}
+# Load additional zsh configs
+if [ -d "$CONFDIR" ]; then
+	# `(N)` is a zsh glob qualifier
+	# bash uses `shopt -s nullglob`
+	for f in "$CONFDIR"/*.zsh(N); do . "$f"; done
+fi
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!
