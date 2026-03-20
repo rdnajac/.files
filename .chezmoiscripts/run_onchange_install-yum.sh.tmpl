@@ -1,0 +1,12 @@
+{{- if and (lookPath "yum") (not (lookPath "apt")) -}}
+#!/bin/sh
+## checksum of packages.toml: {{ include ".chezmoidata/packages.toml" | sha256sum }}
+
+sudo yum check-update || true
+sudo yum install -y \
+{{- range .yum.packages }}
+  {{- . }} \
+{{ end }}
+sudo yum autoremove -y
+sudo yum clean all
+{{- end }}
