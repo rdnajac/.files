@@ -1,4 +1,4 @@
-eval "$({{ lookPath "brew" }} shellenv)"
+$(which brew) shellenv
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 # chezmoi-managed neovim nightly install location
@@ -12,5 +12,7 @@ export VISUAL=nvim
 export MANPAGER='nvim +Man!'
 # edit the system clipboard with nvim
 alias pbedit='nvim +Clipboard'
+# https://www.lazyvim.org/
+alias lv='NVIM_APPNAME=lazyvim nvim'
 
 [ -f "$HOME"/.cargo/env ] && . "$HOME"/.cargo/env
