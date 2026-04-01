@@ -29,26 +29,9 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 ```
 
-### cargo
-
-I think this belongs here:
-
-```sh
-# source cargo environment if it exists (POSIX-compliant)
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-```
-
-## TODO:
-
-- [x] zsh treesitter parser
-- [x] bat, eza, fd-find, ripgrep, zoxide
-
 ## Resources
 
 - [The Z Shell Manual](https://zsh.sourceforge.io/Doc/Release/index.html)
 - [A User's Guide to the Z-Shell](https://zsh.sourceforge.io/Guide/zshguide.html)
 - [Zsh Wiki](https://zshwiki.org/)
-
-### Deep Dives
-
 - [Dotfile load order](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
