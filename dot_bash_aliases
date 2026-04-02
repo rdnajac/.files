@@ -24,10 +24,11 @@ alias lock='chmod -vv -w'   # make file read-only
 alias unlock='chmod -vv +w' # make file writable
 alias chx='chmod -vv u+x'   # make file executable
 
+alias histgrep='history | grep'
 alias kms='tmux kill-server'
 alias link='ln -vsfFwh'
 # alias open='xdg-open > /dev/null 2>&1 &'
-alias sync='rsync -avz --progress --exclude=".*"'
+# alias sync='rsync -avz --progress --exclude=".*"'
 
 # color
 alias grep='grep --color=auto'
@@ -43,8 +44,8 @@ alias pip=pip3
 alias rscript=Rscript
 alias zz=fg
 
-alias ssx='$VISUAL $HOME/.ssh/config'
 alias ba='$VISUAL $HOME/.bash_aliases'
+alias ssx='$VISUAL $HOME/.ssh/config'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 alias cz='chezmoi --verbose'
@@ -52,20 +53,7 @@ alias czm='cz managed .'
 alias czu='cz unmanaged .'
 alias czx='cz execute-template'
 alias cztest='cz execute-template --file'
-# alias eza='eza --group-directories-first --colour=auto --icons=auto'
-# alias ll='eza --all -l'
-# # alias ls='eza --group-directories-first --colour=always --icons=auto'
-# alias l='eza --all --tree -l --git-ignore'
-# alias l1='ll --tree -L1 --git-ignore'
-# alias l2='ll --tree -L2 --git-ignore'
-# alias l3='ll --tree -L3 --git-ignore'
-# alias L1='ll --tree -L1'
-# alias L2='ll --tree -L2'
-# alias L3='ll --tree -L3'
 
-alias histgrep='history | grep'
-
-# neovim
 # alias lv='NVIM_APPNAME=lazyvim nvim'
 # alias repro='NVIM_APPNAME=repro nvim'
 # alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
