@@ -1,0 +1,14 @@
+{
+  "trusted_folders": [
+    "/Users/rdn/GitHub/",
+    "/Users/rdn/.config/gh",
+    "/Users/rdn/.config/nvim",
+    "/Users/rdn/.local/share/nvim/",
+    "/Users/rdn/.local/share/chezmoi",
+    "/Users/rdn/.vim",
+  ],
+  "banner": "never",
+  "renderMarkdown": true,
+  "firstLaunchAt": "2026-03-11T00:00:00.000Z",
+  "experimental": true
+}

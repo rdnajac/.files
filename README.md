@@ -1,8 +1,8 @@
 # .files
 
-My dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
+My dotfiles, managed with [chezmoi](https://chezmoi.io/).
 
-## Install script
+## Install
 
 Installs chezmoi binary to `~/.local/bin`
 ```sh

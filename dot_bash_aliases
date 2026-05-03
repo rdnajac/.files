@@ -16,46 +16,41 @@ alias rmdir='rmdir -v'
 
 # prompt before destructive actions
 alias cp='cp -vi'
+alias ln='ln -vi'
 alias mv='mv -vi'
 alias rm='rm -vi'
 
 # file permissions
-alias lock='chmod -vv -w'   # make file read-only
-alias unlock='chmod -vv +w' # make file writable
-alias chx='chmod -vv u+x'   # make file executable
-
-alias histgrep='history | grep'
-alias kms='tmux kill-server'
-alias link='ln -vsfFwh'
-# alias open='xdg-open > /dev/null 2>&1 &'
-# alias sync='rsync -avz --progress --exclude=".*"'
+alias  chmod='chmod -vv' # print old and new modes
+alias    chx='chmod u+x' # make file executable
+alias   lock='chmod -w'  # make file read-only
+alias unlock='chmod +w'  # make file writable
 
 # color
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
+alias histgrep='history | grep'
+alias symlink='ln -sfhwF'
+# alias open='xdg-open > /dev/null 2>&1 &'
+# alias sync='rsync -avz --progress --exclude=".*"'
+
 # a simple alias should support tab-completion
 alias nv=nvim
 alias g=git
 alias mm=micromamba
-alias pip=pip3
 # alias qp='quarto preview'
 # alias qr='quarto render'
 alias rscript=Rscript
 alias zz=fg
 
-alias ba='$VISUAL $HOME/.bash_aliases'
+alias  ba='$VISUAL $HOME/.bash_aliases'
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 alias cz='chezmoi --verbose'
-alias czm='cz managed .'
-alias czu='cz unmanaged .'
-alias czx='cz execute-template'
-alias cztest='cz execute-template --file'
+alias czx='cz execute-template --file'
 
-# alias lv='NVIM_APPNAME=lazyvim nvim'
-# alias repro='NVIM_APPNAME=repro nvim'
 # alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
 
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
