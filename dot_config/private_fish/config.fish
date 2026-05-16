@@ -18,6 +18,9 @@ if status is-interactive
     function __print_osc7 --on-variable PWD
       printf '\033]7;file://%s\033\\' "$PWD"
     end
+  else
+	  # TODO: only exec nvim once
+		  # exec nvim
   end
 end
 

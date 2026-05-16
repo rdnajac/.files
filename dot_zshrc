@@ -5,7 +5,7 @@
 # if [[ -o interactive && -z $NVIM && -z $🐟 ]]; then
 if [[ $NO_FISHING == '' ]]; then
 	export NO_FISHING=🎣
-	exec /opt/homebrew/bin/fish -l
+	exec /opt/homebrew/bin/fish --login
 fi
 
 setopt interactivecomments # makes `#` behave like a comment character in interactive shells
