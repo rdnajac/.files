@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# {{ output "git" "-C" (joinPath .chezmoi.homeDir "GitHub/neovim")  "rev-parse" "HEAD" }}
+# TODO: templatize the path to neovim and the build options
+cd ~/GitHub/neovim/ && \
+rm -rf ./build/ && \
+git pull origin master && \
+make \
+    CMAKE_BUILD_TYPE=RelWithDebInfo \
+    CMAKE_INSTALL_PREFIX=$HOME/.local/ \
+    install
