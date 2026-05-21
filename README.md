@@ -5,6 +5,7 @@ My dotfiles, managed with [chezmoi](https://chezmoi.io/).
 ## Install
 
 Installs chezmoi binary to `~/.local/bin`
+
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply https://github.com/rdnajac/.files.git
 ```
@@ -16,21 +17,18 @@ sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply https://github.com/rdnaj
 > Ghostty is a fast, feature-rich, and cross-platform terminal
 > emulator that uses platform-native UI and GPU acceleration.
 
-Pros:
+- Default font is JetBrains (with glyphs!)
 
-- Default font is JetBrains (with glyphs)
+## Bugs
 
-## TODO:
+### missing or unsuitable terminal: xterm-ghostty
 
-eval "$(/usr/libexec/path_helper)"
+<https://ghostty.org/docs/help/terminfo#ssh>
 
-missing or unsuitable terminal: xterm-ghostty
-https://ghostty.org/docs/help/terminfo#ssh
+## Resources
 
-
-## Resources:
-
-https://www.chezmoi.io/user-guide/templating/
+<https://www.chezmoi.io/user-guide/templating/>
 
 ## License
 
+???

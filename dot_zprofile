@@ -1,23 +1,12 @@
 eval $(/opt/homebrew/bin/brew shellenv)
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
-
-# # chezmoi-managed neovim nightly install location
-# export PATH="$HOME/.local/neovim/bin:$PATH"
-# # local neovim build for dev (takes precedence)
-# export PATH="$HOME/neovim/bin:$PATH"
 
 export EDITOR=vim
 export VISUAL=nvim
-
-# use the nvim's shipped man plugin to view manpages
 export MANPAGER='nvim +Man!'
 
 # edit the system clipboard with nvim
 alias pbedit='nvim +Clipboard'
-
-# https://www.lazyvim.org/
-alias lv='NVIM_APPNAME=lazyvim nvim'
 
 # source cargo env if it exists
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
