@@ -1,0 +1,4 @@
+[".vim/pack/chezmoi/start/chezmoi.vim"]
+    type = "git-repo"
+    url = "https://github.com/alker0/chezmoi.vim.git"
+    refreshPeriod = "168h"

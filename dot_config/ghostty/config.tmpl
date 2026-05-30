@@ -1,8 +1,3 @@
-font-size = {{ .font.size }}
-{{- if eq .font.ligatures false }}
-font-feature = -calt,-liga,-dlig
-{{- end }}
-
 theme = TokyoNight Night
 background = #000000
 # background = #16161d
@@ -10,17 +5,17 @@ background = #000000
 # background-opacity = 0.4
 # background-opacity-cells = true
 
-# window-decoration = false
-# fullscreen = true
-# macos-non-native-fullscreen = true
-
 cursor-style = block
 custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
-# custom-shader-animation = always
 
-keybind = shift+alt+left=goto_split:left
-keybind = shift+alt+right=goto_split:right
-keybind = shift+alt+up=goto_split:top
-keybind = shift+alt+down=goto_split:bottom
+# custom-shader-animation = always
+# macos-non-native-fullscreen = true
+# fullscreen = true
+# window-decoration = false
+
+font-size = {{ .font.size }}
+{{- if eq .font.ligatures false }}
+font-feature = -calt,-liga,-dlig
+{{- end }}
 
 shell-integration-features = ssh-terminfo,ssh-env

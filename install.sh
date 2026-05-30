@@ -1,7 +1,4 @@
 #!/bin/sh
-
-# -e: exit on error
-# -u: exit on unset variables
 set -eu
 
 # install chezmoi if missing
@@ -27,5 +24,5 @@ script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 set -- init --apply --debug --verbose --no-tty --source="$script_dir"
 
 echo "Running 'chezmoi $*'" >&2
-# exec: replace current process with chezmoi
+# replace current process with chezmoi
 exec "$chezmoi" "$@"

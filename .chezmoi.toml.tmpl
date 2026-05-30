@@ -1,9 +1,8 @@
 {{/* https://github.com/twpayne/dotfiles/blob/master/home/.chezmoi.toml.tmpl */}}
-{{/* boolean feature tags */}}
-{{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
-{{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
-{{- $personal := false -}}{{/* true if this machine should have personal secrets */}}
-{{- $work := false -}}{{/* true if this machine is a work machine */}}
+{{- $ephemeral := false -}}
+{{- $headless := false -}}
+{{- $personal := false -}}
+{{- $work := false -}}
 {{- "" -}}
 
 {{- $osID := .chezmoi.os -}}
@@ -32,9 +31,9 @@
 {{-     $headless = true -}}
 {{-     $personal = true -}}
 {{-   else if stdinIsATTY -}}
-{{-     $headless = promptBoolOnce . "headless" "headless" -}}
-{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
-{{-     $work = promptBoolOnce . "work" "work" -}}
+{{/*-   $headless = promptBoolOnce . "headless" "headless" -*/}}
+{{/*-   $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -*/}}
+{{/*-   $work = promptBoolOnce . "work" "work" -*/}}
 {{-   else -}}
 {{-     $ephemeral = true -}}
 {{-     $headless = true -}}
@@ -54,17 +53,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 destinationDir = {{ .chezmoi.destDir | quote }}
 progress = true
 verbose = true
-
-[data]
-email = {{ $email | quote }}
-ephemeral = {{ $ephemeral }}
-headless = {{ $headless }}
-hostname = {{ $hostname | quote }}
-name = {{ $name | quote }}
-osid = {{ $osID | quote }}
-personal = {{ $personal }}
-work = {{ $work }}
-githubUsername = "rdnajac"
 
 [git]
 autoAdd = true
@@ -93,3 +81,19 @@ args = [
 [diff]
     exclude = ["externals"]
 
+[data]
+email = {{ $email | quote }}
+ephemeral = {{ $ephemeral }}
+headless = {{ $headless }}
+hostname = {{ $hostname | quote }}
+name = {{ $name | quote }}
+osid = {{ $osID | quote }}
+personal = {{ $personal }}
+work = {{ $work }}
+githubUsername = "rdnajac"
+
+
+[data.neovim]
+sourceDir = {{ joinPath .chezmoi.homeDir "GitHub" "neovim" | quote}} 
+buildType = "RelWithDebInfo"
+installPrefix = "$HOME/.local"

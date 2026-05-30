@@ -1,9 +1,3 @@
 #!/bin/sh
-# HEAD: {{- output "git" "-C" (joinPath .chezmoi.homeDir .neovim.sourceDir)  "rev-parse" "HEAD" }}
-cd {{ joinPath .chezmoi.homeDir .neovim.sourceDir }} \
-	&& rm -rf ./build/ \
-	&& git pull origin master \
-	&& make \
-		CMAKE_BUILD_TYPE={{ .neovim.buildType }} \
-		CMAKE_INSTALL_PREFIX={{.neovim.installPrefix }} \
-		install
+## {{ output "git" "-C" .neovim.sourceDir "ls-remote" "origin" "HEAD" -}}
+cd {{ .neovim.sourceDir | quote }} && git pull && make rebuild
