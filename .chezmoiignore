@@ -5,6 +5,7 @@ LICENSE
 Makefile
 install.sh
 **/README.md
+test-ci.sh
 
 # ghostty
 # .config/ghostty/shaders/**

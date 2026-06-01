@@ -92,6 +92,17 @@ personal = {{ $personal }}
 work = {{ $work }}
 githubUsername = "rdnajac"
 
+{{- if lookPath "brew" }}
+packageManager = "brew"
+{{- else if lookPath "apt" }}
+packageManager = "apt"
+{{- else if lookPath "dnf" }}
+packageManager = "dnf"
+{{- else if lookPath "yum" }}
+packageManager = "yum"
+{{- else if lookPath "pacman" }}
+packageManager = "pacman"
+{{- end }}
 
 [data.neovim]
 sourceDir = {{ joinPath .chezmoi.homeDir "GitHub" "neovim" | quote}} 
