@@ -5,69 +5,73 @@
 {{- $work := false -}}
 {{- "" -}}
 
-{{- $osID := .chezmoi.os -}}
+{{- $osid := .chezmoi.os -}}
 {{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
-{{-   $osID = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
-{{/* detect GitHub codespaces, VSCode remote containers, Docker containers, Multipass VMs, and Vagrant boxes */}}
-{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "ec2user" "root" "ubuntu" "vagrant" "vscode") -}}
 {{-   $ephemeral = true -}}
 {{-   $headless = true -}}
 {{- end -}}
 
-{{/* work around unreliable hostname on darwin */}}
-{{- $hostname := .chezmoi.hostname -}}
+{{- $host := .chezmoi.hostname -}}
 {{- if eq .chezmoi.os "darwin" -}}
-{{-   $hostname = output "scutil" "--get" "LocalHostName" | trim -}}
+{{-   $host = output "scutil" "--get" "LocalHostName" | trim -}}
 {{- end -}}
 
 {{- if not $ephemeral -}}
-{{-   if eq $hostname "Ryans-MacBook-Air" -}}
-{{-     $personal = true -}}
-{{-   else if eq $hostname "GPU-PC" -}}
-{{-     $work = true -}}
-{{-   else if eq $hostname "ubuntu" -}}
-{{-     $headless = true -}}
+{{-   if eq $host "Ryans-MacBook-Air" -}}
 {{-     $personal = true -}}
 {{-   else if stdinIsATTY -}}
-{{/*-   $headless = promptBoolOnce . "headless" "headless" -*/}}
-{{/*-   $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -*/}}
-{{/*-   $work = promptBoolOnce . "work" "work" -*/}}
-{{-   else -}}
-{{-     $ephemeral = true -}}
-{{-     $headless = true -}}
+{{-     $headless = promptBoolOnce . "headless" "headless" -}}
+{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
 {{-   end -}}
 {{- end -}}
 
 {{- $name := "Ryan D. Najac" -}}
 {{- $email := "rdn2108@columbia.edu" -}}
-
 {{- if $work }}
 {{-   $email = "rdn2108@cumc.columbia.edu" -}}
 {{- else if $personal -}}
 {{-   $email = "ryan.najac@columbia.edu" -}}
 {{- end -}}
 
-sourceDir = {{ .chezmoi.sourceDir | quote }}
-destinationDir = {{ .chezmoi.destDir | quote }}
+destDir = {{ .chezmoi.destDir | quote }}
 progress = true
+sourceDir = {{ .chezmoi.sourceDir | quote }}
 verbose = true
 
-[git]
-autoAdd = true
-autoCommit = false
-autoPush = false
+[data]
+email = {{ $email | quote }}
+host = {{ $host | quote }}
+name = {{ $name | quote }}
+osid = {{ $osid | quote }}
+githubUsername = "rdnajac"
+ephemeral = {{ $ephemeral }}
+headless = {{ $headless }}
+personal = {{ $personal }}
+work = {{ $work }}
+
+[data.neovim]
+sourceDir = {{ joinPath .chezmoi.homeDir "GitHub" "neovim" | quote}} 
+buildType = "RelWithDebInfo"
+installPrefix = "$HOME/.local"
 
 [add]
 apply = true
+
+[diff]
+    exclude = ["externals"]
 
 [edit]
 apply = true
 hardlink = false
 
-[update]
-apply = true
+[git]
+autoAdd = true
+autoCommit = false
+autoPush = false
 
 [merge]
 command = "nvim"
@@ -77,34 +81,4 @@ args = [
     {{ printf "%q" "{{ .Source }}" }},
     {{ printf "%q" "{{ .Target }}" }},
 ]
-
-[diff]
-    exclude = ["externals"]
-
-[data]
-email = {{ $email | quote }}
-ephemeral = {{ $ephemeral }}
-headless = {{ $headless }}
-hostname = {{ $hostname | quote }}
-name = {{ $name | quote }}
-osid = {{ $osID | quote }}
-personal = {{ $personal }}
-work = {{ $work }}
-githubUsername = "rdnajac"
-
-{{- if lookPath "brew" }}
-packageManager = "brew"
-{{- else if lookPath "apt" }}
-packageManager = "apt"
-{{- else if lookPath "dnf" }}
-packageManager = "dnf"
-{{- else if lookPath "yum" }}
-packageManager = "yum"
-{{- else if lookPath "pacman" }}
-packageManager = "pacman"
-{{- end }}
-
-[data.neovim]
-sourceDir = {{ joinPath .chezmoi.homeDir "GitHub" "neovim" | quote}} 
-buildType = "RelWithDebInfo"
-installPrefix = "$HOME/.local"
+# vim: set nowrap

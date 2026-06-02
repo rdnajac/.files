@@ -1,20 +1,31 @@
 #!/bin/sh
 ## install packages from packages
 
-{{- $packages := join " " .packages -}}
-
-{{- if eq .packageManager "apt" }}
-sudo sh -c 'export debian_frontend=noninteractive
+{{- if eq .chezmoi.os "linux" }}
+{{- $packages := join " " .packages }}
+sudo sh -c '
+{{-   if and (hasKey .chezmoi.osRelease "id") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) }}
+export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get install -y --no-install-recommends {{ $packages }}
 apt-get autoremove -y
-apt-get clean'
-{{- else if or (eq .packageManager "dnf") (eq .packageManager "yum") }}
-sudo sh -c '{{ .packageManager }} check-update || true
-{{ .packageManager }} install -y {{ $packages }}
-{{ .packageManager }} autoremove -y
-{{ .packageManager }} clean all'
-{{- else if eq .packageManager "pacman" }}
-sudo sh -c 'pacman -Sy --noconfirm {{ $packages }}
-pacman -Sc --noconfirm'
+apt-get clean
+{{-   else if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") }}
+pacman -Sy --noconfirm {{ $packages }}
+pacman -Sc --noconfirm
+{{-   else }}
+{{-     $pm := "" }}
+{{-     if lookPath "dnf" }}
+{{-       $pm = "dnf" }}
+{{-     else if lookPath "yum" }}
+{{-       $pm = "yum" }}
+{{-     end }}
+{{-     if $pm }}
+{{ $pm }} check-update || true
+{{ $pm }} install -y {{ $packages }}
+{{ $pm }} autoremove -y
+{{ $pm }} clean all
+{{-     end }}
+{{-   end }}
+'
 {{- end }}

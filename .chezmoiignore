@@ -1,11 +1,8 @@
-# .chezmoiignore
 # `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
-
 LICENSE
-Makefile
+Justfile
 install.sh
-**/README.md
-test-ci.sh
+README.md
 
 # ghostty
 # .config/ghostty/shaders/**
