@@ -1,4 +1,6 @@
 {{/* https://github.com/twpayne/dotfiles/blob/master/home/.chezmoi.toml.tmpl */}}
+{{- $name := "Ryan D. Najac" -}}
+{{- $email := "rdn2108@columbia.edu" -}}
 {{- $ephemeral := false -}}
 {{- $headless := false -}}
 {{- $personal := false -}}
@@ -6,7 +8,7 @@
 {{- "" -}}
 
 {{- $osid := .chezmoi.os -}}
-{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
+{{- if (and (eq $osid "linux") (hasKey .chezmoi.osRelease "id")) -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
@@ -23,18 +25,15 @@
 {{- if not $ephemeral -}}
 {{-   if eq $host "Ryans-MacBook-Air" -}}
 {{-     $personal = true -}}
-{{-   else if stdinIsATTY -}}
-{{-     $headless = promptBoolOnce . "headless" "headless" -}}
-{{-     $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
+{{-     $email = "ryan.najac@columbia.edu" -}}
+{{-   else -}}
+{{-     $work = true -}}
+{{-     $email = "rdn2108@cumc.columbia.edu" -}}
+{{-     if stdinIsATTY -}}
+{{-       $headless = promptBoolOnce . "headless" "headless" -}}
+{{-       $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" -}}
+{{-     end -}}
 {{-   end -}}
-{{- end -}}
-
-{{- $name := "Ryan D. Najac" -}}
-{{- $email := "rdn2108@columbia.edu" -}}
-{{- if $work }}
-{{-   $email = "rdn2108@cumc.columbia.edu" -}}
-{{- else if $personal -}}
-{{-   $email = "ryan.najac@columbia.edu" -}}
 {{- end -}}
 
 destDir = {{ .chezmoi.destDir | quote }}

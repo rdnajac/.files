@@ -1,10 +1,7 @@
 # ~/.bash_aliases
 # default .bashrc will automatically source this file
 # check out `/usr/share/doc/bash` for more resources
-
-# alias l='ls -F --human-readable --group-directories-first'
-alias ll='ls -lA --color=auto'
-alias lll='ls -lAc --size -1 -S --classify'
+alias ll='ls -hoAFG'
 
 alias bd='cd -'
 alias ..='cd ..'
@@ -39,8 +36,8 @@ alias symlink='ln -sfhwF'
 alias nv=nvim
 alias g=git
 alias mm=micromamba
-# alias qp='quarto preview'
-# alias qr='quarto render'
+alias qp='quarto preview'
+alias qr='quarto render'
 alias rscript=Rscript
 alias zz=fg
 
@@ -50,9 +47,7 @@ alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 
 alias cz='chezmoi --verbose'
 alias czx='cz execute-template --file'
-
 # alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
-
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
