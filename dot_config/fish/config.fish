@@ -1,3 +1,11 @@
+function maybe_source
+  if test -f $argv[1]
+    source $argv[1]
+  end
+end
+
+maybe_source ~/.zprofile
+
 if status is-interactive
   # Commands to run in interactive sessions can go here
 
@@ -7,9 +15,7 @@ if status is-interactive
   zoxide init fish | source
 
   # fish handles `alias` and `export` natively
-  if test -f ~/.bash_aliases
-    source ~/.bash_aliases
-  end
+  maybe_source ~/.bash_aliases
 
   # if we're in a Neovim terminal, set up OSC 7 to
   # update the terminal's current working directory
@@ -19,8 +25,8 @@ if status is-interactive
       printf '\033]7;file://%s\033\\' "$PWD"
     end
   else
-	  # TODO: only exec nvim once
-		  # exec nvim
+    # TODO: only exec nvim once
+    # exec nvim
   end
 end
 

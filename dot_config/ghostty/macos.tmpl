@@ -1,0 +1,17 @@
+{{- if eq .chezmoi.os "darwin" -}}
+# vim: set filetype=ghostty
+command = {{ lookPath "fish" }}
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = #39FF14
+macos-icon-screen-color = #16161d
+# macos-non-native-fullscreen = true
+# macos-non-native-fullscreen = visible-menu
+# macos-non-native-fullscreen = padded-notch
+
+# https://apple.stackexchange.com/questions/440288/full-list-of-option-key-mappings-in-mac-us-keyboard
+# macos-option-as-alt
+
+# hide the titlebar without removing the native window borders or rounded corners
+# macos-titlebar-style = hidden
+{{- end }}

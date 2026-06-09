@@ -1,3 +1,114 @@
+# Additional completion definitions for zsh
+# Apjanke's fork of the classic cowsay project
+# Apple Intelligence from the command-line, with OpenAi-compatible API server
+# Autoformat shell script source code
+# Banner-like program prints strings as ASCII art
+# Brings the power of Copilot coding agent directly to your terminal
+# Browser for SQLite databases
+# C library for creating Excel XLSX files
+# C library for high-throughput sequencing data formats
+# Clone of cat(1) with syntax highlighting and Git integration
+# CloudFlare's PKI toolkit
+# Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
+# Codec library for encoding and decoding AV1 video streams
+# Collection of portable C++ source libraries
+# Command-line interface for SQLite
+# Configurable static site generator
+# Cross-platform application and UI framework
+# Cross-platform make
+# Cryptography and SSL/TLS Toolkit
+# Deep clean and optimize your Mac
+# Development kit for the Java programming language
+# Display directories as trees (with optional color/HTML output)
+# DuckDuckGo from the terminal
+# Emacs dependency management
+# Embeddable SQL OLAP Database Management System
+# Execute binaries from Python packages in isolated environments
+# File system integration
+# Free cross-platform office suite, fresh version
+# Full TeX Live distribution without GUI applications
+# General purpose programming language in the ML family
+# General-purpose data compression with high compression ratio
+# General-purpose lossless data-compression library
+# Generate compilation database for clang tooling
+# Generate documentation for several programming languages
+# Get a file from an HTTP, HTTPS or FTP server
+# GitHub command-line tool
+# GitHub Markdown previewer
+# GNOME Spreadsheet Application
+# GNU awk utility
+# GNU compiler collection
+# GNU database manager
+# GNU File, Shell, and Text utilities
+# GNU internationalization (i18n) and localization (l10n) library
+# GUI toolkit
+# Handy way to save and run project-specific commands
+# HTTP regression testing and benchmarking utility
+# Improved top (interactive process viewer)
+# Incremental parsing library
+# Infamous electronic fortune-cookie generator
+# Install Ruby, JRuby, Rubinius, TruffleRuby, or mruby
+# Internet file retriever
+# Interpreted, interactive, object-oriented programming language
+# Interpreter for PostScript and PDF
+# JavaScript package manager
+# JDK from the Eclipse Foundation (Adoptium)
+# Lazier way to manage everything docker
+# Library for command-line editing
+# Library to render SVG files using Cairo
+# Low-level access to audio, keyboard, mouse, joystick, and graphics
+# Manage your dotfiles across multiple diverse machines, securely
+# Modern, maintained replacement for ls
+# Multi-format archive and compression library
+# Network analyzer and capture tool - without graphical user interface
+# Network filesystem client to connect to SSH servers
+# New file format for still image compression
+# New way to see and navigate directory trees
+# Next generation open source RPC library and framework
+# Numerical library for C and C++
+# Object-file caching compiler wrapper
+# Object-relational database system
+# Official Amazon AWS command-line interface
+# Open source programming language to build simple/reliable/efficient software
+# Open source relational database management system
+# Open-source, cross-platform JavaScript runtime environment
+# Pack, ship and run any application as a lightweight container
+# Package compiler and linker metadata toolkit
+# Parser generator
+# PDF reader and note-taking application
+# Portable Foreign Function Interface library
+# Programmatically correct mistyped console commands
+# Programming language designed for robustness, optimality, and clarity
+# Quickly rewrite git repository history
+# Rainbows and unicorns in your console!
+# Reimplementation of ctags(1)
+# Rsync for cloud storage
+# Ruby environment tool
+# Scientific and technical publishing system built on Pandoc
+# Search tool like grep and The Silver Searcher
+# Shell extension to navigate your filesystem faster
+# Simple application that will prevent iTunes or Apple Music from launching
+# Simple terminal UI for git commands
+# Simple, fast and user-friendly alternative to find
+# Small build system for use with gyp or CMake
+# Software environment for statistical computing
+# Sophisticated file transfer program
+# Swiss-army knife of markup format conversion
+# Terminal emulator that uses platform-native UI and GPU acceleration
+# Terminal multiplexer
+# Tool for browsing source code
+# Tool for generating GNU Standards-compliant Makefiles
+# Tool for working with messy data (previously Google Refine)
+# Tool to reverse the direction of scrolling
+# Tools and libraries to manipulate images in select formats
+# User interface to the TELNET protocol
+# User-friendly command-line shell for UNIX-like operating systems
+# Vector graphics library with cross-device output support
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
+# Web browser
+# YAML Parser
+# Yet Another JSON Library
+# Zstandard is a real-time compression algorithm
 brew "aom"
 brew "apfel"
 brew "automake"

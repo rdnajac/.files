@@ -12,3 +12,8 @@
     type = "file"
     url = "https://raw.githubusercontent.com/tpope/vim-repeat/refs/heads/master/autoload/repeat.vim"
     refreshPeriod = "168h"
+
+["GitHub/vint"]
+    type = "git-repo"
+    url = "https://github.com/Vimjas/vint"
+    refreshPeriod = "168h"

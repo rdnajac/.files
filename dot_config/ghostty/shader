@@ -1,0 +1,9 @@
+# see: `<https://ghostty.org/docs/config/reference#custom-shader>`
+#
+# shaders copied from/inspired by:
+# `<https://catskull.net/fun-with-ghostty-shaders.html>`
+cursor-style = block
+custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
+# custom-shader-animation = always
+
+# vim: ft=ghostty

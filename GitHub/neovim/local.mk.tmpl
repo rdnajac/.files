@@ -4,5 +4,4 @@ all:
 rebuild:
 	rm -rf build
 	make CMAKE_BUILD_TYPE={{.neovim.buildType}} CMAKE_INSTALL_PREFIX={{.neovim.installPrefix}} install
-
-{{- end -}}
+{{ end }}

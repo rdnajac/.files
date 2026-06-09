@@ -1,0 +1,23 @@
+theme = TokyoNight Night
+# background = #000000
+background = #16161d
+# background-blur = false
+# background-blur = macos-glass-regular
+background-blur = macos-glass-clear
+background-opacity = 0.8
+background-opacity-cells = true
+shell-integration-features = ssh-env,ssh-terminfo
+
+# hacky way to override settings; only works on an empty prompt
+keybind = super+,=text:chezmoi edit --watch ~/.config/ghostty/config\n
+# keybind = chain=reload_config
+
+keybind = super+b=toggle_background_opacity
+
+# more visually appealing with window transparency
+# macos-window-shadow = false
+
+config-file = font
+config-file = shader
+config-file = ?macos
+config-file = ?keybinds

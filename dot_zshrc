@@ -1,18 +1,7 @@
 # .zshrc
-
-# use fish without overriding the default shell
-# skip if: non-interactive, in nvim, or already launched fish
-# if [[ -o interactive && -z $NVIM && -z $🐟 ]]; then
-if [[ $NO_FISHING == '' ]]; then
-	export NO_FISHING=🎣
-	exec /opt/homebrew/bin/fish --login
-fi
-
-setopt interactivecomments # makes `#` behave like a comment character in interactive shells
-
 [ -f "$HOME"/.bash_aliases ] && . "$HOME"/.bash_aliases
 
-# Section: History {{{
+setopt interactivecomments # makes `#` behave like a comment character in interactive shells
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
@@ -23,12 +12,6 @@ setopt HIST_REDUCE_BLANKS
 # export HISTSIZE=10000
 # export SAVEHIST=10000
 
-# Don't pollute $HOME with history files
-alias wget='wget --no-hsts'
-export LESSHISTFILE=-
-# }}}
-
-# Section: Completion {{{
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 autoload -Uz compinit && compinit # initialize zsh's completion system
 # autoload -Uz bashcompinit && bashcompinit             # enable bash completion scripts
@@ -39,9 +22,7 @@ zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 
 zstyle ':completion:*:rsync:*' remote-access yes # rsync completion over ssh
 zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
-# }}}
 
-# Section: Executables {{{
 # override macOS tools with GNU versions if available
 # if the names are the same, rely on the `$PATH` order
 # alias awk="${HOMEBREW_PREFIX}/bin/gawk"
@@ -50,27 +31,10 @@ zstyle ':completion:*:rsync:*' tag-order hosts remote-directories files
 eval "$(chezmoi completion zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
-# }}}
 
 CONFDIR=${ZDOTDIR:-$HOME/.config/zsh}
 # Load additional zsh configs
 if [ -d "$CONFDIR" ]; then
-	# `(N)` is a zsh glob qualifier
-	# bash uses `shopt -s nullglob`
+	# `(N)` is a zsh glob qualifier (bash: `shopt -s nullglob`)
 	for f in "$CONFDIR"/*.zsh(N); do . "$f"; done
 fi
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'micromamba shell init' !!
-export MAMBA_EXE='/Users/rdn/.local/bin/micromamba'
-export MAMBA_ROOT_PREFIX='/Users/rdn/.cache/micromamba'
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-	eval "$__mamba_setup"
-else
-	alias micromamba="$MAMBA_EXE" # Fallback on help from micromamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
-
-# vim:fdm=marker:fdl=0

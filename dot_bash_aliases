@@ -32,23 +32,25 @@ alias symlink='ln -sfhwF'
 # alias open='xdg-open > /dev/null 2>&1 &'
 # alias sync='rsync -avz --progress --exclude=".*"'
 
-# a simple alias should support tab-completion
-alias nv=nvim
+# NOTE: simple aliases should support tab-completion by default
 alias g=git
 alias mm=micromamba
+alias rscript=Rscript
+alias ba='chezmoi edit --apply ~/.bash_aliases'
+alias cz='chezmoi'
+alias cze='cz edit --apply'
+alias czm='cz managed'
+alias czu='cz unmanaged'
+alias czx='cz execute-template --file'
+
+# alias nv=nvim
+# alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
+alias pbedit='nvim +Clipboard' # edit the system clipboard with nvim
 alias qp='quarto preview'
 alias qr='quarto render'
-alias rscript=Rscript
-alias zz=fg
-
-alias  ba='$VISUAL $HOME/.bash_aliases'
 alias ssx='$VISUAL $HOME/.ssh/config'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
-
-alias cz='chezmoi --verbose'
-alias czx='cz execute-template --file'
-# alias nvr='nvim --headless --noplugin --server "$NVIM" --remote-expr'
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
+alias zz=fg
 
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'
-# vim: ft=sh fdm=marker fdl=-

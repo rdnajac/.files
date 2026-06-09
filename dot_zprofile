@@ -1,12 +1,9 @@
-eval $(/opt/homebrew/bin/brew shellenv)
-export PATH="$HOME/.local/bin:$PATH"
-
+# ZPROFILE_LOADED=$((${ZPROFILE_LOADED:-0} + 1))
 export EDITOR=vim
 export VISUAL=nvim
 export MANPAGER='nvim +Man!'
+eval $(/opt/homebrew/bin/brew shellenv)
+# export PATH="$HOME/.{cargo,local}/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
-# edit the system clipboard with nvim
-alias pbedit='nvim +Clipboard'
-
-# source cargo env if it exists
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+export PATH="$HOME/.local/bin:$PATH"

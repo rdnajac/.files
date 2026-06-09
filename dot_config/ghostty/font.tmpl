@@ -1,0 +1,8 @@
+# terminal font settings generated from a chezmoitemplate
+font-size = {{ .font.size }}
+{{- if eq .font.ligatures false }}
+font-feature = -calt,-liga,-dlig
+{{- end }}
+# currently only supported on macOS:
+font-thicken = true 
+# vim: ft=ghostty

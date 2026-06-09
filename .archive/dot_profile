@@ -1,16 +1,6 @@
 ## ~/.profile
-## POSIX-compliant profile script
-## tested on bash, zsh, and dash
 
-export MAMBA_EXE="$HOME/.local/bin/micromamba"
-export MAMBA_ROOT_PREFIX="$HOME/.cache/micromamba"
-
-# TeX Live 2025
-export PATH="/usr/local/texlive/2025/bin/universal-darwin:$PATH"
-export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
-
-# correct, POSIX-compliant function definition
+# a correct, POSIX-compliant function definition
 installed() { command -v "$1" > /dev/null 2>&1; }
 
 # conditionally set alias based on available utilities
@@ -62,11 +52,8 @@ if [ "$NVIM" != "" ]; then
 	# shellcheck disable=SC3044
 	precmd_functions+=(print_osc7)
 
-	nv() {
-		nvim --server "$NVIM" --remote "$1"
-	}
+	nv() { nvim --server "$NVIM" --remote "$1"; }
 else
-
 	alias nv=nvim
 fi
 
