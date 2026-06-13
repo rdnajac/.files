@@ -1,6 +1,8 @@
-{{ if lookPath "brew" -}}
 #!/bin/sh
-## update/upgrade brew packages whenever this value changes: {{ now.YearDay }}
+{{ if lookPath "brew" -}}
+## update/upgrade brew packages when this value changes: {{ now.YearDay }}
 brew update && brew upgrade && brew cleanup -s
-brew bundle dump --force --file=- | sort > "{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
+brew bundle dump --force --file=- \
+	| awk '/^#/{comment=$0; next} {print $0 "\t" comment; comment=""}' \
+	| sort > "{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
 {{- end }}

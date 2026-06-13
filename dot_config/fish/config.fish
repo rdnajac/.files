@@ -1,23 +1,17 @@
-function maybe_source
-  if test -f $argv[1]
-    source $argv[1]
-  end
-end
-
-maybe_source ~/.zprofile
+/opt/homebrew/bin/brew shellenv | source
 
 if status is-interactive
   # Commands to run in interactive sessions can go here
-
-  # pipe command outputs to `source`for completions
   chezmoi completion fish | source
   thefuck --alias | source
   zoxide init fish | source
 
   # fish handles `alias` and `export` natively
-  maybe_source ~/.bash_aliases
+  if test -f ~/.bash_aliases
+    source ~/.bash_aliases
+  end
 
-  # if we're in a Neovim terminal, set up OSC 7 to
+  # If we're in a Neovim terminal, set up OSC 7 to
   # update the terminal's current working directory
   if test -n "$NVIM"
     echo "Setting up OSC 7 for Neovim terminal"

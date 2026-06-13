@@ -1,4 +1,3 @@
-# Developer layout
 keybind = super+i=new_split:left
 keybind = chain=text:nvim .\n
 keybind = chain=resize_split:left,400

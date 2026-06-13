@@ -1,0 +1,15 @@
+{{- $a := splitn "/" 2 . -}}
+{{- $user := $a._0 -}}
+{{- $repo := $a._1 -}}
+{{- $dir := "GitHub" -}}
+{{- if or (hasPrefix "vim-" $repo) (hasSuffix ".vim" $repo) }}
+  {{- if eq $user "tpope" }}
+    {{- $dir = ".vim/pack/tpope/start" -}}
+  {{- else }}
+    {{- $dir = ".vim/pack/chezmoiexternal/start" -}}
+  {{- end }}
+{{- end }}
+["{{ printf "%s/%s" $dir $repo }}"]
+    type = "git-repo"
+    url = "https://github.com/{{ . }}.git"
+    refreshPeriod = "168h"

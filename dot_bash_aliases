@@ -53,4 +53,7 @@ alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 alias zz=fg
 
+export EDITOR=vim
+export VISUAL=nvim
+export MANPAGER='nvim +Man!'
 alias ree='clear -x && echo "(╯°□°)╯︵ ┻━┻" && exec "$SHELL"'

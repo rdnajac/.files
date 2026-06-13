@@ -1,9 +1,0 @@
-# ZPROFILE_LOADED=$((${ZPROFILE_LOADED:-0} + 1))
-export EDITOR=vim
-export VISUAL=nvim
-export MANPAGER='nvim +Man!'
-eval $(/opt/homebrew/bin/brew shellenv)
-# export PATH="$HOME/.{cargo,local}/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export PATH="$HOME/.local/bin:$PATH"
