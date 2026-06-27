@@ -21,7 +21,7 @@ brew "cscope"	# Tool for browsing source code
 brew "ctags"	# Reimplementation of ctags(1)
 brew "curl"	# Get a file from an HTTP, HTTPS or FTP server
 brew "ddgr"	# DuckDuckGo from the terminal
-brew "docker", link: false	# Pack, ship and run any application as a lightweight container
+brew "docker"	# Pack, ship and run any application as a lightweight container
 brew "doxygen"	# Generate documentation for several programming languages
 brew "duckdb"	# Embeddable SQL OLAP Database Management System
 brew "eza"	# Modern, maintained replacement for ls
@@ -77,7 +77,7 @@ brew "rclone"	# Rsync for cloud storage
 brew "readline"	# Library for command-line editing
 brew "ripgrep"	# Search tool like grep and The Silver Searcher
 brew "ruby-install"	# Install Ruby, JRuby, Rubinius, TruffleRuby, or mruby
-brew "sdl2"	# Low-level access to audio, keyboard, mouse, joystick, and graphics
+brew "sdl2-compat"	# SDL2 compatibility layer that uses SDL3 behind the scenes
 brew "shfmt"	# Autoformat shell script source code
 brew "siege"	# HTTP regression testing and benchmarking utility
 brew "sqlite"	# Command-line interface for SQLite

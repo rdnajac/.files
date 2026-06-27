@@ -1,9 +1,6 @@
 # `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
-LICENSE
-Justfile
 install.sh
+Justfile
+LICENSE
 README.md
 
-# ghostty
-# .config/ghostty/shaders/**
-# !.config/ghostty/shaders/cursor_blaze_tapered.glsl

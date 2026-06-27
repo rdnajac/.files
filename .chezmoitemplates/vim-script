@@ -1,9 +1,0 @@
-{{- $a := splitn "/" 4 . -}}
-{{- $user := $a._0 -}}
-{{- $repo := $a._1 -}}
-{{- $dir  := $a._2 -}}
-{{- $file := $a._3 -}}
-[".vim/pack/chezmoiexternal/start/_/{{ $dir }}/{{ $file }}"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/{{ $user }}/{{ $repo }}/refs/heads/master/{{ $dir }}/{{ $file }}"
-    refreshPeriod = "168h"
