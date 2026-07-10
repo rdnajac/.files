@@ -1,9 +1,7 @@
-plugins:
+start:
 - alker0/chezmoi.vim
 - dstein64/vim-startuptime
-- dense-analysis/ale
-- junegunn/fzf.vim
-- lervag/vimtex
+- github/copilot.vim
 - tpope/vim-abolish
 - tpope/vim-capslock
 - tpope/vim-characterize
@@ -21,3 +19,17 @@ plugins:
 - tpope/vim-tbone
 - tpope/vim-unimpaired
 - tpope/vim-vinegar
+
+opt:
+- AndrewRadev/dsf.vim
+- AndrewRadev/splitjoin.vim
+- christoomey/vim-tmux-navigator
+- junegunn/fzf.vim
+- justinmk/vim-ug
+- justinmk/guh.nvim
+- Konfekt/FastFold
+- Konfekt/vim-formatprgs
+- romainl/vim-qf
+- vuciv/golf
+- tpope/vim-sensible
+- tpope/vim-jdaddy

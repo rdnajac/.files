@@ -43,14 +43,19 @@ verbose = true
 
 [data]
 email = {{ $email | quote }}
-host = {{ $host | quote }}
-name = {{ $name | quote }}
-osid = {{ $osid | quote }}
+host  = {{ $host  | quote }}
+name  = {{ $name  | quote }}
+osid  = {{ $osid  | quote }}
 githubUsername = "rdnajac"
 ephemeral = {{ $ephemeral }}
-headless = {{ $headless }}
-personal = {{ $personal }}
-work = {{ $work }}
+headless  = {{ $headless  }}
+personal  = {{ $personal  }}
+work      = {{ $work      }}
+
+[data.font]
+size = 13
+family = "JetBrains Mono"
+ligatures =  false
 
 [data.neovim]
 sourceDir = {{ joinPath .chezmoi.homeDir "GitHub" "neovim" | quote}} 
@@ -61,7 +66,7 @@ installPrefix = "~/.local"
 apply = true
 
 [diff]
-    exclude = ["externals"]
+exclude = ["externals"]
 
 [edit]
 apply = true
@@ -75,9 +80,9 @@ autoPush = false
 [merge]
 command = "nvim"
 args = [
-    "-d",
-    {{ printf "%q" "{{ .Destination }}" }},
-    {{ printf "%q" "{{ .Source }}" }},
-    {{ printf "%q" "{{ .Target }}" }},
+  "-d",
+{{ printf "%q" "{{ .Destination }}" }},
+{{ printf "%q" "{{ .Source }}" }},
+{{ printf "%q" "{{ .Target }}" }},
 ]
 # vim: set nowrap

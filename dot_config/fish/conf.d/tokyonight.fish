@@ -1,3 +1,4 @@
+# TODO: this should sync with nv.colors
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 283457

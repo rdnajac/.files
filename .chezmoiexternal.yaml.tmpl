@@ -1,3 +1,15 @@
+{{ $platform := "linux" -}}
+{{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
+{{- $arch := "x86_64" -}}
+{{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end }}
+.local/neovim-nightly:
+  type: archive
+  exact: true
+  stripComponents: 1
+  url: {{ printf "https://github.com/neovim/neovim/releases/download/nightly/nvim-%s-%s.tar.gz" $platform $arch | quote }}
+  executable: false
+  refreshPeriod: 24h
+
 chezmoiexternal/start/junegunn/autoload/plug.vim:
   type: file
   url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -8,6 +20,10 @@ chezmoiexternal/start/junegunn/plugin/fzf.vim:
   url: https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim
   refreshPeriod: 168h
 
-{{ range .plugins -}}
+{{ range .start -}}
   {{- template "plug"  . -}}
+{{ end }}
+
+{{ range .opt -}}
+  {{- template "opt"  . -}}
 {{ end }}

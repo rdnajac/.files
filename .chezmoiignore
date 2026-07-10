@@ -1,6 +1,10 @@
 # `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
+CLAUDE.md
 install.sh
 Justfile
 LICENSE
 README.md
 
+# patterns relative to dest
+.config/fish/functions/_*
+fisher.fish

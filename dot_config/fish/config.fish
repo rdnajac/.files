@@ -1,26 +1,20 @@
 /opt/homebrew/bin/brew shellenv | source
 
-if status is-interactive
-  # Commands to run in interactive sessions can go here
+if status is-interactive # commands to run in interactive sessions go here
   chezmoi completion fish | source
-  thefuck --alias | source
-  zoxide init fish | source
+  thefuck --alias         | source
+  zoxide init fish        | source
+  starship init fish      | source
 
-  # fish handles `alias` and `export` natively
   if test -f ~/.bash_aliases
-    source ~/.bash_aliases
+    source ~/.bash_aliases # fish handles `alias` and `export` natively
   end
 
-  # If we're in a Neovim terminal, set up OSC 7 to
-  # update the terminal's current working directory
   if test -n "$NVIM"
     echo "Setting up OSC 7 for Neovim terminal"
     function __print_osc7 --on-variable PWD
       printf '\033]7;file://%s\033\\' "$PWD"
     end
-  else
-    # TODO: only exec nvim once
-    # exec nvim
   end
 end
 

@@ -1,0 +1,5 @@
+{{- $a := splitn "/" 2 . -}}
+{{ printf ".vim/pack/chezmoiexternal/opt/%s" $a._1 }}:
+  type: git-repo
+  url: https://github.com/{{ . }}.git
+  refreshPeriod: 168h

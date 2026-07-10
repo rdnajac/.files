@@ -11,6 +11,13 @@ macos-window-shadow = false
 
 shell-integration-features = ssh-env,ssh-terminfo
 
+# double-click selects a whitespace-delimited WORD (vim-style);
+# keep │ as a boundary so split borders don't get selected.
+selection-word-chars = " \t│,`"
+# `true` only copies to the selection pasteboard on macOS;
+# `clipboard` also copies to the system clipboard so cmd+v works
+copy-on-select = clipboard
+
 # hacky way to override settings; only works on an empty prompt
 keybind = super+,=text:chezmoi edit --watch ~/.config/ghostty/config\n
 # keybind = chain=reload_config
