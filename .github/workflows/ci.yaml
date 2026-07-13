@@ -6,11 +6,21 @@ on:
 
 jobs:
   clone-and-install:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v5
+      - name: Add local bin to PATH
+        run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - run: ./install.sh
       - name: chezmoi data
-        run: '"$HOME/.local/bin/chezmoi" data'
+        run: chezmoi data
