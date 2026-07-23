@@ -1,29 +1,28 @@
 #!/bin/sh
-## install packages from packages
+## install base + per-distro packages from .chezmoidata/packages.yaml
 
-{{- if eq .chezmoi.os "linux" }}
-{{- $packages := join " " .packages }}
+{{- if and (eq .chezmoi.os "linux") (hasKey . "packages") }}
+{{-   $base := .packages.base | default (list) }}
+{{-   $id := "" }}
+{{-   if hasKey .chezmoi.osRelease "id" }}{{ $id = .chezmoi.osRelease.id }}{{ end }}
 sudo sh -c '
-{{-   if and (hasKey .chezmoi.osRelease "id") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) }}
+{{-   if or (eq $id "debian") (eq $id "ubuntu") }}
+{{-     $pkgs := concat $base (.packages.apt | default (list)) | join " " }}
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
-apt-get install -y --no-install-recommends {{ $packages }}
+apt-get install -y --no-install-recommends {{ $pkgs }}
 apt-get autoremove -y
 apt-get clean
-{{-   else if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") }}
-pacman -Sy --noconfirm {{ $packages }}
+{{-   else if eq $id "arch" }}
+{{-     $pkgs := concat $base (.packages.pacman | default (list)) | join " " }}
+pacman -Sy --needed --noconfirm {{ $pkgs }}
 pacman -Sc --noconfirm
 {{-   else }}
 {{-     $pm := "" }}
-{{-     if lookPath "dnf" }}
-{{-       $pm = "dnf" }}
-{{-     else if lookPath "yum" }}
-{{-       $pm = "yum" }}
-{{-     end }}
+{{-     if lookPath "dnf" }}{{ $pm = "dnf" }}{{ else if lookPath "yum" }}{{ $pm = "yum" }}{{ end }}
 {{-     if $pm }}
-{{ $pm }} check-update || true
-{{ $pm }} install -y {{ $packages }}
-{{ $pm }} autoremove -y
+{{-       $pkgs := concat $base (.packages.dnf | default (list)) | join " " }}
+{{ $pm }} install -y {{ $pkgs }}
 {{ $pm }} clean all
 {{-     end }}
 {{-   end }}

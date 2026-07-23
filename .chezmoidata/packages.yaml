@@ -1,0 +1,39 @@
+# Base list = packages with the same name on apt, pacman, and dnf.
+# Per-distro lists extend it with build deps whose package names differ.
+# The install script concatenates base + the matching distro list.
+packages:
+  base:
+    - bat
+    - cmake
+    - curl
+    - gettext
+    - git
+    - make
+    - net-tools
+    - ripgrep
+    - rsync
+    - tmux
+    - vim
+  apt:
+    - build-essential
+    - du-dust
+    - fd-find
+    - libssl-dev
+    - linux-headers-"$(uname -r)"
+    - ninja-build
+    - pkg-config
+  pacman:
+    - base-devel
+    - dust
+    - fd
+    - linux-headers
+    - ninja
+    - openssl
+    - pkgconf
+  dnf:
+    - "@development-tools"
+    - fd-find
+    - kernel-devel
+    - ninja-build
+    - openssl-devel
+    - pkgconf-pkg-config
