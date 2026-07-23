@@ -1,5 +1,7 @@
+" Loaded via .nvimrc `rtp+=.` when editing the chezmoi source. The source dir is
+" just this file's grandparent — no template or `chezmoi execute-template` needed.
 if !exists('g:chezmoi#source_dir_path')
-  let g:chezmoi#source_dir_path = {{ .chezmoi.sourceDir | quote }}
+  let g:chezmoi#source_dir_path = expand('<sfile>:p:h:h')
 endif
 
 lua << EOF
