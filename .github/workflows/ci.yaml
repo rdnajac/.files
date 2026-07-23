@@ -5,12 +5,48 @@ on:
   pull_request:
 
 jobs:
-  clone-and-install:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macos-latest
+          # - windows-latest  # TODO: install.sh needs a Windows path
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v5
-      - run: ./install.sh
+      - name: Run install script
+        run: ./install.sh
+      - name: Add chezmoi to PATH
+        run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: chezmoi data
+        run: chezmoi data
+
+  install-container:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: mcr.microsoft.com/vscode/devcontainers/base:debian
+            deps: ""
+          - image: archlinux:latest
+            deps: pacman -Sy --noconfirm nodejs git curl sudo
+          - image: fedora:latest
+            deps: dnf install -y nodejs git curl sudo
+    container:
+      image: ${{ matrix.image }}
+    steps:
+      - name: Install prerequisites
+        if: matrix.deps != ''
+        run: ${{ matrix.deps }}
+      - uses: actions/checkout@v5
+      - name: Run install script
+        run: ./install.sh
       - name: chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'
