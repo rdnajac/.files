@@ -1,5 +1,5 @@
-{{ $platform := ternary (eq .chezmoi.os "darwin") "macos" "linux" -}}
-{{- $arch := ternary (eq .chezmoi.arch "arm64") "arm64" "x86_64" -}}
+{{ $platform := ternary "macos" "linux" (eq .chezmoi.os "darwin") -}}
+{{- $arch := ternary "arm64" "x86_64" (eq .chezmoi.arch "arm64") -}}
 .local/neovim:
   type: archive
   exact: true

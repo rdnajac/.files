@@ -155,7 +155,12 @@ local function root_dir(bufnr, on_dir)
   end)
 end
 
-return {
-  cmd = cmd,
-  root_dir = root_dir,
-}
+M.cmd = cmd
+M.root_dir = root_dir
+
+function M.setup()
+  vim.lsp.config('chezmoi_lsp', { cmd = M.cmd, root_dir = M.root_dir })
+  vim.lsp.enable('chezmoi_lsp')
+end
+
+return M

@@ -1,0 +1,4 @@
+{{- if .personal -}}
+#!/bin/sh
+ln -sfn "{{ .chezmoi.homeDir }}/GitHub/rdnajac_vim" "{{ .chezmoi.homeDir }}/.vim"
+{{- end -}}
