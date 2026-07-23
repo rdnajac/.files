@@ -52,6 +52,8 @@ alias ssx='$VISUAL $HOME/.ssh/config'
 alias tmx='$VISUAL $HOME/.config/tmux/tmux.conf'
 alias zx='zoxide remove "$PWD" && echo "Removed $PWD from zoxide database."'
 alias zz=fg
+alias zv='z rdnajac_vim'
+alias zf='z rdnajac_files'
 
 export EDITOR=vim
 export VISUAL=nvim

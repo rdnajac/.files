@@ -1,11 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Read(/Users/rdn/.vim/**)",
-      "Glob(/Users/rdn/.vim/**)",
-      "Grep(/Users/rdn/.vim/**)",
-      "Bash(ls)",
-      "Bash(ls *)",
+      "Read(/Users/rdn/GitHub/**)",
+      "Glob(/Users/rdn/GitHub/**)",
+      "Grep(/Users/rdn/GitHub/**)",
       "Bash(semble:*)"
     ],
     "deny": [
@@ -13,7 +11,7 @@
     ],
     "defaultMode": "default",
     "additionalDirectories": [
-      "/Users/rdn/.vim"
+      "/Users/rdn/GitHub"
     ]
   },
   "enabledPlugins": {
@@ -41,5 +39,18 @@
       }
     }
   },
-  "theme": "dark-ansi"
+  "theme": "dark-ansi",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Hey look!\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  }
 }

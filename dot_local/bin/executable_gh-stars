@@ -1,0 +1,42 @@
+#!/bin/sh
+set -eu
+
+PAGE_SIZE=100
+
+call_star_api() {
+  gh api graphql -F first="$1" -F endCursor="$2" -f query='
+    query($first: Int, $endCursor: String!) {
+      viewer {
+        starredRepositories(first: $first, after: $endCursor, orderBy: {field: STARRED_AT, direction: DESC}) {
+          edges {
+            node {
+              nameWithOwner
+              url
+            }
+            starredAt
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    }'
+}
+
+main() {
+  endCursor=""
+  has_next="true"
+
+  while [ "$has_next" = "true" ]; do
+    result=$(call_star_api "$PAGE_SIZE" "$endCursor")
+    echo "$result" | jq -r '
+      .data.viewer.starredRepositories.edges[] |
+      [.node.nameWithOwner, (.starredAt | fromdateiso8601 | localtime | strflocaltime("%Y-%m-%d %H:%M:%S"))] |
+      @tsv'
+    endCursor=$(echo "$result" | jq -r '.data.viewer.starredRepositories.pageInfo.endCursor')
+    has_next=$(echo "$result" | jq -r '.data.viewer.starredRepositories.pageInfo.hasNextPage')
+  done
+}
+
+main | sort | column -t -s "$(printf '\t')"

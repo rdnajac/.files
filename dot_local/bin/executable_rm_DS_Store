@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# find and remove all .DS_Store files in the current directory and its subdirectories
+find . -name ".DS_Store" -type f -delete

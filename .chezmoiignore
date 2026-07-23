@@ -1,13 +1,9 @@
 # `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
-*.md
-install.sh
-Justfile
-LICENSE
 .nvimrc
-
-# source-repo dev tooling, not home targets
-plugin
-lua
+Justfile
+README.md
+install.sh
+vim-chezmoi
 
 # patterns relative to dest
 .config/fish/functions/_*

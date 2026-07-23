@@ -5,7 +5,7 @@
 
 BIN_DIR=$(dirname "$(readlink -f "$0")")
 
-. "$BIN_DIR/lib/common.sh"
+. "$BIN_DIR/mylib/common.sh"
 
 if [ "$1" = "" ]; then
 	die "Usage: $1 [USER/]REPO"
