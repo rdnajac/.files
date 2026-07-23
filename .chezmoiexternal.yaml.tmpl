@@ -1,7 +1,13 @@
 {{ $platform := "linux" -}}
 {{- if eq .chezmoi.os "darwin" -}}{{- $platform = "macos" -}}{{- end -}}
 {{- $arch := "x86_64" -}}
-{{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end }}
+{{- if eq .chezmoi.arch "arm64" -}}{{- $arch = "arm64" -}}{{- end -}}
+{{/* ~/.vim is ALWAYS a symlink (symlink_dot_vim.tmpl) to this checkout dir, never
+     the dir itself — a chezmoi symlink and an external cannot share a target path.
+     Plugin externals write into $vimdir/pack; rdnajac_vim gitignores pack/*, so
+     the checkout clone (non-personal) and those externals never conflict. */}}
+{{- $vimdir := ".local/share/rdnajac_vim" -}}
+{{- if .personal -}}{{- $vimdir = "GitHub/rdnajac_vim" -}}{{- end }}
 .local/neovim:
   type: archive
   exact: true
@@ -10,20 +16,23 @@
   executable: false
   refreshPeriod: 24h
 
+{{/* The checkout itself is cloned by run_once_before_clone-vim.sh.tmpl, NOT an
+     external — chezmoi forbids nesting externals (pack/*) inside a git-repo
+     external. A plain clone lets the pack externals below nest into it. */}}
 {{ range .start -}}
-  {{- template "plug"  . -}}
+  {{- template "plug" (dict "repo" . "vimdir" $vimdir) -}}
 {{ end }}
 
 {{ range .opt -}}
-  {{- template "opt"  . -}}
+  {{- template "opt" (dict "repo" . "vimdir" $vimdir) -}}
 {{ end }}
 
-chezmoiexternal/opt/junegunn/autoload/plug.vim:
+{{ $vimdir }}/pack/chezmoiexternal/opt/junegunn/autoload/plug.vim:
   type: file
   url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   refreshPeriod: 168h
 
-chezmoiexternal/opt/junegunn/plugin/fzf.vim:
+{{ $vimdir }}/pack/chezmoiexternal/opt/junegunn/plugin/fzf.vim:
   type: file
   url: https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim
   refreshPeriod: 168h

@@ -1,0 +1,10 @@
+#!/bin/sh
+## Clone the vim config so ~/.vim (a symlink) resolves and pack externals nest in.
+## Personal machines manage ~/GitHub/rdnajac_vim by hand (ssh); skip them.
+{{- if not .personal }}
+set -eu
+checkout="{{ .chezmoi.homeDir }}/.local/share/rdnajac_vim"
+if [ ! -d "$checkout/.git" ]; then
+	git clone --depth=1 https://github.com/rdnajac/rdnajac_vim.git "$checkout"
+fi
+{{- end }}

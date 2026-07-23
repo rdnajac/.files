@@ -1,11 +1,11 @@
-{{- $a := splitn "/" 2 . -}}
+{{- $a := splitn "/" 2 .repo -}}
 {{- $user := $a._0 -}}
 {{- $repo := $a._1 -}}
 {{- $dir := "chezmoiexternal" -}}
 {{- if eq $user "tpope" }}
   {{- $dir = $user -}}
 {{- end }}
-{{ printf ".vim/pack/%s/start/%s" $dir $repo }}:
+{{ printf "%s/pack/%s/start/%s" .vimdir $dir $repo }}:
   type: git-repo
-  url: https://github.com/{{ . }}.git
+  url: https://github.com/{{ .repo }}.git
   refreshPeriod: 168h
