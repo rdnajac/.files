@@ -128,6 +128,7 @@ cask "skim"	# PDF reader and note-taking application
 cask "sshfs-mac"	# Network filesystem client to connect to SSH servers
 cask "temurin"	# JDK from the Eclipse Foundation (Adoptium)
 npm "pnpm"	
-tap "ewhauser/tap"	
+tap "aws/tap", trusted: true
+tap "ewhauser/tap", trusted: true	
 tap "gromgit/fuse", trusted: true	
 uv "semble"	
