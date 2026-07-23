@@ -2,6 +2,10 @@
 
 My dotfiles, managed with [chezmoi](https://chezmoi.io/).
 
+> TODO:
+>
+> - CD/CI over different machines
+
 ## Install
 
 Installs chezmoi binary to `~/.local/bin`

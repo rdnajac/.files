@@ -1,9 +1,9 @@
 # `https://www.chezmoi.io/reference/special-files/chezmoiignore/`
-CLAUDE.md
+*.md
 install.sh
 Justfile
 LICENSE
-README.md
+.nvimrc
 
 # patterns relative to dest
 .config/fish/functions/_*
