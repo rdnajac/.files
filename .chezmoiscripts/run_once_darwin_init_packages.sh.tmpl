@@ -2,11 +2,10 @@
 #!/bin/sh
 set -eu
 
-# first install: no prompts, trust taps (see `trusted: true` in the Brewfile)
 export NONINTERACTIVE=1 HOMEBREW_NO_ENV_HINTS=1
 
 if ! command -v brew >/dev/null 2>&1; then
-	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 if [ -x /opt/homebrew/bin/brew ]; then
@@ -15,5 +14,12 @@ else
 	eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-brew bundle install --file="{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
+brewfile="{{ .chezmoi.sourceDir }}/dot_config/brewfile/Brewfile"
+
+# first install: trust every declared tap so bundle can load non-official formulae
+sed -n 's/^tap "\([^"]*\)".*/\1/p' "$brewfile" | while IFS= read -r tap; do
+	brew trust --tap "$tap" || true
+done
+
+brew bundle install --file="$brewfile"
 {{- end -}}
