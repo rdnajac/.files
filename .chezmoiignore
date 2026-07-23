@@ -5,6 +5,10 @@ Justfile
 LICENSE
 .nvimrc
 
+# source-repo dev tooling, not home targets
+plugin
+lua
+
 # patterns relative to dest
 .config/fish/functions/_*
 fisher.fish
