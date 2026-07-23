@@ -130,3 +130,4 @@ cask "temurin"	# JDK from the Eclipse Foundation (Adoptium)
 npm "pnpm"	
 tap "ewhauser/tap"	
 tap "gromgit/fuse", trusted: true	
+uv "semble"	

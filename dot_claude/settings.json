@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/Users/rdn/.vim/**)",
+      "Glob(/Users/rdn/.vim/**)",
+      "Grep(/Users/rdn/.vim/**)",
+      "Bash(ls)",
+      "Bash(ls *)",
+      "Bash(semble:*)"
+    ],
+    "deny": [
+      "Bash(brew *)"
+    ],
+    "defaultMode": "default",
+    "additionalDirectories": [
+      "/Users/rdn/.vim"
+    ]
+  },
+  "enabledPlugins": {
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "understand-anything@understand-anything": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    },
+    "understand-anything": {
+      "source": {
+        "source": "github",
+        "repo": "Egonex-AI/Understand-Anything"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "theme": "dark-ansi"
+}

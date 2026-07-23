@@ -1,0 +1,15 @@
+#!/bin/bash
+## Initialize and update git submodules
+
+cd "$(dirname "${BASH_SOURCE[0]}")" || { echo "Failed to change directory"; exit 1; }
+
+git submodule update --init --recursive --remote
+
+# promot to auto-commit
+echo "Submodules updated. Do you want to commit these changes? (y/n)"
+read -r answer
+if [[ "$answer" != "y" ]]; then
+  echo "No changes committed."
+  exit 0
+fi
+git commit -am 'Update submodules to latest revisions'

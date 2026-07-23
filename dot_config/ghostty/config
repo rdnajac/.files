@@ -5,7 +5,7 @@ background = #16161d
 # background-blur = macos-glass-regular
 background-blur = macos-glass-clear
 background-opacity = 0.8
-background-opacity-cells = true
+background-opacity-cells = false
 # more visually appealing with window transparency
 macos-window-shadow = false
 
@@ -23,6 +23,7 @@ keybind = super+,=text:chezmoi edit --watch ~/.config/ghostty/config\n
 # keybind = chain=reload_config
 
 keybind = super+b=toggle_background_opacity
+keybind = global:cmd+backquote=toggle_quick_terminal
 
 config-file = font
 config-file = shader
