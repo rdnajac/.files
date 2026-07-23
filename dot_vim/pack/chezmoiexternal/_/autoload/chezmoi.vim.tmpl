@@ -1,0 +1,6 @@
+" lua bt()
+if !exists('g:chezmoi#source_dir_path')
+  let g:chezmoi#source_dir_path = {{ .chezmoi.sourceDir | quote }}
+else
+  echoerr 'g:chezmoi#source_dir_path is already set, not overwriting'
+endif
